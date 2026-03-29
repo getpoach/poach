@@ -27,44 +27,68 @@ export default function DiscoverPage() {
 
   return (
     <>
-      {/* Hero */}
+      {/* ── Video Hero ─────────────────────────────────────────────────────── */}
       <div
-        className="mb-8 rounded-2xl p-10 relative overflow-hidden"
+        className="mb-8 rounded-2xl relative overflow-hidden"
         style={{
-          background: "linear-gradient(135deg, #141008 0%, #0D0D15 50%, #100D08 100%)",
           border: "1px solid #1E1A14",
+          minHeight: 280,
         }}
       >
+        {/* Background video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ zIndex: 0 }}
+        >
+          <source src="/hero.mov" type="video/quicktime" />
+          <source src="/hero.mov" type="video/mp4" />
+        </video>
+
+        {/* Medium overlay — lets video show through while keeping text readable */}
         <div
-          className="absolute -right-10 -top-10 w-72 h-72 rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(circle, #C8A97E0A 0%, transparent 70%)" }}
+          className="absolute inset-0"
+          style={{
+            zIndex: 1,
+            background: "linear-gradient(135deg, rgba(10,8,4,0.72) 0%, rgba(8,8,16,0.65) 50%, rgba(10,8,4,0.72) 100%)",
+          }}
         />
-        <div className="text-xs font-bold text-gold uppercase tracking-widest mb-3">
-          Private Dining · Your Home
-        </div>
-        <h1 className="font-display text-4xl font-black text-white leading-tight mb-4 max-w-xl">
-          World-class chefs.<br />
-          <span className="text-gold">Your kitchen.</span>
-        </h1>
-        <p className="text-zinc-500 text-sm max-w-md leading-relaxed mb-6">
-          Book a professional chef to cook in your home. Explore cuisine styles,
-          browse availability, and reserve your private dining experience.
-        </p>
-        <div className="flex gap-6">
-          {[["6+", "Chefs nearby"], ["4.9", "Avg. rating"], ["1,200+", "Sessions booked"]].map(
-            ([val, label]) => (
-              <div key={label}>
-                <div className="font-display text-xl font-bold text-gold">{val}</div>
-                <div className="text-xs text-muted">{label}</div>
-              </div>
-            )
-          )}
+
+        {/* Content — sits above video and overlay */}
+        <div className="relative p-10" style={{ zIndex: 2 }}>
+          <div
+            className="absolute -right-10 -top-10 w-72 h-72 rounded-full pointer-events-none"
+            style={{ background: "radial-gradient(circle, #C8A97E08 0%, transparent 70%)" }}
+          />
+          <div className="text-xs font-bold text-gold uppercase tracking-widest mb-3">
+            Private Dining · Your Home
+          </div>
+          <h1 className="font-display text-4xl font-black text-white leading-tight mb-4 max-w-xl">
+            World-class chefs.<br />
+            <span className="text-gold">Your kitchen.</span>
+          </h1>
+          <p className="text-zinc-400 text-sm max-w-md leading-relaxed mb-6">
+            Book a professional chef to cook in your home. Explore cuisine styles,
+            browse availability, and reserve your private dining experience.
+          </p>
+          <div className="flex gap-6">
+            {[["15+", "Chefs nearby"], ["4.9", "Avg. rating"], ["1,200+", "Sessions booked"]].map(
+              ([val, label]) => (
+                <div key={label}>
+                  <div className="font-display text-xl font-bold text-gold">{val}</div>
+                  <div className="text-xs text-zinc-500">{label}</div>
+                </div>
+              )
+            )}
+          </div>
         </div>
       </div>
 
-      {/* Search + Filter bar */}
+      {/* ── Search + Filter bar ────────────────────────────────────────────── */}
       <div className="flex items-center gap-3 mb-5 flex-wrap">
-        {/* Cuisine pills */}
         <div className="flex gap-2 overflow-x-auto no-scrollbar flex-1">
           {CUISINES.map((c) => (
             <button
@@ -102,7 +126,7 @@ export default function DiscoverPage() {
         </div>
       </div>
 
-      {/* Map view */}
+      {/* ── Map view ──────────────────────────────────────────────────────── */}
       {viewMode === "map" && (
         <ChefMap
           chefs={filtered}
@@ -113,11 +137,10 @@ export default function DiscoverPage() {
         />
       )}
 
-      {/* Results header */}
+      {/* ── Results header ─────────────────────────────────────────────────── */}
       <div className="flex items-center justify-between mb-4">
         <div className="text-sm text-muted">
-          <span className="text-white font-bold">{filtered.length}</span> chefs
-          available
+          <span className="text-white font-bold">{filtered.length}</span> chefs available
         </div>
         <div className="flex gap-1.5">
           {SORT_OPTIONS.map((s) => (
@@ -131,7 +154,7 @@ export default function DiscoverPage() {
         </div>
       </div>
 
-      {/* Chef grid */}
+      {/* ── Chef grid ──────────────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map((chef) => (
           <ChefCard
@@ -150,7 +173,7 @@ export default function DiscoverPage() {
         )}
       </div>
 
-      {/* Chef CTA */}
+      {/* ── Chef CTA ───────────────────────────────────────────────────────── */}
       <div
         className="mt-12 rounded-2xl p-8 flex items-center justify-between flex-wrap gap-5"
         style={{ background: "#0D0D0D", border: "1px solid #1E1E1E" }}
@@ -172,7 +195,7 @@ export default function DiscoverPage() {
         </a>
       </div>
 
-      {/* Chef drawer */}
+      {/* ── Chef drawer ────────────────────────────────────────────────────── */}
       {viewChef && !bookingChef && (
         <ChefDrawer
           chef={viewChef}
@@ -185,7 +208,7 @@ export default function DiscoverPage() {
         />
       )}
 
-      {/* Booking modal */}
+      {/* ── Booking modal ──────────────────────────────────────────────────── */}
       {bookingChef && (
         <BookingModal
           chef={bookingChef}
