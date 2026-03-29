@@ -19,16 +19,14 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
           <Image
-            src="/poachlogo.png"
-            alt="Poach"
-            width={100}
-            height={48}
+            src="/poachnav.png"
+            alt="Poach — Let's Cook."
+            width={180}
+            height={40}
             style={{
-              height: 40,
+              height: 36,
               width: "auto",
               objectFit: "contain",
-              // Mix-blend-mode screen removes the black background
-              // so only the red logo shows on the dark navbar
               mixBlendMode: "screen",
             }}
             priority
