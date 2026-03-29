@@ -33,6 +33,10 @@ export interface Chef {
   color: string;
   experience: string;
   trained: string;
+  /** URL to chef headshot — falls back to avatar initials if not provided */
+  headshot?: string;
+  /** Up to 10 portfolio/dish images */
+  portfolioImages?: string[];
 }
 
 export interface Booking {
