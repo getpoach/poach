@@ -125,25 +125,22 @@ function ChefPin({ chef, active, dimmed }: { chef: Chef; active: boolean; dimmed
         fontWeight: 700,
         color: "#fff",
         fontFamily: "'Playfair Display', serif",
-        textShadow: "0 1px 6px #000, 0 2px 4px #000",
+        textShadow: "0 2px 8px #000, 0 1px 4px #000, 0 0 12px #000",
         whiteSpace: "nowrap",
-        background: "rgba(0,0,0,0.55)",
-        borderRadius: 99,
-        padding: "1px 6px",
       }}>
         {chef.name}
       </div>
       <div style={{
-        marginTop: 2,
+        marginTop: 3,
         fontSize: 10,
         fontWeight: 600,
         color: chef.color,
         fontFamily: "'DM Sans', sans-serif",
-        textShadow: "0 1px 6px #000, 0 2px 4px #000",
         whiteSpace: "nowrap",
-        background: "rgba(0,0,0,0.5)",
+        background: "rgba(0,0,0,0.6)",
+        border: `1px solid ${chef.color}`,
         borderRadius: 99,
-        padding: "1px 6px",
+        padding: "1px 8px",
       }}>
         {chef.cuisine[0]}
       </div>
