@@ -313,6 +313,32 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
           </div>
         </div>
 
+        {/* Price slider row */}
+        <div style={{ padding: "10px 20px", borderBottom: "1px solid #18181b", background: "#0b0b0b", display: "flex", alignItems: "center", gap: 12 }}>
+          <span style={{ fontSize: 11, fontWeight: 700, color: "#71717a", whiteSpace: "nowrap" }}>💰 Price / person</span>
+          {/* Slider track */}
+          <div style={{ position: "relative", flex: 1, height: 20, display: "flex", alignItems: "center" }}>
+            <div style={{ position: "absolute", left: 0, right: 0, height: 3, background: "#27272a", borderRadius: 99 }} />
+            <div style={{
+              position: "absolute",
+              left: `${(priceRange[0] / 250) * 100}%`,
+              right: `${100 - (priceRange[1] / 250) * 100}%`,
+              height: 3, background: "#D4AF37", borderRadius: 99,
+            }} />
+            <input type="range" min={0} max={250} step={5} value={priceRange[0]}
+              onChange={(e) => setPriceRange([Math.min(Number(e.target.value), priceRange[1] - 5), priceRange[1]])}
+              style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }}
+            />
+            <input type="range" min={0} max={250} step={5} value={priceRange[1]}
+              onChange={(e) => setPriceRange([priceRange[0], Math.max(Number(e.target.value), priceRange[0] + 5)])}
+              style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }}
+            />
+          </div>
+          <span style={{ fontSize: 12, fontWeight: 700, color: "#D4AF37", whiteSpace: "nowrap", minWidth: 90, textAlign: "right" }}>
+            ${priceRange[0]} — {priceRange[1] >= 250 ? "$250+" : `$${priceRange[1]}`}
+          </span>
+        </div>
+
         {/* Search bar */}
         <div style={{ padding: "10px 16px", borderBottom: "1px solid #18181b", background: "#0a0a0a" }}>
           <form onSubmit={handleSearch} style={{ display: "flex", gap: 8 }}>
@@ -384,44 +410,6 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
               ))}
             </FilterSection>
 
-            {/* Price per person slider */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <span style={{ fontSize: 14 }}>💰</span>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.08em" }}>
-                  Price per Person
-                </span>
-                <span style={{ marginLeft: "auto", fontSize: 12, fontWeight: 700, color: "#D4AF37" }}>
-                  ${priceRange[0]} — {priceRange[1] >= 250 ? "$250+" : `$${priceRange[1]}`}
-                </span>
-              </div>
-
-              {/* Slider track */}
-              <div style={{ position: "relative", height: 20, display: "flex", alignItems: "center" }}>
-                <div style={{ position: "absolute", left: 0, right: 0, height: 4, background: "#27272a", borderRadius: 99 }} />
-                <div style={{
-                  position: "absolute",
-                  left: `${(priceRange[0] / 250) * 100}%`,
-                  right: `${100 - (priceRange[1] / 250) * 100}%`,
-                  height: 4, background: "#D4AF37", borderRadius: 99,
-                }} />
-                {/* Min input */}
-                <input type="range" min={0} max={250} step={5} value={priceRange[0]}
-                  onChange={(e) => setPriceRange([Math.min(Number(e.target.value), priceRange[1] - 5), priceRange[1]])}
-                  style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }}
-                />
-                {/* Max input */}
-                <input type="range" min={0} max={250} step={5} value={priceRange[1]}
-                  onChange={(e) => setPriceRange([priceRange[0], Math.max(Number(e.target.value), priceRange[0] + 5)])}
-                  style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }}
-                />
-              </div>
-
-              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: "#52525b" }}>
-                <span>$0</span>
-                <span>$250+</span>
-              </div>
-            </div>
           </div>
         )}
 
