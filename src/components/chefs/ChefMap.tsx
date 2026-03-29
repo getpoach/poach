@@ -552,9 +552,11 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
                 <div
                   onClick={() => { setPopupChef(null); setDrawerChef(popupChef); }}
                   style={{
-                    background: "#111811",
+                    background: "rgba(10, 12, 10, 0.55)",
+                    backdropFilter: "blur(16px)",
+                    WebkitBackdropFilter: "blur(16px)",
                     border: `1px solid ${popupChef.color}`,
-                    boxShadow: `0 4px 24px ${popupChef.color}30, 0 2px 12px rgba(0,0,0,0.6)`,
+                    boxShadow: `0 4px 24px ${popupChef.color}30, 0 2px 12px rgba(0,0,0,0.5)`,
                     borderRadius: 14, padding: "14px 16px", minWidth: 220,
                     fontFamily: "'DM Sans', sans-serif", cursor: "pointer",
                   }}
