@@ -68,8 +68,7 @@ export default function DiscoverPage() {
           className="absolute inset-0 w-full h-full object-cover"
           style={{ zIndex: 0 }}
         >
-          <source src="/hero.mov" type="video/quicktime" />
-          <source src="/hero.mov" type="video/mp4" />
+          <source src="/hero.mp4" type="video/mp4" />
         </video>
 
         {/* Medium overlay — lets video show through while keeping text readable */}
@@ -77,7 +76,7 @@ export default function DiscoverPage() {
           className="absolute inset-0"
           style={{
             zIndex: 1,
-            background: "linear-gradient(135deg, rgba(10,8,4,0.38) 0%, rgba(8,8,16,0.32) 50%, rgba(10,8,4,0.38) 100%)",
+            background: "linear-gradient(135deg, rgba(10,8,4,0.52) 0%, rgba(8,8,16,0.44) 50%, rgba(10,8,4,0.52) 100%)",
           }}
         />
 
@@ -87,14 +86,14 @@ export default function DiscoverPage() {
             className="absolute -right-10 -top-10 w-72 h-72 rounded-full pointer-events-none"
             style={{ background: "radial-gradient(circle, #C8A97E08 0%, transparent 70%)" }}
           />
-          <div className="text-xs font-bold text-gold uppercase tracking-widest mb-3">
+          <div className="text-xs font-bold text-gold uppercase tracking-widest mb-3" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.9)" }}>
             Private Dining · Your Home
           </div>
-          <h1 className="font-display text-4xl font-black text-white leading-tight mb-4 max-w-xl">
+          <h1 className="font-display text-4xl font-black text-white leading-tight mb-4 max-w-xl" style={{ textShadow: "0 2px 20px rgba(0,0,0,0.8), 0 1px 6px rgba(0,0,0,0.6)" }}>
             World-class chefs.<br />
-            <span className="text-gold">Your kitchen.</span>
+            <span className="text-gold" style={{ textShadow: "0 2px 20px rgba(0,0,0,0.8), 0 0 30px rgba(200,169,126,0.3)" }}>Your kitchen.</span>
           </h1>
-          <p className="text-zinc-400 text-sm max-w-md leading-relaxed mb-6">
+          <p className="text-zinc-400 text-sm max-w-md leading-relaxed mb-6" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.9)" }}>
             Book a professional chef to cook in your home. Explore cuisine styles,
             browse availability, and reserve your private dining experience.
           </p>
