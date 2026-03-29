@@ -120,14 +120,14 @@ function ChefPin({ chef, active, dimmed }: { chef: Chef; active: boolean; dimmed
         }}
       />
       <div style={{
-        marginTop: 4,
-        fontSize: 10,
-        fontWeight: 700,
-        color: "#fff",
+        marginTop: 5,
+        fontSize: 12,
+        fontWeight: 800,
+        color: chef.color,
         fontFamily: "'DM Sans', sans-serif",
-        textShadow: "0 1px 4px #000, 0 1px 3px #000",
+        textShadow: "0 1px 6px #000, 0 2px 4px #000",
         whiteSpace: "nowrap",
-        background: "rgba(0,0,0,0.5)",
+        background: "rgba(0,0,0,0.55)",
         borderRadius: 99,
         padding: "1px 6px",
       }}>
@@ -275,7 +275,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
             mapboxAccessToken={MAPBOX_TOKEN}
             initialViewState={{ longitude: LAFAYETTE.lng, latitude: LAFAYETTE.lat, zoom: DEFAULT_ZOOM }}
             style={{ width: "100%", height: "100%" }}
-            mapStyle="mapbox://styles/poach/cmnc14ev8004701ra6hmt54yg"
+            mapStyle="mapbox://styles/mapbox/dark-v11"
             maxBounds={[[-92.89, 29.50], [-91.15, 30.95]]}
             onClick={() => setPopupChef(null)}
           >
@@ -335,9 +335,12 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
                   </div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
                     <Stars rating={popupChef.rating} size={12} />
-                    <span style={{ color: popupChef.color, fontWeight: 700, fontSize: 15 }}>
-                      ${popupChef.price}<span style={{ color: "#555", fontWeight: 400, fontSize: 10 }}>/session</span>
-                    </span>
+                    <div style={{ textAlign: "right" }}>
+                      <div style={{ color: popupChef.color, fontWeight: 700, fontSize: 15 }}>
+                        ${popupChef.price}<span style={{ color: "#555", fontWeight: 400, fontSize: 10 }}>/person</span>
+                      </div>
+                      <div style={{ color: "#555", fontSize: 9, marginTop: 1 }}>starting from</div>
+                    </div>
                   </div>
                   <div style={{
                     background: popupChef.color, color: "#0A0A0A", borderRadius: 10,
