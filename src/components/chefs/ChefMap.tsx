@@ -1,7 +1,8 @@
 "use client";
-import { useState, useMemo, useCallback, useRef, useEffect } from "react";
-import Map, { Marker, Popup, NavigationControl } from "react-map-gl/mapbox";
+import { useState, useMemo, useCallback, useRef } from "react";
+import Map, { Marker, Popup, NavigationControl, Source, Layer } from "react-map-gl/mapbox";
 import type { MapRef } from "react-map-gl/mapbox";
+// GeoJSON types are included via @types/geojson (installed with mapbox-gl)
 import type { Chef, Review } from "@/types";
 import { Stars } from "@/components/ui/index";
 import { ChefDrawer } from "@/components/chefs/ChefDrawer";
@@ -54,6 +55,22 @@ const AVAILABILITY_OPTIONS = [
   { label: "Weekend",   value: "weekend" },
   { label: "Weekdays",  value: "weekdays" },
 ];
+
+function buildCircleGeoJSON(lat: number, lng: number, radiusKm: number = 16) {
+  const steps = 64;
+  const coords: [number, number][] = [];
+  for (let i = 0; i <= steps; i++) {
+    const angle = (i / steps) * 2 * Math.PI;
+    const dx = (radiusKm / 111.32) * Math.cos(angle) / Math.cos((lat * Math.PI) / 180);
+    const dy = (radiusKm / 110.574) * Math.sin(angle);
+    coords.push([lng + dx, lat + dy]);
+  }
+  return {
+    type: "Feature",
+    geometry: { type: "Polygon", coordinates: [coords] },
+    properties: {},
+  };
+}
 
 interface ChefMapProps {
   chefs: Chef[];
@@ -222,79 +239,6 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
     return true;
   }).map((c) => c.id)), [chefs, locationFilter, cuisineFilter, availabilityFilter, priceRange]);
 
-  // ── Draw radius circle when a chef is selected ────────────────────────────
-  useEffect(() => {
-    const map = mapRef.current?.getMap?.();
-    if (!map || !map.isStyleLoaded()) return;
-
-    const SOURCE_ID = "chef-radius";
-    const LAYER_ID  = "chef-radius-fill";
-    const OUTLINE_ID = "chef-radius-outline";
-
-    const cleanup = () => {
-      try {
-        if (map.getLayer(OUTLINE_ID)) map.removeLayer(OUTLINE_ID);
-        if (map.getLayer(LAYER_ID))   map.removeLayer(LAYER_ID);
-        if (map.getSource(SOURCE_ID)) map.removeSource(SOURCE_ID);
-      } catch {}
-    };
-
-    // Remove previous circle
-    cleanup();
-
-    if (!popupChef) return;
-
-    // Build a GeoJSON circle (~10 mile radius) around the chef
-    const radiusKm = 16; // ~10 miles
-    const steps = 64;
-    const coords: [number, number][] = [];
-    for (let i = 0; i <= steps; i++) {
-      const angle = (i / steps) * 2 * Math.PI;
-      const dx = (radiusKm / 111.32) * Math.cos(angle) / Math.cos((popupChef.lat * Math.PI) / 180);
-      const dy = radiusKm / 110.574 * Math.sin(angle);
-      coords.push([popupChef.lng + dx, popupChef.lat + dy]);
-    }
-
-    map.addSource(SOURCE_ID, {
-      type: "geojson",
-      data: {
-        type: "Feature",
-        geometry: { type: "Polygon", coordinates: [coords] },
-        properties: {},
-      },
-    });
-
-    // Filled area
-    const fillColor = String(popupChef.color);
-    map.addLayer({
-      id: LAYER_ID,
-      type: "fill",
-      source: SOURCE_ID,
-      paint: {
-        "fill-color": fillColor,
-        "fill-opacity": 0.1,
-      },
-    });
-
-    // Dashed outline — use literal color string to override map style
-    const chefColor = String(popupChef.color);
-    map.addLayer({
-      id: OUTLINE_ID,
-      type: "line",
-      source: SOURCE_ID,
-      paint: {
-        "line-color": chefColor,
-        "line-width": 2.5,
-        "line-opacity": 1,
-        "line-dasharray": [4, 3],
-      },
-    });
-
-    // Force repaint to ensure color applies correctly
-    map.triggerRepaint();
-
-    return () => { cleanup(); };
-  }, [popupChef]);
 
   const handleAreaFilter = useCallback((value: string) => {
     setLocationFilter(value);
@@ -671,6 +615,32 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
                 </div>
               </Popup>
             )}
+            {/* Radius circle — drawn declaratively so color always matches */}
+            {popupChef && (() => {
+              const geojson = buildCircleGeoJSON(popupChef.lat, popupChef.lng);
+              return (
+                <Source id="chef-radius" type="geojson" data={geojson}>
+                  <Layer
+                    id="chef-radius-fill"
+                    type="fill"
+                    paint={{
+                      "fill-color": popupChef.color,
+                      "fill-opacity": 0.1,
+                    }}
+                  />
+                  <Layer
+                    id="chef-radius-outline"
+                    type="line"
+                    paint={{
+                      "line-color": popupChef.color,
+                      "line-width": 2.5,
+                      "line-opacity": 1,
+                      "line-dasharray": [4, 3],
+                    }}
+                  />
+                </Source>
+              );
+            })()}
           </Map>
         </div>
 
