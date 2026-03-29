@@ -120,12 +120,12 @@ function ChefPin({ chef, active, dimmed }: { chef: Chef; active: boolean; dimmed
         }}
       />
       <div style={{
-        marginTop: 5,
-        fontSize: 12,
-        fontWeight: 700,
+        marginTop: 6,
+        fontSize: 15,
+        fontWeight: 900,
         color: "#fff",
         fontFamily: "'Playfair Display', serif",
-        textShadow: "0 2px 8px #000, 0 1px 4px #000, 0 0 12px #000",
+        textShadow: `0 0 12px ${chef.color}, 0 0 24px ${chef.color}88, 0 2px 8px #000`,
         whiteSpace: "nowrap",
       }}>
         {chef.name}
@@ -322,7 +322,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
                   onClick={() => { setPopupChef(null); setDrawerChef(popupChef); }}
                   style={{
                     background: "#111811",
-                    border: `2px solid ${popupChef.color}`,
+                    border: `1px solid ${popupChef.color}`,
                     boxShadow: `0 4px 24px ${popupChef.color}30, 0 2px 12px rgba(0,0,0,0.6)`,
                     borderRadius: 14, padding: "14px 16px", minWidth: 220,
                     fontFamily: "'DM Sans', sans-serif", cursor: "pointer",
