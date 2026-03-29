@@ -161,6 +161,9 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
   const [locationFilter, setLocationFilter]         = useState("all");
   const [cuisineFilter, setCuisineFilter]           = useState("All Cuisines");
   const [availabilityFilter, setAvailabilityFilter] = useState("all");
+  const [searchQuery, setSearchQuery]               = useState("");
+  const [searchError, setSearchError]               = useState<string | null>(null);
+  const [searchLoading, setSearchLoading]           = useState(false);
 
   const activeFilterCount = [
     locationFilter !== "all",
@@ -200,6 +203,56 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
       mapRef.current.flyTo({ center: [target.lng, target.lat], zoom: target.zoom, duration: 1200 });
     }
   }, []);
+
+  async function handleSearch(e: React.FormEvent) {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+    setSearchError(null);
+    setSearchLoading(true);
+
+    try {
+      const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
+      const res = await fetch(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchQuery)}.json?access_token=${token}&country=US&types=place,locality,neighborhood&limit=1`
+      );
+      const data = await res.json();
+
+      if (!data.features || data.features.length === 0) {
+        setSearchError("We couldn't find that location. Try a city name like 'Lafayette' or 'Baton Rouge'.");
+        setSearchLoading(false);
+        return;
+      }
+
+      const [lng, lat] = data.features[0].center;
+      const placeName: string = data.features[0].place_name ?? "";
+
+      // Check if it's in Louisiana
+      const isLouisiana = placeName.toLowerCase().includes("louisiana") || placeName.toLowerCase().includes(", la");
+
+      if (!isLouisiana) {
+        setSearchError(`We're not in ${data.features[0].text ?? searchQuery} yet — but we're growing fast! Stay tuned for Poach expanding to your city soon. 🚀`);
+        setSearchLoading(false);
+        return;
+      }
+
+      // Check if within our 50-mile bounds
+      const withinBounds = lat >= 29.50 && lat <= 30.95 && lng >= -92.89 && lng <= -91.15;
+
+      if (!withinBounds) {
+        setSearchError(`We're not in ${data.features[0].text ?? searchQuery} yet — but we're growing across Louisiana! Check back soon. 🚀`);
+        setSearchLoading(false);
+        return;
+      }
+
+      // Fly to the searched location
+      mapRef.current?.flyTo({ center: [lng, lat], zoom: 12, duration: 1400 });
+      setSearchError(null);
+    } catch {
+      setSearchError("Something went wrong. Please try again.");
+    }
+
+    setSearchLoading(false);
+  }
 
   function clearFilters() {
     setLocationFilter("all");
@@ -253,6 +306,55 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
               Lafayette Area
             </span>
           </div>
+        </div>
+
+        {/* Search bar */}
+        <div style={{ padding: "10px 16px", borderBottom: "1px solid #18181b", background: "#0a0a0a" }}>
+          <form onSubmit={handleSearch} style={{ display: "flex", gap: 8 }}>
+            <div style={{ flex: 1, position: "relative" }}>
+              <span style={{
+                position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)",
+                fontSize: 14, color: "#52525b", pointerEvents: "none",
+              }}>🔍</span>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => { setSearchQuery(e.target.value); setSearchError(null); }}
+                placeholder="Search a city in Louisiana..."
+                style={{
+                  width: "100%", background: "#18181b", border: "1px solid #27272a",
+                  borderRadius: 10, padding: "8px 12px 8px 32px", fontSize: 12,
+                  color: "#f5f0e8", outline: "none", fontFamily: "'DM Sans', sans-serif",
+                  boxSizing: "border-box",
+                }}
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={searchLoading}
+              style={{
+                background: "#C8A97E", color: "#0a0a0a", border: "none",
+                borderRadius: 10, padding: "8px 16px", fontSize: 12,
+                fontWeight: 700, cursor: searchLoading ? "wait" : "pointer",
+                fontFamily: "'DM Sans', sans-serif", whiteSpace: "nowrap",
+                opacity: searchLoading ? 0.7 : 1,
+              }}
+            >
+              {searchLoading ? "..." : "Go"}
+            </button>
+          </form>
+
+          {/* Error message */}
+          {searchError && (
+            <div style={{
+              marginTop: 8, padding: "8px 12px", borderRadius: 8,
+              background: "#1a1010", border: "1px solid #C8A97E44",
+              fontSize: 11, color: "#C8A97E", lineHeight: 1.5,
+              fontFamily: "'DM Sans', sans-serif",
+            }}>
+              {searchError}
+            </div>
+          )}
         </div>
 
         {/* Filter panel */}
