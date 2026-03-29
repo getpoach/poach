@@ -19,6 +19,10 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "Poach — Private Chef Booking",
   description: "Book world-class chefs to cook in your home.",
+  icons: {
+    icon: "/poachpin.png",
+    apple: "/poachpin.png",
+  },
 };
 
 export default function RootLayout({
