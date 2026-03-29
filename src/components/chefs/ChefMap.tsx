@@ -164,7 +164,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
   const [searchQuery, setSearchQuery]               = useState("");
   const [searchError, setSearchError]               = useState<string | null>(null);
   const [searchLoading, setSearchLoading]           = useState(false);
-  const [priceRange, setPriceRange]                 = useState<[number, number]>([0, 250]);
+  const [priceRange, setPriceRange]                 = useState<[number, number]>([0, 150]);
   const [locationAsked, setLocationAsked]           = useState(false);
   const [locationBanner, setLocationBanner]         = useState(true);
 
@@ -172,7 +172,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
     locationFilter !== "all",
     cuisineFilter !== "All Cuisines",
     availabilityFilter !== "all",
-    priceRange[0] > 0 || priceRange[1] < 250,
+    priceRange[0] > 0 || priceRange[1] < 150,
   ].filter(Boolean).length;
 
   const filteredIds = useMemo(() => new Set(chefs.filter((chef) => {
@@ -296,7 +296,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
     setLocationFilter("all");
     setCuisineFilter("All Cuisines");
     setAvailabilityFilter("all");
-    setPriceRange([0, 250]);
+    setPriceRange([0, 150]);
     setPopupChef(null);
     mapRef.current?.flyTo({ center: [LAFAYETTE.lng, LAFAYETTE.lat], zoom: DEFAULT_ZOOM, duration: 1000 });
   }
@@ -395,21 +395,21 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
             <div style={{ position: "absolute", left: 0, right: 0, height: 3, background: "#27272a", borderRadius: 99 }} />
             <div style={{
               position: "absolute",
-              left: `${(priceRange[0] / 250) * 100}%`,
-              right: `${100 - (priceRange[1] / 250) * 100}%`,
+              left: `${(priceRange[0] / 150) * 100}%`,
+              right: `${100 - (priceRange[1] / 150) * 100}%`,
               height: 3, background: "#D4AF37", borderRadius: 99,
             }} />
-            <input type="range" min={0} max={250} step={5} value={priceRange[0]}
+            <input type="range" min={0} max={150} step={5} value={priceRange[0]}
               onChange={(e) => setPriceRange([Math.min(Number(e.target.value), priceRange[1] - 5), priceRange[1]])}
               style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }}
             />
-            <input type="range" min={0} max={250} step={5} value={priceRange[1]}
+            <input type="range" min={0} max={150} step={5} value={priceRange[1]}
               onChange={(e) => setPriceRange([priceRange[0], Math.max(Number(e.target.value), priceRange[0] + 5)])}
               style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }}
             />
           </div>
           <span style={{ fontSize: 12, fontWeight: 700, color: "#D4AF37", whiteSpace: "nowrap", minWidth: 90, textAlign: "right" }}>
-            ${priceRange[0]} — {priceRange[1] >= 250 ? "$250+" : `$${priceRange[1]}`}
+            ${priceRange[0]} — {priceRange[1] >= 150 ? "$150+" : `$${priceRange[1]}`}
           </span>
         </div>
 
