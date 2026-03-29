@@ -103,9 +103,27 @@ function ChefPin({ chef, active, dimmed }: { chef: Chef; active: boolean; dimmed
         cursor: dimmed ? "default" : "pointer",
       }}
     >
-      {/* Name ABOVE pin — frosted glass pill */}
+      {/* Pin icon */}
+      <img
+        src="/poachpin.png"
+        alt={chef.name}
+        width={pinSize}
+        height={pinSize}
+        style={{
+          width: pinSize,
+          height: pinSize,
+          objectFit: "contain",
+          filter: active
+            ? "drop-shadow(0 6px 16px rgba(0,0,0,0.9)) drop-shadow(0 2px 6px rgba(0,0,0,0.7))"
+            : "drop-shadow(0 3px 8px rgba(0,0,0,0.8)) drop-shadow(0 1px 3px rgba(0,0,0,0.6))",
+          transition: "all 0.2s ease",
+          display: "block",
+        }}
+      />
+
+      {/* Name BELOW pin — frosted glass pill */}
       <div style={{
-        marginBottom: 5,
+        marginTop: 5,
         padding: "3px 10px",
         borderRadius: 99,
         background: "rgba(255,255,255,0.08)",
@@ -127,27 +145,9 @@ function ChefPin({ chef, active, dimmed }: { chef: Chef; active: boolean; dimmed
         </span>
       </div>
 
-      {/* Pin icon */}
-      <img
-        src="/poachpin.png"
-        alt={chef.name}
-        width={pinSize}
-        height={pinSize}
-        style={{
-          width: pinSize,
-          height: pinSize,
-          objectFit: "contain",
-          filter: active
-            ? "drop-shadow(0 6px 16px rgba(0,0,0,0.9)) drop-shadow(0 2px 6px rgba(0,0,0,0.7))"
-            : "drop-shadow(0 3px 8px rgba(0,0,0,0.8)) drop-shadow(0 1px 3px rgba(0,0,0,0.6))",
-          transition: "all 0.2s ease",
-          display: "block",
-        }}
-      />
-
-      {/* Cuisine BELOW pin — frosted glass badge with profile color border */}
+      {/* Cuisine — frosted glass badge with profile color border */}
       <div style={{
-        marginTop: 5,
+        marginTop: 3,
         padding: "2px 10px",
         borderRadius: 99,
         background: "rgba(0,0,0,0.35)",
