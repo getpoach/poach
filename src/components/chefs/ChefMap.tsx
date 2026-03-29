@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo, useCallback, useRef } from "react";
+import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import Map, { Marker, Popup, NavigationControl } from "react-map-gl/mapbox";
 import type { MapRef } from "react-map-gl/mapbox";
 import type { Chef, Review } from "@/types";
@@ -221,6 +221,74 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
     if (chef.price < priceRange[0] || chef.price > priceRange[1]) return false;
     return true;
   }).map((c) => c.id)), [chefs, locationFilter, cuisineFilter, availabilityFilter, priceRange]);
+
+  // ── Draw radius circle when a chef is selected ────────────────────────────
+  useEffect(() => {
+    const map = mapRef.current?.getMap?.();
+    if (!map) return;
+
+    const SOURCE_ID = "chef-radius";
+    const LAYER_ID  = "chef-radius-fill";
+    const OUTLINE_ID = "chef-radius-outline";
+
+    // Remove previous circle
+    if (map.getLayer(OUTLINE_ID)) map.removeLayer(OUTLINE_ID);
+    if (map.getLayer(LAYER_ID))   map.removeLayer(LAYER_ID);
+    if (map.getSource(SOURCE_ID)) map.removeSource(SOURCE_ID);
+
+    if (!popupChef) return;
+
+    // Build a GeoJSON circle (~10 mile radius) around the chef
+    const radiusKm = 16; // ~10 miles
+    const steps = 64;
+    const coords: [number, number][] = [];
+    for (let i = 0; i <= steps; i++) {
+      const angle = (i / steps) * 2 * Math.PI;
+      const dx = (radiusKm / 111.32) * Math.cos(angle) / Math.cos((popupChef.lat * Math.PI) / 180);
+      const dy = radiusKm / 110.574 * Math.sin(angle);
+      coords.push([popupChef.lng + dx, popupChef.lat + dy]);
+    }
+
+    map.addSource(SOURCE_ID, {
+      type: "geojson",
+      data: {
+        type: "Feature",
+        geometry: { type: "Polygon", coordinates: [coords] },
+        properties: {},
+      },
+    });
+
+    // Filled area
+    map.addLayer({
+      id: LAYER_ID,
+      type: "fill",
+      source: SOURCE_ID,
+      paint: {
+        "fill-color": popupChef.color,
+        "fill-opacity": 0.08,
+      },
+    });
+
+    // Dashed outline
+    map.addLayer({
+      id: OUTLINE_ID,
+      type: "line",
+      source: SOURCE_ID,
+      paint: {
+        "line-color": popupChef.color,
+        "line-width": 1.5,
+        "line-opacity": 0.6,
+        "line-dasharray": [3, 2],
+      },
+    });
+
+    return () => {
+      if (!map) return;
+      if (map.getLayer(OUTLINE_ID)) map.removeLayer(OUTLINE_ID);
+      if (map.getLayer(LAYER_ID))   map.removeLayer(LAYER_ID);
+      if (map.getSource(SOURCE_ID)) map.removeSource(SOURCE_ID);
+    };
+  }, [popupChef]);
 
   const handleAreaFilter = useCallback((value: string) => {
     setLocationFilter(value);
@@ -553,7 +621,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
                   onClick={() => { setPopupChef(null); setDrawerChef(popupChef); }}
                   style={{
                     background: "rgba(10, 12, 10, 0.55)",
-                    backdropFilter: "blur(8px)",
+                    backdropFilter: "blur(16px)",
                     WebkitBackdropFilter: "blur(16px)",
                     border: `1px solid ${popupChef.color}`,
                     boxShadow: `0 4px 24px ${popupChef.color}30, 0 2px 12px rgba(0,0,0,0.5)`,
