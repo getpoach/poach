@@ -123,7 +123,7 @@ function ChefPin({ chef, active, dimmed }: { chef: Chef; active: boolean; dimmed
         marginTop: 5,
         fontSize: 12,
         fontWeight: 700,
-        color: chef.color,
+        color: "#fff",
         fontFamily: "'Playfair Display', serif",
         textShadow: "0 1px 6px #000, 0 2px 4px #000",
         whiteSpace: "nowrap",
@@ -132,6 +132,20 @@ function ChefPin({ chef, active, dimmed }: { chef: Chef; active: boolean; dimmed
         padding: "1px 6px",
       }}>
         {chef.name}
+      </div>
+      <div style={{
+        marginTop: 2,
+        fontSize: 10,
+        fontWeight: 600,
+        color: chef.color,
+        fontFamily: "'DM Sans', sans-serif",
+        textShadow: "0 1px 6px #000, 0 2px 4px #000",
+        whiteSpace: "nowrap",
+        background: "rgba(0,0,0,0.5)",
+        borderRadius: 99,
+        padding: "1px 6px",
+      }}>
+        {chef.cuisine[0]}
       </div>
     </div>
   );
@@ -275,7 +289,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
             mapboxAccessToken={MAPBOX_TOKEN}
             initialViewState={{ longitude: LAFAYETTE.lng, latitude: LAFAYETTE.lat, zoom: DEFAULT_ZOOM }}
             style={{ width: "100%", height: "100%" }}
-            mapStyle="mapbox://styles/poach/cmnc14ev8004701ra6hmt54yg"
+            mapStyle="mapbox://styles/mapbox/dark-v11"
             maxBounds={[[-92.89, 29.50], [-91.15, 30.95]]}
             onClick={() => setPopupChef(null)}
           >
