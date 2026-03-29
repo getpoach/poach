@@ -164,11 +164,13 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
   const [searchQuery, setSearchQuery]               = useState("");
   const [searchError, setSearchError]               = useState<string | null>(null);
   const [searchLoading, setSearchLoading]           = useState(false);
+  const [priceRange, setPriceRange]                 = useState<[number, number]>([0, 250]);
 
   const activeFilterCount = [
     locationFilter !== "all",
     cuisineFilter !== "All Cuisines",
     availabilityFilter !== "all",
+    priceRange[0] > 0 || priceRange[1] < 250,
   ].filter(Boolean).length;
 
   const filteredIds = useMemo(() => new Set(chefs.filter((chef) => {
@@ -190,8 +192,10 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
       };
       if (!chef.available.some((d) => (dayMap[availabilityFilter] ?? []).includes(d))) return false;
     }
+    // Price filter
+    if (chef.price < priceRange[0] || chef.price > priceRange[1]) return false;
     return true;
-  }).map((c) => c.id)), [chefs, locationFilter, cuisineFilter, availabilityFilter]);
+  }).map((c) => c.id)), [chefs, locationFilter, cuisineFilter, availabilityFilter, priceRange]);
 
   const handleAreaFilter = useCallback((value: string) => {
     setLocationFilter(value);
@@ -258,6 +262,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
     setLocationFilter("all");
     setCuisineFilter("All Cuisines");
     setAvailabilityFilter("all");
+    setPriceRange([0, 250]);
     setPopupChef(null);
     mapRef.current?.flyTo({ center: [LAFAYETTE.lng, LAFAYETTE.lat], zoom: DEFAULT_ZOOM, duration: 1000 });
   }
@@ -378,6 +383,45 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
                   color="#A78BFA" onClick={() => { setAvailabilityFilter(a.value); setPopupChef(null); }} />
               ))}
             </FilterSection>
+
+            {/* Price per person slider */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <span style={{ fontSize: 14 }}>💰</span>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                  Price per Person
+                </span>
+                <span style={{ marginLeft: "auto", fontSize: 12, fontWeight: 700, color: "#D4AF37" }}>
+                  ${priceRange[0]} — {priceRange[1] >= 250 ? "$250+" : `$${priceRange[1]}`}
+                </span>
+              </div>
+
+              {/* Slider track */}
+              <div style={{ position: "relative", height: 20, display: "flex", alignItems: "center" }}>
+                <div style={{ position: "absolute", left: 0, right: 0, height: 4, background: "#27272a", borderRadius: 99 }} />
+                <div style={{
+                  position: "absolute",
+                  left: `${(priceRange[0] / 250) * 100}%`,
+                  right: `${100 - (priceRange[1] / 250) * 100}%`,
+                  height: 4, background: "#D4AF37", borderRadius: 99,
+                }} />
+                {/* Min input */}
+                <input type="range" min={0} max={250} step={5} value={priceRange[0]}
+                  onChange={(e) => setPriceRange([Math.min(Number(e.target.value), priceRange[1] - 5), priceRange[1]])}
+                  style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }}
+                />
+                {/* Max input */}
+                <input type="range" min={0} max={250} step={5} value={priceRange[1]}
+                  onChange={(e) => setPriceRange([priceRange[0], Math.max(Number(e.target.value), priceRange[0] + 5)])}
+                  style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }}
+                />
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: "#52525b" }}>
+                <span>$0</span>
+                <span>$250+</span>
+              </div>
+            </div>
           </div>
         )}
 

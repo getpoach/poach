@@ -61,3 +61,34 @@ body {
 .mapboxgl-popup-tip {
   display: none !important;
 }
+
+/* Price range slider thumbs */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #D4AF37;
+  border: 2px solid #080808;
+  box-shadow: 0 0 6px #D4AF3788;
+  cursor: pointer;
+  pointer-events: all;
+  position: relative;
+  z-index: 1;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #D4AF37;
+  border: 2px solid #080808;
+  box-shadow: 0 0 6px #D4AF3788;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background: transparent;
+}
