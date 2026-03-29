@@ -2,7 +2,7 @@ import type { Chef, Day } from "@/types";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { SectionLabel } from "@/components/ui/index";
-import { totalWithFee } from "@/lib/utils";
+import { serviceFee } from "@/lib/utils";
 
 interface StepPaymentProps {
   chef: Chef;
@@ -31,7 +31,10 @@ export function StepPayment({
   chef, day, time, guests, card, expiry, cvv,
   onCard, onExpiry, onCvv, onBack, onConfirm,
 }: StepPaymentProps) {
-  const total = totalWithFee(chef.price);
+  const subtotal = chef.price * guests;
+  const fee = serviceFee(subtotal);
+  const total = subtotal + fee;
+
   const cardValid = card.replace(/\s/g, "").length === 16;
   const canConfirm = cardValid && expiry.length >= 4 && cvv.length >= 3;
 
@@ -73,6 +76,8 @@ export function StepPayment({
           ["Day", day],
           ["Time", time],
           ["Guests", String(guests)],
+          [`$${chef.price} × ${guests} people`, `$${subtotal}`],
+          ["Service fee (12%)", `$${fee}`],
           ["Total", `$${total}`],
         ].map(([k, v]) => (
           <div key={k} className="flex justify-between mb-1.5 last:mb-0">
@@ -85,6 +90,9 @@ export function StepPayment({
             </span>
           </div>
         ))}
+        <div className="text-[10px] text-zinc-600 mt-2 border-t border-zinc-800 pt-2">
+          Starting price — final rate confirmed by chef based on menu &amp; occasion
+        </div>
       </div>
 
       <p className="text-xs text-zinc-600">

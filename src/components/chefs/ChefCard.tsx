@@ -43,7 +43,8 @@ export function ChefCard({ chef, onBook, onView }: ChefCardProps) {
           >
             ${chef.price}
           </div>
-          <div className="text-xs text-muted">/ session</div>
+          <div className="text-xs text-muted">/ person</div>
+          <div className="text-[10px]" style={{ color: chef.color + "99" }}>starting from</div>
         </div>
       </div>
 

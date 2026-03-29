@@ -22,6 +22,11 @@ export function StepDetails({
   chef, guests, note, name, email,
   onGuests, onNote, onName, onEmail, onBack, onNext,
 }: StepDetailsProps) {
+  const pricePerPerson = chef.price;
+  const subtotal = pricePerPerson * guests;
+  const fee = serviceFee(subtotal);
+  const total = subtotal + fee;
+
   return (
     <div className="flex flex-col gap-5">
       {/* Guests */}
@@ -80,12 +85,12 @@ export function StepDetails({
       {/* Fee breakdown */}
       <div className="bg-zinc-900 rounded-xl p-4">
         <div className="flex justify-between mb-1.5">
-          <span className="text-sm text-muted">Session fee</span>
-          <span className="text-sm text-white">${chef.price}</span>
+          <span className="text-sm text-muted">${pricePerPerson} × {guests} {guests === 1 ? "person" : "people"}</span>
+          <span className="text-sm text-white">${subtotal}</span>
         </div>
         <div className="flex justify-between mb-1.5">
           <span className="text-sm text-muted">Service fee (12%)</span>
-          <span className="text-sm text-white">${serviceFee(chef.price)}</span>
+          <span className="text-sm text-white">${fee}</span>
         </div>
         <div className="border-t border-zinc-800 pt-2 mt-2 flex justify-between">
           <span className="font-bold text-white">Total</span>
@@ -93,8 +98,11 @@ export function StepDetails({
             className="font-display font-bold text-lg"
             style={{ color: chef.color }}
           >
-            ${totalWithFee(chef.price)}
+            ${total}
           </span>
+        </div>
+        <div className="text-[10px] text-zinc-600 mt-1">
+          Starting price — final rate confirmed by chef based on menu &amp; occasion
         </div>
       </div>
 
