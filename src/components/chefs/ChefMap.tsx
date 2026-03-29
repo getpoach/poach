@@ -225,16 +225,22 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
   // ── Draw radius circle when a chef is selected ────────────────────────────
   useEffect(() => {
     const map = mapRef.current?.getMap?.();
-    if (!map) return;
+    if (!map || !map.isStyleLoaded()) return;
 
     const SOURCE_ID = "chef-radius";
     const LAYER_ID  = "chef-radius-fill";
     const OUTLINE_ID = "chef-radius-outline";
 
+    const cleanup = () => {
+      try {
+        if (map.getLayer(OUTLINE_ID)) map.removeLayer(OUTLINE_ID);
+        if (map.getLayer(LAYER_ID))   map.removeLayer(LAYER_ID);
+        if (map.getSource(SOURCE_ID)) map.removeSource(SOURCE_ID);
+      } catch {}
+    };
+
     // Remove previous circle
-    if (map.getLayer(OUTLINE_ID)) map.removeLayer(OUTLINE_ID);
-    if (map.getLayer(LAYER_ID))   map.removeLayer(LAYER_ID);
-    if (map.getSource(SOURCE_ID)) map.removeSource(SOURCE_ID);
+    cleanup();
 
     if (!popupChef) return;
 
@@ -259,35 +265,35 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
     });
 
     // Filled area
+    const fillColor = String(popupChef.color);
     map.addLayer({
       id: LAYER_ID,
       type: "fill",
       source: SOURCE_ID,
       paint: {
-        "fill-color": popupChef.color,
-        "fill-opacity": 0.08,
+        "fill-color": fillColor,
+        "fill-opacity": 0.1,
       },
     });
 
-    // Dashed outline
+    // Dashed outline — use literal color string to override map style
+    const chefColor = String(popupChef.color);
     map.addLayer({
       id: OUTLINE_ID,
       type: "line",
       source: SOURCE_ID,
       paint: {
-        "line-color": popupChef.color,
-        "line-width": 2,
+        "line-color": chefColor,
+        "line-width": 2.5,
         "line-opacity": 1,
-        "line-dasharray": [3, 2],
+        "line-dasharray": [4, 3],
       },
     });
 
-    return () => {
-      if (!map) return;
-      if (map.getLayer(OUTLINE_ID)) map.removeLayer(OUTLINE_ID);
-      if (map.getLayer(LAYER_ID))   map.removeLayer(LAYER_ID);
-      if (map.getSource(SOURCE_ID)) map.removeSource(SOURCE_ID);
-    };
+    // Force repaint to ensure color applies correctly
+    map.triggerRepaint();
+
+    return () => { cleanup(); };
   }, [popupChef]);
 
   const handleAreaFilter = useCallback((value: string) => {
