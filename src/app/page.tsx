@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import type { Chef, Review } from "@/types";
 import { chefs as allChefs } from "@/data/chefs";
 import { reviews as allReviews } from "@/data/reviews";
@@ -15,7 +15,12 @@ const CUISINES = [
   "Mexican", "Indian", "Fusion", "Omakase",
 ] as const;
 
-const SORT_OPTIONS = ["Nearest", "Top Rated", "Price: Low"];
+const SORT_OPTIONS = [
+  { label: "Nearest",   value: "nearest" },
+  { label: "Top Rated", value: "rating"  },
+  { label: "Price: Low",value: "price"   },
+] as const;
+type SortOption = typeof SORT_OPTIONS[number]["value"];
 
 export default function DiscoverPage() {
   const { search, setSearch, cuisine, setCuisine, filtered } = useChefFilter(allChefs);
@@ -24,6 +29,25 @@ export default function DiscoverPage() {
   const [viewMode, setViewMode] = useState<"grid" | "map">("grid");
   const [viewChef, setViewChef] = useState<Chef | null>(null);
   const [bookingChef, setBookingChef] = useState<Chef | null>(null);
+  const [sortBy, setSortBy] = useState<SortOption>("nearest");
+
+  const sorted = useMemo(() => {
+    const arr = [...filtered];
+    switch (sortBy) {
+      case "rating":
+        return arr.sort((a, b) => b.rating - a.rating);
+      case "price":
+        return arr.sort((a, b) => a.price - b.price);
+      case "nearest":
+      default:
+        // Use distance string — strip " mi" and parse float
+        return arr.sort((a, b) => {
+          const da = parseFloat(a.distance.replace(" mi", ""));
+          const db = parseFloat(b.distance.replace(" mi", ""));
+          return da - db;
+        });
+    }
+  }, [filtered, sortBy]);
 
   return (
     <>
@@ -44,8 +68,8 @@ export default function DiscoverPage() {
           className="absolute inset-0 w-full h-full object-cover"
           style={{ zIndex: 0 }}
         >
-          <source src="/hero.mp4" type="video/quicktime" />
-          <source src="/hero.mp4" type="video/mp4" />
+          <source src="/hero.mov" type="video/quicktime" />
+          <source src="/hero.mov" type="video/mp4" />
         </video>
 
         {/* Medium overlay — lets video show through while keeping text readable */}
@@ -140,23 +164,33 @@ export default function DiscoverPage() {
       {/* ── Results header ─────────────────────────────────────────────────── */}
       <div className="flex items-center justify-between mb-4">
         <div className="text-sm text-muted">
-          <span className="text-white font-bold">{filtered.length}</span> chefs available
+          <span className="text-white font-bold">{sorted.length}</span> chefs available
         </div>
         <div className="flex gap-1.5">
-          {SORT_OPTIONS.map((s) => (
-            <button
-              key={s}
-              className="bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-muted hover:text-white transition-colors cursor-pointer"
-            >
-              {s}
-            </button>
-          ))}
+          {SORT_OPTIONS.map((s) => {
+            const active = sortBy === s.value;
+            return (
+              <button
+                key={s.value}
+                onClick={() => setSortBy(s.value)}
+                className="rounded-lg px-3 py-1.5 text-xs font-semibold transition-all cursor-pointer"
+                style={{
+                  background: active ? "#C8A97E15" : "#18181b",
+                  border: `1px solid ${active ? "#C8A97E" : "#27272a"}`,
+                  color: active ? "#C8A97E" : "#71717a",
+                }}
+              >
+                {active && <span style={{ marginRight: 4 }}>✓</span>}
+                {s.label}
+              </button>
+            );
+          })}
         </div>
       </div>
 
       {/* ── Chef grid ──────────────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filtered.map((chef) => (
+        {sorted.map((chef) => (
           <ChefCard
             key={chef.id}
             chef={chef}
@@ -164,7 +198,7 @@ export default function DiscoverPage() {
             onView={setViewChef}
           />
         ))}
-        {filtered.length === 0 && (
+        {sorted.length === 0 && (
           <div className="col-span-3 text-center py-16 text-muted">
             <div className="text-4xl mb-3">🍴</div>
             <div className="font-display text-lg">No chefs found</div>
