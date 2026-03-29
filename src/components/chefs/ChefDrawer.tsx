@@ -114,7 +114,8 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
       >
         <div
           onClick={(e) => e.stopPropagation()}
-          className="w-full max-w-[480px] bg-zinc-950 border-l border-zinc-800 h-full overflow-y-auto flex flex-col"
+          className="w-full max-w-[480px] bg-zinc-950 h-full overflow-y-auto flex flex-col"
+          style={{ borderLeft: `4px solid ${chef.color}`, boxShadow: `-4px 0 24px ${chef.color}22` }}
         >
 
           {/* ── Headshot hero ─────────────────────────────────────────────── */}

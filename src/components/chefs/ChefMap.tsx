@@ -113,8 +113,8 @@ function ChefPin({ chef, active, dimmed }: { chef: Chef; active: boolean; dimmed
           height: size,
           objectFit: "contain",
           filter: active
-            ? "drop-shadow(0 4px 14px rgba(0,0,0,0.7))"
-            : "drop-shadow(0 2px 6px rgba(0,0,0,0.5))",
+            ? "drop-shadow(0 6px 16px rgba(0,0,0,0.9)) drop-shadow(0 2px 6px rgba(0,0,0,0.7))"
+            : "drop-shadow(0 3px 8px rgba(0,0,0,0.8)) drop-shadow(0 1px 3px rgba(0,0,0,0.6))",
           transition: "all 0.2s ease",
           display: "block",
         }}
@@ -286,7 +286,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
             mapboxAccessToken={MAPBOX_TOKEN}
             initialViewState={{ longitude: LAFAYETTE.lng, latitude: LAFAYETTE.lat, zoom: DEFAULT_ZOOM }}
             style={{ width: "100%", height: "100%" }}
-            mapStyle="mapbox://styles/poach/cmnax21j0004401sjemgk6n4h"
+            mapStyle="mapbox://styles/mapbox/dark-v11"
             maxBounds={[[-92.89, 29.50], [-91.15, 30.95]]}
             onClick={() => setPopupChef(null)}
           >
@@ -321,7 +321,9 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
                 <div
                   onClick={() => { setPopupChef(null); setDrawerChef(popupChef); }}
                   style={{
-                    background: "#111811", border: `1px solid ${popupChef.color}55`,
+                    background: "#111811",
+                    border: `2px solid ${popupChef.color}`,
+                    boxShadow: `0 4px 24px ${popupChef.color}30, 0 2px 12px rgba(0,0,0,0.6)`,
                     borderRadius: 14, padding: "14px 16px", minWidth: 220,
                     fontFamily: "'DM Sans', sans-serif", cursor: "pointer",
                   }}
