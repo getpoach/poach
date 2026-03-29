@@ -92,29 +92,44 @@ function FilterSection({ icon, label, children }: {
 }
 
 function ChefPin({ chef, active, dimmed }: { chef: Chef; active: boolean; dimmed: boolean }) {
+  const size = active ? 48 : 36;
   return (
     <div
       className="flex flex-col items-center select-none"
-      style={{ opacity: dimmed ? 0.2 : 1, transition: "opacity 0.2s" }}
-    >
-      <div style={{
-        width: active ? 46 : 36, height: active ? 46 : 36,
-        borderRadius: "50%",
-        background: chef.color + (active ? "30" : "1A"),
-        border: `2.5px solid ${chef.color}`,
-        display: "flex", alignItems: "center", justifyContent: "center",
-        fontSize: active ? 20 : 15, fontWeight: 800, color: chef.color,
-        fontFamily: "'DM Sans', sans-serif",
-        boxShadow: active ? `0 0 0 6px ${chef.color}22, 0 4px 20px ${chef.color}44` : `0 2px 8px ${chef.color}28`,
-        transition: "all 0.2s ease",
+      style={{
+        opacity: dimmed ? 0.2 : 1,
+        transition: "opacity 0.2s, transform 0.15s",
+        transform: active ? "scale(1.15)" : "scale(1)",
         cursor: dimmed ? "default" : "pointer",
-      }}>
-        {chef.avatar}
-      </div>
+      }}
+    >
+      <img
+        src="/poachpin.png"
+        alt={chef.name}
+        width={size}
+        height={size}
+        style={{
+          width: size,
+          height: size,
+          objectFit: "contain",
+          filter: active
+            ? "drop-shadow(0 4px 14px rgba(0,0,0,0.7))"
+            : "drop-shadow(0 2px 6px rgba(0,0,0,0.5))",
+          transition: "all 0.2s ease",
+          display: "block",
+        }}
+      />
       <div style={{
-        marginTop: 3, fontSize: 10, fontWeight: 700, color: chef.color,
+        marginTop: 4,
+        fontSize: 10,
+        fontWeight: 700,
+        color: "#fff",
         fontFamily: "'DM Sans', sans-serif",
-        textShadow: "0 1px 5px #000c", whiteSpace: "nowrap",
+        textShadow: "0 1px 4px #000, 0 1px 3px #000",
+        whiteSpace: "nowrap",
+        background: "rgba(0,0,0,0.5)",
+        borderRadius: 99,
+        padding: "1px 6px",
       }}>
         {chef.name.split(" ")[0]}
       </div>
