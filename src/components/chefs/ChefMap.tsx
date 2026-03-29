@@ -165,6 +165,8 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
   const [searchError, setSearchError]               = useState<string | null>(null);
   const [searchLoading, setSearchLoading]           = useState(false);
   const [priceRange, setPriceRange]                 = useState<[number, number]>([0, 250]);
+  const [locationAsked, setLocationAsked]           = useState(false);
+  const [locationBanner, setLocationBanner]         = useState(true);
 
   const activeFilterCount = [
     locationFilter !== "all",
@@ -207,6 +209,38 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
       mapRef.current.flyTo({ center: [target.lng, target.lat], zoom: target.zoom, duration: 1200 });
     }
   }, []);
+
+  function handleUseMyLocation() {
+    setLocationBanner(false);
+    if (!navigator.geolocation) {
+      setSearchError("Your browser doesn't support location access.");
+      return;
+    }
+    setSearchLoading(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude: lat, longitude: lng } = pos.coords;
+        // Check within Louisiana 50-mile bounds
+        const withinBounds = lat >= 29.50 && lat <= 30.95 && lng >= -92.89 && lng <= -91.15;
+        if (!withinBounds) {
+          setSearchError("You're outside our current service area. We're only in the Lafayette, LA area right now — but stay tuned! 🚀");
+          setSearchLoading(false);
+          return;
+        }
+        mapRef.current?.flyTo({ center: [lng, lat], zoom: 12, duration: 1400 });
+        setSearchLoading(false);
+      },
+      (err) => {
+        if (err.code === err.PERMISSION_DENIED) {
+          setSearchError("Location access was denied. You can search by city name instead.");
+        } else {
+          setSearchError("Couldn't get your location. Please try searching by city name.");
+        }
+        setSearchLoading(false);
+      },
+      { timeout: 8000 }
+    );
+  }
 
   async function handleSearch(e: React.FormEvent) {
     e.preventDefault();
@@ -312,6 +346,46 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
             </span>
           </div>
         </div>
+
+        {/* Location permission banner */}
+        {locationBanner && (
+          <div style={{
+            padding: "10px 20px",
+            borderBottom: "1px solid #18181b",
+            background: "#0e0d0b",
+            display: "flex", alignItems: "center", gap: 10,
+          }}>
+            <span style={{ fontSize: 16 }}>📍</span>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: "#f5f0e8" }}>
+                Find chefs near you
+              </div>
+              <div style={{ fontSize: 11, color: "#71717a", marginTop: 1 }}>
+                Allow location access to see chefs in your area
+              </div>
+            </div>
+            <button
+              onClick={handleUseMyLocation}
+              style={{
+                background: "#C8A97E", color: "#0a0a0a", border: "none",
+                borderRadius: 8, padding: "6px 14px", fontSize: 11,
+                fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap",
+                fontFamily: "'DM Sans', sans-serif",
+              }}
+            >
+              Use My Location
+            </button>
+            <button
+              onClick={() => setLocationBanner(false)}
+              style={{
+                background: "none", border: "none", color: "#52525b",
+                cursor: "pointer", fontSize: 16, lineHeight: 1, padding: "0 2px",
+              }}
+            >
+              ×
+            </button>
+          </div>
+        )}
 
         {/* Price slider row */}
         <div style={{ padding: "10px 20px", borderBottom: "1px solid #18181b", background: "#0b0b0b", display: "flex", alignItems: "center", gap: 12 }}>
