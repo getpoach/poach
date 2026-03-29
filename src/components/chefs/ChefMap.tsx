@@ -276,8 +276,8 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
       source: SOURCE_ID,
       paint: {
         "line-color": popupChef.color,
-        "line-width": 1.5,
-        "line-opacity": 0.6,
+        "line-width": 2,
+        "line-opacity": 1,
         "line-dasharray": [3, 2],
       },
     });
