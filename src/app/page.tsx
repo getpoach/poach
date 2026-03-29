@@ -44,8 +44,8 @@ export default function DiscoverPage() {
           className="absolute inset-0 w-full h-full object-cover"
           style={{ zIndex: 0 }}
         >
-          <source src="/hero.mp4" type="video/quicktime" />
-          <source src="/hero.mp4" type="video/mp4" />
+          <source src="/hero.mov" type="video/quicktime" />
+          <source src="/hero.mov" type="video/mp4" />
         </video>
 
         {/* Medium overlay — lets video show through while keeping text readable */}
@@ -53,7 +53,7 @@ export default function DiscoverPage() {
           className="absolute inset-0"
           style={{
             zIndex: 1,
-            background: "linear-gradient(135deg, rgba(10,8,4,0.72) 0%, rgba(8,8,16,0.65) 50%, rgba(10,8,4,0.72) 100%)",
+            background: "linear-gradient(135deg, rgba(10,8,4,0.38) 0%, rgba(8,8,16,0.32) 50%, rgba(10,8,4,0.38) 100%)",
           }}
         />
 
