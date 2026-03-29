@@ -92,25 +92,50 @@ function FilterSection({ icon, label, children }: {
 }
 
 function ChefPin({ chef, active, dimmed }: { chef: Chef; active: boolean; dimmed: boolean }) {
-  const size = active ? 48 : 36;
+  const pinSize = active ? 48 : 38;
   return (
     <div
       className="flex flex-col items-center select-none"
       style={{
         opacity: dimmed ? 0.2 : 1,
-        transition: "opacity 0.2s, transform 0.15s",
-        transform: active ? "scale(1.15)" : "scale(1)",
+        transition: "opacity 0.2s, transform 0.18s",
+        transform: active ? "scale(1.12)" : "scale(1)",
         cursor: dimmed ? "default" : "pointer",
       }}
     >
+      {/* Name ABOVE pin — frosted glass pill */}
+      <div style={{
+        marginBottom: 5,
+        padding: "3px 10px",
+        borderRadius: 99,
+        background: "rgba(255,255,255,0.08)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
+        border: "1px solid rgba(255,255,255,0.15)",
+        boxShadow: `0 2px 12px rgba(0,0,0,0.4), 0 0 16px ${chef.color}22`,
+        whiteSpace: "nowrap",
+      }}>
+        <span style={{
+          fontSize: active ? 13 : 11,
+          fontWeight: 700,
+          color: "#fff",
+          fontFamily: "'Playfair Display', serif",
+          letterSpacing: "0.01em",
+          textShadow: "0 1px 4px rgba(0,0,0,0.8)",
+        }}>
+          {chef.name}
+        </span>
+      </div>
+
+      {/* Pin icon */}
       <img
         src="/poachpin.png"
         alt={chef.name}
-        width={size}
-        height={size}
+        width={pinSize}
+        height={pinSize}
         style={{
-          width: size,
-          height: size,
+          width: pinSize,
+          height: pinSize,
           objectFit: "contain",
           filter: active
             ? "drop-shadow(0 6px 16px rgba(0,0,0,0.9)) drop-shadow(0 2px 6px rgba(0,0,0,0.7))"
@@ -119,30 +144,28 @@ function ChefPin({ chef, active, dimmed }: { chef: Chef; active: boolean; dimmed
           display: "block",
         }}
       />
+
+      {/* Cuisine BELOW pin — frosted glass badge with profile color border */}
       <div style={{
-        marginTop: 6,
-        fontSize: 15,
-        fontWeight: 900,
-        color: "#fff",
-        fontFamily: "'Playfair Display', serif",
-        textShadow: `0 0 12px ${chef.color}, 0 0 24px ${chef.color}88, 0 2px 8px #000`,
-        whiteSpace: "nowrap",
-      }}>
-        {chef.name}
-      </div>
-      <div style={{
-        marginTop: 3,
-        fontSize: 10,
-        fontWeight: 600,
-        color: chef.color,
-        fontFamily: "'DM Sans', sans-serif",
-        whiteSpace: "nowrap",
-        background: "rgba(0,0,0,0.6)",
-        border: `1px solid ${chef.color}`,
+        marginTop: 5,
+        padding: "2px 10px",
         borderRadius: 99,
-        padding: "1px 8px",
+        background: "rgba(0,0,0,0.35)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
+        border: `1px solid ${chef.color}`,
+        boxShadow: `0 2px 10px rgba(0,0,0,0.4), 0 0 10px ${chef.color}30`,
+        whiteSpace: "nowrap",
       }}>
-        {chef.cuisine[0]}
+        <span style={{
+          fontSize: 10,
+          fontWeight: 600,
+          color: chef.color,
+          fontFamily: "'DM Sans', sans-serif",
+          letterSpacing: "0.02em",
+        }}>
+          {chef.cuisine[0]}
+        </span>
       </div>
     </div>
   );
@@ -494,7 +517,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
             mapboxAccessToken={MAPBOX_TOKEN}
             initialViewState={{ longitude: LAFAYETTE.lng, latitude: LAFAYETTE.lat, zoom: DEFAULT_ZOOM }}
             style={{ width: "100%", height: "100%" }}
-            mapStyle="mapbox://styles/poach/cmnc14ev8004701ra6hmt54yg"
+            mapStyle="mapbox://styles/poach/cmnax21j0004401sjemgk6n4h"
             maxBounds={[[-92.89, 29.50], [-91.15, 30.95]]}
             onClick={() => setPopupChef(null)}
           >
