@@ -289,7 +289,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
             mapboxAccessToken={MAPBOX_TOKEN}
             initialViewState={{ longitude: LAFAYETTE.lng, latitude: LAFAYETTE.lat, zoom: DEFAULT_ZOOM }}
             style={{ width: "100%", height: "100%" }}
-            mapStyle="mapbox://styles/mapbox/dark-v11"
+            mapStyle="mapbox://styles/poach/cmnc14ev8004701ra6hmt54yg"
             maxBounds={[[-92.89, 29.50], [-91.15, 30.95]]}
             onClick={() => setPopupChef(null)}
           >
