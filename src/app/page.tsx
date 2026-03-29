@@ -44,8 +44,8 @@ export default function DiscoverPage() {
           className="absolute inset-0 w-full h-full object-cover"
           style={{ zIndex: 0 }}
         >
-          <source src="/hero.mov" type="video/quicktime" />
-          <source src="/hero.mov" type="video/mp4" />
+          <source src="/hero.mp4" type="video/quicktime" />
+          <source src="/hero.mp4" type="video/mp4" />
         </video>
 
         {/* Medium overlay — lets video show through while keeping text readable */}
