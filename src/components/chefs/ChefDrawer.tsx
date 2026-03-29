@@ -283,8 +283,16 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
 
             {/* Pricing */}
             <div className="bg-zinc-900 rounded-xl p-4">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-zinc-500">Session rate</span>
+              <div className="flex justify-between items-center mb-1">
+                <div>
+                  <span className="text-sm text-zinc-400 font-semibold">Price per person</span>
+                  <span
+                    className="ml-2 text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
+                    style={{ background: chef.color + "20", color: chef.color }}
+                  >
+                    Starting from
+                  </span>
+                </div>
                 <span
                   className="font-display text-xl font-bold"
                   style={{ color: chef.color }}
@@ -292,8 +300,8 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                   ${chef.price}
                 </span>
               </div>
-              <div className="text-xs text-zinc-600 mt-1">
-                Up to 3 hours · ingredients billed separately
+              <div className="text-xs text-zinc-600">
+                Final price varies based on menu, ingredients &amp; occasion
               </div>
             </div>
 
