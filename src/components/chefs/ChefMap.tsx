@@ -553,7 +553,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
                   onClick={() => { setPopupChef(null); setDrawerChef(popupChef); }}
                   style={{
                     background: "rgba(10, 12, 10, 0.55)",
-                    backdropFilter: "blur(16px)",
+                    backdropFilter: "blur(8px)",
                     WebkitBackdropFilter: "blur(16px)",
                     border: `1px solid ${popupChef.color}`,
                     boxShadow: `0 4px 24px ${popupChef.color}30, 0 2px 12px rgba(0,0,0,0.5)`,
