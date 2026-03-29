@@ -126,10 +126,10 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                   alt={chef.name}
                   className="w-full h-full object-cover"
                 />
-                {/* Gradient fade to drawer bg */}
+                {/* Gradient fade — stronger at bottom so name is always readable */}
                 <div
                   className="absolute inset-0"
-                  style={{ background: "linear-gradient(to bottom, rgba(9,9,11,0.1) 40%, rgba(9,9,11,1) 100%)" }}
+                  style={{ background: "linear-gradient(to bottom, rgba(9,9,11,0.0) 20%, rgba(9,9,11,0.55) 55%, rgba(9,9,11,0.92) 80%, rgba(9,9,11,1) 100%)" }}
                 />
               </>
             ) : (
@@ -146,7 +146,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                 </div>
                 <div
                   className="absolute inset-0"
-                  style={{ background: "linear-gradient(to bottom, transparent 40%, rgba(9,9,11,1) 100%)" }}
+                  style={{ background: "linear-gradient(to bottom, rgba(9,9,11,0.0) 20%, rgba(9,9,11,0.55) 55%, rgba(9,9,11,0.92) 80%, rgba(9,9,11,1) 100%)" }}
                 />
               </div>
             )}
@@ -159,20 +159,25 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
             >
               ← Back
             </button>
+
+            {/* Name + rating overlaid at bottom of headshot */}
+            <div className="absolute bottom-0 left-0 right-0 px-6 pb-5" style={{ zIndex: 2 }}>
+              <div
+                className="font-display text-2xl font-black leading-tight"
+                style={{ color: chef.color, textShadow: "0 1px 8px rgba(0,0,0,0.8)" }}
+              >
+                {chef.name}
+              </div>
+              <Stars rating={chef.rating} size={13} />
+              <div className="text-xs text-zinc-400 mt-0.5">
+                {chef.reviewCount} reviews · {chef.bookingCount} bookings · {chef.experience}
+              </div>
+              <div className="text-xs text-zinc-500 mt-0.5">🎓 {chef.trained}</div>
+            </div>
           </div>
 
           {/* ── Content ───────────────────────────────────────────────────── */}
-          <div className="flex flex-col gap-4 px-6 pb-8 -mt-4">
-
-            {/* Name + rating */}
-            <div>
-              <div className="font-display text-2xl font-bold text-white">{chef.name}</div>
-              <Stars rating={chef.rating} size={14} />
-              <div className="text-xs text-zinc-500 mt-1">
-                {chef.reviewCount} reviews · {chef.bookingCount} bookings · {chef.experience}
-              </div>
-              <div className="text-xs text-zinc-600 mt-0.5">🎓 {chef.trained}</div>
-            </div>
+          <div className="flex flex-col gap-4 px-6 pb-8 mt-4">
 
             {/* Portfolio gallery */}
             {hasPortfolio && (
