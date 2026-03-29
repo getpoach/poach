@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -14,9 +15,24 @@ export function Navbar() {
   return (
     <nav className="sticky top-0 z-40 bg-ink/95 backdrop-blur-xl border-b border-zinc-900">
       <div className="max-w-6xl mx-auto px-6 flex items-center h-16 gap-5">
-        <Link href="/" className="font-display text-2xl font-black tracking-tight">
-          <span className="text-white">P</span>
-          <span className="text-gold">oach</span>
+
+        {/* Logo */}
+        <Link href="/" className="flex items-center shrink-0">
+          <Image
+            src="/poachlogo.png"
+            alt="Poach"
+            width={100}
+            height={48}
+            style={{
+              height: 40,
+              width: "auto",
+              objectFit: "contain",
+              // Mix-blend-mode screen removes the black background
+              // so only the red logo shows on the dark navbar
+              mixBlendMode: "screen",
+            }}
+            priority
+          />
         </Link>
 
         <div className="flex-1 max-w-sm relative">
@@ -25,8 +41,6 @@ export function Navbar() {
             placeholder="Search chefs, cuisine, dish..."
             className="w-full bg-zinc-900 border border-zinc-800 rounded-full py-2 pl-9 pr-4 text-sm text-white placeholder:text-zinc-600 outline-none focus:border-zinc-700 transition-colors"
             onChange={(e) => {
-              // Search is handled at the page level
-              // This bar is decorative in the nav — real search is on the discover page
               const event = new CustomEvent("poach-search", { detail: e.target.value });
               window.dispatchEvent(event);
             }}
