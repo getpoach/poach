@@ -155,7 +155,7 @@ export default function DiscoverPage() {
       {/* ── Map view ──────────────────────────────────────────────────────── */}
       {viewMode === "map" && (
         <ChefMap
-          chefs={sorted}
+          chefs={allChefs}
           onSelect={(chef) => {
             setViewMode("grid");
             setViewChef(chef);
