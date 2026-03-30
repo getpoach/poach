@@ -315,8 +315,14 @@ export default function DiscoverPage() {
       {/* Results count + card strip for map view */}
       {viewMode === "map" && (
         <>
-          <div className="text-sm text-muted mb-4 mt-2">
-            <span className="text-white font-bold">{mapFilteredChefs.length}</span> chefs available
+          <div className="flex items-center justify-between mb-4 mt-3">
+            <div className="text-sm text-muted">
+              <span className="text-white font-bold">{mapFilteredChefs.length}</span> chefs available
+            </div>
+            <div className="flex items-center gap-1.5 text-xs text-zinc-500 animate-bounce">
+              <span>↓</span>
+              <span>Scroll for chefs</span>
+            </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
             {mapFilteredChefs.map((chef) => (

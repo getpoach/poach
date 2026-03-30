@@ -524,7 +524,7 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
         )}
 
         {/* Map — explicit height, position relative, NO overflow hidden on any ancestor */}
-        <div style={{ height: 480, position: "relative" }}>
+        <div style={{ height: 340, position: "relative" }}>
           <Map
             ref={mapRef}
             mapboxAccessToken={MAPBOX_TOKEN}
