@@ -35,6 +35,10 @@ export default function DiscoverPage() {
   const [gridPriceRange, setGridPriceRange]     = useState<[number, number]>([0, 150]);
   const [gridAvailability, setGridAvailability] = useState("all");
   const [gridLocation, setGridLocation]         = useState("all");
+  const [gridSearchQuery, setGridSearchQuery]   = useState("");
+  const [gridSearchError, setGridSearchError]   = useState<string | null>(null);
+  const [gridSearchLoading, setGridSearchLoading] = useState(false);
+  const [gridLocationBanner, setGridLocationBanner] = useState(true);
 
   const GRID_AREA_FILTERS = [
     { label: "All Areas",     value: "all" },
@@ -98,6 +102,78 @@ export default function DiscoverPage() {
     (gridAvailability !== "all" ? 1 : 0) +
     (cuisine !== "All" ? 1 : 0) +
     (gridLocation !== "all" ? 1 : 0);
+
+  function handleGridUseMyLocation() {
+    setGridLocationBanner(false);
+    if (!navigator.geolocation) {
+      setGridSearchError("Your browser doesn't support location access.");
+      return;
+    }
+    setGridSearchLoading(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude: lat, longitude: lng } = pos.coords;
+        const isLouisiana = lat >= 28.8 && lat <= 33.1 && lng >= -94.5 && lng <= -88.5;
+        if (!isLouisiana) {
+          setGridSearchError("You're outside Louisiana — but we're growing fast! Stay tuned. 🚀");
+          setGridSearchLoading(false);
+          return;
+        }
+        // Find closest area and set location filter
+        const areas = Object.entries(GRID_AREA_BOUNDS);
+        const match = areas.find(([, b]) => lat >= b.latMin && lat <= b.latMax && lng >= b.lngMin && lng <= b.lngMax);
+        if (match) setGridLocation(match[0]);
+        setGridSearchLoading(false);
+      },
+      (err) => {
+        setGridSearchError(err.code === err.PERMISSION_DENIED
+          ? "Location access was denied. You can search by city name instead."
+          : "Couldn't get your location. Please try searching by city name."
+        );
+        setGridSearchLoading(false);
+      },
+      { timeout: 8000 }
+    );
+  }
+
+  async function handleGridSearch(e: React.FormEvent) {
+    e.preventDefault();
+    if (!gridSearchQuery.trim()) return;
+    setGridSearchError(null);
+    setGridSearchLoading(true);
+    try {
+      const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
+      const res = await fetch(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(gridSearchQuery)}.json?access_token=${token}&country=US&types=place,locality,neighborhood&limit=1`
+      );
+      const data = await res.json();
+      if (!data.features || data.features.length === 0) {
+        setGridSearchError("We couldn't find that location. Try a city name like 'Lafayette' or 'Baton Rouge'.");
+        setGridSearchLoading(false);
+        return;
+      }
+      const [lng, lat] = data.features[0].center;
+      const placeName: string = data.features[0].place_name ?? "";
+      const isLouisiana = placeName.toLowerCase().includes("louisiana") || placeName.toLowerCase().includes(", la");
+      if (!isLouisiana) {
+        setGridSearchError(`We're not in ${data.features[0].text ?? gridSearchQuery} yet — but we're growing fast! 🚀`);
+        setGridSearchLoading(false);
+        return;
+      }
+      // Match to a known area
+      const areas = Object.entries(GRID_AREA_BOUNDS);
+      const match = areas.find(([, b]) => lat >= b.latMin && lat <= b.latMax && lng >= b.lngMin && lng <= b.lngMax);
+      if (match) {
+        setGridLocation(match[0]);
+        setGridSearchError(null);
+      } else {
+        setGridSearchError(`We're not in ${data.features[0].text ?? gridSearchQuery} yet — but we're growing across Louisiana! 🚀`);
+      }
+    } catch {
+      setGridSearchError("Search failed. Please try again.");
+    }
+    setGridSearchLoading(false);
+  }
 
   return (
     <>
@@ -266,6 +342,46 @@ export default function DiscoverPage() {
             <span style={{ fontSize: 12, fontWeight: 700, color: "#C8A97E", whiteSpace: "nowrap", minWidth: 90, textAlign: "right" }}>
               ${gridPriceRange[0]} — {gridPriceRange[1] >= 150 ? "$150+" : `$${gridPriceRange[1]}`}
             </span>
+          </div>
+
+          {/* Search bar row — identical to map search bar */}
+          <div style={{ padding: "10px 16px", borderBottom: "1px solid #18181b", background: "#0a0a0a" }}>
+            <form onSubmit={handleGridSearch} style={{ display: "flex", gap: 8 }}>
+              <div style={{ flex: 1, position: "relative" }}>
+                <span style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", fontSize: 14, color: "#52525b", pointerEvents: "none" }}>🔍</span>
+                <input
+                  type="text"
+                  value={gridSearchQuery}
+                  onChange={(e) => { setGridSearchQuery(e.target.value); setGridSearchError(null); }}
+                  placeholder="Search a city in Louisiana..."
+                  style={{ width: "100%", background: "#18181b", border: "1px solid #27272a", borderRadius: 10, padding: "8px 12px 8px 32px", fontSize: 12, color: "#f5f0e8", outline: "none", fontFamily: "'DM Sans', sans-serif", boxSizing: "border-box" as const }}
+                />
+              </div>
+              <button type="submit" disabled={gridSearchLoading}
+                style={{ background: "#C8A97E", color: "#0a0a0a", border: "none", borderRadius: 10, padding: "8px 16px", fontSize: 12, fontWeight: 700, cursor: gridSearchLoading ? "wait" : "pointer", fontFamily: "'DM Sans', sans-serif", whiteSpace: "nowrap", opacity: gridSearchLoading ? 0.7 : 1 }}>
+                {gridSearchLoading ? "..." : "Go"}
+              </button>
+            </form>
+            {gridSearchError && (
+              <div style={{ marginTop: 8, padding: "8px 12px", borderRadius: 8, background: "#1a1010", border: "1px solid #C8A97E44", fontSize: 11, color: "#C8A97E", lineHeight: 1.5, fontFamily: "'DM Sans', sans-serif" }}>
+                {gridSearchError}
+              </div>
+            )}
+            {gridLocationBanner && (
+              <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", background: "#0e0d0b", border: "1px solid #27272a", borderRadius: 10 }}>
+                <span style={{ fontSize: 14 }}>📍</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 11, fontWeight: 600, color: "#f5f0e8" }}>Find chefs near you</div>
+                  <div style={{ fontSize: 10, color: "#71717a" }}>Allow location to see nearby chefs</div>
+                </div>
+                <button onClick={handleGridUseMyLocation}
+                  style={{ background: "#C8A97E", color: "#0a0a0a", border: "none", borderRadius: 7, padding: "5px 12px", fontSize: 11, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'DM Sans', sans-serif" }}>
+                  Use My Location
+                </button>
+                <button onClick={() => setGridLocationBanner(false)}
+                  style={{ background: "none", border: "none", color: "#52525b", cursor: "pointer", fontSize: 15, lineHeight: 1 }}>×</button>
+              </div>
+            )}
           </div>
 
           {/* Sort row — same position as map search bar */}
