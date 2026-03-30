@@ -612,7 +612,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
               </Popup>
             )}
 
-            {/* Radius circle drawn as SVG inside Map — BEFORE markers and popup in JSX */}
+            {/* Ripple radius overlay */}
             {popupChef && (() => {
               const mapInstance = mapRef.current?.getMap?.();
               if (!mapInstance) return null;
@@ -622,8 +622,10 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
                 const radiusKm    = radiusMiles * 1.60934;
                 const radiusDeg   = radiusKm / 110.574;
                 const edgePoint   = mapInstance.project([popupChef.lng, popupChef.lat + radiusDeg]);
-                const radiusPx  = Math.abs(point.y - edgePoint.y);
+                const radiusPx    = Math.abs(point.y - edgePoint.y);
                 if (!radiusPx || radiusPx <= 0) return null;
+                const c   = popupChef.color;
+                const uid = `r${popupChef.id}`;
                 return (
                   <svg
                     key="radius-svg"
@@ -633,20 +635,64 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
                       width: "100%", height: "100%",
                       pointerEvents: "none",
                       zIndex: 0,
+                      overflow: "visible",
                     }}
                   >
-                    <circle
-                      cx={point.x} cy={point.y} r={radiusPx}
-                      fill={popupChef.color}
-                      fillOpacity={0.07}
-                    />
-                    <circle
-                      cx={point.x} cy={point.y} r={radiusPx}
+                    <defs>
+                      <radialGradient id={`${uid}-fill`} cx="50%" cy="50%" r="50%">
+                        <stop offset="60%" stopColor={c} stopOpacity={0} />
+                        <stop offset="100%" stopColor={c} stopOpacity={0.13} />
+                      </radialGradient>
+                      <filter id={`${uid}-glow`} x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur stdDeviation="2.5" result="blur" />
+                        <feMerge>
+                          <feMergeNode in="blur" />
+                          <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                      </filter>
+                      <style>{`
+                        @keyframes rp1-${uid} {
+                          0%   { r: ${radiusPx}px; opacity: 0.65; }
+                          100% { r: ${radiusPx * 1.18}px; opacity: 0; }
+                        }
+                        @keyframes rp2-${uid} {
+                          0%   { r: ${radiusPx}px; opacity: 0.45; }
+                          100% { r: ${radiusPx * 1.18}px; opacity: 0; }
+                        }
+                        @keyframes rp3-${uid} {
+                          0%   { r: ${radiusPx}px; opacity: 0.25; }
+                          100% { r: ${radiusPx * 1.18}px; opacity: 0; }
+                        }
+                      `}</style>
+                    </defs>
+
+                    {/* Soft radial fill */}
+                    <circle cx={point.x} cy={point.y} r={radiusPx}
+                      fill={`url(#${uid}-fill)`} />
+
+                    {/* Solid base ring with glow */}
+                    <circle cx={point.x} cy={point.y} r={radiusPx}
                       fill="none"
-                      stroke={popupChef.color}
-                      strokeWidth={1.2}
-                      strokeOpacity={0.9}
-                      strokeDasharray="6 4"
+                      stroke={c}
+                      strokeWidth={1.5}
+                      strokeOpacity={0.55}
+                      filter={`url(#${uid}-glow)`}
+                    />
+
+                    {/* Ripple 1 */}
+                    <circle cx={point.x} cy={point.y} r={radiusPx}
+                      fill="none" stroke={c} strokeWidth={1.5}
+                      style={{ animation: `rp1-${uid} 2.6s ease-out infinite` }}
+                    />
+                    {/* Ripple 2 */}
+                    <circle cx={point.x} cy={point.y} r={radiusPx}
+                      fill="none" stroke={c} strokeWidth={1}
+                      style={{ animation: `rp2-${uid} 2.6s ease-out 0.87s infinite` }}
+                    />
+                    {/* Ripple 3 */}
+                    <circle cx={point.x} cy={point.y} r={radiusPx}
+                      fill="none" stroke={c} strokeWidth={0.6}
+                      style={{ animation: `rp3-${uid} 2.6s ease-out 1.73s infinite` }}
                     />
                   </svg>
                 );
