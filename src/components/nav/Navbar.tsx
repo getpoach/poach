@@ -35,7 +35,7 @@ export function Navbar() {
             #7E9BC8, #B87EC8, #C87E7E, #C8A97E
           );
           background-size: 400% 100%;
-          animation: navBorderScroll 8s linear infinite;
+          animation: navBorderScroll 30s linear infinite;
         }
       `}</style>
       <nav className="poach-nav-border sticky top-0 z-40 bg-ink/95 backdrop-blur-xl">
