@@ -708,23 +708,49 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
                 );
               } catch { return null; }
             })()}
+            {/* Map overlay hint — bottom-center */}
+            <div style={{
+              position: "absolute",
+              bottom: 16,
+              left: "50%",
+              transform: "translateX(-50%)",
+              zIndex: 10,
+              pointerEvents: filteredCount === 0 ? "auto" : "none",
+            }}>
+              {filteredCount > 0 ? (
+                <div style={{
+                  background: "rgba(8,8,8,0.72)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid #ffffff12",
+                  borderRadius: 99,
+                  padding: "6px 16px",
+                  fontSize: 11,
+                  color: "#a1a1aa",
+                  whiteSpace: "nowrap",
+                }}>
+                  <span style={{ color: "#C8A97E", fontWeight: 700 }}>{filteredCount}</span>
+                  {" "}chef{filteredCount !== 1 ? "s" : ""} in this area · tap a pin to view
+                </div>
+              ) : (
+                <div style={{
+                  background: "rgba(8,8,8,0.82)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid #C8A97E44",
+                  borderRadius: 99,
+                  padding: "6px 16px",
+                  fontSize: 11,
+                  color: "#a1a1aa",
+                  whiteSpace: "nowrap",
+                  pointerEvents: "auto",
+                }}>
+                  No chefs match ·{" "}
+                  <button onClick={clearFilters} style={{ color: "#C8A97E", textDecoration: "underline", background: "none", border: "none", cursor: "pointer", fontSize: 11 }}>
+                    clear filters
+                  </button>
+                </div>
+              )}
+            </div>
           </Map>
-        </div>
-
-        {/* Bottom bar */}
-        <div style={{ padding: "10px 20px", borderTop: "1px solid #18181b", textAlign: "center" }}>
-          {filteredCount > 0 ? (
-            <span style={{ fontSize: 11, color: "#52525b" }}>
-              {filteredCount} chef{filteredCount !== 1 ? "s" : ""} in this area · tap a pin to view profile &amp; book
-            </span>
-          ) : (
-            <span style={{ fontSize: 11, color: "#52525b" }}>
-              No chefs match your filters ·{" "}
-              <button onClick={clearFilters} style={{ color: "#C8A97E", textDecoration: "underline", background: "none", border: "none", cursor: "pointer", fontSize: 11 }}>
-                clear filters
-              </button>
-            </span>
-          )}
         </div>
       </div>
 

@@ -320,9 +320,17 @@ export default function DiscoverPage() {
               from { opacity: 0; transform: translateY(24px); }
               to   { opacity: 1; transform: translateY(0); }
             }
-            .map-chef-card {
-              animation: cardFadeUp 0.4s ease both;
+            @keyframes tabArrow {
+              0%, 100% { transform: translateY(0); }
+              50%       { transform: translateY(4px); }
             }
+            @keyframes tabPulse {
+              0%, 100% { opacity: 1; }
+              50%       { opacity: 0.6; }
+            }
+            .map-chef-card { animation: cardFadeUp 0.4s ease both; }
+            .tab-arrow     { animation: tabArrow 1.2s ease-in-out infinite; display: inline-block; }
+            .tab-text      { animation: tabPulse 1.2s ease-in-out infinite; }
           `}</style>
 
           {/* Tab header — rounded top, connects flush to the panel below */}
@@ -342,8 +350,8 @@ export default function DiscoverPage() {
                 textTransform: "uppercase",
               }}
             >
-              <span style={{ fontSize: 14 }}>↓</span>
-              <span>Matching Chefs</span>
+              <span className="tab-arrow" style={{ fontSize: 14 }}>↓</span>
+              <span className="tab-text">Chefs Below</span>
             </div>
           </div>
 
