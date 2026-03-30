@@ -234,6 +234,21 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
     onFilteredChange?.(filteredChefsForParent);
   }, [filteredChefsForParent, onFilteredChange]);
 
+  // Glow border: is the map center within the selected chef's service radius?
+  const inRadius = useMemo(() => {
+    if (!popupChef) return false;
+    const toRad = (d: number) => (d * Math.PI) / 180;
+    const R = 3958.8; // miles
+    const dLat = toRad(viewState.latitude  - popupChef.lat);
+    const dLng = toRad(viewState.longitude - popupChef.lng);
+    const a =
+      Math.sin(dLat / 2) ** 2 +
+      Math.cos(toRad(popupChef.lat)) * Math.cos(toRad(viewState.latitude)) *
+      Math.sin(dLng / 2) ** 2;
+    const distMiles = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return distMiles <= (popupChef.serviceRadius ?? 10);
+  }, [popupChef, viewState.latitude, viewState.longitude]);
+
 
   const handleAreaFilter = useCallback((value: string) => {
     setLocationFilter(value);
@@ -524,7 +539,24 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
         )}
 
         {/* Map — explicit height, position relative, NO overflow hidden on any ancestor */}
-        <div style={{ height: 340, position: "relative" }}>
+        <style>{`
+          @keyframes radiusGlow {
+            0%, 100% { box-shadow: 0 0 0px 0px var(--glow-color), inset 0 0 0px 0px var(--glow-color); }
+            50%       { box-shadow: 0 0 28px 6px var(--glow-color), inset 0 0 20px 3px var(--glow-color); }
+          }
+          .map-in-radius { animation: radiusGlow 1.6s ease-in-out infinite; }
+        `}</style>
+        <div
+          className={inRadius && popupChef ? "map-in-radius" : undefined}
+          style={{
+            height: 340,
+            position: "relative",
+            transition: "box-shadow 0.5s ease",
+            ...(inRadius && popupChef
+              ? { ["--glow-color" as string]: popupChef.color + "99" }
+              : {}),
+          }}
+        >
           <Map
             ref={mapRef}
             mapboxAccessToken={MAPBOX_TOKEN}
