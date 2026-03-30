@@ -398,45 +398,7 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
           </div>
         </div>
 
-        {/* Location permission banner */}
-        {locationBanner && (
-          <div style={{
-            padding: "10px 20px",
-            borderBottom: "1px solid #18181b",
-            background: "#0e0d0b",
-            display: "flex", alignItems: "center", gap: 10,
-          }}>
-            <span style={{ fontSize: 16 }}>📍</span>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 12, fontWeight: 600, color: "#f5f0e8" }}>
-                Find chefs near you
-              </div>
-              <div style={{ fontSize: 11, color: "#71717a", marginTop: 1 }}>
-                Allow location access to see chefs in your area
-              </div>
-            </div>
-            <button
-              onClick={handleUseMyLocation}
-              style={{
-                background: "#C8A97E", color: "#0a0a0a", border: "none",
-                borderRadius: 8, padding: "6px 14px", fontSize: 11,
-                fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap",
-                fontFamily: "'DM Sans', sans-serif",
-              }}
-            >
-              Use My Location
-            </button>
-            <button
-              onClick={() => setLocationBanner(false)}
-              style={{
-                background: "none", border: "none", color: "#52525b",
-                cursor: "pointer", fontSize: 16, lineHeight: 1, padding: "0 2px",
-              }}
-            >
-              ×
-            </button>
-          </div>
-        )}
+
 
         {/* Price slider row */}
         <div style={{ padding: "10px 20px", borderBottom: "1px solid #18181b", background: "#0b0b0b", display: "flex", alignItems: "center", gap: 12 }}>
@@ -509,6 +471,40 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
               fontFamily: "'DM Sans', sans-serif",
             }}>
               {searchError}
+            </div>
+          )}
+          {/* Use My Location — directly under search input */}
+          {locationBanner && (
+            <div style={{
+              marginTop: 8,
+              display: "flex", alignItems: "center", gap: 8,
+              padding: "8px 10px",
+              background: "#0e0d0b",
+              border: "1px solid #27272a",
+              borderRadius: 10,
+            }}>
+              <span style={{ fontSize: 14 }}>📍</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 11, fontWeight: 600, color: "#f5f0e8" }}>Find chefs near you</div>
+                <div style={{ fontSize: 10, color: "#71717a" }}>Allow location to see nearby chefs</div>
+              </div>
+              <button
+                onClick={handleUseMyLocation}
+                style={{
+                  background: "#C8A97E", color: "#0a0a0a", border: "none",
+                  borderRadius: 7, padding: "5px 12px", fontSize: 11,
+                  fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap",
+                  fontFamily: "'DM Sans', sans-serif",
+                }}
+              >
+                Use My Location
+              </button>
+              <button
+                onClick={() => setLocationBanner(false)}
+                style={{ background: "none", border: "none", color: "#52525b", cursor: "pointer", fontSize: 15, lineHeight: 1 }}
+              >
+                ×
+              </button>
             </div>
           )}
         </div>
