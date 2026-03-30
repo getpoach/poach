@@ -182,7 +182,6 @@ export default function DiscoverPage() {
 
       {/* ── Results header + grid filters ─────────────────────────────────── */}
       {viewMode === "grid" && (
-        {/* Grid header + map-style filter panel */}
         <div style={{ borderBottom: "1px solid #18181b" }}>
           {/* Header bar */}
           <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "14px 20px" }}>
