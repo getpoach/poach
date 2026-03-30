@@ -32,8 +32,28 @@ export default function DiscoverPage() {
   const [sortBy, setSortBy]           = useState<SortOption>("nearest");
   const [gridFiltersOpen, setGridFiltersOpen] = useState(false);
   const [mapFilteredChefs, setMapFilteredChefs] = useState<Chef[]>(allChefs);
-  const [gridPriceRange, setGridPriceRange]   = useState<[number, number]>([0, 150]);
+  const [gridPriceRange, setGridPriceRange]     = useState<[number, number]>([0, 150]);
   const [gridAvailability, setGridAvailability] = useState("all");
+  const [gridLocation, setGridLocation]         = useState("all");
+
+  const GRID_AREA_FILTERS = [
+    { label: "All Areas",     value: "all" },
+    { label: "Lafayette",     value: "lafayette" },
+    { label: "Baton Rouge",   value: "batonrouge" },
+    { label: "New Iberia",    value: "newiberia" },
+    { label: "Opelousas",     value: "opelousas" },
+    { label: "Breaux Bridge", value: "breauxbridge" },
+    { label: "Crowley",       value: "crowley" },
+  ];
+
+  const GRID_AREA_BOUNDS: Record<string, { latMin: number; latMax: number; lngMin: number; lngMax: number }> = {
+    lafayette:    { latMin: 30.17, latMax: 30.30, lngMin: -92.08, lngMax: -91.95 },
+    batonrouge:   { latMin: 30.35, latMax: 30.55, lngMin: -91.25, lngMax: -91.05 },
+    newiberia:    { latMin: 29.98, latMax: 30.05, lngMin: -91.85, lngMax: -91.75 },
+    opelousas:    { latMin: 30.49, latMax: 30.57, lngMin: -92.12, lngMax: -92.05 },
+    breauxbridge: { latMin: 30.27, latMax: 30.32, lngMin: -91.90, lngMax: -91.85 },
+    crowley:      { latMin: 30.20, latMax: 30.25, lngMin: -92.40, lngMax: -92.35 },
+  };
 
   const sorted = useMemo(() => {
     let arr = [...filtered];
