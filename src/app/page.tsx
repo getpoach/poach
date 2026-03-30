@@ -135,6 +135,8 @@ export default function DiscoverPage() {
 
       {/* ── View tabs ────────────────────────────────────────────────────── */}
       <div className="flex items-end gap-0 mb-0" style={{ marginBottom: 0 }}>
+        {/* Tab bar bottom line — left side */}
+        <div style={{ flex: 1, borderBottom: "1px solid #2a2a2a" }} />
         {(["grid", "map"] as const).map((m) => {
           const active = viewMode === m;
           return (
@@ -148,7 +150,7 @@ export default function DiscoverPage() {
                 border: "1px solid",
                 borderColor: active ? "#2a2a2a" : "transparent",
                 borderBottom: active ? "1px solid #111" : "1px solid #2a2a2a",
-                borderRadius: active ? "10px 10px 0 0" : "10px 10px 0 0",
+                borderRadius: "10px 10px 0 0",
                 marginBottom: active ? "-1px" : "0",
                 letterSpacing: "0.04em",
                 zIndex: active ? 2 : 1,
@@ -159,8 +161,6 @@ export default function DiscoverPage() {
             </button>
           );
         })}
-        {/* Tab bar bottom line */}
-        <div style={{ flex: 1, borderBottom: "1px solid #2a2a2a", marginBottom: 0 }} />
       </div>
 
       {/* Tab content wrapper */}
