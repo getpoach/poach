@@ -607,9 +607,11 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
               const mapInstance = mapRef.current?.getMap?.();
               if (!mapInstance) return null;
               try {
-                const point     = mapInstance.project([popupChef.lng, popupChef.lat]);
-                const radiusDeg = 16 / 110.574;
-                const edgePoint = mapInstance.project([popupChef.lng, popupChef.lat + radiusDeg]);
+                const point       = mapInstance.project([popupChef.lng, popupChef.lat]);
+                const radiusMiles = popupChef.serviceRadius ?? 10;
+                const radiusKm    = radiusMiles * 1.60934;
+                const radiusDeg   = radiusKm / 110.574;
+                const edgePoint   = mapInstance.project([popupChef.lng, popupChef.lat + radiusDeg]);
                 const radiusPx  = Math.abs(point.y - edgePoint.y);
                 if (!radiusPx || radiusPx <= 0) return null;
                 return (

@@ -22,6 +22,7 @@ export const chefs: Chef[] = [
     experience: "14 years",
     trained: "Le Cordon Bleu, Paris",
     headshot: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=600&q=80",
+    serviceRadius: 20,
     portfolioImages: [
       "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&q=80",
       "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",
@@ -55,6 +56,7 @@ export const chefs: Chef[] = [
     experience: "11 years",
     trained: "Basque Culinary Center, Spain",
     headshot: "https://images.unsplash.com/photo-1595273670150-bd0c3c392e46?w=600&q=80",
+    serviceRadius: 12,
     portfolioImages: [
       "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=800&q=80",
       "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80",
@@ -88,6 +90,7 @@ export const chefs: Chef[] = [
     experience: "8 years",
     trained: "Tulane Culinary Program",
     headshot: "https://images.unsplash.com/photo-1583394293214-0b3b0abbe9d0?w=600&q=80",
+    serviceRadius: 35,
     portfolioImages: [
       "https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=800&q=80",
       "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=800&q=80",
@@ -121,6 +124,7 @@ export const chefs: Chef[] = [
     experience: "12 years",
     trained: "École Ferrandi, Paris",
     headshot: "https://images.unsplash.com/photo-1555244162-803834f70033?w=600&q=80",
+    serviceRadius: 8,
     portfolioImages: [
       "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80",
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
@@ -154,6 +158,7 @@ export const chefs: Chef[] = [
     experience: "10 years",
     trained: "Self-taught, Oaxaca de Juárez",
     headshot: "https://images.unsplash.com/photo-1584466977773-e625c37cdd50?w=600&q=80",
+    serviceRadius: 50,
     portfolioImages: [
       "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&q=80",
       "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",
@@ -189,6 +194,7 @@ export const chefs: Chef[] = [
     experience: "9 years",
     trained: "Nicholls State Culinary Arts",
     headshot: "https://images.unsplash.com/photo-1573225342350-16731dd9bf83?w=600&q=80",
+    serviceRadius: 25,
     portfolioImages: [
       "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80",
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
@@ -222,6 +228,7 @@ export const chefs: Chef[] = [
     experience: "6 years",
     trained: "NOCCA Culinary Arts",
     headshot: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80",
+    serviceRadius: 15,
     portfolioImages: [
       "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&q=80",
       "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",
@@ -257,6 +264,7 @@ export const chefs: Chef[] = [
     experience: "22 years",
     trained: "Self-taught, family tradition",
     headshot: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80",
+    serviceRadius: 40,
     portfolioImages: [
       "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80",
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
@@ -290,6 +298,7 @@ export const chefs: Chef[] = [
     experience: "7 years",
     trained: "Le Cordon Bleu, Atlanta",
     headshot: "https://images.unsplash.com/photo-1571513722275-4b41940f54b8?w=600&q=80",
+    serviceRadius: 10,
     portfolioImages: [
       "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&q=80",
       "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",
@@ -325,6 +334,7 @@ export const chefs: Chef[] = [
     experience: "10 years",
     trained: "Basque Culinary Center, Spain",
     headshot: "https://images.unsplash.com/photo-1595273670150-bd0c3c392e46?w=600&q=80",
+    serviceRadius: 30,
     portfolioImages: [
       "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80",
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
@@ -358,6 +368,7 @@ export const chefs: Chef[] = [
     experience: "18 years",
     trained: "Johnson & Wales University",
     headshot: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=600&q=80",
+    serviceRadius: 45,
     portfolioImages: [
       "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&q=80",
       "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",
@@ -393,6 +404,7 @@ export const chefs: Chef[] = [
     experience: "7 years",
     trained: "Louisiana Culinary Institute",
     headshot: "https://images.unsplash.com/photo-1583394293214-0b3b0abbe9d0?w=600&q=80",
+    serviceRadius: 5,
     portfolioImages: [
       "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80",
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
@@ -426,6 +438,7 @@ export const chefs: Chef[] = [
     experience: "13 years",
     trained: "Sukiyabashi Jiro, Tokyo",
     headshot: "https://images.unsplash.com/photo-1622021142947-da7dedc7c39a?w=600&q=80",
+    serviceRadius: 18,
     portfolioImages: [
       "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&q=80",
       "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",
@@ -461,6 +474,7 @@ export const chefs: Chef[] = [
     experience: "20 years",
     trained: "Culinary Institute of America",
     headshot: "https://images.unsplash.com/photo-1581299894007-aaa50297cf16?w=600&q=80",
+    serviceRadius: 22,
     portfolioImages: [
       "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80",
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
@@ -494,6 +508,7 @@ export const chefs: Chef[] = [
     experience: "11 years",
     trained: "Osaka Culinary Academy, Japan",
     headshot: "https://images.unsplash.com/photo-1607631568010-a87245c0daf8?w=600&q=80",
+    serviceRadius: 38,
     portfolioImages: [
       "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&q=80",
       "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",

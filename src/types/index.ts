@@ -37,6 +37,8 @@ export interface Chef {
   headshot?: string;
   /** Up to 10 portfolio/dish images */
   portfolioImages?: string[];
+  /** Service radius in miles */
+  serviceRadius?: number;
 }
 
 export interface Booking {
