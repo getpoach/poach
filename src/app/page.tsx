@@ -31,6 +31,7 @@ export default function DiscoverPage() {
   const [bookingChef, setBookingChef] = useState<Chef | null>(null);
   const [sortBy, setSortBy]           = useState<SortOption>("nearest");
   const [gridFiltersOpen, setGridFiltersOpen] = useState(false);
+  const [mapFilteredChefs, setMapFilteredChefs] = useState<Chef[]>(allChefs);
   const [gridPriceRange, setGridPriceRange]   = useState<[number, number]>([0, 150]);
   const [gridAvailability, setGridAvailability] = useState("all");
 
@@ -160,6 +161,7 @@ export default function DiscoverPage() {
             setViewMode("grid");
             setViewChef(chef);
           }}
+          onFilteredChange={setMapFilteredChefs}
         />
       )}
 
@@ -314,10 +316,10 @@ export default function DiscoverPage() {
       {viewMode === "map" && (
         <>
           <div className="text-sm text-muted mb-4 mt-2">
-            <span className="text-white font-bold">{allChefs.length}</span> chefs available
+            <span className="text-white font-bold">{mapFilteredChefs.length}</span> chefs available
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-            {allChefs.map((chef) => (
+            {mapFilteredChefs.map((chef) => (
               <ChefCard
                 key={chef.id}
                 chef={chef}
@@ -325,6 +327,13 @@ export default function DiscoverPage() {
                 onView={setViewChef}
               />
             ))}
+            {mapFilteredChefs.length === 0 && (
+              <div className="col-span-3 text-center py-16 text-muted">
+                <div className="text-4xl mb-3">🍴</div>
+                <div className="font-display text-lg">No chefs match your filters</div>
+                <div className="text-sm mt-1">Try adjusting the map filters</div>
+              </div>
+            )}
           </div>
         </>
       )}

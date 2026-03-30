@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo, useCallback, useRef } from "react";
+import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import Map, { Marker, Popup, NavigationControl } from "react-map-gl/mapbox";
 import type { MapRef } from "react-map-gl/mapbox";
 // GeoJSON types are included via @types/geojson (installed with mapbox-gl)
@@ -59,6 +59,7 @@ const AVAILABILITY_OPTIONS = [
 interface ChefMapProps {
   chefs: Chef[];
   onSelect?: (chef: Chef) => void;
+  onFilteredChange?: (chefs: Chef[]) => void;
 }
 
 function FilterPill({ label, active, color, onClick }: {
@@ -172,7 +173,7 @@ function ChefPin({ chef, active, dimmed }: { chef: Chef; active: boolean; dimmed
   );
 }
 
-export function ChefMap({ chefs, onSelect }: ChefMapProps) {
+export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
   const mapRef = useRef<MapRef>(null);
   const { addBooking } = useBookings();
 
@@ -223,6 +224,15 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
     if (chef.price < priceRange[0] || chef.price > priceRange[1]) return false;
     return true;
   }).map((c) => c.id)), [chefs, locationFilter, cuisineFilter, availabilityFilter, priceRange]);
+
+  // Notify parent whenever the filtered set changes
+  const filteredChefsForParent = useMemo(
+    () => chefs.filter((c) => filteredIds.has(c.id)),
+    [chefs, filteredIds]
+  );
+  useEffect(() => {
+    onFilteredChange?.(filteredChefsForParent);
+  }, [filteredChefsForParent, onFilteredChange]);
 
 
   const handleAreaFilter = useCallback((value: string) => {
