@@ -13,12 +13,32 @@ export function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-40 bg-ink/95 backdrop-blur-xl" style={{
-      borderBottom: "1px solid transparent",
-      backgroundImage: `linear-gradient(#080808f2, #080808f2), linear-gradient(to right, #C8A97E, #7EC8C8, #C87E7E, #B87EC8, #C8B87E, #7EC87E, #C8A97E, #7E9BC8, #C8C87E, #C87E7E, #7EC87E, #B87EC8, #7E9BC8, #C8A97E, #7EC8C8)`,
-      backgroundOrigin: "border-box",
-      backgroundClip: "padding-box, border-box",
-    }}>
+    <>
+      <style>{`
+        @keyframes navBorderScroll {
+          0%   { background-position: 0% 0; }
+          100% { background-position: 400% 0; }
+        }
+        .poach-nav-border {
+          position: relative;
+        }
+        .poach-nav-border::after {
+          content: "";
+          position: absolute;
+          bottom: 0; left: 0; right: 0;
+          height: 1px;
+          background: linear-gradient(
+            to right,
+            #C8A97E, #C8C87E, #7EC87E, #7EC8C8,
+            #7E9BC8, #B87EC8, #C87E7E, #C8B87E,
+            #C8A97E, #C8C87E, #7EC87E, #7EC8C8,
+            #7E9BC8, #B87EC8, #C87E7E, #C8A97E
+          );
+          background-size: 400% 100%;
+          animation: navBorderScroll 8s linear infinite;
+        }
+      `}</style>
+      <nav className="poach-nav-border sticky top-0 z-40 bg-ink/95 backdrop-blur-xl">
       <div className="max-w-6xl mx-auto px-6 flex items-center h-16 gap-5">
 
         {/* Logo */}
@@ -63,5 +83,6 @@ export function Navbar() {
         </Link>
       </div>
     </nav>
+  </>
   );
 }
