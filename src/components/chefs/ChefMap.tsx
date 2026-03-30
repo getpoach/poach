@@ -602,46 +602,45 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
               </Popup>
             )}
 
+            {/* SVG radius circle — inside map container so position:absolute is relative to map */}
+            {popupChef && (() => {
+              const mapInstance = mapRef.current?.getMap?.();
+              if (!mapInstance) return null;
+              try {
+                const point     = mapInstance.project([popupChef.lng, popupChef.lat]);
+                const radiusDeg = 16 / 110.574;
+                const edgePoint = mapInstance.project([popupChef.lng, popupChef.lat + radiusDeg]);
+                const radiusPx  = Math.abs(point.y - edgePoint.y);
+                if (!radiusPx || radiusPx <= 0) return null;
+                return (
+                  <svg
+                    style={{
+                      position: "absolute",
+                      top: 0, left: 0,
+                      width: "100%", height: "100%",
+                      pointerEvents: "none",
+                      zIndex: 2,
+                    }}
+                  >
+                    <circle
+                      cx={point.x} cy={point.y} r={radiusPx}
+                      fill={popupChef.color}
+                      fillOpacity={0.08}
+                    />
+                    <circle
+                      cx={point.x} cy={point.y} r={radiusPx}
+                      fill="none"
+                      stroke={popupChef.color}
+                      strokeWidth={2.5}
+                      strokeOpacity={1}
+                      strokeDasharray="8 5"
+                    />
+                  </svg>
+                );
+              } catch { return null; }
+            })()}
           </Map>
         </div>
-
-        {/* SVG radius circle overlay */}
-        {popupChef && (() => {
-          const mapInstance = mapRef.current?.getMap?.();
-          if (!mapInstance) return null;
-          try {
-            const point    = mapInstance.project([popupChef.lng, popupChef.lat]);
-            const radiusDeg = 16 / 110.574;
-            const edgePoint = mapInstance.project([popupChef.lng, popupChef.lat + radiusDeg]);
-            const radiusPx  = Math.abs(point.y - edgePoint.y);
-            if (!radiusPx || radiusPx <= 0) return null;
-            return (
-              <svg
-                style={{
-                  position: "absolute",
-                  top: 0, left: 0,
-                  width: "100%", height: "100%",
-                  pointerEvents: "none",
-                  zIndex: 2,
-                }}
-              >
-                <circle
-                  cx={point.x} cy={point.y} r={radiusPx}
-                  fill={popupChef.color}
-                  fillOpacity={0.08}
-                />
-                <circle
-                  cx={point.x} cy={point.y} r={radiusPx}
-                  fill="none"
-                  stroke={popupChef.color}
-                  strokeWidth={2.5}
-                  strokeOpacity={1}
-                  strokeDasharray="8 5"
-                />
-              </svg>
-            );
-          } catch { return null; }
-        })()}
 
         {/* Bottom bar */}
         <div style={{ padding: "10px 20px", borderTop: "1px solid #18181b", textAlign: "center" }}>
