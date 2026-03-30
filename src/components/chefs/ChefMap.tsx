@@ -605,45 +605,42 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
           </Map>
         </div>
 
-        {/* SVG radius circle overlay — rendered outside Mapbox so color is never overridden */}
+        {/* SVG radius circle overlay */}
         {popupChef && (() => {
-          const map = mapRef.current;
-          if (!map) return null;
-          // Project chef lat/lng to pixel position
-          const point = map.project([popupChef.lng, popupChef.lat]);
-          // Project a point ~10 miles north to get pixel radius
-          const radiusDeg = 16 / 110.574;
-          const edgePoint = map.project([popupChef.lng, popupChef.lat + radiusDeg]);
-          const radiusPx = Math.abs(point.y - edgePoint.y);
-          const cx = point.x;
-          const cy = point.y;
-          return (
-            <svg
-              style={{
-                position: "absolute",
-                top: 0, left: 0,
-                width: "100%", height: "100%",
-                pointerEvents: "none",
-                zIndex: 2,
-              }}
-            >
-              {/* Filled area */}
-              <circle
-                cx={cx} cy={cy} r={radiusPx}
-                fill={popupChef.color}
-                fillOpacity={0.08}
-              />
-              {/* Dashed outline */}
-              <circle
-                cx={cx} cy={cy} r={radiusPx}
-                fill="none"
-                stroke={popupChef.color}
-                strokeWidth={2.5}
-                strokeOpacity={1}
-                strokeDasharray="8 5"
-              />
-            </svg>
-          );
+          const mapInstance = mapRef.current?.getMap?.();
+          if (!mapInstance) return null;
+          try {
+            const point    = mapInstance.project([popupChef.lng, popupChef.lat]);
+            const radiusDeg = 16 / 110.574;
+            const edgePoint = mapInstance.project([popupChef.lng, popupChef.lat + radiusDeg]);
+            const radiusPx  = Math.abs(point.y - edgePoint.y);
+            if (!radiusPx || radiusPx <= 0) return null;
+            return (
+              <svg
+                style={{
+                  position: "absolute",
+                  top: 0, left: 0,
+                  width: "100%", height: "100%",
+                  pointerEvents: "none",
+                  zIndex: 2,
+                }}
+              >
+                <circle
+                  cx={point.x} cy={point.y} r={radiusPx}
+                  fill={popupChef.color}
+                  fillOpacity={0.08}
+                />
+                <circle
+                  cx={point.x} cy={point.y} r={radiusPx}
+                  fill="none"
+                  stroke={popupChef.color}
+                  strokeWidth={2.5}
+                  strokeOpacity={1}
+                  strokeDasharray="8 5"
+                />
+              </svg>
+            );
+          } catch { return null; }
         })()}
 
         {/* Bottom bar */}
