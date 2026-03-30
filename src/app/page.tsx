@@ -69,7 +69,8 @@ export default function DiscoverPage() {
   }, [filtered, sortBy, gridPriceRange, gridAvailability]);
 
   const gridActiveFilters = (gridPriceRange[0] > 0 || gridPriceRange[1] < 150 ? 1 : 0) +
-    (gridAvailability !== "all" ? 1 : 0);
+    (gridAvailability !== "all" ? 1 : 0) +
+    (cuisine !== "All" ? 1 : 0);
 
   return (
     <>
@@ -132,28 +133,9 @@ export default function DiscoverPage() {
         </div>
       </div>
 
-      {/* ── Search + Filter bar ────────────────────────────────────────────── */}
-      <div className="flex items-center gap-3 mb-5 flex-wrap">
-        <div className="flex gap-2 overflow-x-auto no-scrollbar flex-1">
-          {CUISINES.map((c) => (
-            <button
-              key={c}
-              onClick={() => setCuisine(c === "All" ? "All" : (c as typeof cuisine))}
-              className="shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold transition-all"
-              style={{
-                border: `1px solid ${cuisine === c ? "#C8A97E" : "#222"}`,
-                background: cuisine === c ? "#C8A97E15" : "#111",
-                color: cuisine === c ? "#C8A97E" : "#777",
-                cursor: "pointer",
-              }}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
-
-        {/* View toggle */}
-        <div className="flex gap-1 bg-zinc-900 rounded-xl p-1 shrink-0">
+      {/* ── View toggle ───────────────────────────────────────────────────── */}
+      <div className="flex justify-end mb-5">
+        <div className="flex gap-1 bg-zinc-900 rounded-xl p-1">
           {(["grid", "map"] as const).map((m) => (
             <button
               key={m}
@@ -293,11 +275,31 @@ export default function DiscoverPage() {
                 </div>
               </div>
 
+              {/* Cuisine */}
+              <div className="flex flex-col gap-2 w-full">
+                <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest">🍽️ Cuisine</span>
+                <div className="flex flex-wrap gap-2">
+                  {CUISINES.map((c) => (
+                    <button
+                      key={c}
+                      onClick={() => setCuisine(c === "All" ? "All" : (c as typeof cuisine))}
+                      className="px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer border"
+                      style={cuisine === c
+                        ? { background: "#C8A97E15", borderColor: "#C8A97E", color: "#C8A97E" }
+                        : { background: "transparent", borderColor: "#27272a", color: "#71717a" }
+                      }
+                    >
+                      {c}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               {/* Clear */}
               {gridActiveFilters > 0 && (
                 <div className="flex items-end">
                   <button
-                    onClick={() => { setGridPriceRange([0, 150]); setGridAvailability("all"); }}
+                    onClick={() => { setGridPriceRange([0, 150]); setGridAvailability("all"); setCuisine("All"); }}
                     className="text-xs text-zinc-500 hover:text-zinc-300 underline underline-offset-2 cursor-pointer"
                   >
                     Clear filters
