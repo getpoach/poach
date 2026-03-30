@@ -1,6 +1,6 @@
 "use client";
 import { useState, useMemo, useCallback, useRef } from "react";
-import Map, { Marker, Popup, NavigationControl, Source, Layer } from "react-map-gl/mapbox";
+import Map, { Marker, Popup, NavigationControl } from "react-map-gl/mapbox";
 import type { MapRef } from "react-map-gl/mapbox";
 // GeoJSON types are included via @types/geojson (installed with mapbox-gl)
 import type { Chef, Review } from "@/types";
@@ -55,22 +55,6 @@ const AVAILABILITY_OPTIONS = [
   { label: "Weekend",   value: "weekend" },
   { label: "Weekdays",  value: "weekdays" },
 ];
-
-function buildCircleGeoJSON(lat: number, lng: number, radiusKm: number = 16) {
-  const steps = 64;
-  const coords: [number, number][] = [];
-  for (let i = 0; i <= steps; i++) {
-    const angle = (i / steps) * 2 * Math.PI;
-    const dx = (radiusKm / 111.32) * Math.cos(angle) / Math.cos((lat * Math.PI) / 180);
-    const dy = (radiusKm / 110.574) * Math.sin(angle);
-    coords.push([lng + dx, lat + dy]);
-  }
-  return {
-    type: "Feature",
-    geometry: { type: "Polygon", coordinates: [coords] },
-    properties: {},
-  };
-}
 
 interface ChefMapProps {
   chefs: Chef[];
@@ -193,6 +177,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
   const { addBooking } = useBookings();
 
   const [popupChef, setPopupChef]     = useState<Chef | null>(null);
+  const [viewState, setViewState]     = useState({ longitude: LAFAYETTE.lng, latitude: LAFAYETTE.lat, zoom: DEFAULT_ZOOM });
   const [drawerChef, setDrawerChef]   = useState<Chef | null>(null);
   const [bookingChef, setBookingChef] = useState<Chef | null>(null);
   const [reviews]                     = useState<Review[]>(allReviews);
@@ -534,6 +519,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
             ref={mapRef}
             mapboxAccessToken={MAPBOX_TOKEN}
             initialViewState={{ longitude: LAFAYETTE.lng, latitude: LAFAYETTE.lat, zoom: DEFAULT_ZOOM }}
+            onMove={(evt) => setViewState(evt.viewState)}
             style={{ width: "100%", height: "100%" }}
             mapStyle="mapbox://styles/poach/cmnax21j0004401sjemgk6n4h"
             maxBounds={[[-92.89, 29.50], [-91.15, 30.95]]}
@@ -615,34 +601,50 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
                 </div>
               </Popup>
             )}
-            {/* Radius circle — drawn declaratively so color always matches */}
-            {popupChef && (() => {
-              const geojson = buildCircleGeoJSON(popupChef.lat, popupChef.lng);
-              return (
-                <Source id="chef-radius" type="geojson" data={geojson}>
-                  <Layer
-                    id="chef-radius-fill"
-                    type="fill"
-                    paint={{
-                      "fill-color": popupChef.color,
-                      "fill-opacity": 0.1,
-                    }}
-                  />
-                  <Layer
-                    id="chef-radius-outline"
-                    type="line"
-                    paint={{
-                      "line-color": popupChef.color,
-                      "line-width": 2.5,
-                      "line-opacity": 1,
-                      "line-dasharray": [4, 3],
-                    }}
-                  />
-                </Source>
-              );
-            })()}
+
           </Map>
         </div>
+
+        {/* SVG radius circle overlay — rendered outside Mapbox so color is never overridden */}
+        {popupChef && (() => {
+          const map = mapRef.current;
+          if (!map) return null;
+          // Project chef lat/lng to pixel position
+          const point = map.project([popupChef.lng, popupChef.lat]);
+          // Project a point ~10 miles north to get pixel radius
+          const radiusDeg = 16 / 110.574;
+          const edgePoint = map.project([popupChef.lng, popupChef.lat + radiusDeg]);
+          const radiusPx = Math.abs(point.y - edgePoint.y);
+          const cx = point.x;
+          const cy = point.y;
+          return (
+            <svg
+              style={{
+                position: "absolute",
+                top: 0, left: 0,
+                width: "100%", height: "100%",
+                pointerEvents: "none",
+                zIndex: 2,
+              }}
+            >
+              {/* Filled area */}
+              <circle
+                cx={cx} cy={cy} r={radiusPx}
+                fill={popupChef.color}
+                fillOpacity={0.08}
+              />
+              {/* Dashed outline */}
+              <circle
+                cx={cx} cy={cy} r={radiusPx}
+                fill="none"
+                stroke={popupChef.color}
+                strokeWidth={2.5}
+                strokeOpacity={1}
+                strokeDasharray="8 5"
+              />
+            </svg>
+          );
+        })()}
 
         {/* Bottom bar */}
         <div style={{ padding: "10px 20px", borderTop: "1px solid #18181b", textAlign: "center" }}>
