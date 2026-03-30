@@ -133,41 +133,56 @@ export default function DiscoverPage() {
         </div>
       </div>
 
-      {/* ── View toggle ───────────────────────────────────────────────────── */}
-      <div className="flex justify-end mb-5">
-        <div className="flex gap-1 bg-zinc-900 rounded-xl p-1">
-          {(["grid", "map"] as const).map((m) => (
+      {/* ── View tabs ────────────────────────────────────────────────────── */}
+      <div className="flex items-end gap-0 mb-0" style={{ marginBottom: 0 }}>
+        {(["grid", "map"] as const).map((m) => {
+          const active = viewMode === m;
+          return (
             <button
               key={m}
               onClick={() => setViewMode(m)}
-              className="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all"
+              className="px-5 py-2.5 text-xs font-bold transition-all cursor-pointer"
               style={{
-                background: viewMode === m ? "#222" : "transparent",
-                color: viewMode === m ? "#F5F0E8" : "#666",
-                cursor: "pointer",
+                background: active ? "#111" : "transparent",
+                color: active ? "#F5F0E8" : "#555",
+                border: "1px solid",
+                borderColor: active ? "#2a2a2a" : "transparent",
+                borderBottom: active ? "1px solid #111" : "1px solid #2a2a2a",
+                borderRadius: active ? "10px 10px 0 0" : "10px 10px 0 0",
+                marginBottom: active ? "-1px" : "0",
+                letterSpacing: "0.04em",
+                zIndex: active ? 2 : 1,
+                position: "relative",
               }}
             >
-              {m === "grid" ? "▦ Grid" : "📍 Map"}
+              {m === "grid" ? "▦  Grid" : "📍  Map"}
             </button>
-          ))}
-        </div>
+          );
+        })}
+        {/* Tab bar bottom line */}
+        <div style={{ flex: 1, borderBottom: "1px solid #2a2a2a", marginBottom: 0 }} />
       </div>
+
+      {/* Tab content wrapper */}
+      <div style={{ border: "1px solid #2a2a2a", borderTop: "none", borderRadius: "0 0 16px 16px", background: "#111", padding: "20px 0 0 0", marginBottom: 28 }}>
 
       {/* ── Map view ──────────────────────────────────────────────────────── */}
       {viewMode === "map" && (
-        <ChefMap
-          chefs={allChefs}
-          onSelect={(chef) => {
-            setViewMode("grid");
-            setViewChef(chef);
-          }}
-          onFilteredChange={setMapFilteredChefs}
-        />
+        <div className="px-5">
+          <ChefMap
+            chefs={allChefs}
+            onSelect={(chef) => {
+              setViewMode("grid");
+              setViewChef(chef);
+            }}
+            onFilteredChange={setMapFilteredChefs}
+          />
+        </div>
       )}
 
       {/* ── Results header + grid filters ─────────────────────────────────── */}
       {viewMode === "grid" && (
-        <div className="mb-4">
+        <div className="mb-4 px-5">
           {/* Top row */}
           <div className="flex items-center justify-between mb-2">
             <div className="text-sm text-muted">
@@ -333,33 +348,38 @@ export default function DiscoverPage() {
             .tab-text      { animation: tabPulse 1.2s ease-in-out infinite; }
           `}</style>
 
-          {/* Tab header — rounded top, connects flush to the panel below */}
-          <div className="flex items-center justify-between mt-3" style={{ marginBottom: 0 }}>
-            <div className="text-sm text-muted px-1">
-              <span className="text-white font-bold">{mapFilteredChefs.length}</span> chefs available
-            </div>
+          {/* Chef cards tab row */}
+          <div className="flex items-end gap-0 mt-4" style={{ marginBottom: 0 }}>
             <div
-              className="flex items-center gap-2 px-5 py-2.5 rounded-t-xl text-xs font-bold select-none"
+              className="flex items-center gap-2 px-5 py-2.5 text-xs font-bold select-none"
               style={{
-                background: "#C8A97E18",
-                border: "1px solid #C8A97E66",
-                borderBottom: "none",
+                background: "#0a0a0a",
+                border: "1px solid #C8A97E55",
+                borderBottom: "1px solid #0a0a0a",
+                borderRadius: "10px 10px 0 0",
                 color: "#C8A97E",
-                letterSpacing: "0.06em",
-                boxShadow: "0 -4px 16px #C8A97E22",
+                letterSpacing: "0.05em",
                 textTransform: "uppercase",
+                marginBottom: "-1px",
+                zIndex: 2,
+                position: "relative",
               }}
             >
-              <span className="tab-arrow" style={{ fontSize: 14 }}>↓</span>
+              <span className="tab-arrow" style={{ fontSize: 13 }}>↓</span>
               <span className="tab-text">Chefs Below</span>
+            </div>
+            <div style={{ flex: 1, borderBottom: "1px solid #C8A97E55" }} />
+            <div className="text-xs text-zinc-500 pb-1 pr-1">
+              <span className="text-white font-bold">{mapFilteredChefs.length}</span> matching
             </div>
           </div>
 
-          {/* Panel that the tab "caps" — same border color, no top-right corner */}
+          {/* Panel the tab sits on */}
           <div
-            className="mb-8 p-4 rounded-b-2xl rounded-tl-2xl"
+            className="mb-8 p-4 rounded-b-2xl rounded-tr-2xl"
             style={{
-              border: "1px solid #C8A97E66",
+              border: "1px solid #C8A97E55",
+              borderTop: "none",
               background: "#0a0a0a",
             }}
           >
@@ -391,7 +411,7 @@ export default function DiscoverPage() {
 
       {/* ── Chef grid ──────────────────────────────────────────────────────── */}
       {viewMode === "grid" && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-5 pb-5">
           {sorted.map((chef) => (
             <ChefCard
               key={chef.id}
@@ -409,6 +429,8 @@ export default function DiscoverPage() {
           )}
         </div>
       )}
+
+      </div>{/* end tab content wrapper */}
 
       {/* ── Chef CTA ───────────────────────────────────────────────────────── */}
       <div
