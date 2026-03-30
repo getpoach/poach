@@ -183,7 +183,7 @@ export default function DiscoverPage() {
       {/* ── Results header + grid filters ─────────────────────────────────── */}
       {viewMode === "grid" && (
         <div>
-          {/* Header — identical structure to map header */}
+          {/* Header — exact copy of map header */}
           <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "14px 20px", borderBottom: "1px solid #18181b" }}>
             <span style={{ color: "#C8A97E" }}>▦</span>
             <span style={{ fontWeight: 700, color: "#fff", fontSize: 15, fontFamily: "var(--font-playfair)" }}>Chefs</span>
@@ -217,25 +217,49 @@ export default function DiscoverPage() {
                   </span>
                 )}
               </button>
-              {/* Sort — styled as pills matching map filter pills */}
-              {SORT_OPTIONS.map((s) => {
-                const active = sortBy === s.value;
-                return (
-                  <button key={s.value} onClick={() => setSortBy(s.value)}
-                    style={{
-                      padding: "6px 12px", borderRadius: 99, fontSize: 11, fontWeight: 600, cursor: "pointer",
-                      border: `1px solid ${active ? "#C8A97E" : "#3f3f46"}`,
-                      color: active ? "#C8A97E" : "#a1a1aa",
-                      background: active ? "#D4AF3712" : "transparent",
-                    }}>
-                    {active && "✓ "}{s.label}
-                  </button>
-                );
-              })}
+              <span style={{ background: "#18181b", borderRadius: 99, padding: "4px 12px", fontSize: 11, color: "#71717a" }}>
+                Louisiana
+              </span>
             </div>
           </div>
 
-          {/* Filter panel — pixel-identical to map filter panel */}
+          {/* Price slider row — always visible, same as map */}
+          <div style={{ padding: "10px 20px", borderBottom: "1px solid #18181b", background: "#0b0b0b", display: "flex", alignItems: "center", gap: 12 }}>
+            <span style={{ fontSize: 11, fontWeight: 700, color: "#71717a", whiteSpace: "nowrap" }}>💰 Price / person</span>
+            <div style={{ position: "relative", flex: 1, height: 20, display: "flex", alignItems: "center" }}>
+              <div style={{ position: "absolute", left: 0, right: 0, height: 3, background: "#27272a", borderRadius: 99 }} />
+              <div style={{ position: "absolute", left: `${(gridPriceRange[0]/150)*100}%`, right: `${100-(gridPriceRange[1]/150)*100}%`, height: 3, background: "#C8A97E", borderRadius: 99 }} />
+              <input type="range" min={0} max={150} step={5} value={gridPriceRange[0]}
+                onChange={(e) => setGridPriceRange([Math.min(Number(e.target.value), gridPriceRange[1]-5), gridPriceRange[1]])}
+                style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }} />
+              <input type="range" min={0} max={150} step={5} value={gridPriceRange[1]}
+                onChange={(e) => setGridPriceRange([gridPriceRange[0], Math.max(Number(e.target.value), gridPriceRange[0]+5)])}
+                style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }} />
+            </div>
+            <span style={{ fontSize: 12, fontWeight: 700, color: "#C8A97E", whiteSpace: "nowrap", minWidth: 90, textAlign: "right" }}>
+              ${gridPriceRange[0]} — {gridPriceRange[1] >= 150 ? "$150+" : `$${gridPriceRange[1]}`}
+            </span>
+          </div>
+
+          {/* Sort row — same position as map search bar */}
+          <div style={{ padding: "10px 16px", borderBottom: "1px solid #18181b", background: "#0a0a0a", display: "flex", alignItems: "center", gap: 6 }}>
+            <span style={{ fontSize: 11, color: "#52525b", fontWeight: 600 }}>Sort:</span>
+            {SORT_OPTIONS.map((s) => {
+              const active = sortBy === s.value;
+              return (
+                <button key={s.value} onClick={() => setSortBy(s.value)}
+                  className="px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 whitespace-nowrap border cursor-pointer"
+                  style={active
+                    ? { background: "#C8A97E", borderColor: "#C8A97E", color: "#0a0a0a" }
+                    : { borderColor: "#3f3f46", color: "#a1a1aa", background: "transparent" }
+                  }>
+                  {active && "✓ "}{s.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Collapsible filter panel — exact copy of map filter panel */}
           {gridFiltersOpen && (
             <div style={{ padding: "16px 20px", display: "flex", flexDirection: "column", gap: 16, background: "#060A06", borderBottom: "1px solid #18181b" }}>
               {/* Cuisine */}
@@ -258,7 +282,6 @@ export default function DiscoverPage() {
                   })}
                 </div>
               </div>
-
               {/* Availability */}
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-1.5">
@@ -279,36 +302,12 @@ export default function DiscoverPage() {
                   })}
                 </div>
               </div>
-
-              {/* Price */}
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-1.5">
-                  <span className="text-sm">💰</span>
-                  <span className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest">Price / person</span>
-                  <span style={{ marginLeft: "auto", fontSize: 11, fontWeight: 700, color: "#C8A97E" }}>
-                    ${gridPriceRange[0]} — {gridPriceRange[1] >= 150 ? "$150+" : `$${gridPriceRange[1]}`}
-                  </span>
-                </div>
-                <div style={{ position: "relative", height: 20, display: "flex", alignItems: "center" }}>
-                  <div style={{ position: "absolute", left: 0, right: 0, height: 3, background: "#27272a", borderRadius: 99 }} />
-                  <div style={{ position: "absolute", left: `${(gridPriceRange[0]/150)*100}%`, right: `${100-(gridPriceRange[1]/150)*100}%`, height: 3, background: "#C8A97E", borderRadius: 99 }} />
-                  <input type="range" min={0} max={150} step={5} value={gridPriceRange[0]}
-                    onChange={(e) => setGridPriceRange([Math.min(Number(e.target.value), gridPriceRange[1]-5), gridPriceRange[1]])}
-                    style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }} />
-                  <input type="range" min={0} max={150} step={5} value={gridPriceRange[1]}
-                    onChange={(e) => setGridPriceRange([gridPriceRange[0], Math.max(Number(e.target.value), gridPriceRange[0]+5)])}
-                    style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }} />
-                </div>
-                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: "#52525b" }}>
-                  <span>$0</span><span>$150+</span>
-                </div>
-              </div>
             </div>
           )}
         </div>
       )}
 
-      {/* Results count + card strip for map view */}
+            {/* Results count + card strip for map view */}
       {viewMode === "map" && (
         <>
           <style>{`
