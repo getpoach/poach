@@ -11,8 +11,8 @@ import { useBookings } from "@/hooks/useBookings";
 import { reviews as allReviews } from "@/data/reviews";
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
-const LAFAYETTE = { lat: 30.2241, lng: -92.0198 };
-const DEFAULT_ZOOM = 9;
+const LOUISIANA_CENTER = { lat: 31.0, lng: -91.8 };
+const DEFAULT_ZOOM = 7;
 
 const AREA_FILTERS = [
   { label: "All Areas",     value: "all" },
@@ -178,7 +178,7 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
   const { addBooking } = useBookings();
 
   const [popupChef, setPopupChef]     = useState<Chef | null>(null);
-  const [viewState, setViewState]     = useState({ longitude: LAFAYETTE.lng, latitude: LAFAYETTE.lat, zoom: DEFAULT_ZOOM });
+  const [viewState, setViewState]     = useState({ longitude: LOUISIANA_CENTER.lng, latitude: LOUISIANA_CENTER.lat, zoom: DEFAULT_ZOOM });
   const [drawerChef, setDrawerChef]   = useState<Chef | null>(null);
   const [bookingChef, setBookingChef] = useState<Chef | null>(null);
   const [reviews]                     = useState<Review[]>(allReviews);
@@ -254,7 +254,7 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
     setLocationFilter(value);
     setPopupChef(null);
     const target = value === "all"
-      ? { lng: LAFAYETTE.lng, lat: LAFAYETTE.lat, zoom: DEFAULT_ZOOM }
+      ? { lng: LOUISIANA_CENTER.lng, lat: LOUISIANA_CENTER.lat, zoom: DEFAULT_ZOOM }
       : AREA_CENTERS[value];
     if (target && mapRef.current) {
       mapRef.current.flyTo({ center: [target.lng, target.lat], zoom: target.zoom, duration: 1200 });
@@ -349,7 +349,7 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
     setAvailabilityFilter("all");
     setPriceRange([0, 150]);
     setPopupChef(null);
-    mapRef.current?.flyTo({ center: [LAFAYETTE.lng, LAFAYETTE.lat], zoom: DEFAULT_ZOOM, duration: 1000 });
+    mapRef.current?.flyTo({ center: [LOUISIANA_CENTER.lng, LOUISIANA_CENTER.lat], zoom: DEFAULT_ZOOM, duration: 1000 });
   }
 
   const filteredCount = chefs.filter((c) => filteredIds.has(c.id)).length;
@@ -393,7 +393,7 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
               )}
             </button>
             <span style={{ background: "#18181b", borderRadius: 99, padding: "4px 12px", fontSize: 11, color: "#71717a" }}>
-              Lafayette Area
+              Louisiana
             </span>
           </div>
         </div>
@@ -556,11 +556,11 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
           <Map
             ref={mapRef}
             mapboxAccessToken={MAPBOX_TOKEN}
-            initialViewState={{ longitude: LAFAYETTE.lng, latitude: LAFAYETTE.lat, zoom: DEFAULT_ZOOM }}
+            initialViewState={{ longitude: LOUISIANA_CENTER.lng, latitude: LOUISIANA_CENTER.lat, zoom: DEFAULT_ZOOM }}
             onMove={(evt) => setViewState(evt.viewState)}
             style={{ width: "100%", height: "100%" }}
             mapStyle="mapbox://styles/poach/cmnax21j0004401sjemgk6n4h"
-            maxBounds={[[-92.89, 29.50], [-91.15, 30.95]]}
+            maxBounds={[[-94.5, 28.8], [-88.5, 33.1]]}
             onClick={() => setPopupChef(null)}
           >
             <NavigationControl position="top-right" showCompass={false} />
