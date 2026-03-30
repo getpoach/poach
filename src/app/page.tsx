@@ -315,42 +315,68 @@ export default function DiscoverPage() {
       {/* Results count + card strip for map view */}
       {viewMode === "map" && (
         <>
-          <div className="flex items-center justify-between mb-4 mt-3">
-            <div className="text-sm text-muted">
+          <style>{`
+            @keyframes cardFadeUp {
+              from { opacity: 0; transform: translateY(24px); }
+              to   { opacity: 1; transform: translateY(0); }
+            }
+            .map-chef-card {
+              animation: cardFadeUp 0.4s ease both;
+            }
+          `}</style>
+
+          {/* Tab header — rounded top, connects flush to the panel below */}
+          <div className="flex items-center justify-between mt-3" style={{ marginBottom: 0 }}>
+            <div className="text-sm text-muted px-1">
               <span className="text-white font-bold">{mapFilteredChefs.length}</span> chefs available
             </div>
             <div
-              className="flex items-center gap-2 px-4 py-2 rounded-t-xl text-xs font-bold cursor-pointer select-none"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-t-xl text-xs font-bold select-none"
               style={{
                 background: "#C8A97E18",
-                border: "1px solid #C8A97E55",
+                border: "1px solid #C8A97E66",
                 borderBottom: "none",
                 color: "#C8A97E",
-                letterSpacing: "0.04em",
-                boxShadow: "0 -2px 12px #C8A97E18",
+                letterSpacing: "0.06em",
+                boxShadow: "0 -4px 16px #C8A97E22",
+                textTransform: "uppercase",
               }}
-              onClick={() => window.scrollBy({ top: 300, behavior: "smooth" })}
             >
-              <span style={{ fontSize: 15 }}>↓</span>
-              <span>Chefs Below</span>
+              <span style={{ fontSize: 14 }}>↓</span>
+              <span>Matching Chefs</span>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-            {mapFilteredChefs.map((chef) => (
-              <ChefCard
-                key={chef.id}
-                chef={chef}
-                onBook={setBookingChef}
-                onView={setViewChef}
-              />
-            ))}
-            {mapFilteredChefs.length === 0 && (
-              <div className="col-span-3 text-center py-16 text-muted">
-                <div className="text-4xl mb-3">🍴</div>
-                <div className="font-display text-lg">No chefs match your filters</div>
-                <div className="text-sm mt-1">Try adjusting the map filters</div>
-              </div>
-            )}
+
+          {/* Panel that the tab "caps" — same border color, no top-right corner */}
+          <div
+            className="mb-8 p-4 rounded-b-2xl rounded-tl-2xl"
+            style={{
+              border: "1px solid #C8A97E66",
+              background: "#0a0a0a",
+            }}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {mapFilteredChefs.map((chef, i) => (
+                <div
+                  key={chef.id}
+                  className="map-chef-card"
+                  style={{ animationDelay: `${i * 60}ms` }}
+                >
+                  <ChefCard
+                    chef={chef}
+                    onBook={setBookingChef}
+                    onView={setViewChef}
+                  />
+                </div>
+              ))}
+              {mapFilteredChefs.length === 0 && (
+                <div className="col-span-3 text-center py-16 text-muted">
+                  <div className="text-4xl mb-3">🍴</div>
+                  <div className="font-display text-lg">No chefs match your filters</div>
+                  <div className="text-sm mt-1">Try adjusting the map filters</div>
+                </div>
+              )}
+            </div>
           </div>
         </>
       )}
