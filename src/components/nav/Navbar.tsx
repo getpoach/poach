@@ -33,18 +33,6 @@ export function Navbar() {
           />
         </Link>
 
-        <div className="flex-1 max-w-sm relative">
-          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-600 text-sm">🔍</span>
-          <input
-            placeholder="Search chefs, cuisine, dish..."
-            className="w-full bg-zinc-900 border border-zinc-800 rounded-full py-2 pl-9 pr-4 text-sm text-white placeholder:text-zinc-600 outline-none focus:border-zinc-700 transition-colors"
-            onChange={(e) => {
-              const event = new CustomEvent("poach-search", { detail: e.target.value });
-              window.dispatchEvent(event);
-            }}
-          />
-        </div>
-
         <div className="flex gap-1 ml-auto">
           {navLinks.map(({ href, label }) => (
             <Link

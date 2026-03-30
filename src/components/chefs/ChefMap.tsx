@@ -576,6 +576,16 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
                     <div>
                       <div style={{ color: "#fff", fontWeight: 700, fontSize: 13 }}>{popupChef.name}</div>
                       <div style={{ color: "#888", fontSize: 11 }}>{popupChef.location}</div>
+                      <div style={{
+                        marginTop: 3, fontSize: 10, fontWeight: 600,
+                        color: popupChef.color,
+                        background: popupChef.color + "15",
+                        border: `1px solid ${popupChef.color}40`,
+                        borderRadius: 99, padding: "1px 7px",
+                        display: "inline-block",
+                      }}>
+                        📍 {popupChef.serviceRadius ?? 10} mi serving area
+                      </div>
                     </div>
                   </div>
                   <div style={{ display: "flex", gap: 4, flexWrap: "wrap", marginBottom: 10 }}>

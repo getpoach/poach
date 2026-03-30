@@ -29,10 +29,30 @@ export default function DiscoverPage() {
   const [viewMode, setViewMode] = useState<"grid" | "map">("grid");
   const [viewChef, setViewChef] = useState<Chef | null>(null);
   const [bookingChef, setBookingChef] = useState<Chef | null>(null);
-  const [sortBy, setSortBy] = useState<SortOption>("nearest");
+  const [sortBy, setSortBy]           = useState<SortOption>("nearest");
+  const [gridFiltersOpen, setGridFiltersOpen] = useState(false);
+  const [gridPriceRange, setGridPriceRange]   = useState<[number, number]>([0, 150]);
+  const [gridAvailability, setGridAvailability] = useState("all");
+
+  const AVAILABILITY_DAYS: Record<string, string[]> = {
+    all:      ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
+    weekend:  ["Sat","Sun"],
+    weekdays: ["Mon","Tue","Wed","Thu","Fri"],
+  };
 
   const sorted = useMemo(() => {
-    const arr = [...filtered];
+    let arr = [...filtered];
+
+    // Grid filters
+    arr = arr.filter((chef) => {
+      if (chef.price < gridPriceRange[0] || chef.price > gridPriceRange[1]) return false;
+      if (gridAvailability !== "all") {
+        const allowed = AVAILABILITY_DAYS[gridAvailability] ?? [];
+        if (!chef.available.some((d) => allowed.includes(d))) return false;
+      }
+      return true;
+    });
+
     switch (sortBy) {
       case "rating":
         return arr.sort((a, b) => b.rating - a.rating);
@@ -40,14 +60,16 @@ export default function DiscoverPage() {
         return arr.sort((a, b) => a.price - b.price);
       case "nearest":
       default:
-        // Use distance string — strip " mi" and parse float
         return arr.sort((a, b) => {
           const da = parseFloat(a.distance.replace(" mi", ""));
           const db = parseFloat(b.distance.replace(" mi", ""));
           return da - db;
         });
     }
-  }, [filtered, sortBy]);
+  }, [filtered, sortBy, gridPriceRange, gridAvailability]);
+
+  const gridActiveFilters = (gridPriceRange[0] > 0 || gridPriceRange[1] < 150 ? 1 : 0) +
+    (gridAvailability !== "all" ? 1 : 0);
 
   return (
     <>
@@ -160,32 +182,139 @@ export default function DiscoverPage() {
         />
       )}
 
-      {/* ── Results header ─────────────────────────────────────────────────── */}
-      <div className="flex items-center justify-between mb-4">
-        <div className="text-sm text-muted">
-          <span className="text-white font-bold">{sorted.length}</span> chefs available
-        </div>
-        <div className="flex gap-1.5">
-          {SORT_OPTIONS.map((s) => {
-            const active = sortBy === s.value;
-            return (
+      {/* ── Results header + grid filters ─────────────────────────────────── */}
+      {viewMode === "grid" && (
+        <div className="mb-4">
+          {/* Top row */}
+          <div className="flex items-center justify-between mb-2">
+            <div className="text-sm text-muted">
+              <span className="text-white font-bold">{sorted.length}</span> chefs available
+            </div>
+            <div className="flex items-center gap-2">
+              {/* Filter toggle */}
               <button
-                key={s.value}
-                onClick={() => setSortBy(s.value)}
-                className="rounded-lg px-3 py-1.5 text-xs font-semibold transition-all cursor-pointer"
+                onClick={() => setGridFiltersOpen((v) => !v)}
+                className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all cursor-pointer"
                 style={{
-                  background: active ? "#C8A97E15" : "#18181b",
-                  border: `1px solid ${active ? "#C8A97E" : "#27272a"}`,
-                  color: active ? "#C8A97E" : "#71717a",
+                  background: gridFiltersOpen || gridActiveFilters > 0 ? "#C8A97E15" : "#18181b",
+                  border: `1px solid ${gridFiltersOpen || gridActiveFilters > 0 ? "#C8A97E" : "#27272a"}`,
+                  color: gridFiltersOpen || gridActiveFilters > 0 ? "#C8A97E" : "#71717a",
                 }}
               >
-                {active && <span style={{ marginRight: 4 }}>✓</span>}
-                {s.label}
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                  <path d="M1 3h10M3 6h6M5 9h2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+                Filters
+                {gridActiveFilters > 0 && (
+                  <span className="bg-[#C8A97E] text-zinc-950 rounded-full w-4 h-4 flex items-center justify-center text-[10px] font-bold">
+                    {gridActiveFilters}
+                  </span>
+                )}
               </button>
-            );
-          })}
+              {/* Sort buttons */}
+              {SORT_OPTIONS.map((s) => {
+                const active = sortBy === s.value;
+                return (
+                  <button
+                    key={s.value}
+                    onClick={() => setSortBy(s.value)}
+                    className="rounded-lg px-3 py-1.5 text-xs font-semibold transition-all cursor-pointer"
+                    style={{
+                      background: active ? "#C8A97E15" : "#18181b",
+                      border: `1px solid ${active ? "#C8A97E" : "#27272a"}`,
+                      color: active ? "#C8A97E" : "#71717a",
+                    }}
+                  >
+                    {active && <span style={{ marginRight: 4 }}>✓</span>}
+                    {s.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Expandable filter panel */}
+          {gridFiltersOpen && (
+            <div
+              className="rounded-xl p-4 mb-4 flex flex-wrap gap-6"
+              style={{ background: "#0f0f0f", border: "1px solid #1e1e1e" }}
+            >
+              {/* Price range */}
+              <div className="flex flex-col gap-2" style={{ minWidth: 220, flex: 1 }}>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest">💰 Price / person</span>
+                  <span className="text-xs font-bold text-[#C8A97E]">
+                    ${gridPriceRange[0]} — {gridPriceRange[1] >= 150 ? "$150+" : `$${gridPriceRange[1]}`}
+                  </span>
+                </div>
+                <div style={{ position: "relative", height: 20, display: "flex", alignItems: "center" }}>
+                  <div style={{ position: "absolute", left: 0, right: 0, height: 3, background: "#27272a", borderRadius: 99 }} />
+                  <div style={{
+                    position: "absolute",
+                    left: `${(gridPriceRange[0] / 150) * 100}%`,
+                    right: `${100 - (gridPriceRange[1] / 150) * 100}%`,
+                    height: 3, background: "#C8A97E", borderRadius: 99,
+                  }} />
+                  <input type="range" min={0} max={150} step={5} value={gridPriceRange[0]}
+                    onChange={(e) => setGridPriceRange([Math.min(Number(e.target.value), gridPriceRange[1] - 5), gridPriceRange[1]])}
+                    style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }}
+                  />
+                  <input type="range" min={0} max={150} step={5} value={gridPriceRange[1]}
+                    onChange={(e) => setGridPriceRange([gridPriceRange[0], Math.max(Number(e.target.value), gridPriceRange[0] + 5)])}
+                    style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }}
+                  />
+                </div>
+                <div className="flex justify-between text-[10px] text-zinc-600">
+                  <span>$0</span><span>$150+</span>
+                </div>
+              </div>
+
+              {/* Availability */}
+              <div className="flex flex-col gap-2">
+                <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest">🕐 Availability</span>
+                <div className="flex gap-2">
+                  {[
+                    { label: "Any Day", value: "all" },
+                    { label: "Weekdays", value: "weekdays" },
+                    { label: "Weekends", value: "weekend" },
+                  ].map((a) => (
+                    <button
+                      key={a.value}
+                      onClick={() => setGridAvailability(a.value)}
+                      className="px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer border"
+                      style={gridAvailability === a.value
+                        ? { background: "#A78BFA20", borderColor: "#A78BFA", color: "#A78BFA" }
+                        : { background: "transparent", borderColor: "#27272a", color: "#71717a" }
+                      }
+                    >
+                      {a.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Clear */}
+              {gridActiveFilters > 0 && (
+                <div className="flex items-end">
+                  <button
+                    onClick={() => { setGridPriceRange([0, 150]); setGridAvailability("all"); }}
+                    className="text-xs text-zinc-500 hover:text-zinc-300 underline underline-offset-2 cursor-pointer"
+                  >
+                    Clear filters
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
-      </div>
+      )}
+
+      {/* Results count for map view */}
+      {viewMode === "map" && (
+        <div className="text-sm text-muted mb-4">
+          <span className="text-white font-bold">{filtered.length}</span> chefs available
+        </div>
+      )}
 
       {/* ── Chef grid ──────────────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

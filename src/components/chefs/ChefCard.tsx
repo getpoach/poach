@@ -35,6 +35,10 @@ export function ChefCard({ chef, onBook, onView }: ChefCardProps) {
           <div className="text-xs text-muted mt-0.5">
             {chef.location} · {chef.distance}
           </div>
+          <div className="text-[10px] mt-1 font-semibold"
+            style={{ color: chef.color }}>
+            📍 {chef.serviceRadius ?? 10} mi serving area
+          </div>
         </div>
         <div className="text-right shrink-0">
           <div

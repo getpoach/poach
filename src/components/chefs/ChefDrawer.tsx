@@ -174,6 +174,10 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                 {chef.reviewCount} reviews · {chef.bookingCount} bookings · {chef.experience}
               </div>
               <div className="text-xs text-zinc-500 mt-0.5">🎓 {chef.trained}</div>
+              <div className="text-xs mt-1.5 inline-flex items-center gap-1.5 px-2 py-1 rounded-full"
+                style={{ background: chef.color + "15", border: `1px solid ${chef.color}40`, color: chef.color }}>
+                📍 Serves up to {chef.serviceRadius ?? 10} miles
+              </div>
             </div>
           </div>
 
