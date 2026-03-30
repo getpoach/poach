@@ -319,9 +319,20 @@ export default function DiscoverPage() {
             <div className="text-sm text-muted">
               <span className="text-white font-bold">{mapFilteredChefs.length}</span> chefs available
             </div>
-            <div className="flex items-center gap-1.5 text-xs text-zinc-500 animate-bounce">
-              <span>↓</span>
-              <span>Scroll for chefs</span>
+            <div
+              className="flex items-center gap-2 px-4 py-2 rounded-t-xl text-xs font-bold cursor-pointer select-none"
+              style={{
+                background: "#C8A97E18",
+                border: "1px solid #C8A97E55",
+                borderBottom: "none",
+                color: "#C8A97E",
+                letterSpacing: "0.04em",
+                boxShadow: "0 -2px 12px #C8A97E18",
+              }}
+              onClick={() => window.scrollBy({ top: 300, behavior: "smooth" })}
+            >
+              <span style={{ fontSize: 15 }}>↓</span>
+              <span>Chefs Below</span>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
