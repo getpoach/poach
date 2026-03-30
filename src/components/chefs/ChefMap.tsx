@@ -99,8 +99,9 @@ function ChefPin({ chef, active, dimmed }: { chef: Chef; active: boolean; dimmed
     <div
       className="flex flex-col items-center select-none"
       style={{
-        opacity: dimmed ? 0.2 : 1,
-        transition: "opacity 0.2s, transform 0.18s",
+        opacity: dimmed ? 0.12 : 1,
+        filter: dimmed ? "grayscale(0.5)" : "none",
+        transition: "opacity 0.35s ease, filter 0.35s ease, transform 0.18s",
         transform: active ? "scale(1.12)" : "scale(1)",
         cursor: dimmed ? "default" : "pointer",
       }}
@@ -577,7 +578,11 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
                   setPopupChef((prev) => prev?.id === chef.id ? null : chef);
                 }}
               >
-                <ChefPin chef={chef} active={popupChef?.id === chef.id} dimmed={!filteredIds.has(chef.id)} />
+                <ChefPin
+                  chef={chef}
+                  active={popupChef?.id === chef.id}
+                  dimmed={!filteredIds.has(chef.id) || (popupChef !== null && popupChef.id !== chef.id)}
+                />
               </Marker>
             ))}
 
