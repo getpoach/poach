@@ -34,24 +34,23 @@ export default function DiscoverPage() {
   const [gridPriceRange, setGridPriceRange]   = useState<[number, number]>([0, 150]);
   const [gridAvailability, setGridAvailability] = useState("all");
 
-  const AVAILABILITY_DAYS: Record<string, string[]> = {
-    all:      ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-    weekend:  ["Sat","Sun"],
-    weekdays: ["Mon","Tue","Wed","Thu","Fri"],
-  };
-
   const sorted = useMemo(() => {
     let arr = [...filtered];
 
-    // Grid filters
-    arr = arr.filter((chef) => {
-      if (chef.price < gridPriceRange[0] || chef.price > gridPriceRange[1]) return false;
-      if (gridAvailability !== "all") {
-        const allowed = AVAILABILITY_DAYS[gridAvailability] ?? [];
-        if (!chef.available.some((d) => allowed.includes(d))) return false;
-      }
-      return true;
-    });
+    // Only apply price filter if user has actually moved the slider
+    const priceActive = gridPriceRange[0] > 0 || gridPriceRange[1] < 150;
+    if (priceActive) {
+      arr = arr.filter((chef) => chef.price >= gridPriceRange[0] && chef.price <= gridPriceRange[1]);
+    }
+
+    // Only apply availability filter if not "all"
+    if (gridAvailability !== "all") {
+      const allowed: string[] = {
+        weekdays: ["Mon","Tue","Wed","Thu","Fri"],
+        weekend:  ["Sat","Sun"],
+      }[gridAvailability] ?? [];
+      arr = arr.filter((chef) => chef.available.some((d) => allowed.includes(d)));
+    }
 
     switch (sortBy) {
       case "rating":
