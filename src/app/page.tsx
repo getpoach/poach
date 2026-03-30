@@ -38,6 +38,12 @@ export default function DiscoverPage() {
   const sorted = useMemo(() => {
     let arr = [...filtered];
 
+    // Location filter
+    if (gridLocation !== "all") {
+      const b = GRID_AREA_BOUNDS[gridLocation];
+      if (b) arr = arr.filter((chef) => chef.lat >= b.latMin && chef.lat <= b.latMax && chef.lng >= b.lngMin && chef.lng <= b.lngMax);
+    }
+
     // Only apply price filter if user has actually moved the slider
     const priceActive = gridPriceRange[0] > 0 || gridPriceRange[1] < 150;
     if (priceActive) {
@@ -66,11 +72,12 @@ export default function DiscoverPage() {
           return da - db;
         });
     }
-  }, [filtered, sortBy, gridPriceRange, gridAvailability]);
+  }, [filtered, sortBy, gridPriceRange, gridAvailability, gridLocation]);
 
   const gridActiveFilters = (gridPriceRange[0] > 0 || gridPriceRange[1] < 150 ? 1 : 0) +
     (gridAvailability !== "all" ? 1 : 0) +
-    (cuisine !== "All" ? 1 : 0);
+    (cuisine !== "All" ? 1 : 0) +
+    (gridLocation !== "all" ? 1 : 0);
 
   return (
     <>
@@ -192,7 +199,7 @@ export default function DiscoverPage() {
             </span>
             <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 8 }}>
               {gridActiveFilters > 0 && (
-                <button onClick={() => { setGridPriceRange([0, 150]); setGridAvailability("all"); setCuisine("All"); }}
+                <button onClick={() => { setGridPriceRange([0, 150]); setGridAvailability("all"); setCuisine("All"); setGridLocation("all"); }}
                   style={{ fontSize: 11, color: "#71717a", cursor: "pointer", background: "none", border: "none", textDecoration: "underline" }}>
                   Clear
                 </button>
@@ -262,6 +269,26 @@ export default function DiscoverPage() {
           {/* Collapsible filter panel — exact copy of map filter panel */}
           {gridFiltersOpen && (
             <div style={{ padding: "16px 20px", display: "flex", flexDirection: "column", gap: 16, background: "#060A06", borderBottom: "1px solid #18181b" }}>
+              {/* Location */}
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-sm">🗺️</span>
+                  <span className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest">Location</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {GRID_AREA_FILTERS.map((a) => {
+                    const active = gridLocation === a.value;
+                    return (
+                      <button key={a.value} onClick={() => setGridLocation(a.value)}
+                        className="px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 whitespace-nowrap border cursor-pointer"
+                        style={active
+                          ? { background: "#C8A97E", borderColor: "#C8A97E", color: "#0a0a0a" }
+                          : { borderColor: "#3f3f46", color: "#a1a1aa", background: "transparent" }
+                        }>{a.label}</button>
+                    );
+                  })}
+                </div>
+              </div>
               {/* Cuisine */}
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-1.5">
