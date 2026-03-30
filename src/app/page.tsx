@@ -310,11 +310,23 @@ export default function DiscoverPage() {
         </div>
       )}
 
-      {/* Results count for map view */}
+      {/* Results count + card strip for map view */}
       {viewMode === "map" && (
-        <div className="text-sm text-muted mb-4">
-          <span className="text-white font-bold">{filtered.length}</span> chefs available
-        </div>
+        <>
+          <div className="text-sm text-muted mb-4 mt-2">
+            <span className="text-white font-bold">{allChefs.length}</span> chefs available
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            {allChefs.map((chef) => (
+              <ChefCard
+                key={chef.id}
+                chef={chef}
+                onBook={setBookingChef}
+                onView={setViewChef}
+              />
+            ))}
+          </div>
+        </>
       )}
 
       {/* ── Chef grid ──────────────────────────────────────────────────────── */}
