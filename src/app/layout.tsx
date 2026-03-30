@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Playfair_Display, DM_Sans } from "next/font/google";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./globals.css";
-import { Navbar } from "@/components/nav/Navbar";
 import { AuthProvider } from "@/context/AuthContext";
 
 const playfair = Playfair_Display({
@@ -37,8 +36,7 @@ export default function RootLayout({
         className={`${playfair.variable} ${dmSans.variable} bg-ink text-white font-sans antialiased`}
       >
         <AuthProvider>
-          <Navbar />
-          <main className="max-w-6xl mx-auto px-6 py-8">{children}</main>
+          {children}
         </AuthProvider>
       </body>
     </html>
