@@ -69,7 +69,7 @@ function FilterPill({ label, active, color, onClick }: {
       onClick={onClick}
       className="px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 whitespace-nowrap border cursor-pointer"
       style={active
-        ? { background: color ?? "#D4AF37", borderColor: color ?? "#D4AF37", color: "#0a0a0a" }
+        ? { background: color ?? "#C8A97E", borderColor: color ?? "#C8A97E", color: "#0a0a0a" }
         : { borderColor: "#3f3f46", color: "#a1a1aa", background: "transparent" }
       }
     >
@@ -352,8 +352,8 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
               style={{
                 display: "flex", alignItems: "center", gap: 6, padding: "6px 12px",
                 borderRadius: 99, fontSize: 11, fontWeight: 600, cursor: "pointer",
-                border: `1px solid ${filtersOpen || activeFilterCount > 0 ? "#D4AF37" : "#3f3f46"}`,
-                color: filtersOpen || activeFilterCount > 0 ? "#D4AF37" : "#a1a1aa",
+                border: `1px solid ${filtersOpen || activeFilterCount > 0 ? "#C8A97E" : "#3f3f46"}`,
+                color: filtersOpen || activeFilterCount > 0 ? "#C8A97E" : "#a1a1aa",
                 background: filtersOpen || activeFilterCount > 0 ? "#D4AF3712" : "transparent",
               }}
             >
@@ -362,7 +362,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
               </svg>
               Filters
               {activeFilterCount > 0 && (
-                <span style={{ background: "#D4AF37", color: "#0a0a0a", borderRadius: 99, width: 16, height: 16, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700 }}>
+                <span style={{ background: "#C8A97E", color: "#0a0a0a", borderRadius: 99, width: 16, height: 16, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700 }}>
                   {activeFilterCount}
                 </span>
               )}
@@ -423,7 +423,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
               position: "absolute",
               left: `${(priceRange[0] / 150) * 100}%`,
               right: `${100 - (priceRange[1] / 150) * 100}%`,
-              height: 3, background: "#D4AF37", borderRadius: 99,
+              height: 3, background: "#C8A97E", borderRadius: 99,
             }} />
             <input type="range" min={0} max={150} step={5} value={priceRange[0]}
               onChange={(e) => setPriceRange([Math.min(Number(e.target.value), priceRange[1] - 5), priceRange[1]])}
@@ -434,7 +434,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
               style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }}
             />
           </div>
-          <span style={{ fontSize: 12, fontWeight: 700, color: "#D4AF37", whiteSpace: "nowrap", minWidth: 90, textAlign: "right" }}>
+          <span style={{ fontSize: 12, fontWeight: 700, color: "#C8A97E", whiteSpace: "nowrap", minWidth: 90, textAlign: "right" }}>
             ${priceRange[0]} — {priceRange[1] >= 150 ? "$150+" : `$${priceRange[1]}`}
           </span>
         </div>
@@ -494,7 +494,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
             <FilterSection icon="🗺️" label="Location">
               {AREA_FILTERS.map((a) => (
                 <FilterPill key={a.value} label={a.label} active={locationFilter === a.value}
-                  color="#D4AF37" onClick={() => handleAreaFilter(a.value)} />
+                  color="#C8A97E" onClick={() => handleAreaFilter(a.value)} />
               ))}
             </FilterSection>
             <FilterSection icon="🍽️" label="Cuisine">
@@ -664,7 +664,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
           ) : (
             <span style={{ fontSize: 11, color: "#52525b" }}>
               No chefs match your filters ·{" "}
-              <button onClick={clearFilters} style={{ color: "#D4AF37", textDecoration: "underline", background: "none", border: "none", cursor: "pointer", fontSize: 11 }}>
+              <button onClick={clearFilters} style={{ color: "#C8A97E", textDecoration: "underline", background: "none", border: "none", cursor: "pointer", fontSize: 11 }}>
                 clear filters
               </button>
             </span>
