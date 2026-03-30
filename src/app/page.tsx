@@ -222,33 +222,23 @@ export default function DiscoverPage() {
               className="rounded-xl p-4 mb-4 flex flex-wrap gap-6"
               style={{ background: "#0f0f0f", border: "1px solid #1e1e1e" }}
             >
-              {/* Price range */}
-              <div className="flex flex-col gap-2" style={{ minWidth: 220, flex: 1 }}>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest">💰 Price / person</span>
-                  <span className="text-xs font-bold text-[#C8A97E]">
-                    ${gridPriceRange[0]} — {gridPriceRange[1] >= 150 ? "$150+" : `$${gridPriceRange[1]}`}
-                  </span>
-                </div>
-                <div style={{ position: "relative", height: 20, display: "flex", alignItems: "center" }}>
-                  <div style={{ position: "absolute", left: 0, right: 0, height: 3, background: "#27272a", borderRadius: 99 }} />
-                  <div style={{
-                    position: "absolute",
-                    left: `${(gridPriceRange[0] / 150) * 100}%`,
-                    right: `${100 - (gridPriceRange[1] / 150) * 100}%`,
-                    height: 3, background: "#C8A97E", borderRadius: 99,
-                  }} />
-                  <input type="range" min={0} max={150} step={5} value={gridPriceRange[0]}
-                    onChange={(e) => setGridPriceRange([Math.min(Number(e.target.value), gridPriceRange[1] - 5), gridPriceRange[1]])}
-                    style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }}
-                  />
-                  <input type="range" min={0} max={150} step={5} value={gridPriceRange[1]}
-                    onChange={(e) => setGridPriceRange([gridPriceRange[0], Math.max(Number(e.target.value), gridPriceRange[0] + 5)])}
-                    style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }}
-                  />
-                </div>
-                <div className="flex justify-between text-[10px] text-zinc-600">
-                  <span>$0</span><span>$150+</span>
+              {/* Cuisine — matches map order: cuisine first */}
+              <div className="flex flex-col gap-2 w-full">
+                <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest">🍽️ Cuisine</span>
+                <div className="flex flex-wrap gap-2">
+                  {CUISINES.map((c) => (
+                    <button
+                      key={c}
+                      onClick={() => setCuisine(c === "All" ? "All" : (c as typeof cuisine))}
+                      className="px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer border"
+                      style={cuisine === c
+                        ? { background: "#C8A97E15", borderColor: "#C8A97E", color: "#C8A97E" }
+                        : { background: "transparent", borderColor: "#27272a", color: "#71717a" }
+                      }
+                    >
+                      {c}
+                    </button>
+                  ))}
                 </div>
               </div>
 
@@ -276,23 +266,33 @@ export default function DiscoverPage() {
                 </div>
               </div>
 
-              {/* Cuisine */}
-              <div className="flex flex-col gap-2 w-full">
-                <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest">🍽️ Cuisine</span>
-                <div className="flex flex-wrap gap-2">
-                  {CUISINES.map((c) => (
-                    <button
-                      key={c}
-                      onClick={() => setCuisine(c === "All" ? "All" : (c as typeof cuisine))}
-                      className="px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer border"
-                      style={cuisine === c
-                        ? { background: "#C8A97E15", borderColor: "#C8A97E", color: "#C8A97E" }
-                        : { background: "transparent", borderColor: "#27272a", color: "#71717a" }
-                      }
-                    >
-                      {c}
-                    </button>
-                  ))}
+              {/* Price range */}
+              <div className="flex flex-col gap-2" style={{ minWidth: 220, flex: 1 }}>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest">💰 Price / person</span>
+                  <span className="text-xs font-bold text-[#C8A97E]">
+                    ${gridPriceRange[0]} — {gridPriceRange[1] >= 150 ? "$150+" : `$${gridPriceRange[1]}`}
+                  </span>
+                </div>
+                <div style={{ position: "relative", height: 20, display: "flex", alignItems: "center" }}>
+                  <div style={{ position: "absolute", left: 0, right: 0, height: 3, background: "#27272a", borderRadius: 99 }} />
+                  <div style={{
+                    position: "absolute",
+                    left: `${(gridPriceRange[0] / 150) * 100}%`,
+                    right: `${100 - (gridPriceRange[1] / 150) * 100}%`,
+                    height: 3, background: "#C8A97E", borderRadius: 99,
+                  }} />
+                  <input type="range" min={0} max={150} step={5} value={gridPriceRange[0]}
+                    onChange={(e) => setGridPriceRange([Math.min(Number(e.target.value), gridPriceRange[1] - 5), gridPriceRange[1]])}
+                    style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }}
+                  />
+                  <input type="range" min={0} max={150} step={5} value={gridPriceRange[1]}
+                    onChange={(e) => setGridPriceRange([gridPriceRange[0], Math.max(Number(e.target.value), gridPriceRange[0] + 5)])}
+                    style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }}
+                  />
+                </div>
+                <div className="flex justify-between text-[10px] text-zinc-600">
+                  <span>$0</span><span>$150+</span>
                 </div>
               </div>
 
