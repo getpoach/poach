@@ -92,3 +92,11 @@ input[type="range"]::-moz-range-thumb {
 input[type="range"]::-webkit-slider-runnable-track {
   background: transparent;
 }
+
+/* Force Mapbox popup above SVG radius circle */
+.mapboxgl-popup {
+  z-index: 999 !important;
+}
+.mapboxgl-marker {
+  z-index: 2 !important;
+}

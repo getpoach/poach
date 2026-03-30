@@ -551,7 +551,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
                 offset={14}
                 closeButton={false}
                 closeOnClick={false}
-                style={{ padding: 0 }}
+                style={{ padding: 0, zIndex: 999 }}
               >
                 <div
                   onClick={() => { setPopupChef(null); setDrawerChef(popupChef); }}
@@ -602,7 +602,7 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
               </Popup>
             )}
 
-            {/* SVG radius circle — inside map container so position:absolute is relative to map */}
+            {/* Radius circle drawn as SVG inside Map — BEFORE markers and popup in JSX */}
             {popupChef && (() => {
               const mapInstance = mapRef.current?.getMap?.();
               if (!mapInstance) return null;
@@ -614,26 +614,27 @@ export function ChefMap({ chefs, onSelect }: ChefMapProps) {
                 if (!radiusPx || radiusPx <= 0) return null;
                 return (
                   <svg
+                    key="radius-svg"
                     style={{
                       position: "absolute",
                       top: 0, left: 0,
                       width: "100%", height: "100%",
                       pointerEvents: "none",
-                      zIndex: 2,
+                      zIndex: 0,
                     }}
                   >
                     <circle
                       cx={point.x} cy={point.y} r={radiusPx}
                       fill={popupChef.color}
-                      fillOpacity={0.08}
+                      fillOpacity={0.07}
                     />
                     <circle
                       cx={point.x} cy={point.y} r={radiusPx}
                       fill="none"
                       stroke={popupChef.color}
-                      strokeWidth={2.5}
-                      strokeOpacity={1}
-                      strokeDasharray="8 5"
+                      strokeWidth={1.2}
+                      strokeOpacity={0.9}
+                      strokeDasharray="6 4"
                     />
                   </svg>
                 );
