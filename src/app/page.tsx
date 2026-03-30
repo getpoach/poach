@@ -156,7 +156,7 @@ export default function DiscoverPage() {
       {/* ── Map view ──────────────────────────────────────────────────────── */}
       {viewMode === "map" && (
         <ChefMap
-          chefs={filtered}
+          chefs={sorted}
           onSelect={(chef) => {
             setViewMode("grid");
             setViewChef(chef);
@@ -319,23 +319,25 @@ export default function DiscoverPage() {
       )}
 
       {/* ── Chef grid ──────────────────────────────────────────────────────── */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {sorted.map((chef) => (
-          <ChefCard
-            key={chef.id}
-            chef={chef}
-            onBook={setBookingChef}
-            onView={setViewChef}
-          />
-        ))}
-        {sorted.length === 0 && (
-          <div className="col-span-3 text-center py-16 text-muted">
-            <div className="text-4xl mb-3">🍴</div>
-            <div className="font-display text-lg">No chefs found</div>
-            <div className="text-sm mt-1">Try a different search or cuisine</div>
-          </div>
-        )}
-      </div>
+      {viewMode === "grid" && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {sorted.map((chef) => (
+            <ChefCard
+              key={chef.id}
+              chef={chef}
+              onBook={setBookingChef}
+              onView={setViewChef}
+            />
+          ))}
+          {sorted.length === 0 && (
+            <div className="col-span-3 text-center py-16 text-muted">
+              <div className="text-4xl mb-3">🍴</div>
+              <div className="font-display text-lg">No chefs found</div>
+              <div className="text-sm mt-1">Try a different cuisine or clear filters</div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* ── Chef CTA ───────────────────────────────────────────────────────── */}
       <div
