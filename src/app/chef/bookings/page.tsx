@@ -5,25 +5,92 @@ type BookingStatus = "upcoming" | "completed" | "cancelled";
 
 interface Booking {
   id: string;
+  confirmationNumber: string;
+  // Diner
   diner: string;
+  dinerEmail: string;
+  dinerPhone: string;
+  // Event
   date: string;
   isoDate: string;
   time: string;
-  guests: number;
-  cuisine: string;
   city: string;
+  address: string;
+  guests: number;
+  // Menu & food
+  cuisine: string;
+  menuName: string;
+  courses: number;
+  dietaryRestrictions: string[];
+  guestNote: string;
+  // Financials
+  pricePerPerson: number;
   total: number;
+  paymentStatus: "paid" | "pending" | "refunded";
+  // Status
   status: BookingStatus;
-  note: string;
+  // Post-session
+  rating?: number;
+  reviewText?: string;
 }
 
 const MOCK_BOOKINGS: Booking[] = [
-  { id: "b1", diner: "Sarah & Tom Kim",    date: "Sat Mar 29", isoDate: "2026-03-29", time: "7:00 PM", guests: 5,  cuisine: "French",       city: "Lafayette",     total: 650,  status: "upcoming",  note: "Nut allergy — please avoid all tree nuts." },
-  { id: "b2", diner: "The Broussard Fam",  date: "Sun Mar 30", isoDate: "2026-03-30", time: "6:30 PM", guests: 8,  cuisine: "Fusion",       city: "Breaux Bridge", total: 1040, status: "upcoming",  note: "" },
-  { id: "b3", diner: "Marcus Webb",        date: "Sat Apr 5",  isoDate: "2026-04-05", time: "7:30 PM", guests: 6,  cuisine: "French",       city: "Lafayette",     total: 780,  status: "upcoming",  note: "Anniversary dinner — please make it special!" },
-  { id: "b4", diner: "Layla Fontenot",     date: "Sun Mar 23", isoDate: "2026-03-23", time: "6:00 PM", guests: 4,  cuisine: "West African", city: "Opelousas",     total: 520,  status: "completed", note: "" },
-  { id: "b5", diner: "Jake & Priya Patel", date: "Sat Mar 15", isoDate: "2026-03-15", time: "7:00 PM", guests: 2,  cuisine: "French",       city: "New Iberia",    total: 260,  status: "completed", note: "Vegetarian menu requested." },
-  { id: "b6", diner: "Theo Landry",        date: "Fri Mar 7",  isoDate: "2026-03-07", time: "8:00 PM", guests: 10, cuisine: "Fusion",       city: "Baton Rouge",   total: 1300, status: "cancelled", note: "" },
+  {
+    id: "b1", confirmationNumber: "PCH-2026-0892",
+    diner: "Sarah & Tom Kim", dinerEmail: "sarah.kim@email.com", dinerPhone: "(337) 555-0142",
+    date: "Sat Mar 29", isoDate: "2026-03-29", time: "7:00 PM",
+    city: "Lafayette", address: "412 Johnston St, Lafayette, LA 70501",
+    guests: 5, cuisine: "French", menuName: "Bayou Tasting Menu", courses: 6,
+    dietaryRestrictions: ["Tree nut allergy"], guestNote: "Nut allergy — please avoid all tree nuts.",
+    pricePerPerson: 95, total: 650, paymentStatus: "paid", status: "upcoming",
+  },
+  {
+    id: "b2", confirmationNumber: "PCH-2026-0901",
+    diner: "The Broussard Family", dinerEmail: "j.broussard@email.com", dinerPhone: "(337) 555-0278",
+    date: "Sun Mar 30", isoDate: "2026-03-30", time: "6:30 PM",
+    city: "Breaux Bridge", address: "88 Rees St, Breaux Bridge, LA 70517",
+    guests: 8, cuisine: "Fusion", menuName: "Sunday Family Feast", courses: 4,
+    dietaryRestrictions: ["Shellfish allergy (1 guest)"], guestNote: "",
+    pricePerPerson: 65, total: 1040, paymentStatus: "paid", status: "upcoming",
+  },
+  {
+    id: "b3", confirmationNumber: "PCH-2026-0934",
+    diner: "Marcus Webb", dinerEmail: "marcus.webb@email.com", dinerPhone: "(504) 555-0319",
+    date: "Sat Apr 5", isoDate: "2026-04-05", time: "7:30 PM",
+    city: "Lafayette", address: "215 E Pinhook Rd, Lafayette, LA 70501",
+    guests: 6, cuisine: "French", menuName: "Bayou Tasting Menu", courses: 6,
+    dietaryRestrictions: [], guestNote: "Anniversary dinner — please make it special!",
+    pricePerPerson: 95, total: 780, paymentStatus: "pending", status: "upcoming",
+  },
+  {
+    id: "b4", confirmationNumber: "PCH-2026-0811",
+    diner: "Layla Fontenot", dinerEmail: "layla.f@email.com", dinerPhone: "(337) 555-0455",
+    date: "Sun Mar 23", isoDate: "2026-03-23", time: "6:00 PM",
+    city: "Opelousas", address: "334 N Market St, Opelousas, LA 70570",
+    guests: 4, cuisine: "West African", menuName: "Creole Heritage Dinner", courses: 5,
+    dietaryRestrictions: ["Vegetarian (2 guests)"], guestNote: "",
+    pricePerPerson: 85, total: 520, paymentStatus: "paid", status: "completed",
+    rating: 5, reviewText: "Absolutely incredible. Beau brought the bayou to our table.",
+  },
+  {
+    id: "b5", confirmationNumber: "PCH-2026-0774",
+    diner: "Jake & Priya Patel", dinerEmail: "priya.patel@email.com", dinerPhone: "(337) 555-0621",
+    date: "Sat Mar 15", isoDate: "2026-03-15", time: "7:00 PM",
+    city: "New Iberia", address: "109 Main St, New Iberia, LA 70560",
+    guests: 2, cuisine: "French", menuName: "Intimate Tasting Menu", courses: 5,
+    dietaryRestrictions: ["Vegetarian"], guestNote: "Vegetarian menu requested.",
+    pricePerPerson: 95, total: 260, paymentStatus: "paid", status: "completed",
+    rating: 4, reviewText: "Beautiful experience, food was exceptional.",
+  },
+  {
+    id: "b6", confirmationNumber: "PCH-2026-0702",
+    diner: "Theo Landry", dinerEmail: "theo.landry@email.com", dinerPhone: "(225) 555-0887",
+    date: "Fri Mar 7", isoDate: "2026-03-07", time: "8:00 PM",
+    city: "Baton Rouge", address: "500 Convention St, Baton Rouge, LA 70801",
+    guests: 10, cuisine: "Fusion", menuName: "Grand Celebration Menu", courses: 7,
+    dietaryRestrictions: ["Gluten-free (3 guests)", "Vegan (1 guest)"], guestNote: "",
+    pricePerPerson: 110, total: 1300, paymentStatus: "refunded", status: "cancelled",
+  },
 ];
 
 const STATUS_COLORS: Record<BookingStatus, { bg: string; border: string; text: string; dot: string; label: string }> = {
@@ -218,28 +285,114 @@ export default function ChefBookings() {
           <span style={{ marginLeft: "auto", fontSize: 11, color: "#3f3f46" }}>Click a booking day to expand</span>
         </div>
 
-        {/* Selected day drawer */}
+        {/* Selected day — full booking detail */}
         {selectedDay && selectedBookings.length > 0 && (
-          <div style={{ borderTop: "1px solid #1a1a1a", padding: "16px 20px", background: "#0c0c0c" }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>
+          <div style={{ borderTop: "1px solid #1a1a1a", background: "#0c0c0c" }}>
+            <div style={{ padding: "14px 20px 6px", fontSize: 11, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em" }}>
               {new Date(selectedDay + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              {selectedBookings.map(b => {
-                const s = STATUS_COLORS[b.status];
-                return (
-                  <div key={b.id} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 10, background: "#141414", border: `1px solid ${s.border}` }}>
-                    <div style={{ width: 8, height: 8, borderRadius: "50%", background: s.dot, flexShrink: 0 }} />
-                    <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: 13, fontWeight: 700, color: "#f5f0e8" }}>{b.diner}</div>
-                      <div style={{ fontSize: 11, color: "#71717a" }}>{b.time} · {b.guests} guests · {b.cuisine} · 📍 {b.city}</div>
+            {selectedBookings.map(b => {
+              const s = STATUS_COLORS[b.status];
+              const payColors: Record<string, string> = { paid: "#7EC87E", pending: "#C8A97E", refunded: "#C87E7E" };
+              return (
+                <div key={b.id} style={{ margin: "0 16px 16px", borderRadius: 12, border: `1px solid ${s.border}`, background: "#111", overflow: "hidden" }}>
+                  {/* Booking header */}
+                  <div style={{ padding: "14px 16px", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid #1a1a1a", background: CAL_FILL[b.status] + "12" }}>
+                    <div>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                        <span style={{ fontSize: 15, fontWeight: 800, color: "#f5f0e8" }}>{b.diner}</span>
+                        <span style={{ fontSize: 10, fontWeight: 700, padding: "2px 8px", borderRadius: 99, background: s.bg, border: `1px solid ${s.border}`, color: s.text }}>{s.label}</span>
+                      </div>
+                      <div style={{ fontSize: 11, color: "#71717a", marginTop: 3 }}>#{b.confirmationNumber}</div>
                     </div>
-                    <span style={{ fontSize: 10, fontWeight: 700, padding: "2px 8px", borderRadius: 99, background: s.bg, border: `1px solid ${s.border}`, color: s.text }}>{s.label}</span>
-                    <span style={{ fontWeight: 700, color: "#C8A97E", fontSize: 14 }}>${b.total}</span>
+                    <div style={{ textAlign: "right" }}>
+                      <div style={{ fontSize: 20, fontWeight: 800, color: "#C8A97E" }}>${b.total}</div>
+                      <div style={{ fontSize: 10, fontWeight: 700, color: payColors[b.paymentStatus], textTransform: "capitalize", marginTop: 2 }}>
+                        {b.paymentStatus === "paid" ? "✓ Paid" : b.paymentStatus === "pending" ? "⏳ Pending" : "↩ Refunded"}
+                      </div>
+                    </div>
                   </div>
-                );
-              })}
-            </div>
+
+                  {/* Detail grid */}
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 1, background: "#1a1a1a" }}>
+                    {[
+                      { label: "Time", value: b.time },
+                      { label: "Guests", value: `${b.guests} guests` },
+                      { label: "Price / person", value: `$${b.pricePerPerson}` },
+                      { label: "Menu", value: b.menuName },
+                      { label: "Courses", value: `${b.courses} courses` },
+                      { label: "Cuisine", value: b.cuisine },
+                    ].map(({ label, value }) => (
+                      <div key={label} style={{ padding: "10px 14px", background: "#111" }}>
+                        <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 3 }}>{label}</div>
+                        <div style={{ fontSize: 12, fontWeight: 600, color: "#f5f0e8" }}>{value}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Location + contact */}
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1, background: "#1a1a1a", borderTop: "1px solid #1a1a1a" }}>
+                    <div style={{ padding: "10px 14px", background: "#111" }}>
+                      <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>📍 Location</div>
+                      <div style={{ fontSize: 12, fontWeight: 600, color: "#f5f0e8" }}>{b.city}</div>
+                      <div style={{ fontSize: 11, color: "#71717a", marginTop: 1 }}>{b.address}</div>
+                    </div>
+                    <div style={{ padding: "10px 14px", background: "#111" }}>
+                      <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>📞 Diner Contact</div>
+                      <div style={{ fontSize: 12, fontWeight: 600, color: "#f5f0e8" }}>{b.dinerPhone}</div>
+                      <div style={{ fontSize: 11, color: "#71717a", marginTop: 1 }}>{b.dinerEmail}</div>
+                    </div>
+                  </div>
+
+                  {/* Dietary + notes */}
+                  {(b.dietaryRestrictions.length > 0 || b.guestNote) && (
+                    <div style={{ display: "grid", gridTemplateColumns: b.dietaryRestrictions.length > 0 && b.guestNote ? "1fr 1fr" : "1fr", gap: 1, background: "#1a1a1a", borderTop: "1px solid #1a1a1a" }}>
+                      {b.dietaryRestrictions.length > 0 && (
+                        <div style={{ padding: "10px 14px", background: "#111" }}>
+                          <div style={{ fontSize: 9, fontWeight: 700, color: "#C87E7E", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>⚠️ Dietary Restrictions</div>
+                          <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+                            {b.dietaryRestrictions.map(r => (
+                              <span key={r} style={{ fontSize: 10, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: "#C87E7E18", border: "1px solid #C87E7E44", color: "#C87E7E" }}>{r}</span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {b.guestNote && (
+                        <div style={{ padding: "10px 14px", background: "#111" }}>
+                          <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>💬 Guest Note</div>
+                          <div style={{ fontSize: 12, color: "#a1a1aa", lineHeight: 1.5, fontStyle: "italic" }}>{b.guestNote}</div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Review — completed only */}
+                  {b.status === "completed" && b.rating && (
+                    <div style={{ padding: "10px 14px", borderTop: "1px solid #1a1a1a", background: "#111" }}>
+                      <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>⭐ Diner Review</div>
+                      <div style={{ display: "flex", gap: 4, marginBottom: 4 }}>
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <span key={i} style={{ color: i < b.rating! ? "#facc15" : "#27272a", fontSize: 13 }}>★</span>
+                        ))}
+                      </div>
+                      {b.reviewText && <div style={{ fontSize: 12, color: "#a1a1aa", fontStyle: "italic" }}>{b.reviewText}</div>}
+                    </div>
+                  )}
+
+                  {/* Actions */}
+                  {b.status === "upcoming" && (
+                    <div style={{ padding: "12px 14px", borderTop: "1px solid #1a1a1a", display: "flex", gap: 8, background: "#0a0a0a" }}>
+                      <button style={{ padding: "8px 16px", borderRadius: 8, background: "#141414", border: "1px solid #27272a", color: "#a1a1aa", fontSize: 12, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+                        Message Diner
+                      </button>
+                      <button style={{ padding: "8px 16px", borderRadius: 8, background: "#C87E7E18", border: "1px solid #C87E7E44", color: "#C87E7E", fontSize: 12, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+                        Cancel Booking
+                      </button>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
@@ -296,37 +449,87 @@ export default function ChefBookings() {
                 </div>
               </div>
 
-              {isOpen && (
-                <div style={{ padding: "0 20px 20px", borderTop: "1px solid #141414" }}>
-                  <div style={{ paddingTop: 16, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-                    <div style={{ background: "#141414", borderRadius: 10, padding: "12px 14px" }}>
-                      <div style={{ fontSize: 10, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>Session Details</div>
-                      <div style={{ fontSize: 12, color: "#a1a1aa", lineHeight: 1.8 }}>
-                        <div>⏰ {booking.time}</div>
-                        <div>👥 {booking.guests} guests</div>
-                        <div>🍽️ {booking.cuisine} menu</div>
-                        <div>📍 {booking.city}</div>
+              {isOpen && (() => {
+                const s = STATUS_COLORS[booking.status];
+                const payColors: Record<string, string> = { paid: "#7EC87E", pending: "#C8A97E", refunded: "#C87E7E" };
+                return (
+                  <div style={{ borderTop: "1px solid #141414", background: "#0c0c0c" }}>
+                    {/* Detail grid */}
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, background: "#1a1a1a" }}>
+                      {[
+                        { label: "Confirmation", value: `#${booking.confirmationNumber}` },
+                        { label: "Time", value: booking.time },
+                        { label: "Payment", value: booking.paymentStatus === "paid" ? "✓ Paid" : booking.paymentStatus === "pending" ? "⏳ Pending" : "↩ Refunded", color: payColors[booking.paymentStatus] },
+                        { label: "Menu", value: booking.menuName },
+                        { label: "Courses", value: `${booking.courses} courses` },
+                        { label: "Price / person", value: `$${booking.pricePerPerson}` },
+                      ].map(({ label, value, color }) => (
+                        <div key={label} style={{ padding: "10px 14px", background: "#111" }}>
+                          <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 3 }}>{label}</div>
+                          <div style={{ fontSize: 12, fontWeight: 600, color: color ?? "#f5f0e8" }}>{value}</div>
+                        </div>
+                      ))}
+                    </div>
+                    {/* Location + contact */}
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1, background: "#1a1a1a", borderTop: "1px solid #1a1a1a" }}>
+                      <div style={{ padding: "10px 14px", background: "#111" }}>
+                        <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 3 }}>📍 Address</div>
+                        <div style={{ fontSize: 12, fontWeight: 600, color: "#f5f0e8" }}>{booking.city}</div>
+                        <div style={{ fontSize: 11, color: "#71717a", marginTop: 1 }}>{booking.address}</div>
+                      </div>
+                      <div style={{ padding: "10px 14px", background: "#111" }}>
+                        <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 3 }}>📞 Contact</div>
+                        <div style={{ fontSize: 12, fontWeight: 600, color: "#f5f0e8" }}>{booking.dinerPhone}</div>
+                        <div style={{ fontSize: 11, color: "#71717a", marginTop: 1 }}>{booking.dinerEmail}</div>
                       </div>
                     </div>
-                    <div style={{ background: "#141414", borderRadius: 10, padding: "12px 14px" }}>
-                      <div style={{ fontSize: 10, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>Guest Note</div>
-                      <div style={{ fontSize: 12, color: booking.note ? "#a1a1aa" : "#52525b", fontStyle: booking.note ? "normal" : "italic", lineHeight: 1.6 }}>
-                        {booking.note || "No special notes"}
+                    {/* Dietary + notes */}
+                    {(booking.dietaryRestrictions.length > 0 || booking.guestNote) && (
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1, background: "#1a1a1a", borderTop: "1px solid #1a1a1a" }}>
+                        {booking.dietaryRestrictions.length > 0 && (
+                          <div style={{ padding: "10px 14px", background: "#111" }}>
+                            <div style={{ fontSize: 9, fontWeight: 700, color: "#C87E7E", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>⚠️ Dietary</div>
+                            <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+                              {booking.dietaryRestrictions.map(r => (
+                                <span key={r} style={{ fontSize: 10, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: "#C87E7E18", border: "1px solid #C87E7E44", color: "#C87E7E" }}>{r}</span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        {booking.guestNote && (
+                          <div style={{ padding: "10px 14px", background: "#111" }}>
+                            <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>💬 Note</div>
+                            <div style={{ fontSize: 12, color: "#a1a1aa", fontStyle: "italic", lineHeight: 1.5 }}>{booking.guestNote}</div>
+                          </div>
+                        )}
                       </div>
-                    </div>
+                    )}
+                    {/* Review */}
+                    {booking.status === "completed" && booking.rating && (
+                      <div style={{ padding: "10px 14px", borderTop: "1px solid #1a1a1a", background: "#111" }}>
+                        <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 5 }}>⭐ Diner Review</div>
+                        <div style={{ display: "flex", gap: 3, marginBottom: 4 }}>
+                          {Array.from({ length: 5 }).map((_, i) => (
+                            <span key={i} style={{ color: i < booking.rating! ? "#facc15" : "#27272a", fontSize: 13 }}>★</span>
+                          ))}
+                        </div>
+                        {booking.reviewText && <div style={{ fontSize: 12, color: "#a1a1aa", fontStyle: "italic" }}>{booking.reviewText}</div>}
+                      </div>
+                    )}
+                    {/* Actions */}
+                    {booking.status === "upcoming" && (
+                      <div style={{ padding: "12px 16px", borderTop: "1px solid #1a1a1a", display: "flex", gap: 8, background: "#0a0a0a" }}>
+                        <button style={{ padding: "8px 16px", borderRadius: 8, background: "#141414", border: "1px solid #27272a", color: "#a1a1aa", fontSize: 12, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+                          Message Diner
+                        </button>
+                        <button style={{ padding: "8px 16px", borderRadius: 8, background: "#C87E7E18", border: "1px solid #C87E7E44", color: "#C87E7E", fontSize: 12, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+                          Cancel Booking
+                        </button>
+                      </div>
+                    )}
                   </div>
-                  {booking.status === "upcoming" && (
-                    <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
-                      <button style={{ padding: "8px 16px", borderRadius: 8, background: "#141414", border: "1px solid #27272a", color: "#a1a1aa", fontSize: 12, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
-                        Message Diner
-                      </button>
-                      <button style={{ padding: "8px 16px", borderRadius: 8, background: "#C87E7E18", border: "1px solid #C87E7E44", color: "#C87E7E", fontSize: 12, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
-                        Cancel Booking
-                      </button>
-                    </div>
-                  )}
-                </div>
-              )}
+                );
+              })()}
             </div>
           );
         })}
