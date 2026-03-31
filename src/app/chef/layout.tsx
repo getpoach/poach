@@ -44,8 +44,10 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
   return (
     <div style={{ background: "#080808", minHeight: "100vh", fontFamily: "'DM Sans', sans-serif" }}>
 
-      {/* ── Top Navbar (same as rest of site) ───────────────────────────── */}
-      <Navbar />
+      {/* ── Top Navbar — sticky, always on top ───────────────────────── */}
+      <div style={{ position: "sticky", top: 0, zIndex: 50 }}>
+        <Navbar />
+      </div>
 
       <div style={{ display: "flex" }}>
 
@@ -62,7 +64,8 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
           left: 0,
           zIndex: 30,
           transition: "width 0.25s ease",
-          overflow: "hidden",
+          overflowX: "hidden",
+          overflowY: "auto",
         }}>
 
           {/* Collapse toggle */}
