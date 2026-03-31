@@ -11,18 +11,19 @@ interface Booking {
   time: string;
   guests: number;
   cuisine: string;
+  city: string;
   total: number;
   status: BookingStatus;
   note: string;
 }
 
 const MOCK_BOOKINGS: Booking[] = [
-  { id: "b1", diner: "Sarah & Tom Kim",    date: "Sat Mar 29", isoDate: "2026-03-29", time: "7:00 PM", guests: 5,  cuisine: "French",       total: 650,  status: "upcoming",  note: "Nut allergy — please avoid all tree nuts." },
-  { id: "b2", diner: "The Broussard Fam",  date: "Sun Mar 30", isoDate: "2026-03-30", time: "6:30 PM", guests: 8,  cuisine: "Fusion",       total: 1040, status: "upcoming",  note: "" },
-  { id: "b3", diner: "Marcus Webb",        date: "Sat Apr 5",  isoDate: "2026-04-05", time: "7:30 PM", guests: 6,  cuisine: "French",       total: 780,  status: "upcoming",  note: "Anniversary dinner — please make it special!" },
-  { id: "b4", diner: "Layla Fontenot",     date: "Sun Mar 23", isoDate: "2026-03-23", time: "6:00 PM", guests: 4,  cuisine: "West African", total: 520,  status: "completed", note: "" },
-  { id: "b5", diner: "Jake & Priya Patel", date: "Sat Mar 15", isoDate: "2026-03-15", time: "7:00 PM", guests: 2,  cuisine: "French",       total: 260,  status: "completed", note: "Vegetarian menu requested." },
-  { id: "b6", diner: "Theo Landry",        date: "Fri Mar 7",  isoDate: "2026-03-07", time: "8:00 PM", guests: 10, cuisine: "Fusion",       total: 1300, status: "cancelled", note: "" },
+  { id: "b1", diner: "Sarah & Tom Kim",    date: "Sat Mar 29", isoDate: "2026-03-29", time: "7:00 PM", guests: 5,  cuisine: "French",       city: "Lafayette",     total: 650,  status: "upcoming",  note: "Nut allergy — please avoid all tree nuts." },
+  { id: "b2", diner: "The Broussard Fam",  date: "Sun Mar 30", isoDate: "2026-03-30", time: "6:30 PM", guests: 8,  cuisine: "Fusion",       city: "Breaux Bridge", total: 1040, status: "upcoming",  note: "" },
+  { id: "b3", diner: "Marcus Webb",        date: "Sat Apr 5",  isoDate: "2026-04-05", time: "7:30 PM", guests: 6,  cuisine: "French",       city: "Lafayette",     total: 780,  status: "upcoming",  note: "Anniversary dinner — please make it special!" },
+  { id: "b4", diner: "Layla Fontenot",     date: "Sun Mar 23", isoDate: "2026-03-23", time: "6:00 PM", guests: 4,  cuisine: "West African", city: "Opelousas",     total: 520,  status: "completed", note: "" },
+  { id: "b5", diner: "Jake & Priya Patel", date: "Sat Mar 15", isoDate: "2026-03-15", time: "7:00 PM", guests: 2,  cuisine: "French",       city: "New Iberia",    total: 260,  status: "completed", note: "Vegetarian menu requested." },
+  { id: "b6", diner: "Theo Landry",        date: "Fri Mar 7",  isoDate: "2026-03-07", time: "8:00 PM", guests: 10, cuisine: "Fusion",       city: "Baton Rouge",   total: 1300, status: "cancelled", note: "" },
 ];
 
 const STATUS_COLORS: Record<BookingStatus, { bg: string; border: string; text: string; dot: string; label: string }> = {
@@ -123,8 +124,8 @@ export default function ChefBookings() {
           ))}
         </div>
 
-        {/* Day grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 4, padding: "0 16px 16px" }}>
+        {/* Day grid — tall cells to show booking info */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 3, padding: "0 12px 12px" }}>
           {Array.from({ length: firstDay }).map((_, i) => <div key={`e-${i}`} />)}
           {Array.from({ length: daysInMonth }, (_, i) => i + 1).map(day => {
             const key = isoKey(day);
@@ -136,11 +137,11 @@ export default function ChefBookings() {
             const isSelected = selectedDay === key;
 
             return (
-              <button
+              <div
                 key={day}
                 onClick={() => hasBookings && setSelectedDay(isSelected ? null : key)}
                 style={{
-                  aspectRatio: "1",
+                  minHeight: 88,
                   borderRadius: 8,
                   border: isSelected
                     ? `2px solid ${fill ?? "#C8A97E"}`
@@ -149,29 +150,59 @@ export default function ChefBookings() {
                     : hasBookings
                     ? `1px solid ${fill}44`
                     : "1px solid #1a1a1a",
-                  background: hasBookings
-                    ? (fill + "28")
-                    : isToday
-                    ? "#C8A97E0a"
-                    : "transparent",
-                  color: "#ffffff",
-                  fontSize: 13,
-                  fontWeight: hasBookings ? 700 : 400,
+                  background: hasBookings ? (fill + "18") : isToday ? "#C8A97E08" : "#0a0a0a",
                   cursor: hasBookings ? "pointer" : "default",
-                  fontFamily: "'DM Sans', sans-serif",
-                  position: "relative",
+                  padding: "6px 7px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 3,
                   transition: "all 0.15s",
+                  overflow: "hidden",
                 }}
               >
-                {day}
-                {hasBookings && (
-                  <div style={{ position: "absolute", bottom: 3, left: "50%", transform: "translateX(-50%)", display: "flex", gap: 2 }}>
-                    {dayBookings.slice(0, 3).map((b, i) => (
-                      <div key={i} style={{ width: 4, height: 4, borderRadius: "50%", background: CAL_FILL[b.status] }} />
-                    ))}
+                {/* Date number */}
+                <div style={{
+                  fontSize: 12,
+                  fontWeight: isToday ? 800 : 500,
+                  color: isToday ? "#C8A97E" : "#ffffff",
+                  lineHeight: 1,
+                }}>
+                  {day}
+                </div>
+
+                {/* Booking pills */}
+                {dayBookings.map((b) => (
+                  <div key={b.id} style={{
+                    borderRadius: 4,
+                    padding: "3px 5px",
+                    background: CAL_FILL[b.status] + "33",
+                    borderLeft: `2px solid ${CAL_FILL[b.status]}`,
+                    overflow: "hidden",
+                  }}>
+                    <div style={{
+                      fontSize: 10,
+                      fontWeight: 700,
+                      color: "#ffffff",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      lineHeight: 1.2,
+                    }}>
+                      {b.diner.split(" ")[0]}
+                    </div>
+                    <div style={{
+                      fontSize: 9,
+                      color: "rgba(255,255,255,0.65)",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      lineHeight: 1.3,
+                    }}>
+                      {b.time} · {b.city}
+                    </div>
                   </div>
-                )}
-              </button>
+                ))}
+              </div>
             );
           })}
         </div>
@@ -201,7 +232,7 @@ export default function ChefBookings() {
                     <div style={{ width: 8, height: 8, borderRadius: "50%", background: s.dot, flexShrink: 0 }} />
                     <div style={{ flex: 1 }}>
                       <div style={{ fontSize: 13, fontWeight: 700, color: "#f5f0e8" }}>{b.diner}</div>
-                      <div style={{ fontSize: 11, color: "#71717a" }}>{b.time} · {b.guests} guests · {b.cuisine}</div>
+                      <div style={{ fontSize: 11, color: "#71717a" }}>{b.time} · {b.guests} guests · {b.cuisine} · 📍 {b.city}</div>
                     </div>
                     <span style={{ fontSize: 10, fontWeight: 700, padding: "2px 8px", borderRadius: 99, background: s.bg, border: `1px solid ${s.border}`, color: s.text }}>{s.label}</span>
                     <span style={{ fontWeight: 700, color: "#C8A97E", fontSize: 14 }}>${b.total}</span>
@@ -257,7 +288,7 @@ export default function ChefBookings() {
                     <span style={{ fontWeight: 700, color: "#f5f0e8", fontSize: 14 }}>{booking.diner}</span>
                     <span style={{ fontSize: 10, fontWeight: 700, padding: "2px 8px", borderRadius: 99, background: s.bg, border: `1px solid ${s.border}`, color: s.text }}>{s.label}</span>
                   </div>
-                  <div style={{ fontSize: 12, color: "#71717a" }}>{booking.date} · {booking.time} · {booking.guests} guests · {booking.cuisine}</div>
+                  <div style={{ fontSize: 12, color: "#71717a" }}>{booking.date} · {booking.time} · {booking.guests} guests · {booking.cuisine} · 📍 {booking.city}</div>
                 </div>
                 <div style={{ textAlign: "right" }}>
                   <div style={{ fontWeight: 800, color: "#C8A97E", fontSize: 16 }}>${booking.total}</div>
@@ -274,6 +305,7 @@ export default function ChefBookings() {
                         <div>⏰ {booking.time}</div>
                         <div>👥 {booking.guests} guests</div>
                         <div>🍽️ {booking.cuisine} menu</div>
+                        <div>📍 {booking.city}</div>
                       </div>
                     </div>
                     <div style={{ background: "#141414", borderRadius: 10, padding: "12px 14px" }}>
