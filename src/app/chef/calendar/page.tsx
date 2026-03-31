@@ -91,7 +91,7 @@ export default function ChefCalendar() {
               style={{ padding: "6px 12px", borderRadius: 8, background: "transparent", border: "1px solid #27272a", color: "#a1a1aa", cursor: "pointer", fontSize: 14, fontFamily: "'DM Sans', sans-serif" }}>
               ←
             </button>
-            <span style={{ fontWeight: 800, color: "#f5f0e8", fontSize: 16, fontFamily: "var(--font-playfair)" }}>
+            <span style={{ fontWeight: 800, color: "#f5f0e8", fontSize: 28, fontFamily: "var(--font-playfair)" }}>
               {MONTHS[viewMonth]} {viewYear}
             </span>
             <button onClick={nextMonth}
