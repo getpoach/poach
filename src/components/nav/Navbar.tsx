@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
-import { Utensils, CalendarDays, User } from "lucide-react";
+import { Utensils, CalendarDays, User, LayoutDashboard } from "lucide-react";
 const G = ({ icon: I, size=14 }: { icon: React.ElementType; size?: number }) => 
   <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle" }} />;
 import { chefs } from "@/data/chefs";
@@ -35,10 +35,15 @@ export function Navbar() {
   const chefPhoto = chefData?.headshot;
   const initials  = user ? user.name.split(" ").map(n => n[0]).join("").slice(0, 2) : "";
 
-  const navLinks = [
-    { href: "/",         label: <><G icon={Utensils} size={13} /> Discover</> },
-    { href: "/bookings", label: <><G icon={CalendarDays} size={13} /> Bookings</> },
-  ];
+  const navLinks = user?.role === "chef"
+    ? [
+        { href: "/",               label: "Discover"   },
+        { href: "/chef/dashboard", label: "My Kitchen" },
+      ]
+    : [
+        { href: "/",         label: "Discover" },
+        { href: "/bookings", label: "Bookings" },
+      ];
 
   return (
     <>
@@ -124,10 +129,13 @@ export function Navbar() {
             {navLinks.map(({ href, label }) => (
               <Link key={href} href={href}
                 className={cn(
-                  "px-3.5 py-2 rounded-xl text-sm transition-colors",
+                  "px-3.5 py-2 rounded-xl text-sm transition-colors flex items-center gap-1.5",
                   pathname === href ? "bg-zinc-900 text-white font-bold" : "text-muted hover:text-white"
                 )}
               >
+                {label === "Discover"   && <Utensils    size={13} color="#C8A97E" strokeWidth={1.75} />}
+                {label === "Bookings"   && <CalendarDays size={13} color="#C8A97E" strokeWidth={1.75} />}
+                {label === "My Kitchen" && <LayoutDashboard size={13} color="#C8A97E" strokeWidth={1.75} />}
                 {label}
               </Link>
             ))}
