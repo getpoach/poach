@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
-import { Utensils, CalendarDays, User, LayoutDashboard, LogOut, BookOpen, Sparkles } from "lucide-react";
+import { Utensils, CalendarDays, User, LayoutDashboard, LogOut, BookOpen } from "lucide-react";
 const G = ({ icon: I, size=14 }: { icon: React.ElementType; size?: number }) => 
   <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle" }} />;
 import { chefs } from "@/data/chefs";
@@ -40,9 +40,8 @@ export function Navbar() {
       ]
     : user
     ? [
-        { href: "/",               label: "Discover"        },
-        { href: "/bookings",       label: "My Bookings"     },
-        { href: "/recommendations",label: "Recommendations" },
+        { href: "/",         label: "Discover"    },
+        { href: "/bookings", label: "My Bookings" },
       ]
     : [
         { href: "/", label: "Discover" },
@@ -77,7 +76,6 @@ export function Navbar() {
                 {label === "Discover"         && <Utensils         size={13} color="#C8A97E" strokeWidth={1.75} />}
                 {label === "My Bookings"     && <CalendarDays      size={13} color="#C8A97E" strokeWidth={1.75} />}
                 {label === "My Kitchen"      && <LayoutDashboard   size={13} color="#C8A97E" strokeWidth={1.75} />}
-                {label === "Recommendations" && <Sparkles          size={13} color="#C8A97E" strokeWidth={1.75} />}
                 {label}
               </Link>
             ))}
@@ -142,9 +140,6 @@ export function Navbar() {
                   {user.role === "diner" && (<>
                     <Link href="/bookings" className="nav-dropdown-item" onClick={() => setDropdownOpen(false)}>
                       <BookOpen size={15} color="#C8A97E" strokeWidth={1.75} /> My Bookings
-                    </Link>
-                    <Link href="/recommendations" className="nav-dropdown-item" onClick={() => setDropdownOpen(false)}>
-                      <Sparkles size={15} color="#C8A97E" strokeWidth={1.75} /> Recommendations
                     </Link>
                     <Link href="/profile" className="nav-dropdown-item" onClick={() => setDropdownOpen(false)}>
                       <User size={15} color="#C8A97E" strokeWidth={1.75} /> My Profile
