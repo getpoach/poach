@@ -169,6 +169,11 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
               >
                 {chef.name}
               </div>
+              {chef.businessName && (
+                <div style={{ fontSize: 14, fontWeight: 600, color: chef.color, fontFamily: "var(--font-playfair)", fontStyle: "italic", marginTop: 2, textShadow: "0 1px 6px rgba(0,0,0,0.8)" }}>
+                  {chef.businessName}
+                </div>
+              )}
               <Stars rating={chef.rating} size={13} />
               <div className="text-xs text-zinc-400 mt-0.5">
                 {chef.reviewCount} reviews · {chef.bookingCount} bookings · {chef.experience}
