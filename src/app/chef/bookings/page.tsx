@@ -1,4 +1,7 @@
 "use client";
+import { MapPin, Phone, Mail, AlertTriangle, MessageCircle, Star } from "lucide-react";
+const G = ({ icon: I, size=12 }: { icon: React.ElementType; size?: number }) => 
+  <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle", marginRight:3 }} />;
 import { useState } from "react";
 
 type BookingStatus = "upcoming" | "completed" | "cancelled";
@@ -675,7 +678,7 @@ export default function ChefBookings() {
                     <span style={{ fontWeight: 700, color: "#f5f0e8", fontSize: 14 }}>{booking.diner}</span>
                     <span style={{ fontSize: 10, fontWeight: 700, padding: "2px 8px", borderRadius: 99, background: s.bg, border: `1px solid ${s.border}`, color: s.text }}>{s.label}</span>
                   </div>
-                  <div style={{ fontSize: 12, color: "#71717a" }}>{booking.date} · {booking.time} · {booking.guests} guests · {booking.cuisine} · 📍 {booking.city}</div>
+                  <div style={{ fontSize: 12, color: "#71717a" }}>{booking.date} · {booking.time} · {booking.guests} guests · {booking.cuisine} · {booking.city}</div>
                 </div>
                 <div style={{ textAlign: "right" }}>
                   <div style={{ fontWeight: 800, color: "#C8A97E", fontSize: 16 }}>${booking.total}</div>
