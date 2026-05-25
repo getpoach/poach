@@ -55,7 +55,7 @@ export default function ChefDashboard() {
           Welcome back
         </div>
         <h1 style={{ fontSize: 28, fontWeight: 900, color: "#f5f0e8", fontFamily: "var(--font-playfair)", margin: 0 }}>
-          {chef.name} <span style={{ color: "#C8A97E" }}>✦</span>
+          My Kitchen <span style={{ color: "#C8A97E" }}>✦</span>
         </h1>
         <p style={{ fontSize: 13, color: "#71717a", marginTop: 6 }}>
           {chef.location} · {chef.cuisine.join(", ")}
