@@ -2,12 +2,12 @@
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { chefs } from "@/data/chefs";
-import type { Chef } from "@/types";
+import type { Chef, Review } from "@/types";
 import { ChefDrawer } from "@/components/chefs/ChefDrawer";
 import { BookingModal } from "@/components/booking/BookingModal";
 import { Star, MapPin, Heart } from "lucide-react";
 
-const MOCK_REVIEWS: Record<string, { author: string; rating: number; text: string; date: string }[]> = {};
+const MOCK_REVIEWS: Record<string, Review[]> = {};
 
 const MAX_FAVORITES = 5;
 
