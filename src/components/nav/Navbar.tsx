@@ -51,68 +51,6 @@ export function Navbar() {
 
   return (
     <>
-      <style>{`
-        @keyframes navBorderScroll {
-          0%   { background-position: 0% 0; }
-          100% { background-position: 400% 0; }
-        }
-        .poach-nav-border { position: relative; }
-        .poach-nav-border::after {
-          content: "";
-          position: absolute;
-          bottom: 0; left: 0; right: 0;
-          height: 1px;
-          background: linear-gradient(
-            to right,
-            #C8A97E, #C8C87E, #7EC87E, #7EC8C8,
-            #7E9BC8, #B87EC8, #C87E7E, #C8B87E,
-            #C8A97E, #C8C87E, #7EC87E, #7EC8C8,
-            #7E9BC8, #B87EC8, #C87E7E, #C8A97E
-          );
-          background-size: 400% 100%;
-          animation: navBorderScroll 8s linear infinite;
-        }
-        .chef-avatar-btn { background: none; border: none; cursor: pointer; padding: 0; }
-        .chef-avatar-btn:focus { outline: none; }
-        .nav-dropdown {
-          position: absolute;
-          top: calc(100% + 10px);
-          right: 0;
-          min-width: 180px;
-          background: #0f0f0f;
-          border: 1px solid #27272a;
-          border-radius: 12px;
-          overflow: hidden;
-          z-index: 100;
-          box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-          animation: dropIn 0.15s ease;
-        }
-        @keyframes dropIn {
-          from { opacity: 0; transform: translateY(-6px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .nav-dropdown-item {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 11px 16px;
-          font-size: 13px;
-          font-weight: 500;
-          color: #a1a1aa;
-          text-decoration: none;
-          cursor: pointer;
-          background: none;
-          border: none;
-          width: 100%;
-          text-align: left;
-          font-family: 'DM Sans', sans-serif;
-          transition: background 0.1s, color 0.1s;
-        }
-        .nav-dropdown-item:hover { background: #161616; color: #f5f0e8; }
-        .nav-dropdown-item.danger:hover { background: #1a0e0e; color: #C87E7E; }
-        .nav-dropdown-divider { height: 1px; background: #1e1e1e; }
-      `}</style>
-
       <nav className="poach-nav-border sticky top-0 z-40 bg-ink/95 backdrop-blur-xl">
         <div className="max-w-6xl mx-auto px-6 flex items-center h-16 gap-5">
 
