@@ -109,13 +109,17 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 .poach-nav-border {
   position: relative;
+  border-bottom: none;
 }
 
-.poach-nav-border::after {
-  content: "";
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
+/* Animated bar is a sibling div (.nav-gradient-bar) so it never re-renders */
+.nav-gradient-bar {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
   height: 1px;
+  z-index: 41;
   background: linear-gradient(
     to right,
     #C8A97E, #C8C87E, #7EC87E, #7EC8C8,
@@ -126,6 +130,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   background-size: 400% 100%;
   animation: navBorderScroll 8s linear infinite;
   will-change: background-position;
+  pointer-events: none;
 }
 
 /* ── Navbar dropdown ───────────────────────────────────────────────────────── */
