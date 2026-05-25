@@ -1,4 +1,7 @@
 "use client";
+import { MapPin, Phone, Mail, AlertTriangle, MessageCircle, Leaf, CheckCircle2, XCircle, Users } from "lucide-react";
+const G = ({ icon: I, size=12 }: { icon: React.ElementType; size?: number }) => 
+  <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle", marginRight:3 }} />;
 import { useState } from "react";
 
 type RequestStatus = "pending" | "accepted" | "declined";
@@ -339,7 +342,7 @@ function RequestCard({ request, onAction }: { request: BookingRequest; onAction:
                   transition: "opacity 0.2s",
                 }}
               >
-                ✓ Accept Booking
+                Accept Booking
               </button>
               <button
                 onClick={() => onAction(request.id, "declined")}
@@ -350,7 +353,7 @@ function RequestCard({ request, onAction }: { request: BookingRequest; onAction:
                   cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
                 }}
               >
-                ✗ Decline
+                Decline
               </button>
               <button
                 style={{
@@ -361,7 +364,7 @@ function RequestCard({ request, onAction }: { request: BookingRequest; onAction:
                   marginLeft: "auto",
                 }}
               >
-                💬 Message Diner
+                Message Diner
               </button>
             </div>
           )}
