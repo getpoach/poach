@@ -27,7 +27,12 @@ export function ChefCard({ chef, onBook, onView }: ChefCardProps) {
     >
       {/* Header */}
       <div className="flex items-center gap-3.5">
-        <Avatar label={chef.avatar} color={chef.color} size={52} />
+        <div style={{ width: 52, height: 52, borderRadius: "50%", overflow: "hidden", border: `2px solid ${chef.color}`, flexShrink: 0, background: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          {chef.headshot
+            ? <img src={chef.headshot} alt={chef.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            : <Avatar label={chef.avatar} color={chef.color} size={52} />
+          }
+        </div>
         <div className="flex-1 min-w-0">
           <div className="font-display font-bold text-[17px] text-white truncate">
             {chef.name}
