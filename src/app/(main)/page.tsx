@@ -1,4 +1,7 @@
 "use client";
+import { Utensils, MapPin, Search, Clock, DollarSign, Map, SlidersHorizontal, CheckCircle2 } from "lucide-react";
+const G = ({ icon: I, size=12 }: { icon: React.ElementType; size?: number }) => 
+  <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle", marginRight:4 }} />;
 import { useState, useMemo } from "react";
 import type { Chef, Review } from "@/types";
 import { chefs as allChefs } from "@/data/chefs";
@@ -260,7 +263,7 @@ export default function DiscoverPage() {
                 position: "relative",
               }}
             >
-              {m === "grid" ? "▦  Grid" : "📍  Map"}
+              {m === "grid" ? "▦  Grid" : "Map"}
             </button>
           );
         })}
@@ -348,7 +351,7 @@ export default function DiscoverPage() {
           <div style={{ padding: "10px 16px", borderBottom: "1px solid #18181b", background: "#0a0a0a" }}>
             <form onSubmit={handleGridSearch} style={{ display: "flex", gap: 8 }}>
               <div style={{ flex: 1, position: "relative" }}>
-                <span style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", fontSize: 14, color: "#52525b", pointerEvents: "none" }}>🔍</span>
+                <Search size={14} color="#52525b" strokeWidth={1.75} style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }} />
                 <input
                   type="text"
                   value={gridSearchQuery}
