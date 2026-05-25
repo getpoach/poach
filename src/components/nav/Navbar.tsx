@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
-import { Utensils, CalendarDays, User, LayoutDashboard, LogOut } from "lucide-react";
+import { Utensils, CalendarDays, User, LayoutDashboard, LogOut, BookOpen } from "lucide-react";
 const G = ({ icon: I, size=14 }: { icon: React.ElementType; size?: number }) => 
   <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle" }} />;
 import { chefs } from "@/data/chefs";
@@ -28,11 +28,9 @@ export function Navbar() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  // Get chef headshot if logged in as chef
-  const chefData = user?.role === "chef"
-    ? chefs.find(c => c.id === user.chefId) ?? chefs[0]
-    : null;
-  const chefPhoto = chefData?.headshot;
+  // Get profile photo — chef headshot or diner uploaded avatar
+  const chefData  = user?.role === "chef" ? chefs.find(c => c.id === user.chefId) ?? chefs[0] : null;
+  const chefPhoto = user?.role === "chef" ? chefData?.headshot : user?.avatar;
   const initials  = user ? user.name.split(" ").map(n => n[0]).join("").slice(0, 2) : "";
 
   const navLinks = user?.role === "chef"
@@ -114,25 +112,42 @@ export function Navbar() {
                 <div className="nav-dropdown">
                   {/* User info header */}
                   <div style={{ padding: "12px 16px", borderBottom: "1px solid #1e1e1e" }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: "#f5f0e8" }}>{user.name}</div>
-                    <div style={{ fontSize: 11, color: "#52525b", marginTop: 2 }}>{user.email}</div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <div style={{ width: 32, height: 32, borderRadius: "50%", overflow: "hidden", background: "#1a1a1a", border: "1px solid #27272a", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        {chefPhoto
+                          ? <img src={chefPhoto} alt={user.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                          : <span style={{ fontSize: 11, fontWeight: 700, color: "#C8A97E" }}>{initials}</span>
+                        }
+                      </div>
+                      <div>
+                        <div style={{ fontSize: 13, fontWeight: 700, color: "#f5f0e8" }}>{user.name}</div>
+                        <div style={{ fontSize: 11, color: "#52525b" }}>{user.email}</div>
+                      </div>
+                    </div>
                   </div>
 
-                  {/* My Kitchen */}
-                  <Link href="/chef/dashboard" className="nav-dropdown-item"
-                    onClick={() => setDropdownOpen(false)}>
-                    <LayoutDashboard size={15} color="#C8A97E" strokeWidth={1.75} /> My Kitchen
-                  </Link>
+                  {/* Chef options */}
+                  {user.role === "chef" && (<>
+                    <Link href="/chef/dashboard" className="nav-dropdown-item" onClick={() => setDropdownOpen(false)}>
+                      <LayoutDashboard size={15} color="#C8A97E" strokeWidth={1.75} /> My Kitchen
+                    </Link>
+                    <Link href="/chef/profile" className="nav-dropdown-item" onClick={() => setDropdownOpen(false)}>
+                      <User size={15} color="#C8A97E" strokeWidth={1.75} /> My Profile
+                    </Link>
+                  </>)}
 
-                  {/* My Profile */}
-                  <Link href="/chef/profile" className="nav-dropdown-item"
-                    onClick={() => setDropdownOpen(false)}>
-                    <G icon={User} size={15} /> My Profile
-                  </Link>
+                  {/* Diner options */}
+                  {user.role === "diner" && (<>
+                    <Link href="/bookings" className="nav-dropdown-item" onClick={() => setDropdownOpen(false)}>
+                      <BookOpen size={15} color="#C8A97E" strokeWidth={1.75} /> My Bookings
+                    </Link>
+                    <Link href="/profile" className="nav-dropdown-item" onClick={() => setDropdownOpen(false)}>
+                      <User size={15} color="#C8A97E" strokeWidth={1.75} /> My Profile
+                    </Link>
+                  </>)}
 
                   <div className="nav-dropdown-divider" />
 
-                  {/* Sign Out */}
                   <button className="nav-dropdown-item danger"
                     onClick={() => { setDropdownOpen(false); logout(); router.push("/"); }}>
                     <LogOut size={15} color="#C87E7E" strokeWidth={1.75} /> Sign Out
