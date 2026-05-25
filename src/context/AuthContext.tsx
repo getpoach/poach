@@ -19,6 +19,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<{ error?: string }>;
   signup: (name: string, email: string, password: string, role: UserRole) => Promise<{ error?: string }>;
   logout: () => void;
+  updateAvatar: (dataUrl: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -89,8 +90,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem("poach_user");
   }
 
+  function updateAvatar(dataUrl: string) {
+    if (!user) return;
+    const updated = { ...user, avatar: dataUrl };
+    setUser(updated);
+    localStorage.setItem("poach_user", JSON.stringify(updated));
+  }
+
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, signup, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, login, signup, logout, updateAvatar }}>
       {children}
     </AuthContext.Provider>
   );
