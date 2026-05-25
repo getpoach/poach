@@ -9,7 +9,7 @@ import { useAuth, UserRole } from "@/context/AuthContext";
 
 type Mode = "login" | "signup";
 
-export default function AuthPage() {
+function AuthPage() {
   const { login, signup } = useAuth();
   const router = useRouter();
 
@@ -251,3 +251,15 @@ const inputStyle: React.CSSProperties = {
   boxSizing: "border-box",
   transition: "border-color 0.2s",
 };
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div style={{ minHeight: "100vh", background: "#080808", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ color: "#C8A97E", fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>Loading...</div>
+      </div>
+    }>
+      <AuthPage />
+    </Suspense>
+  );
+}
