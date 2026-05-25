@@ -6,12 +6,11 @@ import { useAuth } from "@/context/AuthContext";
 import { Navbar } from "@/components/nav/Navbar";
 
 const NAV_ITEMS = [
-  { href: "/chef/dashboard",  icon: "◉",  label: "Dashboard"    },
+  { href: "/chef/dashboard",  icon: "◉",  label: "My Kitchen"   },
   { href: "/chef/bookings",   icon: "📅", label: "Bookings"     },
   { href: "/chef/requests",   icon: "🔔", label: "Requests"     },
   { href: "/chef/calendar",   icon: "🗓️", label: "Availability" },
   { href: "/chef/menus",      icon: "🍽️", label: "Menus"        },
-  { href: "/chef/profile",    icon: "👤", label: "My Profile"   },
 ];
 
 const EXPANDED  = 220;
