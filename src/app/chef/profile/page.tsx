@@ -1,4 +1,7 @@
 "use client";
+import { User, Palette, CreditCard, BookOpen, Clock, DollarSign, Camera, Link2, BarChart2, Instagram, Globe } from "lucide-react";
+const G = ({ icon: I, size=13 }: { icon: React.ElementType; size?: number }) => 
+  <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle", marginRight:6 }} />;
 import { useState, useRef } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { chefs } from "@/data/chefs";
@@ -191,7 +194,7 @@ export default function ChefProfile() {
       {/* ── Identity tab ─────────────────────────────────────────────────── */}
       {activeTab === "identity" && (
         <>
-          <Section title="👤 Profile Photo">
+          <Section title="Profile Photo">
             <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
               <div style={{ position: "relative" }}>
                 <div style={{ width: 100, height: 100, borderRadius: "50%", overflow: "hidden", border: `3px solid ${color}`, flexShrink: 0 }}>
@@ -218,7 +221,7 @@ export default function ChefProfile() {
             </div>
           </Section>
 
-          <Section title="✦ Profile Color">
+          <Section title="Profile Color">
             <p style={{ fontSize: 12, color: "#71717a", margin: "0 0 14px" }}>
               Your color appears on your map pin, chef card border, and throughout your profile.
             </p>
@@ -248,7 +251,7 @@ export default function ChefProfile() {
             </div>
           </Section>
 
-          <Section title="🪪 Basic Info">
+          <Section title="Basic Info">
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
               <Field label="Display Name">
                 <input type="text" value={name} onChange={e => setName(e.target.value)} style={inputStyle} />
@@ -273,7 +276,7 @@ export default function ChefProfile() {
       {/* ── About tab ────────────────────────────────────────────────────── */}
       {activeTab === "about" && (
         <>
-          <Section title="📝 Your Story">
+          <Section title="Your Story">
             <Field label="Bio" hint="This appears on your public profile. Be personal — diners want to know who you are.">
               <textarea value={bio} onChange={e => setBio(e.target.value)} rows={6}
                 style={{ ...inputStyle, resize: "vertical", minHeight: 120, lineHeight: 1.7 }}
@@ -284,7 +287,7 @@ export default function ChefProfile() {
             </Field>
           </Section>
 
-          <Section title="🍽️ Cuisines You Offer">
+          <Section title="Cuisines You Offer">
             <p style={{ fontSize: 12, color: "#71717a", margin: "0 0 14px" }}>Select all styles you're comfortable cooking.</p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               {CUISINE_OPTIONS.map(c => {
@@ -310,7 +313,7 @@ export default function ChefProfile() {
       {/* ── Availability tab ─────────────────────────────────────────────── */}
       {activeTab === "availability" && (
         <>
-          <Section title="🗓️ Standard Service Days">
+          <Section title="Standard Service Days">
             <p style={{ fontSize: 12, color: "#71717a", margin: "0 0 6px" }}>
               Select the days you <em>typically</em> take bookings. This is shown on your public profile to give diners a general idea of your schedule.
             </p>
@@ -341,7 +344,7 @@ export default function ChefProfile() {
             )}
           </Section>
 
-          <Section title="💰 Pricing & Range">
+          <Section title="Pricing & Range">
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
               <Field label="Starting Price (per person)" hint="Your minimum — diners see this on your card">
                 <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -367,7 +370,7 @@ export default function ChefProfile() {
       {/* ── Portfolio tab ────────────────────────────────────────────────── */}
       {activeTab === "portfolio" && (
         <>
-          <Section title="📸 Portfolio Photos">
+          <Section title="Portfolio Photos">
             <p style={{ fontSize: 12, color: "#71717a", margin: "0 0 16px" }}>
               Add up to 10 photos of your dishes, plating, and dining setups. These appear in your public drawer.
             </p>
@@ -418,7 +421,7 @@ export default function ChefProfile() {
       {/* ── Social tab ───────────────────────────────────────────────────── */}
       {activeTab === "social" && (
         <>
-          <Section title="🔗 Social & Web">
+          <Section title="Social & Web">
             <Field label="Instagram Handle" hint="Shown on your profile so diners can follow your work">
               <div style={{ display: "flex", alignItems: "center", gap: 0 }}>
                 <div style={{ padding: "10px 12px", background: "#1a1a1a", border: "1px solid #2a2a2a", borderRight: "none", borderRadius: "10px 0 0 10px", fontSize: 13, color: "#52525b" }}>@</div>
@@ -433,7 +436,7 @@ export default function ChefProfile() {
             </Field>
           </Section>
 
-          <Section title="⭐ Your Stats (Read Only)">
+          <Section title="Your Stats">
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, background: "#1a1a1a", borderRadius: 12, overflow: "hidden" }}>
               {[
                 { label: "Rating", value: String(chef.rating), sub: `${chef.reviewCount} reviews` },
