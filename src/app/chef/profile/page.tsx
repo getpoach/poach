@@ -56,7 +56,7 @@ export default function ChefProfile() {
   const [experience, setExperience] = useState(chef.experience);
   const [location, setLocation]   = useState(chef.location);
   const [cuisines, setCuisines]   = useState<string[]>(chef.cuisine);
-  const [available, setAvailable] = useState<string[]>(chef.available);
+  const [serviceDays, setServiceDays] = useState<string[]>(chef.available); // profile display only
   const [price, setPrice]         = useState(chef.price);
   const [serviceRadius, setServiceRadius] = useState(chef.serviceRadius ?? 10);
   const [color, setColor]         = useState(chef.color);
@@ -75,8 +75,8 @@ export default function ChefProfile() {
     setCuisines(prev => prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c]);
   }
 
-  function toggleDay(d: string) {
-    setAvailable(prev => prev.includes(d) ? prev.filter(x => x !== d) : [...prev, d]);
+  function toggleServiceDay(d: string) {
+    setServiceDays(prev => prev.includes(d) ? prev.filter(x => x !== d) : [...prev, d]);
   }
 
   function handleHeadshotUpload(e: React.ChangeEvent<HTMLInputElement>) {
@@ -310,13 +310,18 @@ export default function ChefProfile() {
       {/* ── Availability tab ─────────────────────────────────────────────── */}
       {activeTab === "availability" && (
         <>
-          <Section title="🗓️ Available Days">
-            <p style={{ fontSize: 12, color: "#71717a", margin: "0 0 16px" }}>These show on your public profile to help diners find you.</p>
+          <Section title="🗓️ Standard Service Days">
+            <p style={{ fontSize: 12, color: "#71717a", margin: "0 0 6px" }}>
+              Select the days you <em>typically</em> take bookings. This is shown on your public profile to give diners a general idea of your schedule.
+            </p>
+            <div style={{ fontSize: 11, color: "#52525b", margin: "0 0 16px", padding: "8px 12px", borderRadius: 8, background: "#141414", border: "1px solid #1e1e1e" }}>
+              💡 This does <strong style={{ color: "#a1a1aa" }}>not</strong> affect your actual calendar availability — manage specific dates in the <strong style={{ color: "#a1a1aa" }}>Availability</strong> section of the portal.
+            </div>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
               {DAY_OPTIONS.map(d => {
-                const active = available.includes(d);
+                const active = serviceDays.includes(d);
                 return (
-                  <button key={d} onClick={() => toggleDay(d)}
+                  <button key={d} onClick={() => toggleServiceDay(d)}
                     style={{
                       width: 64, height: 64, borderRadius: 12, fontSize: 13, fontWeight: 700, cursor: "pointer",
                       border: `1px solid ${active ? color : "#2a2a2a"}`,
@@ -329,6 +334,11 @@ export default function ChefProfile() {
                 );
               })}
             </div>
+            {serviceDays.length > 0 && (
+              <div style={{ marginTop: 14, fontSize: 12, color: "#71717a" }}>
+                Your profile will show: <span style={{ color, fontWeight: 700 }}>{serviceDays.join(", ")}</span>
+              </div>
+            )}
           </Section>
 
           <Section title="💰 Pricing & Range">
