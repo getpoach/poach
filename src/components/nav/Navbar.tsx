@@ -2,16 +2,38 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
+import { chefs } from "@/data/chefs";
 
 export function Navbar() {
   const pathname = usePathname();
-  const router = useRouter();
+  const router   = useRouter();
   const { user, logout } = useAuth();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  // Get chef headshot if logged in as chef
+  const chefData = user?.role === "chef"
+    ? chefs.find(c => c.id === user.chefId) ?? chefs[0]
+    : null;
+  const chefPhoto = chefData?.headshot;
+  const initials  = user ? user.name.split(" ").map(n => n[0]).join("").slice(0, 2) : "";
 
   const navLinks = [
-    { href: "/", label: "🍴 Discover" },
+    { href: "/",         label: "🍴 Discover" },
     { href: "/bookings", label: "📅 Bookings" },
   ];
 
@@ -22,9 +44,7 @@ export function Navbar() {
           0%   { background-position: 0% 0; }
           100% { background-position: 400% 0; }
         }
-        .poach-nav-border {
-          position: relative;
-        }
+        .poach-nav-border { position: relative; }
         .poach-nav-border::after {
           content: "";
           position: absolute;
@@ -40,77 +60,147 @@ export function Navbar() {
           background-size: 400% 100%;
           animation: navBorderScroll 8s linear infinite;
         }
+        .chef-avatar-btn { background: none; border: none; cursor: pointer; padding: 0; }
+        .chef-avatar-btn:focus { outline: none; }
+        .nav-dropdown {
+          position: absolute;
+          top: calc(100% + 10px);
+          right: 0;
+          min-width: 180px;
+          background: #0f0f0f;
+          border: 1px solid #27272a;
+          border-radius: 12px;
+          overflow: hidden;
+          z-index: 100;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+          animation: dropIn 0.15s ease;
+        }
+        @keyframes dropIn {
+          from { opacity: 0; transform: translateY(-6px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .nav-dropdown-item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 11px 16px;
+          font-size: 13px;
+          font-weight: 500;
+          color: #a1a1aa;
+          text-decoration: none;
+          cursor: pointer;
+          background: none;
+          border: none;
+          width: 100%;
+          text-align: left;
+          font-family: 'DM Sans', sans-serif;
+          transition: background 0.1s, color 0.1s;
+        }
+        .nav-dropdown-item:hover { background: #161616; color: #f5f0e8; }
+        .nav-dropdown-item.danger:hover { background: #1a0e0e; color: #C87E7E; }
+        .nav-dropdown-divider { height: 1px; background: #1e1e1e; }
       `}</style>
+
       <nav className="poach-nav-border sticky top-0 z-40 bg-ink/95 backdrop-blur-xl">
-      <div className="max-w-6xl mx-auto px-6 flex items-center h-16 gap-5">
+        <div className="max-w-6xl mx-auto px-6 flex items-center h-16 gap-5">
 
-        {/* Logo */}
-        <Link href="/" className="flex items-center shrink-0">
-          <Image
-            src="/poachnav.png"
-            alt="Poach — Let's Cook."
-            width={180}
-            height={40}
-            style={{
-              height: 36,
-              width: "auto",
-              objectFit: "contain",
-              mixBlendMode: "screen",
-            }}
-            priority
-          />
-        </Link>
-
-        <div className="flex gap-1 ml-auto">
-          {navLinks.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className={cn(
-                "px-3.5 py-2 rounded-xl text-sm transition-colors",
-                pathname === href
-                  ? "bg-zinc-900 text-white font-bold"
-                  : "text-muted hover:text-white"
-              )}
-            >
-              {label}
-            </Link>
-          ))}
-        </div>
-
-        {user ? (
-          <div className="flex items-center gap-2">
-            <Link
-              href={user.role === "chef" ? "/chef/dashboard" : "/"}
-              className="text-xs text-zinc-400 hover:text-white transition-colors px-3 py-2 rounded-xl hover:bg-zinc-900"
-            >
-              {user.role === "chef" ? "👨‍🍳 My Dashboard" : `Hi, ${user.name.split(" ")[0]}`}
-            </Link>
-            <button
-              onClick={() => { logout(); router.push("/"); }}
-              className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors cursor-pointer px-2 py-2"
-              style={{ background: "none", border: "none" }}
-            >
-              Sign out
-            </button>
-          </div>
-        ) : (
-          <Link
-            href="/login"
-            className="text-xs text-zinc-400 hover:text-white transition-colors px-3 py-2 rounded-xl hover:bg-zinc-900 shrink-0"
-          >
-            Sign in
+          {/* Logo */}
+          <Link href="/" className="flex items-center shrink-0">
+            <Image
+              src="/poachnav.png"
+              alt="Poach — Let's Cook."
+              width={180}
+              height={40}
+              style={{ height: 36, width: "auto", objectFit: "contain", mixBlendMode: "screen" }}
+              priority
+            />
           </Link>
-        )}
 
-        <Link
-          href="/join"
-          className="bg-gold text-ink font-bold text-xs px-4 py-2 rounded-xl hover:opacity-85 transition-opacity shrink-0"
-        >
-          List as Chef
-        </Link>
-      </div>
-    </nav>
-  </>
+          {/* Nav links */}
+          <div className="flex gap-1 ml-auto">
+            {navLinks.map(({ href, label }) => (
+              <Link key={href} href={href}
+                className={cn(
+                  "px-3.5 py-2 rounded-xl text-sm transition-colors",
+                  pathname === href ? "bg-zinc-900 text-white font-bold" : "text-muted hover:text-white"
+                )}
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Right side — auth */}
+          {user ? (
+            /* Logged in — chef photo / initials avatar with dropdown */
+            <div ref={dropdownRef} style={{ position: "relative" }}>
+              <button
+                className="chef-avatar-btn"
+                onClick={() => setDropdownOpen(v => !v)}
+                title={user.name}
+              >
+                <div style={{
+                  width: 36, height: 36, borderRadius: "50%",
+                  overflow: "hidden",
+                  border: `2px solid ${dropdownOpen ? "#C8A97E" : "#27272a"}`,
+                  transition: "border-color 0.15s",
+                  background: "#1a1a1a",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  flexShrink: 0,
+                }}>
+                  {chefPhoto ? (
+                    <img src={chefPhoto} alt={user.name}
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  ) : (
+                    <span style={{ fontSize: 12, fontWeight: 700, color: "#C8A97E" }}>{initials}</span>
+                  )}
+                </div>
+              </button>
+
+              {dropdownOpen && (
+                <div className="nav-dropdown">
+                  {/* User info header */}
+                  <div style={{ padding: "12px 16px", borderBottom: "1px solid #1e1e1e" }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: "#f5f0e8" }}>{user.name}</div>
+                    <div style={{ fontSize: 11, color: "#52525b", marginTop: 2 }}>{user.email}</div>
+                  </div>
+
+                  {/* My Kitchen */}
+                  <Link href="/chef/dashboard" className="nav-dropdown-item"
+                    onClick={() => setDropdownOpen(false)}>
+                    <span style={{ fontSize: 15 }}>◉</span> My Kitchen
+                  </Link>
+
+                  {/* My Profile */}
+                  <Link href="/chef/profile" className="nav-dropdown-item"
+                    onClick={() => setDropdownOpen(false)}>
+                    <span style={{ fontSize: 15 }}>👤</span> My Profile
+                  </Link>
+
+                  <div className="nav-dropdown-divider" />
+
+                  {/* Sign Out */}
+                  <button className="nav-dropdown-item danger"
+                    onClick={() => { setDropdownOpen(false); logout(); router.push("/"); }}>
+                    <span style={{ fontSize: 15 }}>↩</span> Sign Out
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link href="/login"
+              className="text-xs text-zinc-400 hover:text-white transition-colors px-3 py-2 rounded-xl hover:bg-zinc-900 shrink-0">
+              Sign in
+            </Link>
+          )}
+
+          {/* List as Chef */}
+          <Link href="/join"
+            className="bg-gold text-ink font-bold text-xs px-4 py-2 rounded-xl hover:opacity-85 transition-opacity shrink-0">
+            List as Chef
+          </Link>
+        </div>
+      </nav>
+    </>
   );
 }
