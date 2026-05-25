@@ -49,10 +49,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Restore session from localStorage
+    // Restore session from localStorage, merging fresh mock data so avatar stays current
     try {
       const stored = localStorage.getItem("poach_user");
-      if (stored) setUser(JSON.parse(stored));
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        const fresh = MOCK_USERS.find(u => u.id === parsed.id);
+        // Prefer uploaded avatar (stored) over mock, but pick up new mock fields
+        const { password: _, ...freshUser } = fresh ?? { password: "" };
+        const merged = { ...freshUser, ...parsed };
+        setUser(merged);
+        localStorage.setItem("poach_user", JSON.stringify(merged));
+      }
     } catch {}
     setIsLoading(false);
   }, []);
