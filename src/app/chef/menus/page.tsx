@@ -1,4 +1,7 @@
 "use client";
+import { Users, Utensils, Image } from "lucide-react";
+const G = ({ icon: I, size=12 }: { icon: React.ElementType; size?: number }) => 
+  <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle", marginRight:4 }} />;
 import { useState, useRef } from "react";
 
 interface Course {
@@ -125,7 +128,7 @@ function MenuCard({ menu, onEdit, onToggle, onDelete }: { menu: Menu; onEdit: ()
             {menu.courses.map((c, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 16px", borderTop: "1px solid #141414" }}>
                 <div style={{ width: 44, height: 44, borderRadius: 8, overflow: "hidden", background: "#141414", border: "1px solid #1e1e1e", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  {c.imageUrl ? <img src={c.imageUrl} alt={c.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : <span style={{ fontSize: 16, color: "#2a2a2a" }}>🍽️</span>}
+                  {c.imageUrl ? <img src={c.imageUrl} alt={c.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : <Utensils size={15} color="#2a2a2a" strokeWidth={1.5} />}
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontSize: 12, fontWeight: 700, color: "#a1a1aa" }}>{c.name}</div>
@@ -219,7 +222,7 @@ function MenuEditor({ initial, onSave, onCancel }: { initial: Menu; onSave: (m: 
                 <div
                   onClick={() => fileRefs.current[i]?.click()}
                   style={{ width: 52, height: 52, borderRadius: 8, overflow: "hidden", background: "#0f0f0f", border: "1px solid #27272a", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
-                  {c.imageUrl ? <img src={c.imageUrl} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : <span style={{ fontSize: 22, color: "#2a2a2a" }}>🍽️</span>}
+                  {c.imageUrl ? <img src={c.imageUrl} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : <Utensils size={20} color="#2a2a2a" strokeWidth={1.5} />}
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: 10, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: 5 }}>Course Photo</div>
