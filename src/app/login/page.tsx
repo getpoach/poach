@@ -2,7 +2,7 @@
 import { ChefHat, UtensilsCrossed } from "lucide-react";
 const G = ({ icon: I, size=15 }: { icon: React.ElementType; size?: number }) => 
   <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle", marginRight:6 }} />;
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { useAuth, UserRole } from "@/context/AuthContext";
