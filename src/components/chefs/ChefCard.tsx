@@ -25,9 +25,9 @@ export function ChefCard({ chef, onBook, onView }: ChefCardProps) {
         boxShadow: hovered ? `0 8px 40px ${chef.color}22` : "none",
       }}
     >
-      {/* Business name — top of card in profile color */}
+      {/* Business name — prominent at top, larger than chef name */}
       {chef.businessName && (
-        <div style={{ fontSize: 13, fontWeight: 700, color: chef.color, fontFamily: "var(--font-playfair)", fontStyle: "italic", marginBottom: 2 }}>
+        <div style={{ fontSize: 20, fontWeight: 900, color: chef.color, fontFamily: "var(--font-playfair)", fontStyle: "italic", lineHeight: 1.2, marginBottom: 4 }}>
           {chef.businessName}
         </div>
       )}
