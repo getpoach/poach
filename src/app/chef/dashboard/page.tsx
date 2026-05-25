@@ -1,5 +1,8 @@
 "use client";
 import { useState } from "react";
+import { CalendarDays, Bell, UtensilsCrossed, Pencil, CheckCircle2, XCircle } from "lucide-react";
+const G = ({ icon: I, size=14 }: { icon: React.ElementType; size?: number }) => 
+  <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle", marginRight:4 }} />;
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { chefs } from "@/data/chefs";
