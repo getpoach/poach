@@ -53,6 +53,7 @@ export default function ChefProfile() {
 
   // Form state — mirrors the Chef type
   const [name, setName]           = useState(chef.name);
+  const [businessName, setBusinessName] = useState(chef.businessName ?? "");
   const [bio, setBio]             = useState(chef.bio);
   const [specialty, setSpecialty] = useState(chef.specialty);
   const [trained, setTrained]     = useState(chef.trained);
@@ -253,8 +254,11 @@ export default function ChefProfile() {
 
           <Section title="Basic Info">
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-              <Field label="Display Name">
+              <Field label="Full Name">
                 <input type="text" value={name} onChange={e => setName(e.target.value)} style={inputStyle} />
+              </Field>
+              <Field label="Business / Brand Name" hint="How your dining service is marketed (e.g. Bayou Table)">
+                <input type="text" value={businessName} onChange={e => setBusinessName(e.target.value)} placeholder='e.g. "Bayou Table"' style={inputStyle} />
               </Field>
               <Field label="Location">
                 <input type="text" value={location} onChange={e => setLocation(e.target.value)} style={inputStyle} placeholder="City, State" />
