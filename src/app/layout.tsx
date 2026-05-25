@@ -35,8 +35,6 @@ export default function RootLayout({
       <body
         className={`${playfair.variable} ${dmSans.variable} bg-ink text-white font-sans antialiased`}
       >
-        {/* Gradient bar — fixed element, never re-renders, animation stays smooth */}
-        <div className="nav-gradient-bar" />
         <AuthProvider>
           {children}
         </AuthProvider>
