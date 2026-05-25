@@ -1,4 +1,7 @@
 "use client";
+import { Check, X, Lightbulb } from "lucide-react";
+const G = ({ icon: I, size=12 }: { icon: React.ElementType; size?: number }) => 
+  <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle", marginRight:4 }} />;
 import { useState } from "react";
 
 const DAYS_OF_WEEK = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -155,8 +158,8 @@ export default function ChefCalendar() {
               Mark days as...
             </div>
             {([
-              { value: "available" as DayStatus, label: "✓ Available", color: "#7EC87E", desc: "Open for bookings" },
-              { value: "blocked"   as DayStatus, label: "✗ Blocked",   color: "#C87E7E", desc: "Not available" },
+              { value: "available" as DayStatus, label: "Available", color: "#7EC87E", desc: "Open for bookings" },
+              { value: "blocked"   as DayStatus, label: "Blocked",   color: "#C87E7E", desc: "Not available" },
             ]).map((opt) => (
               <button key={opt.value} onClick={() => setPaintMode(opt.value)}
                 style={{
