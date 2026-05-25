@@ -1,4 +1,7 @@
 "use client";
+import { ChefHat, UtensilsCrossed } from "lucide-react";
+const G = ({ icon: I, size=15 }: { icon: React.ElementType; size?: number }) => 
+  <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle", marginRight:6 }} />;
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -110,8 +113,8 @@ export default function AuthPage() {
                 </div>
                 <div style={{ display: "flex", gap: 10 }}>
                   {([
-                    { value: "diner" as UserRole, label: "🍽️ Diner", sub: "Book private chefs" },
-                    { value: "chef" as UserRole, label: "👨‍🍳 Chef", sub: "Offer my services" },
+                    { value: "diner" as UserRole, label: "Diner", sub: "Book private chefs" },
+                    { value: "chef" as UserRole, label: "Chef", sub: "Offer my services" },
                   ]).map((r) => (
                     <button
                       key={r.value}
