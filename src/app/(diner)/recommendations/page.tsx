@@ -173,6 +173,7 @@ export default function DinerRecommendations() {
         <BookingModal
           chef={bookingChef}
           onClose={() => setBookingChef(null)}
+          onSuccess={() => setBookingChef(null)}
         />
       )}
     </div>
