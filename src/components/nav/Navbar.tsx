@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
-import { Utensils, CalendarDays, User, LayoutDashboard } from "lucide-react";
+import { Utensils, CalendarDays, User, LayoutDashboard, LogOut } from "lucide-react";
 const G = ({ icon: I, size=14 }: { icon: React.ElementType; size?: number }) => 
   <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle" }} />;
 import { chefs } from "@/data/chefs";
@@ -40,9 +40,13 @@ export function Navbar() {
         { href: "/",               label: "Discover"   },
         { href: "/chef/dashboard", label: "My Kitchen" },
       ]
-    : [
+    : user
+    ? [
         { href: "/",         label: "Discover" },
         { href: "/bookings", label: "Bookings" },
+      ]
+    : [
+        { href: "/", label: "Discover" },
       ];
 
   return (
@@ -179,7 +183,7 @@ export function Navbar() {
                   {/* My Kitchen */}
                   <Link href="/chef/dashboard" className="nav-dropdown-item"
                     onClick={() => setDropdownOpen(false)}>
-                    <span style={{ fontSize: 15 }}>◉</span> My Kitchen
+                    <LayoutDashboard size={15} color="#C8A97E" strokeWidth={1.75} /> My Kitchen
                   </Link>
 
                   {/* My Profile */}
@@ -193,7 +197,7 @@ export function Navbar() {
                   {/* Sign Out */}
                   <button className="nav-dropdown-item danger"
                     onClick={() => { setDropdownOpen(false); logout(); router.push("/"); }}>
-                    <span style={{ fontSize: 15 }}>↩</span> Sign Out
+                    <LogOut size={15} color="#C87E7E" strokeWidth={1.75} /> Sign Out
                   </button>
                 </div>
               )}
@@ -205,11 +209,13 @@ export function Navbar() {
             </Link>
           )}
 
-          {/* List as Chef */}
-          <Link href="/join"
-            className="bg-gold text-ink font-bold text-xs px-4 py-2 rounded-xl hover:opacity-85 transition-opacity shrink-0">
-            List as Chef
-          </Link>
+          {/* List as Chef — only shown when not logged in as chef */}
+          {user?.role !== "chef" && (
+            <Link href="/join"
+              className="bg-gold text-ink font-bold text-xs px-4 py-2 rounded-xl hover:opacity-85 transition-opacity shrink-0">
+              List as Chef
+            </Link>
+          )}
         </div>
       </nav>
     </>
