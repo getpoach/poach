@@ -114,12 +114,8 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 /* Animated bar is a sibling div (.nav-gradient-bar) so it never re-renders */
 .nav-gradient-bar {
-  position: fixed;
-  top: 64px;
-  left: 0;
-  right: 0;
   height: 1px;
-  z-index: 41;
+  width: 100%;
   background: linear-gradient(
     to right,
     #C8A97E, #C8C87E, #7EC87E, #7EC8C8,
