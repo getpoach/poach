@@ -4,6 +4,7 @@ import { useState } from "react";
 interface Course {
   name: string;
   description: string;
+  imageUrl?: string;
 }
 
 interface Menu {
@@ -116,9 +117,9 @@ export default function ChefMenus() {
     pricePerPerson: 75,
     active: true,
     courses: [
-      { name: "", description: "" },
-      { name: "", description: "" },
-      { name: "", description: "" },
+      { name: "", description: "", imageUrl: "" },
+      { name: "", description: "", imageUrl: "" },
+      { name: "", description: "", imageUrl: "" },
     ],
   };
 
@@ -178,6 +179,14 @@ function MenuEditor({ initial, onSave, onCancel }: { initial: Menu; onSave: (m: 
     setForm({ ...form, courses: updated });
   }
 
+  function handleCourseImage(i: number, e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => updateCourse(i, "imageUrl", reader.result as string);
+    reader.readAsDataURL(file);
+  }
+
   function addCourse() {
     setForm({ ...form, courses: [...form.courses, { name: "", description: "" }] });
   }
@@ -213,15 +222,39 @@ function MenuEditor({ initial, onSave, onCancel }: { initial: Menu; onSave: (m: 
         <div>
           <label style={{ ...labelStyle, marginBottom: 10 }}>Courses</label>
           {form.courses.map((c, i) => (
-            <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr 2fr auto", gap: 8, marginBottom: 8, alignItems: "center" }}>
-              <input type="text" value={c.name} onChange={(e) => updateCourse(i, "name", e.target.value)}
-                placeholder={`Course ${i + 1}`} style={{ ...inputStyle, fontSize: 12 }} />
-              <input type="text" value={c.description} onChange={(e) => updateCourse(i, "description", e.target.value)}
-                placeholder="Description" style={{ ...inputStyle, fontSize: 12 }} />
-              <button onClick={() => removeCourse(i)}
-                style={{ padding: "10px", background: "transparent", border: "1px solid #27272a", borderRadius: 8, color: "#71717a", cursor: "pointer", fontSize: 14 }}>
-                ×
-              </button>
+            <div key={i} style={{ marginBottom: 10, padding: "10px 12px", background: "#0f0f0f", border: "1px solid #1e1e1e", borderRadius: 10 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr auto", gap: 8, marginBottom: 8, alignItems: "center" }}>
+                <input type="text" value={c.name} onChange={(e) => updateCourse(i, "name", e.target.value)}
+                  placeholder={`Course ${i + 1}`} style={{ ...inputStyle, fontSize: 12 }} />
+                <input type="text" value={c.description} onChange={(e) => updateCourse(i, "description", e.target.value)}
+                  placeholder="Description" style={{ ...inputStyle, fontSize: 12 }} />
+                <button onClick={() => removeCourse(i)}
+                  style={{ padding: "10px", background: "transparent", border: "1px solid #27272a", borderRadius: 8, color: "#71717a", cursor: "pointer", fontSize: 14 }}>
+                  ×
+                </button>
+              </div>
+              {/* Course image */}
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ width: 44, height: 44, borderRadius: 8, overflow: "hidden", background: "#141414", border: "1px solid #27272a", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  {c.imageUrl
+                    ? <img src={c.imageUrl} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    : <span style={{ fontSize: 18, color: "#3f3f46" }}>🍽️</span>
+                  }
+                </div>
+                <input
+                  type="text"
+                  value={c.imageUrl ?? ""}
+                  onChange={(e) => updateCourse(i, "imageUrl", e.target.value)}
+                  placeholder="Paste image URL for this course..."
+                  style={{ ...inputStyle, flex: 1, fontSize: 11, padding: "6px 10px" }}
+                />
+                {c.imageUrl && (
+                  <button onClick={() => updateCourse(i, "imageUrl", "")}
+                    style={{ padding: "6px 9px", borderRadius: 7, background: "transparent", border: "1px solid #27272a", color: "#71717a", fontSize: 12, cursor: "pointer" }}>
+                    ×
+                  </button>
+                )}
+              </div>
             </div>
           ))}
           <button onClick={addCourse}
