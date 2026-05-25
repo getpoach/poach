@@ -5,6 +5,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
+import { Utensils, CalendarDays, User } from "lucide-react";
+const G = ({ icon: I, size=14 }: { icon: React.ElementType; size?: number }) => 
+  <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle" }} />;
 import { chefs } from "@/data/chefs";
 
 export function Navbar() {
@@ -33,8 +36,8 @@ export function Navbar() {
   const initials  = user ? user.name.split(" ").map(n => n[0]).join("").slice(0, 2) : "";
 
   const navLinks = [
-    { href: "/",         label: "🍴 Discover" },
-    { href: "/bookings", label: "📅 Bookings" },
+    { href: "/",         label: <><G icon={Utensils} size={13} /> Discover</> },
+    { href: "/bookings", label: <><G icon={CalendarDays} size={13} /> Bookings</> },
   ];
 
   return (
@@ -174,7 +177,7 @@ export function Navbar() {
                   {/* My Profile */}
                   <Link href="/chef/profile" className="nav-dropdown-item"
                     onClick={() => setDropdownOpen(false)}>
-                    <span style={{ fontSize: 15 }}>👤</span> My Profile
+                    <G icon={User} size={15} /> My Profile
                   </Link>
 
                   <div className="nav-dropdown-divider" />
