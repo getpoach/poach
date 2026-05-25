@@ -5,6 +5,7 @@ export const chefs: Chef[] = [
   {
     id: "1",
     name: "Beau Thibodaux",
+    businessName: "Bayou Table",
     avatar: "BT",
     cuisine: ["French", "Fusion"],
     rating: 4.9,
@@ -39,6 +40,7 @@ export const chefs: Chef[] = [
   {
     id: "2",
     name: "Céleste Fontenot",
+    businessName: "La Méditerranée",
     avatar: "CF",
     cuisine: ["Fusion", "Mediterranean"],
     rating: 4.8,
@@ -73,6 +75,7 @@ export const chefs: Chef[] = [
   {
     id: "3",
     name: "Jaxon Broussard",
+    businessName: "The Smoking Spoon",
     avatar: "JB",
     cuisine: ["West African", "Fusion"],
     rating: 4.7,
@@ -107,6 +110,7 @@ export const chefs: Chef[] = [
   {
     id: "4",
     name: "Margaux Léger",
+    businessName: "Maison Léger",
     avatar: "ML",
     cuisine: ["French", "Pastry"],
     rating: 5.0,
@@ -141,6 +145,7 @@ export const chefs: Chef[] = [
   {
     id: "5",
     name: "Raul Moreno",
+    businessName: "Cocina del Sur",
     avatar: "RM",
     cuisine: ["Mexican", "Oaxacan"],
     rating: 4.9,
@@ -177,6 +182,7 @@ export const chefs: Chef[] = [
   {
     id: "6",
     name: "Simone Trosclair",
+    businessName: "Simone's Table",
     avatar: "ST",
     cuisine: ["French", "Fusion"],
     rating: 4.8,
@@ -211,6 +217,7 @@ export const chefs: Chef[] = [
   {
     id: "7",
     name: "Theo Arceneaux",
+    businessName: "Arceneaux Private Dining",
     avatar: "TA",
     cuisine: ["Italian", "Fusion"],
     rating: 4.6,
@@ -247,6 +254,7 @@ export const chefs: Chef[] = [
   {
     id: "8",
     name: "Ida Mae Guillory",
+    businessName: "Ida Mae's Kitchen",
     avatar: "IG",
     cuisine: ["West African", "Fusion"],
     rating: 4.9,
@@ -281,6 +289,7 @@ export const chefs: Chef[] = [
   {
     id: "9",
     name: "Darnell Savoy",
+    businessName: "Savoy Supper Club",
     avatar: "DS",
     cuisine: ["Indian", "Fusion"],
     rating: 4.7,
@@ -317,6 +326,7 @@ export const chefs: Chef[] = [
   {
     id: "10",
     name: "Yvette Romero",
+    businessName: "La Cocina de Yvette",
     avatar: "YR",
     cuisine: ["Mexican", "Mediterranean"],
     rating: 4.8,
@@ -351,6 +361,7 @@ export const chefs: Chef[] = [
   {
     id: "11",
     name: "Claude Hébert",
+    businessName: "Hébert Fine Dining",
     avatar: "CH",
     cuisine: ["French", "Pastry"],
     rating: 4.9,
@@ -387,6 +398,7 @@ export const chefs: Chef[] = [
   {
     id: "12",
     name: "Patrice Fontenette",
+    businessName: "Patrice's Petit Table",
     avatar: "PF",
     cuisine: ["French", "Fusion"],
     rating: 4.6,
@@ -421,6 +433,7 @@ export const chefs: Chef[] = [
   {
     id: "13",
     name: "Wesley Duhon",
+    businessName: "Duhon's Reserve",
     avatar: "WD",
     cuisine: ["Italian", "Omakase"],
     rating: 4.8,
@@ -457,6 +470,7 @@ export const chefs: Chef[] = [
   {
     id: "14",
     name: "Anita Tureaud",
+    businessName: "Tureaud & Table",
     avatar: "AT",
     cuisine: ["West African", "French"],
     rating: 4.9,
@@ -491,6 +505,7 @@ export const chefs: Chef[] = [
   {
     id: "15",
     name: "Marcus Delacroix",
+    businessName: "Delacroix Experiential",
     avatar: "MD",
     cuisine: ["Japanese", "Fusion"],
     rating: 4.7,
