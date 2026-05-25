@@ -77,7 +77,7 @@ export default function ChefDashboard() {
             {chef.name} <span style={{ color: "#C8A97E" }}>✦</span>
           </h1>
           {chef.businessName && (
-            <div style={{ fontSize: 14, fontWeight: 600, color: "#C8A97E", marginBottom: 4, fontFamily: "var(--font-playfair)", fontStyle: "italic" }}>
+            <div style={{ fontSize: 20, fontWeight: 700, color: chef.color, marginBottom: 4, fontFamily: "var(--font-playfair)", fontStyle: "italic" }}>
               {chef.businessName}
             </div>
           )}
