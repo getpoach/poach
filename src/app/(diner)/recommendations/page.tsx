@@ -2,7 +2,12 @@
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { chefs } from "@/data/chefs";
-import { Star, MapPin, Heart, Utensils } from "lucide-react";
+import type { Chef } from "@/types";
+import { ChefDrawer } from "@/components/chefs/ChefDrawer";
+import { BookingModal } from "@/components/booking/BookingModal";
+import { Star, MapPin, Heart } from "lucide-react";
+
+const MOCK_REVIEWS: Record<string, { author: string; rating: number; text: string; date: string }[]> = {};
 
 const MAX_FAVORITES = 5;
 
@@ -15,7 +20,9 @@ const PREFERRED_CUISINES = ["French", "Fusion", "Mediterranean"];
 export default function DinerRecommendations() {
   const { user } = useAuth();
   const [favorites, setFavorites] = useState<string[]>(["1", "6"]); // pre-favorited
-  const [activeTab, setActiveTab] = useState<"favorites" | "suggested" | "nearby">("favorites");
+  const [activeTab, setActiveTab]   = useState<"favorites" | "suggested" | "nearby">("favorites");
+  const [viewChef, setViewChef]       = useState<Chef | null>(null);
+  const [bookingChef, setBookingChef] = useState<Chef | null>(null);
 
   function toggleFavorite(id: string) {
     setFavorites(prev => {
@@ -41,7 +48,7 @@ export default function DinerRecommendations() {
     : activeTab === "suggested" ? suggestedChefs
     : nearbyChefs;
 
-  function ChefCard({ chef }: { chef: typeof chefs[0] }) {
+  function ChefCard({ chef }: { chef: Chef }) {
     const isFav = favorites.includes(chef.id);
     const wasBooked = BOOKED_CHEF_IDS.includes(chef.id);
     return (
@@ -86,10 +93,17 @@ export default function DinerRecommendations() {
           </div>
         </div>
 
-        {/* Book button */}
-        <div style={{ padding: "0 14px 14px" }}>
-          <button style={{ width: "100%", padding: "9px", borderRadius: 10, background: chef.color, color: "#080808", fontWeight: 700, fontSize: 12, border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
-            Book {chef.name.split(" ")[0]}
+        {/* View profile button */}
+        <div style={{ padding: "0 14px 14px", display: "flex", gap: 8 }}>
+          <button
+            onClick={() => setViewChef(chef)}
+            style={{ flex: 1, padding: "9px", borderRadius: 10, background: "#141414", color: "#a1a1aa", fontWeight: 600, fontSize: 12, border: "1px solid #27272a", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+            View Profile
+          </button>
+          <button
+            onClick={() => setBookingChef(chef)}
+            style={{ flex: 1, padding: "9px", borderRadius: 10, background: chef.color, color: "#080808", fontWeight: 700, fontSize: 12, border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+            Book
           </button>
         </div>
       </div>
@@ -143,6 +157,23 @@ export default function DinerRecommendations() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14 }}>
           {shownChefs.map(chef => <ChefCard key={chef.id} chef={chef} />)}
         </div>
+      )}
+      {/* Chef Drawer */}
+      {viewChef && (
+        <ChefDrawer
+          chef={viewChef}
+          reviews={MOCK_REVIEWS[viewChef.id] ?? []}
+          onClose={() => setViewChef(null)}
+          onBook={(chef) => { setViewChef(null); setBookingChef(chef); }}
+        />
+      )}
+
+      {/* Booking Modal */}
+      {bookingChef && (
+        <BookingModal
+          chef={bookingChef}
+          onClose={() => setBookingChef(null)}
+        />
       )}
     </div>
   );
