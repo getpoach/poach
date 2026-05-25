@@ -53,16 +53,38 @@ export default function ChefDashboard() {
   return (
     <div style={{ padding: "32px 36px", maxWidth: 1100 }}>
       {/* Header */}
-      <div style={{ marginBottom: 32 }}>
-        <div style={{ fontSize: 11, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 6 }}>
-          Welcome back
+      <div style={{ display: "flex", alignItems: "center", gap: 20, marginBottom: 32 }}>
+        {/* Chef photo */}
+        <div style={{
+          width: 80, height: 80, borderRadius: "50%", flexShrink: 0,
+          overflow: "hidden", border: `3px solid ${chef.color}`,
+          boxShadow: `0 0 20px ${chef.color}44`,
+        }}>
+          {chef.headshot
+            ? <img src={chef.headshot} alt={chef.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            : <div style={{ width: "100%", height: "100%", background: chef.color + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, fontWeight: 800, color: chef.color }}>
+                {chef.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2)}
+              </div>
+          }
         </div>
-        <h1 style={{ fontSize: 28, fontWeight: 900, color: "#f5f0e8", fontFamily: "var(--font-playfair)", margin: 0 }}>
-          My Kitchen <span style={{ color: "#C8A97E" }}>✦</span>
-        </h1>
-        <p style={{ fontSize: 13, color: "#71717a", marginTop: 6 }}>
-          {chef.location} · {chef.cuisine.join(", ")}
-        </p>
+
+        {/* Name + meta */}
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 4 }}>
+            Welcome back
+          </div>
+          <h1 style={{ fontSize: 28, fontWeight: 900, color: "#f5f0e8", fontFamily: "var(--font-playfair)", margin: "0 0 2px" }}>
+            {chef.name} <span style={{ color: "#C8A97E" }}>✦</span>
+          </h1>
+          {chef.businessName && (
+            <div style={{ fontSize: 14, fontWeight: 600, color: "#C8A97E", marginBottom: 4, fontFamily: "var(--font-playfair)", fontStyle: "italic" }}>
+              {chef.businessName}
+            </div>
+          )}
+          <p style={{ fontSize: 13, color: "#71717a", margin: 0 }}>
+            {chef.location} · {chef.cuisine.join(", ")}
+          </p>
+        </div>
       </div>
 
       {/* Stats */}
