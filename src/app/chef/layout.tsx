@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
-import { LayoutDashboard, CalendarDays, Bell, CalendarRange, UtensilsCrossed, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
+import { LayoutDashboard, CalendarDays, Bell, CalendarRange, UtensilsCrossed, User, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
 const G = ({ icon: I, size=16, color="#C8A97E" }: { icon: React.ElementType; size?: number; color?: string }) => 
   <I size={size} color={color} strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle" }} />;
 import { Navbar } from "@/components/nav/Navbar";
@@ -139,7 +139,42 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
             })}
           </nav>
 
-          {/* Footer — Back to Poach only */}
+          {/* My Profile — pinned above footer */}
+          <div style={{ padding: collapsed ? "6px 6px" : "6px 8px", borderTop: `1px solid ${chefColor}22` }}>
+            {(() => {
+              const active = pathname === "/chef/profile";
+              return (
+                <Link
+                  href="/chef/profile"
+                  title={collapsed ? "My Profile" : undefined}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: collapsed ? "center" : "flex-start",
+                    gap: collapsed ? 0 : 10,
+                    padding: collapsed ? "10px 0" : "9px 12px",
+                    borderRadius: 10,
+                    fontSize: 13,
+                    fontWeight: active ? 700 : 500,
+                    color: active ? chefColor : "#71717a",
+                    background: active ? chefColor + "18" : "transparent",
+                    border: `1px solid ${active ? chefColor + "44" : "transparent"}`,
+                    textDecoration: "none",
+                    transition: "all 0.15s",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                  }}
+                >
+                  <span style={{ flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", width: collapsed ? "auto" : 20 }}>
+                    <G icon={User} size={16} color={active ? chefColor : "#71717a"} />
+                  </span>
+                  {!collapsed && "My Profile"}
+                </Link>
+              );
+            })()}
+          </div>
+
+          {/* Footer — Back to Poach */}
           <div style={{ padding: collapsed ? "10px 6px" : "12px", borderTop: `1px solid ${chefColor}22` }}>
             {!collapsed && (
               <Link href="/" style={{ display: "block", textAlign: "center", fontSize: 11, color: chefColor + "66", textDecoration: "none" }}>
