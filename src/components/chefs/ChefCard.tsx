@@ -25,6 +25,13 @@ export function ChefCard({ chef, onBook, onView }: ChefCardProps) {
         boxShadow: hovered ? `0 8px 40px ${chef.color}22` : "none",
       }}
     >
+      {/* Business name — top of card in profile color */}
+      {chef.businessName && (
+        <div style={{ fontSize: 13, fontWeight: 700, color: chef.color, fontFamily: "var(--font-playfair)", fontStyle: "italic", marginBottom: 2 }}>
+          {chef.businessName}
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex items-center gap-3.5">
         <div style={{ width: 52, height: 52, borderRadius: "50%", overflow: "hidden", border: `2px solid ${chef.color}`, flexShrink: 0, background: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center" }}>
