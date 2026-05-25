@@ -4,9 +4,10 @@ import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { LayoutDashboard, CalendarDays, Bell, CalendarRange, UtensilsCrossed, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
-const G = ({ icon: I, size=16 }: { icon: React.ElementType; size?: number }) => 
-  <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle" }} />;
+const G = ({ icon: I, size=16, color="#C8A97E" }: { icon: React.ElementType; size?: number; color?: string }) => 
+  <I size={size} color={color} strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle" }} />;
 import { Navbar } from "@/components/nav/Navbar";
+import { chefs } from "@/data/chefs";
 
 const NAV_ITEMS = [
   { href: "/chef/dashboard",  icon: LayoutDashboard,  label: "My Kitchen"   },
@@ -41,7 +42,9 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
     );
   }
 
-  const initials = user.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2);
+  const initials  = user.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2);
+  const chefData  = chefs.find(c => c.id === user.chefId) ?? chefs[0];
+  const chefColor = chefData?.color ?? "#C8A97E";
 
   return (
     <div style={{ background: "#080808", minHeight: "100vh", fontFamily: "'DM Sans', sans-serif" }}>
@@ -57,7 +60,7 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
         <aside style={{
           width: sidebarW,
           background: "#0a0a0a",
-          borderRight: "1px solid #1a1a1a",
+          borderRight: `1px solid ${chefColor}22`,
           display: "flex",
           flexDirection: "column",
           position: "fixed",
@@ -76,11 +79,11 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
             display: "flex",
             justifyContent: collapsed ? "center" : "space-between",
             alignItems: "center",
-            borderBottom: "1px solid #1a1a1a",
+            borderBottom: `1px solid ${chefColor}22`,
             gap: 8,
           }}>
             {!collapsed && (
-              <div style={{ fontSize: 10, color: "#3f3f46", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", whiteSpace: "nowrap" }}>
+              <div style={{ fontSize: 10, color: chefColor + "88", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", whiteSpace: "nowrap" }}>
                 Chef Portal
               </div>
             )}
@@ -118,9 +121,9 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
                     marginBottom: 2,
                     fontSize: 13,
                     fontWeight: active ? 700 : 500,
-                    color: active ? "#C8A97E" : "#71717a",
-                    background: active ? "#C8A97E12" : "transparent",
-                    border: `1px solid ${active ? "#C8A97E30" : "transparent"}`,
+                    color: active ? chefColor : "#71717a",
+                    background: active ? chefColor + "18" : "transparent",
+                    border: `1px solid ${active ? chefColor + "44" : "transparent"}`,
                     textDecoration: "none",
                     transition: "all 0.15s",
                     whiteSpace: "nowrap",
@@ -128,7 +131,7 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
                   }}
                 >
                   <span style={{ flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", width: collapsed ? "auto" : 20 }}>
-                    <G icon={item.icon} size={16} />
+                    <G icon={item.icon} size={16} color={active ? chefColor : "#71717a"} />
                   </span>
                   {!collapsed && item.label}
                 </Link>
@@ -137,9 +140,9 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
           </nav>
 
           {/* Footer — Back to Poach only */}
-          <div style={{ padding: collapsed ? "10px 6px" : "12px", borderTop: "1px solid #1a1a1a" }}>
+          <div style={{ padding: collapsed ? "10px 6px" : "12px", borderTop: `1px solid ${chefColor}22` }}>
             {!collapsed && (
-              <Link href="/" style={{ display: "block", textAlign: "center", fontSize: 11, color: "#3f3f46", textDecoration: "none" }}>
+              <Link href="/" style={{ display: "block", textAlign: "center", fontSize: 11, color: chefColor + "66", textDecoration: "none" }}>
                 Back to Poach
               </Link>
             )}
