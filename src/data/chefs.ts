@@ -19,7 +19,7 @@ export const chefs: Chef[] = [
     distance: "0.3 mi",
     available: ["Fri", "Sat", "Sun"],
     specialty: "Crawfish Bisque & Duck Confit",
-    color: "#C8A97E",
+    color: "#6A9FCB",
     experience: "14 years",
     trained: "Le Cordon Bleu, Paris",
     headshot: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=600&q=80",
