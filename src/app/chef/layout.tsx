@@ -17,7 +17,7 @@ const EXPANDED  = 220;
 const COLLAPSED = 60;
 
 export default function ChefLayout({ children }: { children: React.ReactNode }) {
-  const { user, isLoading, logout } = useAuth();
+  const { user, isLoading } = useAuth();
   const router   = useRouter();
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
@@ -133,55 +133,16 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
             })}
           </nav>
 
-          {/* User footer */}
+          {/* Footer — Back to Poach only */}
           <div style={{ padding: collapsed ? "10px 6px" : "12px", borderTop: "1px solid #1a1a1a" }}>
             {!collapsed && (
-              <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 10 }}>
-                <div style={{
-                  width: 30, height: 30, borderRadius: "50%", flexShrink: 0,
-                  background: "#C8A97E22", border: "1px solid #C8A97E55",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 11, fontWeight: 800, color: "#C8A97E",
-                }}>
-                  {initials}
-                </div>
-                <div style={{ overflow: "hidden", minWidth: 0 }}>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: "#f5f0e8", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{user.name}</div>
-                  <div style={{ fontSize: 10, color: "#52525b", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{user.email}</div>
-                </div>
-              </div>
-            )}
-
-            {collapsed && (
-              <div style={{
-                width: 32, height: 32, borderRadius: "50%",
-                background: "#C8A97E22", border: "1px solid #C8A97E55",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 11, fontWeight: 800, color: "#C8A97E",
-                margin: "0 auto 8px",
-              }}>
-                {initials}
-              </div>
-            )}
-
-            <button
-              onClick={() => { logout(); router.push("/login"); }}
-              title={collapsed ? "Sign Out" : undefined}
-              style={{
-                width: "100%", padding: "7px",
-                borderRadius: 8, background: "transparent",
-                border: "1px solid #27272a", color: "#71717a",
-                fontSize: collapsed ? 13 : 11, cursor: "pointer",
-                fontFamily: "'DM Sans', sans-serif",
-                display: "flex", alignItems: "center", justifyContent: "center",
-              }}
-            >
-              {collapsed ? "↩" : "Sign Out"}
-            </button>
-
-            {!collapsed && (
-              <Link href="/" style={{ display: "block", textAlign: "center", marginTop: 8, fontSize: 11, color: "#3f3f46", textDecoration: "none" }}>
+              <Link href="/" style={{ display: "block", textAlign: "center", fontSize: 11, color: "#3f3f46", textDecoration: "none" }}>
                 ← Back to Poach
+              </Link>
+            )}
+            {collapsed && (
+              <Link href="/" title="Back to Poach" style={{ display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, color: "#3f3f46", textDecoration: "none" }}>
+                ←
               </Link>
             )}
           </div>
