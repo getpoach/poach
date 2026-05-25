@@ -17,6 +17,7 @@ export type Day = "Mon" | "Tue" | "Wed" | "Thu" | "Fri" | "Sat" | "Sun";
 export interface Chef {
   id: string;
   name: string;
+  businessName?: string;
   avatar: string;
   cuisine: Cuisine[];
   rating: number;
