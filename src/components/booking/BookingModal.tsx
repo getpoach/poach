@@ -7,8 +7,9 @@ import { StepDetails } from "./BookingSteps/StepDetails";
 import { StepPayment } from "./BookingSteps/StepPayment";
 import { Button } from "@/components/ui/Button";
 import { generateId, totalWithFee } from "@/lib/utils";
-import { ChevronDown, ChevronUp, UtensilsCrossed, CheckCircle2 } from "lucide-react";
+import { ChevronDown, ChevronUp, UtensilsCrossed, CheckCircle2, LogIn } from "lucide-react";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
 
 const STEP_LABELS = ["Date & Time", "Details", "Terms", "Deposit"];
 
@@ -170,6 +171,7 @@ function TermsStep({
 }
 
 export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
+  const { user } = useAuth();
   const [step, setStep] = useState(1);
   const [day,     setDay]     = useState<Day | null>(null);
   const [time,    setTime]    = useState<string | null>(null);
@@ -204,6 +206,51 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
     onSuccess(booking);
     setConfirmed(true);
   };
+
+  // Auth gate — must be logged in as diner
+  if (!user || user.role !== "diner") {
+    return (
+      <div className="fixed inset-0 bg-black/88 z-50 flex items-center justify-center p-5" onClick={onClose}>
+        <div onClick={e => e.stopPropagation()}
+          className="bg-zinc-950 rounded-2xl w-full max-w-lg p-8"
+          style={{ border: `1px solid ${chef.color}`, boxShadow: `0 0 40px ${chef.color}18` }}>
+          <div style={{ textAlign: "center", padding: "16px 0" }}>
+            {/* Chef avatar */}
+            <div style={{ marginBottom: 20 }}>
+              <Avatar label={chef.avatar} color={chef.color} size={56} />
+            </div>
+            <div style={{ fontSize: 20, fontWeight: 900, color: "#f5f0e8", fontFamily: "var(--font-playfair)", marginBottom: 8 }}>
+              Sign in to Book
+            </div>
+            <p style={{ fontSize: 14, color: "#71717a", lineHeight: 1.7, marginBottom: 24 }}>
+              You need a Poach diner account to book <strong style={{ color: "#f5f0e8" }}>{chef.name}</strong>.
+              {user?.role === "chef" && (
+                <span style={{ display: "block", marginTop: 8, fontSize: 12, color: "#C87E7E" }}>
+                  You're currently logged in as a chef. Please sign in with a diner account.
+                </span>
+              )}
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
+              <Link href="/login"
+                onClick={onClose}
+                style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "12px", borderRadius: 12, background: chef.color, color: "#080808", fontWeight: 800, fontSize: 14, textDecoration: "none", fontFamily: "'DM Sans', sans-serif" }}>
+                <LogIn size={16} strokeWidth={2} /> Sign In
+              </Link>
+              <Link href="/login?mode=signup"
+                onClick={onClose}
+                style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "12px", borderRadius: 12, background: "transparent", border: `1px solid ${chef.color}44`, color: chef.color, fontWeight: 700, fontSize: 14, textDecoration: "none", fontFamily: "'DM Sans', sans-serif" }}>
+                Create a Diner Account
+              </Link>
+            </div>
+            <button onClick={onClose}
+              style={{ fontSize: 12, color: "#52525b", background: "none", border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 bg-black/88 z-50 flex items-center justify-center p-5" onClick={onClose}>
