@@ -3,14 +3,17 @@ import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
+import { LayoutDashboard, CalendarDays, Bell, CalendarRange, UtensilsCrossed, User, ArrowLeft } from "lucide-react";
+const G = ({ icon: I, size=16 }: { icon: React.ElementType; size?: number }) => 
+  <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle" }} />;
 import { Navbar } from "@/components/nav/Navbar";
 
 const NAV_ITEMS = [
-  { href: "/chef/dashboard",  icon: "◉",  label: "My Kitchen"   },
-  { href: "/chef/bookings",   icon: "📅", label: "Bookings"     },
-  { href: "/chef/requests",   icon: "🔔", label: "Requests"     },
-  { href: "/chef/calendar",   icon: "🗓️", label: "Availability" },
-  { href: "/chef/menus",      icon: "🍽️", label: "Menus"        },
+  { href: "/chef/dashboard",  icon: LayoutDashboard,  label: "My Kitchen"   },
+  { href: "/chef/bookings",   icon: CalendarDays,     label: "Bookings"     },
+  { href: "/chef/requests",   icon: Bell,             label: "Requests"     },
+  { href: "/chef/calendar",   icon: CalendarRange,    label: "Availability" },
+  { href: "/chef/menus",      icon: UtensilsCrossed,  label: "Menus"        },
 ];
 
 const EXPANDED  = 220;
@@ -137,7 +140,7 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
           <div style={{ padding: collapsed ? "10px 6px" : "12px", borderTop: "1px solid #1a1a1a" }}>
             {!collapsed && (
               <Link href="/" style={{ display: "block", textAlign: "center", fontSize: 11, color: "#3f3f46", textDecoration: "none" }}>
-                ← Back to Poach
+                Back to Poach
               </Link>
             )}
             {collapsed && (
