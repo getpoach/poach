@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
-import { LayoutDashboard, CalendarDays, Bell, CalendarRange, UtensilsCrossed, User, ArrowLeft } from "lucide-react";
+import { LayoutDashboard, CalendarDays, Bell, CalendarRange, UtensilsCrossed, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
 const G = ({ icon: I, size=16 }: { icon: React.ElementType; size?: number }) => 
   <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle" }} />;
 import { Navbar } from "@/components/nav/Navbar";
@@ -95,7 +95,7 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
                 fontSize: 11, flexShrink: 0, transition: "all 0.15s",
               }}
             >
-              {collapsed ? "→" : "←"}
+              {collapsed ? <ChevronRight size={12} color="#52525b" strokeWidth={2} /> : <ChevronLeft size={12} color="#52525b" strokeWidth={2} />}
             </button>
           </div>
 
@@ -127,8 +127,8 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
                     overflow: "hidden",
                   }}
                 >
-                  <span style={{ fontSize: 16, flexShrink: 0, textAlign: "center", width: collapsed ? "auto" : 20 }}>
-                    {item.icon}
+                  <span style={{ flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", width: collapsed ? "auto" : 20 }}>
+                    <G icon={item.icon} size={16} />
                   </span>
                   {!collapsed && item.label}
                 </Link>
