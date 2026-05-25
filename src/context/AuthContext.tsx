@@ -32,6 +32,7 @@ const MOCK_USERS: (AuthUser & { password: string })[] = [
     email: "alex@example.com",
     password: "password",
     role: "diner",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
   },
   {
     id: "chef-1",
