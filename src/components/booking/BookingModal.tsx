@@ -215,9 +215,14 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
           className="bg-zinc-950 rounded-2xl w-full max-w-lg p-8"
           style={{ border: `1px solid ${chef.color}`, boxShadow: `0 0 40px ${chef.color}18` }}>
           <div style={{ textAlign: "center", padding: "16px 0" }}>
-            {/* Chef avatar */}
-            <div style={{ marginBottom: 20 }}>
-              <Avatar label={chef.avatar} color={chef.color} size={56} />
+            {/* Chef photo */}
+            <div style={{ marginBottom: 20, display: "flex", justifyContent: "center" }}>
+              <div style={{ width: 80, height: 80, borderRadius: "50%", overflow: "hidden", border: `3px solid ${chef.color}`, boxShadow: `0 0 20px ${chef.color}44`, background: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                {chef.headshot
+                  ? <img src={chef.headshot} alt={chef.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  : <Avatar label={chef.avatar} color={chef.color} size={56} />
+                }
+              </div>
             </div>
             <div style={{ fontSize: 20, fontWeight: 900, color: "#f5f0e8", fontFamily: "var(--font-playfair)", marginBottom: 8 }}>
               Sign in to Book
@@ -262,7 +267,12 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
           <>
             {/* Header */}
             <div className="flex items-center gap-3.5 mb-6">
-              <Avatar label={chef.avatar} color={chef.color} size={46} />
+              <div style={{ width: 46, height: 46, borderRadius: "50%", overflow: "hidden", border: `2px solid ${chef.color}`, flexShrink: 0, background: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                {chef.headshot
+                  ? <img src={chef.headshot} alt={chef.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  : <Avatar label={chef.avatar} color={chef.color} size={46} />
+                }
+              </div>
               <div>
                 <div className="font-display text-lg font-bold text-white">Book {chef.name}</div>
                 <div className="text-xs text-muted">{chef.specialty}</div>
