@@ -120,7 +120,7 @@ export default function DinerBookings() {
   };
 
   return (
-    <div style={{ maxWidth: 900, fontFamily: "'DM Sans', sans-serif" }}>
+    <div style={{ maxWidth: 900, fontFamily: "'DM Sans', sans-serif", margin: "0 auto" }}>
 
       {/* ── User header ───────────────────────────────────────────────── */}
       <div style={{ display: "flex", alignItems: "center", gap: 18, marginBottom: 32 }}>
