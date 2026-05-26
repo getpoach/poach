@@ -50,7 +50,7 @@ export function StepPayment({
               value={card}
               onChange={(e) => onCard(formatCard(e.target.value))}
               placeholder="Card number"
-              className="w-full bg-zinc-900 border border-zinc-800 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-zinc-600 outline-none focus:border-zinc-600 transition-colors"
+              className="w-full bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-[var(--text-muted)] outline-none focus:border-zinc-600 transition-colors"
             />
           </div>
           <div className="flex gap-2.5">
@@ -69,7 +69,7 @@ export function StepPayment({
       </div>
 
       {/* Booking summary */}
-      <div className="bg-zinc-900 rounded-xl p-4">
+      <div className="bg-[var(--bg-secondary)] rounded-xl p-4">
         <SectionLabel>Booking Summary</SectionLabel>
         {[
           ["Chef", chef.name],
@@ -90,12 +90,12 @@ export function StepPayment({
             </span>
           </div>
         ))}
-        <div className="text-[10px] text-zinc-600 mt-2 border-t border-zinc-800 pt-2">
+        <div className="text-[10px] text-[var(--text-muted)] mt-2 border-t border-[var(--border)] pt-2">
           Starting price — final rate confirmed by chef based on menu &amp; occasion
         </div>
       </div>
 
-      <p className="text-xs text-zinc-600">
+      <p className="text-xs text-[var(--text-muted)]">
         🔒 Payment is secured and encrypted. {chef.name} will be notified
         immediately upon confirmation.
       </p>
