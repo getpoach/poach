@@ -1,7 +1,7 @@
 "use client";
 import { Utensils, MapPin, Search, Clock, DollarSign, Map, SlidersHorizontal, CheckCircle2 } from "lucide-react";
 const G = ({ icon: I, size=12 }: { icon: React.ElementType; size?: number }) => 
-  <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle", marginRight:4 }} />;
+  <I size={size} color="var(--gold)" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle", marginRight:4 }} />;
 import { useState, useMemo } from "react";
 import type { Chef, Review } from "@/types";
 import { chefs as allChefs } from "@/data/chefs";
@@ -251,10 +251,10 @@ export default function DiscoverPage() {
               onClick={() => setViewMode(m)}
               className="px-5 py-2.5 text-xs font-bold transition-all cursor-pointer"
               style={{
-                background: active ? "#111" : "transparent",
+                background: active ? "var(--bg-secondary)" : "transparent",
                 color: active ? "#F5F0E8" : "#555",
                 border: "1px solid",
-                borderColor: active ? "#2a2a2a" : "transparent",
+                borderColor: active ? "var(--border-mid)" : "transparent",
                 borderBottom: active ? "1px solid #111" : "1px solid #2a2a2a",
                 borderRadius: "10px 10px 0 0",
                 marginBottom: active ? "-1px" : "0",
@@ -270,7 +270,7 @@ export default function DiscoverPage() {
       </div>
 
       {/* Tab content wrapper */}
-      <div style={{ border: "1px solid #2a2a2a", borderTop: "none", borderRadius: "0 0 16px 16px", background: "#111", padding: "20px 0 0 0", marginBottom: 28 }}>
+      <div style={{ border: "1px solid #2a2a2a", borderTop: "none", borderRadius: "0 0 16px 16px", background: "var(--bg-secondary)", padding: "20px 0 0 0", marginBottom: 28 }}>
 
       {/* ── Map view ──────────────────────────────────────────────────────── */}
       {viewMode === "map" && (
@@ -291,15 +291,15 @@ export default function DiscoverPage() {
         <div>
           {/* Header — exact copy of map header */}
           <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "14px 20px", borderBottom: "1px solid #18181b" }}>
-            <span style={{ color: "#C8A97E" }}>▦</span>
+            <span style={{ color: "var(--gold)" }}>▦</span>
             <span style={{ fontWeight: 700, color: "#fff", fontSize: 15, fontFamily: "var(--font-playfair)" }}>Chefs</span>
-            <span style={{ background: "#18181b", borderRadius: 99, padding: "2px 10px", fontSize: 11, color: "#a1a1aa" }}>
+            <span style={{ background: "#18181b", borderRadius: 99, padding: "2px 10px", fontSize: 11, color: "var(--text-secondary)" }}>
               {sorted.length} of {allChefs.length}
             </span>
             <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 8 }}>
               {gridActiveFilters > 0 && (
                 <button onClick={() => { setGridPriceRange([0, 150]); setGridAvailability("all"); setCuisine("All"); setGridLocation("all"); }}
-                  style={{ fontSize: 11, color: "#71717a", cursor: "pointer", background: "none", border: "none", textDecoration: "underline" }}>
+                  style={{ fontSize: 11, color: "var(--text-muted)", cursor: "pointer", background: "none", border: "none", textDecoration: "underline" }}>
                   Clear
                 </button>
               )}
@@ -308,8 +308,8 @@ export default function DiscoverPage() {
                 style={{
                   display: "flex", alignItems: "center", gap: 6, padding: "6px 12px",
                   borderRadius: 99, fontSize: 11, fontWeight: 600, cursor: "pointer",
-                  border: `1px solid ${gridFiltersOpen || gridActiveFilters > 0 ? "#C8A97E" : "#3f3f46"}`,
-                  color: gridFiltersOpen || gridActiveFilters > 0 ? "#C8A97E" : "#a1a1aa",
+                  border: `1px solid ${gridFiltersOpen || gridActiveFilters > 0 ? "var(--gold)" : "var(--border-strong)"}`,
+                  color: gridFiltersOpen || gridActiveFilters > 0 ? "var(--gold)" : "var(--text-secondary)",
                   background: gridFiltersOpen || gridActiveFilters > 0 ? "#D4AF3712" : "transparent",
                 }}
               >
@@ -318,23 +318,23 @@ export default function DiscoverPage() {
                 </svg>
                 Filters
                 {gridActiveFilters > 0 && (
-                  <span style={{ background: "#C8A97E", color: "#0a0a0a", borderRadius: 99, width: 16, height: 16, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700 }}>
+                  <span style={{ background: "var(--gold)", color: "var(--bg)", borderRadius: 99, width: 16, height: 16, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700 }}>
                     {gridActiveFilters}
                   </span>
                 )}
               </button>
-              <span style={{ background: "#18181b", borderRadius: 99, padding: "4px 12px", fontSize: 11, color: "#71717a" }}>
+              <span style={{ background: "#18181b", borderRadius: 99, padding: "4px 12px", fontSize: 11, color: "var(--text-muted)" }}>
                 Louisiana
               </span>
             </div>
           </div>
 
           {/* Price slider row — always visible, same as map */}
-          <div style={{ padding: "10px 20px", borderBottom: "1px solid #18181b", background: "#0b0b0b", display: "flex", alignItems: "center", gap: 12 }}>
-            <span style={{ fontSize: 11, fontWeight: 700, color: "#71717a", whiteSpace: "nowrap" }}>💰 Price / person</span>
+          <div style={{ padding: "10px 20px", borderBottom: "1px solid #18181b", background: "var(--bg)", display: "flex", alignItems: "center", gap: 12 }}>
+            <span style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", whiteSpace: "nowrap" }}>💰 Price / person</span>
             <div style={{ position: "relative", flex: 1, height: 20, display: "flex", alignItems: "center" }}>
-              <div style={{ position: "absolute", left: 0, right: 0, height: 3, background: "#27272a", borderRadius: 99 }} />
-              <div style={{ position: "absolute", left: `${(gridPriceRange[0]/150)*100}%`, right: `${100-(gridPriceRange[1]/150)*100}%`, height: 3, background: "#C8A97E", borderRadius: 99 }} />
+              <div style={{ position: "absolute", left: 0, right: 0, height: 3, background: "var(--border-mid)", borderRadius: 99 }} />
+              <div style={{ position: "absolute", left: `${(gridPriceRange[0]/150)*100}%`, right: `${100-(gridPriceRange[1]/150)*100}%`, height: 3, background: "var(--gold)", borderRadius: 99 }} />
               <input type="range" min={0} max={150} step={5} value={gridPriceRange[0]}
                 onChange={(e) => setGridPriceRange([Math.min(Number(e.target.value), gridPriceRange[1]-5), gridPriceRange[1]])}
                 style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }} />
@@ -342,62 +342,62 @@ export default function DiscoverPage() {
                 onChange={(e) => setGridPriceRange([gridPriceRange[0], Math.max(Number(e.target.value), gridPriceRange[0]+5)])}
                 style={{ position: "absolute", width: "100%", appearance: "none", WebkitAppearance: "none", background: "transparent", outline: "none", cursor: "pointer" }} />
             </div>
-            <span style={{ fontSize: 12, fontWeight: 700, color: "#C8A97E", whiteSpace: "nowrap", minWidth: 90, textAlign: "right" }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: "var(--gold)", whiteSpace: "nowrap", minWidth: 90, textAlign: "right" }}>
               ${gridPriceRange[0]} — {gridPriceRange[1] >= 150 ? "$150+" : `$${gridPriceRange[1]}`}
             </span>
           </div>
 
           {/* Search bar row — identical to map search bar */}
-          <div style={{ padding: "10px 16px", borderBottom: "1px solid #18181b", background: "#0a0a0a" }}>
+          <div style={{ padding: "10px 16px", borderBottom: "1px solid #18181b", background: "var(--bg)" }}>
             <form onSubmit={handleGridSearch} style={{ display: "flex", gap: 8 }}>
               <div style={{ flex: 1, position: "relative" }}>
-                <Search size={14} color="#52525b" strokeWidth={1.75} style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }} />
+                <Search size={14} color="var(--text-dim)" strokeWidth={1.75} style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }} />
                 <input
                   type="text"
                   value={gridSearchQuery}
                   onChange={(e) => { setGridSearchQuery(e.target.value); setGridSearchError(null); }}
                   placeholder="Search a city in Louisiana..."
-                  style={{ width: "100%", background: "#18181b", border: "1px solid #27272a", borderRadius: 10, padding: "8px 12px 8px 32px", fontSize: 12, color: "#f5f0e8", outline: "none", fontFamily: "'DM Sans', sans-serif", boxSizing: "border-box" as const }}
+                  style={{ width: "100%", background: "#18181b", border: "1px solid #27272a", borderRadius: 10, padding: "8px 12px 8px 32px", fontSize: 12, color: "var(--text-primary)", outline: "none", fontFamily: "'DM Sans', sans-serif", boxSizing: "border-box" as const }}
                 />
               </div>
               <button type="submit" disabled={gridSearchLoading}
-                style={{ background: "#C8A97E", color: "#0a0a0a", border: "none", borderRadius: 10, padding: "8px 16px", fontSize: 12, fontWeight: 700, cursor: gridSearchLoading ? "wait" : "pointer", fontFamily: "'DM Sans', sans-serif", whiteSpace: "nowrap", opacity: gridSearchLoading ? 0.7 : 1 }}>
+                style={{ background: "var(--gold)", color: "var(--bg)", border: "none", borderRadius: 10, padding: "8px 16px", fontSize: 12, fontWeight: 700, cursor: gridSearchLoading ? "wait" : "pointer", fontFamily: "'DM Sans', sans-serif", whiteSpace: "nowrap", opacity: gridSearchLoading ? 0.7 : 1 }}>
                 {gridSearchLoading ? "..." : "Go"}
               </button>
             </form>
             {gridSearchError && (
-              <div style={{ marginTop: 8, padding: "8px 12px", borderRadius: 8, background: "#1a1010", border: "1px solid #C8A97E44", fontSize: 11, color: "#C8A97E", lineHeight: 1.5, fontFamily: "'DM Sans', sans-serif" }}>
+              <div style={{ marginTop: 8, padding: "8px 12px", borderRadius: 8, background: "#1a1010", border: "1px solid #C8A97E44", fontSize: 11, color: "var(--gold)", lineHeight: 1.5, fontFamily: "'DM Sans', sans-serif" }}>
                 {gridSearchError}
               </div>
             )}
             {gridLocationBanner && (
-              <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", background: "#0e0d0b", border: "1px solid #27272a", borderRadius: 10 }}>
+              <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", background: "var(--bg-secondary)", border: "1px solid #27272a", borderRadius: 10 }}>
                 <span style={{ fontSize: 14 }}>📍</span>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 11, fontWeight: 600, color: "#f5f0e8" }}>Find chefs near you</div>
-                  <div style={{ fontSize: 10, color: "#71717a" }}>Allow location to see nearby chefs</div>
+                  <div style={{ fontSize: 11, fontWeight: 600, color: "var(--text-primary)" }}>Find chefs near you</div>
+                  <div style={{ fontSize: 10, color: "var(--text-muted)" }}>Allow location to see nearby chefs</div>
                 </div>
                 <button onClick={handleGridUseMyLocation}
-                  style={{ background: "#C8A97E", color: "#0a0a0a", border: "none", borderRadius: 7, padding: "5px 12px", fontSize: 11, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'DM Sans', sans-serif" }}>
+                  style={{ background: "var(--gold)", color: "var(--bg)", border: "none", borderRadius: 7, padding: "5px 12px", fontSize: 11, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'DM Sans', sans-serif" }}>
                   Use My Location
                 </button>
                 <button onClick={() => setGridLocationBanner(false)}
-                  style={{ background: "none", border: "none", color: "#52525b", cursor: "pointer", fontSize: 15, lineHeight: 1 }}>×</button>
+                  style={{ background: "none", border: "none", color: "var(--text-dim)", cursor: "pointer", fontSize: 15, lineHeight: 1 }}>×</button>
               </div>
             )}
           </div>
 
           {/* Sort row — same position as map search bar */}
-          <div style={{ padding: "10px 16px", borderBottom: "1px solid #18181b", background: "#0a0a0a", display: "flex", alignItems: "center", gap: 6 }}>
-            <span style={{ fontSize: 11, color: "#52525b", fontWeight: 600 }}>Sort:</span>
+          <div style={{ padding: "10px 16px", borderBottom: "1px solid #18181b", background: "var(--bg)", display: "flex", alignItems: "center", gap: 6 }}>
+            <span style={{ fontSize: 11, color: "var(--text-dim)", fontWeight: 600 }}>Sort:</span>
             {SORT_OPTIONS.map((s) => {
               const active = sortBy === s.value;
               return (
                 <button key={s.value} onClick={() => setSortBy(s.value)}
                   className="px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 whitespace-nowrap border cursor-pointer"
                   style={active
-                    ? { background: "#C8A97E", borderColor: "#C8A97E", color: "#0a0a0a" }
-                    : { borderColor: "#3f3f46", color: "#a1a1aa", background: "transparent" }
+                    ? { background: "var(--gold)", borderColor: "var(--gold)", color: "var(--bg)" }
+                    : { borderColor: "var(--border-strong)", color: "var(--text-secondary)", background: "transparent" }
                   }>
                   {active && "✓ "}{s.label}
                 </button>
@@ -407,7 +407,7 @@ export default function DiscoverPage() {
 
           {/* Collapsible filter panel — exact copy of map filter panel */}
           {gridFiltersOpen && (
-            <div style={{ padding: "16px 20px", display: "flex", flexDirection: "column", gap: 16, background: "#060A06", borderBottom: "1px solid #18181b" }}>
+            <div style={{ padding: "16px 20px", display: "flex", flexDirection: "column", gap: 16, background: "var(--bg)", borderBottom: "1px solid #18181b" }}>
               {/* Location */}
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-1.5">
@@ -421,8 +421,8 @@ export default function DiscoverPage() {
                       <button key={a.value} onClick={() => setGridLocation(a.value)}
                         className="px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 whitespace-nowrap border cursor-pointer"
                         style={active
-                          ? { background: "#C8A97E", borderColor: "#C8A97E", color: "#0a0a0a" }
-                          : { borderColor: "#3f3f46", color: "#a1a1aa", background: "transparent" }
+                          ? { background: "var(--gold)", borderColor: "var(--gold)", color: "var(--bg)" }
+                          : { borderColor: "var(--border-strong)", color: "var(--text-secondary)", background: "transparent" }
                         }>{a.label}</button>
                     );
                   })}
@@ -441,8 +441,8 @@ export default function DiscoverPage() {
                       <button key={c} onClick={() => setCuisine(c === "All" ? "All" : (c as typeof cuisine))}
                         className="px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 whitespace-nowrap border cursor-pointer"
                         style={active
-                          ? { background: "#C8A97E", borderColor: "#C8A97E", color: "#0a0a0a" }
-                          : { borderColor: "#3f3f46", color: "#a1a1aa", background: "transparent" }
+                          ? { background: "var(--gold)", borderColor: "var(--gold)", color: "var(--bg)" }
+                          : { borderColor: "var(--border-strong)", color: "var(--text-secondary)", background: "transparent" }
                         }>{c}</button>
                     );
                   })}
@@ -461,8 +461,8 @@ export default function DiscoverPage() {
                       <button key={a.value} onClick={() => setGridAvailability(a.value)}
                         className="px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 whitespace-nowrap border cursor-pointer"
                         style={active
-                          ? { background: "#A78BFA", borderColor: "#A78BFA", color: "#0a0a0a" }
-                          : { borderColor: "#3f3f46", color: "#a1a1aa", background: "transparent" }
+                          ? { background: "#A78BFA", borderColor: "#A78BFA", color: "var(--bg)" }
+                          : { borderColor: "var(--border-strong)", color: "var(--text-secondary)", background: "transparent" }
                         }>{a.label}</button>
                     );
                   })}
@@ -499,11 +499,11 @@ export default function DiscoverPage() {
             <div
               className="flex items-center gap-2 px-5 py-2.5 text-xs font-bold select-none"
               style={{
-                background: "#0a0a0a",
+                background: "var(--bg)",
                 border: "1px solid #C8A97E55",
                 borderBottom: "1px solid #0a0a0a",
                 borderRadius: "10px 10px 0 0",
-                color: "#C8A97E",
+                color: "var(--gold)",
                 letterSpacing: "0.05em",
                 textTransform: "uppercase",
                 marginBottom: "-1px",
@@ -526,7 +526,7 @@ export default function DiscoverPage() {
             style={{
               border: "1px solid #C8A97E55",
               borderTop: "none",
-              background: "#0a0a0a",
+              background: "var(--bg)",
             }}
           >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
