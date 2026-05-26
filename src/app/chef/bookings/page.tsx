@@ -399,30 +399,30 @@ export default function ChefBookings() {
 
       {/* Header */}
       <div style={{ marginBottom: 28 }}>
-        <h1 style={{ fontSize: 24, fontWeight: 900, color: "#f5f0e8", fontFamily: "var(--font-playfair)", margin: "0 0 6px" }}>
+        <h1 style={{ fontSize: 24, fontWeight: 900, color: "var(--text-primary)", fontFamily: "var(--font-playfair)", margin: "0 0 6px" }}>
           Bookings
         </h1>
-        <p style={{ fontSize: 13, color: "#71717a", margin: 0 }}>
+        <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>
           {MOCK_BOOKINGS.filter(b => b.status === "upcoming").length} upcoming · ${earnings.toLocaleString()} earned this month
         </p>
       </div>
 
       {/* ── Calendar ─────────────────────────────────────────────────────── */}
-      <div style={{ background: "#0f0f0f", border: "1px solid #1e1e1e", borderRadius: 16, overflow: "hidden", marginBottom: 32 }}>
+      <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 16, overflow: "hidden", marginBottom: 32 }}>
 
         {/* Month nav */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", borderBottom: "1px solid #1a1a1a" }}>
-          <button onClick={prevMonth} style={{ padding: "6px 14px", borderRadius: 8, background: "transparent", border: "1px solid #27272a", color: "#a1a1aa", cursor: "pointer", fontSize: 14, fontFamily: "'DM Sans', sans-serif" }}>←</button>
-          <span style={{ fontWeight: 800, color: "#f5f0e8", fontSize: 16, fontFamily: "var(--font-playfair)" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", borderBottom: "1px solid var(--border-subtle)" }}>
+          <button onClick={prevMonth} style={{ padding: "6px 14px", borderRadius: 8, background: "transparent", border: "1px solid var(--border-mid)", color: "var(--text-secondary)", cursor: "pointer", fontSize: 14, fontFamily: "'DM Sans', sans-serif" }}>←</button>
+          <span style={{ fontWeight: 800, color: "var(--text-primary)", fontSize: 16, fontFamily: "var(--font-playfair)" }}>
             {MONTHS[viewMonth]} {viewYear}
           </span>
-          <button onClick={nextMonth} style={{ padding: "6px 14px", borderRadius: 8, background: "transparent", border: "1px solid #27272a", color: "#a1a1aa", cursor: "pointer", fontSize: 14, fontFamily: "'DM Sans', sans-serif" }}>→</button>
+          <button onClick={nextMonth} style={{ padding: "6px 14px", borderRadius: 8, background: "transparent", border: "1px solid var(--border-mid)", color: "var(--text-secondary)", cursor: "pointer", fontSize: 14, fontFamily: "'DM Sans', sans-serif" }}>→</button>
         </div>
 
         {/* Day headers */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", padding: "12px 16px 0" }}>
           {DAYS_OF_WEEK.map(d => (
-            <div key={d} style={{ textAlign: "center", fontSize: 11, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.06em", paddingBottom: 8 }}>
+            <div key={d} style={{ textAlign: "center", fontSize: 11, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.06em", paddingBottom: 8 }}>
               {d}
             </div>
           ))}
@@ -453,8 +453,8 @@ export default function ChefBookings() {
                     ? "1px solid #C8A97E55"
                     : hasBookings
                     ? `1px solid ${fill}44`
-                    : "1px solid #1a1a1a",
-                  background: hasBookings ? (fill + "18") : isToday ? "#C8A97E08" : "#0a0a0a",
+                    : "1px solid var(--border-subtle)",
+                  background: hasBookings ? (fill + "18") : isToday ? "#C8A97E08" : "var(--bg)",
                   cursor: hasBookings ? "pointer" : "default",
                   padding: "6px 7px",
                   display: "flex",
@@ -468,7 +468,7 @@ export default function ChefBookings() {
                 <div style={{
                   fontSize: 12,
                   fontWeight: isToday ? 800 : 500,
-                  color: isToday ? "#C8A97E" : "#ffffff",
+                  color: isToday ? "#C8A97E" : "var(--text-primary)",
                   lineHeight: 1,
                 }}>
                   {day}
@@ -486,7 +486,7 @@ export default function ChefBookings() {
                     <div style={{
                       fontSize: 10,
                       fontWeight: 700,
-                      color: "#ffffff",
+                      color: "var(--text-primary)",
                       whiteSpace: "nowrap",
                       overflow: "hidden",
                       textOverflow: "ellipsis",
@@ -512,35 +512,35 @@ export default function ChefBookings() {
         </div>
 
         {/* Legend */}
-        <div style={{ display: "flex", gap: 18, padding: "12px 20px", borderTop: "1px solid #1a1a1a", background: "#0a0a0a", alignItems: "center" }}>
+        <div style={{ display: "flex", gap: 18, padding: "12px 20px", borderTop: "1px solid var(--border-subtle)", background: "var(--bg)", alignItems: "center" }}>
           {(["upcoming", "completed", "cancelled"] as BookingStatus[]).map(s => (
             <div key={s} style={{ display: "flex", alignItems: "center", gap: 6 }}>
               <div style={{ width: 10, height: 10, borderRadius: 3, background: CAL_FILL[s] + "44", border: `1px solid ${CAL_FILL[s]}88` }} />
-              <span style={{ fontSize: 11, color: "#71717a", textTransform: "capitalize" }}>{s}</span>
+              <span style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "capitalize" }}>{s}</span>
             </div>
           ))}
-          <span style={{ marginLeft: "auto", fontSize: 11, color: "#3f3f46" }}>Click a booking day to expand</span>
+          <span style={{ marginLeft: "auto", fontSize: 11, color: "var(--border-strong)" }}>Click a booking day to expand</span>
         </div>
 
         {/* Selected day — full booking detail */}
         {selectedDay && selectedBookings.length > 0 && (
-          <div style={{ borderTop: "1px solid #1a1a1a", background: "#0c0c0c" }}>
-            <div style={{ padding: "14px 20px 6px", fontSize: 11, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+          <div style={{ borderTop: "1px solid var(--border-subtle)", background: "var(--bg-secondary)" }}>
+            <div style={{ padding: "14px 20px 6px", fontSize: 11, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
               {new Date(selectedDay + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
             </div>
             {selectedBookings.map(b => {
               const s = STATUS_COLORS[b.status];
               const payColors: Record<string, string> = { paid: "#7EC87E", pending: "#C8A97E", refunded: "#C87E7E" };
               return (
-                <div key={b.id} style={{ margin: "0 16px 16px", borderRadius: 12, border: `1px solid ${s.border}`, background: "#111", overflow: "hidden" }}>
+                <div key={b.id} style={{ margin: "0 16px 16px", borderRadius: 12, border: `1px solid ${s.border}`, background: "var(--bg-secondary)", overflow: "hidden" }}>
                   {/* Booking header */}
-                  <div style={{ padding: "14px 16px", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid #1a1a1a", background: CAL_FILL[b.status] + "12" }}>
+                  <div style={{ padding: "14px 16px", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid var(--border-subtle)", background: CAL_FILL[b.status] + "12" }}>
                     <div>
                       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                        <span style={{ fontSize: 15, fontWeight: 800, color: "#f5f0e8" }}>{b.diner}</span>
+                        <span style={{ fontSize: 15, fontWeight: 800, color: "var(--text-primary)" }}>{b.diner}</span>
                         <span style={{ fontSize: 10, fontWeight: 700, padding: "2px 8px", borderRadius: 99, background: s.bg, border: `1px solid ${s.border}`, color: s.text }}>{s.label}</span>
                       </div>
-                      <div style={{ fontSize: 11, color: "#71717a", marginTop: 3 }}>#{b.confirmationNumber}</div>
+                      <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 3 }}>#{b.confirmationNumber}</div>
                     </div>
                     <div style={{ textAlign: "right" }}>
                       <div style={{ fontSize: 20, fontWeight: 800, color: "#C8A97E" }}>${b.total}</div>
@@ -551,7 +551,7 @@ export default function ChefBookings() {
                   </div>
 
                   {/* Detail grid */}
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 1, background: "#1a1a1a" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 1, background: "var(--bg-hover)" }}>
                     {[
                       { label: "Time", value: b.time },
                       { label: "Guests", value: `${b.guests} guests` },
@@ -560,32 +560,32 @@ export default function ChefBookings() {
                       { label: "Courses", value: `${b.courses} courses` },
                       { label: "Cuisine", value: b.cuisine },
                     ].map(({ label, value }) => (
-                      <div key={label} style={{ padding: "10px 14px", background: "#111" }}>
-                        <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 3 }}>{label}</div>
-                        <div style={{ fontSize: 12, fontWeight: 600, color: "#f5f0e8" }}>{value}</div>
+                      <div key={label} style={{ padding: "10px 14px", background: "var(--bg-secondary)" }}>
+                        <div style={{ fontSize: 9, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 3 }}>{label}</div>
+                        <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-primary)" }}>{value}</div>
                       </div>
                     ))}
                   </div>
 
                   {/* Location + contact */}
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1, background: "#1a1a1a", borderTop: "1px solid #1a1a1a" }}>
-                    <div style={{ padding: "10px 14px", background: "#111" }}>
-                      <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>📍 Location</div>
-                      <div style={{ fontSize: 12, fontWeight: 600, color: "#f5f0e8" }}>{b.city}</div>
-                      <div style={{ fontSize: 11, color: "#71717a", marginTop: 1 }}>{b.address}</div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1, background: "var(--bg-hover)", borderTop: "1px solid var(--border-subtle)" }}>
+                    <div style={{ padding: "10px 14px", background: "var(--bg-secondary)" }}>
+                      <div style={{ fontSize: 9, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>📍 Location</div>
+                      <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-primary)" }}>{b.city}</div>
+                      <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 1 }}>{b.address}</div>
                     </div>
-                    <div style={{ padding: "10px 14px", background: "#111" }}>
-                      <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>📞 Diner Contact</div>
-                      <div style={{ fontSize: 12, fontWeight: 600, color: "#f5f0e8" }}>{b.dinerPhone}</div>
-                      <div style={{ fontSize: 11, color: "#71717a", marginTop: 1 }}>{b.dinerEmail}</div>
+                    <div style={{ padding: "10px 14px", background: "var(--bg-secondary)" }}>
+                      <div style={{ fontSize: 9, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>📞 Diner Contact</div>
+                      <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-primary)" }}>{b.dinerPhone}</div>
+                      <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 1 }}>{b.dinerEmail}</div>
                     </div>
                   </div>
 
                   {/* Dietary + notes */}
                   {(b.dietaryRestrictions.length > 0 || b.guestNote) && (
-                    <div style={{ display: "grid", gridTemplateColumns: b.dietaryRestrictions.length > 0 && b.guestNote ? "1fr 1fr" : "1fr", gap: 1, background: "#1a1a1a", borderTop: "1px solid #1a1a1a" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: b.dietaryRestrictions.length > 0 && b.guestNote ? "1fr 1fr" : "1fr", gap: 1, background: "var(--bg-hover)", borderTop: "1px solid var(--border-subtle)" }}>
                       {b.dietaryRestrictions.length > 0 && (
-                        <div style={{ padding: "10px 14px", background: "#111" }}>
+                        <div style={{ padding: "10px 14px", background: "var(--bg-secondary)" }}>
                           <div style={{ fontSize: 9, fontWeight: 700, color: "#C87E7E", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>⚠️ Dietary Restrictions</div>
                           <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
                             {b.dietaryRestrictions.map(r => (
@@ -595,9 +595,9 @@ export default function ChefBookings() {
                         </div>
                       )}
                       {b.guestNote && (
-                        <div style={{ padding: "10px 14px", background: "#111" }}>
-                          <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>💬 Guest Note</div>
-                          <div style={{ fontSize: 12, color: "#a1a1aa", lineHeight: 1.5, fontStyle: "italic" }}>{b.guestNote}</div>
+                        <div style={{ padding: "10px 14px", background: "var(--bg-secondary)" }}>
+                          <div style={{ fontSize: 9, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>💬 Guest Note</div>
+                          <div style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.5, fontStyle: "italic" }}>{b.guestNote}</div>
                         </div>
                       )}
                     </div>
@@ -605,21 +605,21 @@ export default function ChefBookings() {
 
                   {/* Review — completed only */}
                   {b.status === "completed" && b.rating && (
-                    <div style={{ padding: "10px 14px", borderTop: "1px solid #1a1a1a", background: "#111" }}>
-                      <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>⭐ Diner Review</div>
+                    <div style={{ padding: "10px 14px", borderTop: "1px solid var(--border-subtle)", background: "var(--bg-secondary)" }}>
+                      <div style={{ fontSize: 9, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>⭐ Diner Review</div>
                       <div style={{ display: "flex", gap: 4, marginBottom: 4 }}>
                         {Array.from({ length: 5 }).map((_, i) => (
-                          <span key={i} style={{ color: i < b.rating! ? "#facc15" : "#27272a", fontSize: 13 }}>★</span>
+                          <span key={i} style={{ color: i < b.rating! ? "#facc15" : "var(--border-mid)", fontSize: 13 }}>★</span>
                         ))}
                       </div>
-                      {b.reviewText && <div style={{ fontSize: 12, color: "#a1a1aa", fontStyle: "italic" }}>{b.reviewText}</div>}
+                      {b.reviewText && <div style={{ fontSize: 12, color: "var(--text-secondary)", fontStyle: "italic" }}>{b.reviewText}</div>}
                     </div>
                   )}
 
                   {/* Actions */}
                   {b.status === "upcoming" && (
-                    <div style={{ padding: "12px 14px", borderTop: "1px solid #1a1a1a", display: "flex", gap: 8, background: "#0a0a0a" }}>
-                      <button style={{ padding: "8px 16px", borderRadius: 8, background: "#141414", border: "1px solid #27272a", color: "#a1a1aa", fontSize: 12, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+                    <div style={{ padding: "12px 14px", borderTop: "1px solid var(--border-subtle)", display: "flex", gap: 8, background: "var(--bg)" }}>
+                      <button style={{ padding: "8px 16px", borderRadius: 8, background: "var(--bg-tertiary)", border: "1px solid var(--border-mid)", color: "var(--text-secondary)", fontSize: 12, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
                         Message Diner
                       </button>
                       <button style={{ padding: "8px 16px", borderRadius: 8, background: "#C87E7E18", border: "1px solid #C87E7E44", color: "#C87E7E", fontSize: 12, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
@@ -635,7 +635,7 @@ export default function ChefBookings() {
       </div>
 
       {/* ── List view ──────────────────────────────────────────────────────── */}
-      <h2 style={{ fontSize: 16, fontWeight: 800, color: "#f5f0e8", fontFamily: "var(--font-playfair)", margin: "0 0 14px" }}>
+      <h2 style={{ fontSize: 16, fontWeight: 800, color: "var(--text-primary)", fontFamily: "var(--font-playfair)", margin: "0 0 14px" }}>
         All Bookings
       </h2>
 
@@ -645,13 +645,13 @@ export default function ChefBookings() {
           <button key={f} onClick={() => setFilter(f)}
             style={{
               padding: "7px 14px", borderRadius: 99, fontSize: 12, fontWeight: 600, cursor: "pointer",
-              border: `1px solid ${filter === f ? "#C8A97E" : "#2a2a2a"}`,
+              border: `1px solid ${filter === f ? "#C8A97E" : "var(--border-mid)"}`,
               background: filter === f ? "#C8A97E18" : "transparent",
-              color: filter === f ? "#C8A97E" : "#71717a",
+              color: filter === f ? "#C8A97E" : "var(--text-muted)",
               fontFamily: "'DM Sans', sans-serif",
             }}>
             {f === "all" ? "All" : f.charAt(0).toUpperCase() + f.slice(1)}
-            <span style={{ marginLeft: 6, background: "#1a1a1a", borderRadius: 99, padding: "1px 6px", fontSize: 10, color: "#71717a" }}>
+            <span style={{ marginLeft: 6, background: "var(--bg-hover)", borderRadius: 99, padding: "1px 6px", fontSize: 10, color: "var(--text-muted)" }}>
               {f === "all" ? MOCK_BOOKINGS.length : MOCK_BOOKINGS.filter(b => b.status === f).length}
             </span>
           </button>
@@ -664,25 +664,25 @@ export default function ChefBookings() {
           const s = STATUS_COLORS[booking.status];
           const isOpen = expanded === booking.id;
           return (
-            <div key={booking.id} style={{ background: "#0f0f0f", border: "1px solid #1e1e1e", borderRadius: 14, overflow: "hidden" }}>
+            <div key={booking.id} style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 14, overflow: "hidden" }}>
               <div
                 style={{ padding: "16px 20px", display: "flex", alignItems: "center", gap: 16, cursor: "pointer" }}
                 onClick={() => setExpanded(isOpen ? null : booking.id)}
               >
                 <div style={{ width: 48, height: 48, borderRadius: 10, background: s.bg, border: `1px solid ${s.border}`, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <div style={{ fontSize: 9, fontWeight: 700, color: "#ffffff", textTransform: "uppercase" }}>{booking.date.split(" ")[0]}</div>
-                  <div style={{ fontSize: 16, fontWeight: 900, color: "#ffffff", lineHeight: 1 }}>{booking.date.split(" ")[1]}</div>
+                  <div style={{ fontSize: 9, fontWeight: 700, color: "var(--text-primary)", textTransform: "uppercase" }}>{booking.date.split(" ")[0]}</div>
+                  <div style={{ fontSize: 16, fontWeight: 900, color: "var(--text-primary)", lineHeight: 1 }}>{booking.date.split(" ")[1]}</div>
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3 }}>
-                    <span style={{ fontWeight: 700, color: "#f5f0e8", fontSize: 14 }}>{booking.diner}</span>
+                    <span style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: 14 }}>{booking.diner}</span>
                     <span style={{ fontSize: 10, fontWeight: 700, padding: "2px 8px", borderRadius: 99, background: s.bg, border: `1px solid ${s.border}`, color: s.text }}>{s.label}</span>
                   </div>
-                  <div style={{ fontSize: 12, color: "#71717a" }}>{booking.date} · {booking.time} · {booking.guests} guests · {booking.cuisine} · {booking.city}</div>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)" }}>{booking.date} · {booking.time} · {booking.guests} guests · {booking.cuisine} · {booking.city}</div>
                 </div>
                 <div style={{ textAlign: "right" }}>
                   <div style={{ fontWeight: 800, color: "#C8A97E", fontSize: 16 }}>${booking.total}</div>
-                  <div style={{ fontSize: 10, color: "#52525b", marginTop: 2 }}>{isOpen ? "▲" : "▼"}</div>
+                  <div style={{ fontSize: 10, color: "var(--text-dim)", marginTop: 2 }}>{isOpen ? "▲" : "▼"}</div>
                 </div>
               </div>
 
@@ -690,9 +690,9 @@ export default function ChefBookings() {
                 const s = STATUS_COLORS[booking.status];
                 const payColors: Record<string, string> = { paid: "#7EC87E", pending: "#C8A97E", refunded: "#C87E7E" };
                 return (
-                  <div style={{ borderTop: "1px solid #141414", background: "#0c0c0c" }}>
+                  <div style={{ borderTop: "1px solid var(--border-subtle)", background: "var(--bg-secondary)" }}>
                     {/* Detail grid */}
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, background: "#1a1a1a" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, background: "var(--bg-hover)" }}>
                       {[
                         { label: "Confirmation", value: `#${booking.confirmationNumber}` },
                         { label: "Time", value: booking.time },
@@ -701,30 +701,30 @@ export default function ChefBookings() {
                         { label: "Courses", value: `${booking.courses} courses` },
                         { label: "Price / person", value: `$${booking.pricePerPerson}` },
                       ].map(({ label, value, color }) => (
-                        <div key={label} style={{ padding: "10px 14px", background: "#111" }}>
-                          <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 3 }}>{label}</div>
-                          <div style={{ fontSize: 12, fontWeight: 600, color: color ?? "#f5f0e8" }}>{value}</div>
+                        <div key={label} style={{ padding: "10px 14px", background: "var(--bg-secondary)" }}>
+                          <div style={{ fontSize: 9, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 3 }}>{label}</div>
+                          <div style={{ fontSize: 12, fontWeight: 600, color: color ?? "var(--text-primary)" }}>{value}</div>
                         </div>
                       ))}
                     </div>
                     {/* Location + contact */}
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1, background: "#1a1a1a", borderTop: "1px solid #1a1a1a" }}>
-                      <div style={{ padding: "10px 14px", background: "#111" }}>
-                        <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 3 }}>📍 Address</div>
-                        <div style={{ fontSize: 12, fontWeight: 600, color: "#f5f0e8" }}>{booking.city}</div>
-                        <div style={{ fontSize: 11, color: "#71717a", marginTop: 1 }}>{booking.address}</div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1, background: "var(--bg-hover)", borderTop: "1px solid var(--border-subtle)" }}>
+                      <div style={{ padding: "10px 14px", background: "var(--bg-secondary)" }}>
+                        <div style={{ fontSize: 9, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 3 }}>📍 Address</div>
+                        <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-primary)" }}>{booking.city}</div>
+                        <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 1 }}>{booking.address}</div>
                       </div>
-                      <div style={{ padding: "10px 14px", background: "#111" }}>
-                        <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 3 }}>📞 Contact</div>
-                        <div style={{ fontSize: 12, fontWeight: 600, color: "#f5f0e8" }}>{booking.dinerPhone}</div>
-                        <div style={{ fontSize: 11, color: "#71717a", marginTop: 1 }}>{booking.dinerEmail}</div>
+                      <div style={{ padding: "10px 14px", background: "var(--bg-secondary)" }}>
+                        <div style={{ fontSize: 9, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 3 }}>📞 Contact</div>
+                        <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-primary)" }}>{booking.dinerPhone}</div>
+                        <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 1 }}>{booking.dinerEmail}</div>
                       </div>
                     </div>
                     {/* Dietary + notes */}
                     {(booking.dietaryRestrictions.length > 0 || booking.guestNote) && (
-                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1, background: "#1a1a1a", borderTop: "1px solid #1a1a1a" }}>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1, background: "var(--bg-hover)", borderTop: "1px solid var(--border-subtle)" }}>
                         {booking.dietaryRestrictions.length > 0 && (
-                          <div style={{ padding: "10px 14px", background: "#111" }}>
+                          <div style={{ padding: "10px 14px", background: "var(--bg-secondary)" }}>
                             <div style={{ fontSize: 9, fontWeight: 700, color: "#C87E7E", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>⚠️ Dietary</div>
                             <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
                               {booking.dietaryRestrictions.map(r => (
@@ -734,29 +734,29 @@ export default function ChefBookings() {
                           </div>
                         )}
                         {booking.guestNote && (
-                          <div style={{ padding: "10px 14px", background: "#111" }}>
-                            <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>💬 Note</div>
-                            <div style={{ fontSize: 12, color: "#a1a1aa", fontStyle: "italic", lineHeight: 1.5 }}>{booking.guestNote}</div>
+                          <div style={{ padding: "10px 14px", background: "var(--bg-secondary)" }}>
+                            <div style={{ fontSize: 9, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>💬 Note</div>
+                            <div style={{ fontSize: 12, color: "var(--text-secondary)", fontStyle: "italic", lineHeight: 1.5 }}>{booking.guestNote}</div>
                           </div>
                         )}
                       </div>
                     )}
                     {/* Review */}
                     {booking.status === "completed" && booking.rating && (
-                      <div style={{ padding: "10px 14px", borderTop: "1px solid #1a1a1a", background: "#111" }}>
-                        <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 5 }}>⭐ Diner Review</div>
+                      <div style={{ padding: "10px 14px", borderTop: "1px solid var(--border-subtle)", background: "var(--bg-secondary)" }}>
+                        <div style={{ fontSize: 9, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 5 }}>⭐ Diner Review</div>
                         <div style={{ display: "flex", gap: 3, marginBottom: 4 }}>
                           {Array.from({ length: 5 }).map((_, i) => (
-                            <span key={i} style={{ color: i < booking.rating! ? "#facc15" : "#27272a", fontSize: 13 }}>★</span>
+                            <span key={i} style={{ color: i < booking.rating! ? "#facc15" : "var(--border-mid)", fontSize: 13 }}>★</span>
                           ))}
                         </div>
-                        {booking.reviewText && <div style={{ fontSize: 12, color: "#a1a1aa", fontStyle: "italic" }}>{booking.reviewText}</div>}
+                        {booking.reviewText && <div style={{ fontSize: 12, color: "var(--text-secondary)", fontStyle: "italic" }}>{booking.reviewText}</div>}
                       </div>
                     )}
                     {/* Actions */}
                     {booking.status === "upcoming" && (
-                      <div style={{ padding: "12px 16px", borderTop: "1px solid #1a1a1a", display: "flex", gap: 8, background: "#0a0a0a" }}>
-                        <button style={{ padding: "8px 16px", borderRadius: 8, background: "#141414", border: "1px solid #27272a", color: "#a1a1aa", fontSize: 12, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+                      <div style={{ padding: "12px 16px", borderTop: "1px solid var(--border-subtle)", display: "flex", gap: 8, background: "var(--bg)" }}>
+                        <button style={{ padding: "8px 16px", borderRadius: 8, background: "var(--bg-tertiary)", border: "1px solid var(--border-mid)", color: "var(--text-secondary)", fontSize: 12, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
                           Message Diner
                         </button>
                         <button style={{ padding: "8px 16px", borderRadius: 8, background: "#C87E7E18", border: "1px solid #C87E7E44", color: "#C87E7E", fontSize: 12, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
