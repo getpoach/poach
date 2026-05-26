@@ -24,9 +24,9 @@ type SaveState = "idle" | "saving" | "saved" | "error";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div style={{ background: "#0f0f0f", border: "1px solid #1e1e1e", borderRadius: 16, overflow: "hidden", marginBottom: 20 }}>
-      <div style={{ padding: "14px 20px", borderBottom: "1px solid #1a1a1a", background: "#0a0a0a" }}>
-        <span style={{ fontSize: 13, fontWeight: 700, color: "#f5f0e8" }}>{title}</span>
+    <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 16, overflow: "hidden", marginBottom: 20 }}>
+      <div style={{ padding: "14px 20px", borderBottom: "1px solid var(--border-subtle)", background: "var(--bg)" }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)" }}>{title}</span>
       </div>
       <div style={{ padding: "20px" }}>
         {children}
@@ -38,11 +38,11 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 function Field({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
   return (
     <div style={{ marginBottom: 18 }}>
-      <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>
+      <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>
         {label}
       </label>
       {children}
-      {hint && <div style={{ fontSize: 11, color: "#3f3f46", marginTop: 5 }}>{hint}</div>}
+      {hint && <div style={{ fontSize: 11, color: "var(--border-strong)", marginTop: 5 }}>{hint}</div>}
     </div>
   );
 }
@@ -119,8 +119,8 @@ export default function ChefProfile() {
   ] as const;
 
   const inputStyle: React.CSSProperties = {
-    width: "100%", background: "#141414", border: "1px solid #2a2a2a",
-    borderRadius: 10, padding: "10px 14px", fontSize: 13, color: "#f5f0e8",
+    width: "100%", background: "var(--bg-tertiary)", border: "1px solid var(--border-mid)",
+    borderRadius: 10, padding: "10px 14px", fontSize: 13, color: "var(--text-primary)",
     outline: "none", fontFamily: "'DM Sans', sans-serif", boxSizing: "border-box",
   };
 
@@ -130,10 +130,10 @@ export default function ChefProfile() {
       {/* Header */}
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 28 }}>
         <div>
-          <h1 style={{ fontSize: 24, fontWeight: 900, color: "#f5f0e8", fontFamily: "var(--font-playfair)", margin: "0 0 6px" }}>
+          <h1 style={{ fontSize: 24, fontWeight: 900, color: "var(--text-primary)", fontFamily: "var(--font-playfair)", margin: "0 0 6px" }}>
             My Profile
           </h1>
-          <p style={{ fontSize: 13, color: "#71717a", margin: 0 }}>
+          <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>
             How you appear to diners browsing Poach
           </p>
         </div>
@@ -152,8 +152,8 @@ export default function ChefProfile() {
               }
             </div>
             <div>
-              <div style={{ fontSize: 12, fontWeight: 700, color: "#f5f0e8" }}>{name}</div>
-              <div style={{ fontSize: 10, color: "#71717a" }}>{location}</div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-primary)" }}>{name}</div>
+              <div style={{ fontSize: 10, color: "var(--text-muted)" }}>{location}</div>
             </div>
           </div>
 
@@ -163,7 +163,7 @@ export default function ChefProfile() {
             style={{
               padding: "10px 22px", borderRadius: 10, border: "none",
               background: saveState === "saved" ? "#7EC87E" : saveState === "saving" ? "#a8894e" : "#C8A97E",
-              color: "#080808", fontWeight: 800, fontSize: 13,
+              color: "var(--bg)", fontWeight: 800, fontSize: 13,
               cursor: saveState === "saving" ? "wait" : "pointer",
               fontFamily: "'DM Sans', sans-serif",
               transition: "background 0.3s",
@@ -175,13 +175,13 @@ export default function ChefProfile() {
       </div>
 
       {/* Tab bar */}
-      <div style={{ display: "flex", gap: 0, marginBottom: 24, borderBottom: "1px solid #1e1e1e" }}>
+      <div style={{ display: "flex", gap: 0, marginBottom: 24, borderBottom: "1px solid var(--border)" }}>
         {TABS.map(tab => (
           <button key={tab.id} onClick={() => setActiveTab(tab.id)}
             style={{
               padding: "10px 18px", background: "transparent", border: "none",
               borderBottom: activeTab === tab.id ? `2px solid ${color}` : "2px solid transparent",
-              color: activeTab === tab.id ? "#f5f0e8" : "#52525b",
+              color: activeTab === tab.id ? "var(--text-primary)" : "var(--text-dim)",
               fontSize: 13, fontWeight: activeTab === tab.id ? 700 : 500,
               cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
               transition: "all 0.15s", marginBottom: -1,
@@ -208,10 +208,10 @@ export default function ChefProfile() {
               <div style={{ flex: 1 }}>
                 <input ref={fileInputRef} type="file" accept="image/*" onChange={handleHeadshotUpload} style={{ display: "none" }} />
                 <button onClick={() => fileInputRef.current?.click()}
-                  style={{ padding: "10px 18px", borderRadius: 10, background: "#141414", border: "1px solid #2a2a2a", color: "#a1a1aa", fontSize: 13, cursor: "pointer", fontFamily: "'DM Sans', sans-serif", marginBottom: 8, display: "block" }}>
+                  style={{ padding: "10px 18px", borderRadius: 10, background: "var(--bg-tertiary)", border: "1px solid var(--border-mid)", color: "var(--text-secondary)", fontSize: 13, cursor: "pointer", fontFamily: "'DM Sans', sans-serif", marginBottom: 8, display: "block" }}>
                   Upload New Photo
                 </button>
-                <div style={{ fontSize: 11, color: "#3f3f46" }}>JPG, PNG or WebP · Square works best · Max 5MB</div>
+                <div style={{ fontSize: 11, color: "var(--border-strong)" }}>JPG, PNG or WebP · Square works best · Max 5MB</div>
                 {headshot && headshot.startsWith("data:") && (
                   <button onClick={() => setHeadshot("")}
                     style={{ marginTop: 8, fontSize: 11, color: "#C87E7E", background: "none", border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
@@ -223,7 +223,7 @@ export default function ChefProfile() {
           </Section>
 
           <Section title="Profile Color">
-            <p style={{ fontSize: 12, color: "#71717a", margin: "0 0 14px" }}>
+            <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 14px" }}>
               Your color appears on your map pin, chef card border, and throughout your profile.
             </p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 16 }}>
@@ -241,10 +241,10 @@ export default function ChefProfile() {
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div style={{ width: 36, height: 36, borderRadius: "50%", background: customColor, border: "2px solid #2a2a2a", flexShrink: 0 }} />
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: 4 }}>Custom Color</label>
+                <label style={{ fontSize: 11, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: 4 }}>Custom Color</label>
                 <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
                   <input type="color" value={customColor} onChange={e => { setCustomColor(e.target.value); setColor(e.target.value); }}
-                    style={{ width: 36, height: 32, borderRadius: 6, border: "1px solid #2a2a2a", cursor: "pointer", background: "transparent", padding: 2 }} />
+                    style={{ width: 36, height: 32, borderRadius: 6, border: "1px solid var(--border-mid)", cursor: "pointer", background: "transparent", padding: 2 }} />
                   <input type="text" value={customColor} onChange={e => { setCustomColor(e.target.value); if (/^#[0-9A-Fa-f]{6}$/.test(e.target.value)) setColor(e.target.value); }}
                     style={{ ...inputStyle, width: 110, fontSize: 12 }} />
                 </div>
@@ -285,14 +285,14 @@ export default function ChefProfile() {
               <textarea value={bio} onChange={e => setBio(e.target.value)} rows={6}
                 style={{ ...inputStyle, resize: "vertical", minHeight: 120, lineHeight: 1.7 }}
                 placeholder="Tell diners your story — your background, your inspiration, what makes your cooking unique..." />
-              <div style={{ fontSize: 11, color: bio.length > 400 ? "#C87E7E" : "#3f3f46", marginTop: 5, textAlign: "right" }}>
+              <div style={{ fontSize: 11, color: bio.length > 400 ? "#C87E7E" : "var(--border-strong)", marginTop: 5, textAlign: "right" }}>
                 {bio.length} / 500 characters
               </div>
             </Field>
           </Section>
 
           <Section title="Cuisines You Offer">
-            <p style={{ fontSize: 12, color: "#71717a", margin: "0 0 14px" }}>Select all styles you're comfortable cooking.</p>
+            <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 14px" }}>Select all styles you're comfortable cooking.</p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               {CUISINE_OPTIONS.map(c => {
                 const active = cuisines.includes(c);
@@ -300,9 +300,9 @@ export default function ChefProfile() {
                   <button key={c} onClick={() => toggleCuisine(c)}
                     style={{
                       padding: "8px 14px", borderRadius: 99, fontSize: 12, fontWeight: 600, cursor: "pointer",
-                      border: `1px solid ${active ? color : "#2a2a2a"}`,
+                      border: `1px solid ${active ? color : "var(--border-mid)"}`,
                       background: active ? color : "transparent",
-                      color: active ? "#080808" : "#a1a1aa",
+                      color: active ? "var(--bg)" : "var(--text-secondary)",
                       transition: "all 0.15s", fontFamily: "'DM Sans', sans-serif",
                     }}>
                     {c}
@@ -318,11 +318,11 @@ export default function ChefProfile() {
       {activeTab === "availability" && (
         <>
           <Section title="Standard Service Days">
-            <p style={{ fontSize: 12, color: "#71717a", margin: "0 0 6px" }}>
+            <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 6px" }}>
               Select the days you <em>typically</em> take bookings. This is shown on your public profile to give diners a general idea of your schedule.
             </p>
-            <div style={{ fontSize: 11, color: "#52525b", margin: "0 0 16px", padding: "8px 12px", borderRadius: 8, background: "#141414", border: "1px solid #1e1e1e" }}>
-              💡 This does <strong style={{ color: "#a1a1aa" }}>not</strong> affect your actual calendar availability — manage specific dates in the <strong style={{ color: "#a1a1aa" }}>Availability</strong> section of the portal.
+            <div style={{ fontSize: 11, color: "var(--text-dim)", margin: "0 0 16px", padding: "8px 12px", borderRadius: 8, background: "var(--bg-tertiary)", border: "1px solid var(--border)" }}>
+              💡 This does <strong style={{ color: "var(--text-secondary)" }}>not</strong> affect your actual calendar availability — manage specific dates in the <strong style={{ color: "var(--text-secondary)" }}>Availability</strong> section of the portal.
             </div>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
               {DAY_OPTIONS.map(d => {
@@ -331,9 +331,9 @@ export default function ChefProfile() {
                   <button key={d} onClick={() => toggleServiceDay(d)}
                     style={{
                       width: 64, height: 64, borderRadius: 12, fontSize: 13, fontWeight: 700, cursor: "pointer",
-                      border: `1px solid ${active ? color : "#2a2a2a"}`,
-                      background: active ? color : "#141414",
-                      color: active ? "#080808" : "#71717a",
+                      border: `1px solid ${active ? color : "var(--border-mid)"}`,
+                      background: active ? color : "var(--bg-tertiary)",
+                      color: active ? "var(--bg)" : "var(--text-muted)",
                       transition: "all 0.15s", fontFamily: "'DM Sans', sans-serif",
                     }}>
                     {d}
@@ -342,7 +342,7 @@ export default function ChefProfile() {
               })}
             </div>
             {serviceDays.length > 0 && (
-              <div style={{ marginTop: 14, fontSize: 12, color: "#71717a" }}>
+              <div style={{ marginTop: 14, fontSize: 12, color: "var(--text-muted)" }}>
                 Your profile will show: <span style={{ color, fontWeight: 700 }}>{serviceDays.join(", ")}</span>
               </div>
             )}
@@ -375,7 +375,7 @@ export default function ChefProfile() {
       {activeTab === "portfolio" && (
         <>
           <Section title="Portfolio Photos">
-            <p style={{ fontSize: 12, color: "#71717a", margin: "0 0 16px" }}>
+            <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 16px" }}>
               Add up to 10 photos of your dishes, plating, and dining setups. These appear in your public drawer.
             </p>
 
@@ -383,7 +383,7 @@ export default function ChefProfile() {
             {portfolioUrls.filter(u => u.trim()).length > 0 && (
               <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, marginBottom: 20 }}>
                 {portfolioUrls.filter(u => u.trim()).map((url, i) => (
-                  <div key={i} style={{ aspectRatio: "4/3", borderRadius: 10, overflow: "hidden", background: "#141414", border: "1px solid #2a2a2a" }}>
+                  <div key={i} style={{ aspectRatio: "4/3", borderRadius: 10, overflow: "hidden", background: "var(--bg-tertiary)", border: "1px solid var(--border-mid)" }}>
                     <img src={url} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }}
                       onError={e => { (e.target as HTMLImageElement).style.display = "none"; }} />
                   </div>
@@ -395,14 +395,14 @@ export default function ChefProfile() {
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {portfolioUrls.map((url, i) => (
                 <div key={i} style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                  <div style={{ width: 36, height: 36, borderRadius: 8, overflow: "hidden", background: "#141414", border: "1px solid #2a2a2a", flexShrink: 0 }}>
+                  <div style={{ width: 36, height: 36, borderRadius: 8, overflow: "hidden", background: "var(--bg-tertiary)", border: "1px solid var(--border-mid)", flexShrink: 0 }}>
                     {url.trim() && <img src={url} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => { (e.target as HTMLImageElement).style.opacity = "0"; }} />}
                   </div>
                   <input type="text" value={url} onChange={e => updatePortfolioUrl(i, e.target.value)}
                     placeholder={`Photo ${i + 1} URL`}
                     style={{ ...inputStyle, flex: 1, fontSize: 12 }} />
                   <button onClick={() => removePortfolioUrl(i)}
-                    style={{ padding: "10px 12px", borderRadius: 8, background: "transparent", border: "1px solid #27272a", color: "#71717a", cursor: "pointer", fontSize: 13 }}>
+                    style={{ padding: "10px 12px", borderRadius: 8, background: "transparent", border: "1px solid var(--border-mid)", color: "var(--text-muted)", cursor: "pointer", fontSize: 13 }}>
                     ×
                   </button>
                 </div>
@@ -415,7 +415,7 @@ export default function ChefProfile() {
                 + Add Photo URL
               </button>
             )}
-            <div style={{ fontSize: 11, color: "#3f3f46", marginTop: 8 }}>
+            <div style={{ fontSize: 11, color: "var(--border-strong)", marginTop: 8 }}>
               {portfolioUrls.length}/10 photos · Paste image URLs from Unsplash, your website, or anywhere public
             </div>
           </Section>
@@ -428,7 +428,7 @@ export default function ChefProfile() {
           <Section title="Social & Web">
             <Field label="Instagram Handle" hint="Shown on your profile so diners can follow your work">
               <div style={{ display: "flex", alignItems: "center", gap: 0 }}>
-                <div style={{ padding: "10px 12px", background: "#1a1a1a", border: "1px solid #2a2a2a", borderRight: "none", borderRadius: "10px 0 0 10px", fontSize: 13, color: "#52525b" }}>@</div>
+                <div style={{ padding: "10px 12px", background: "var(--bg-hover)", border: "1px solid var(--border-mid)", borderRight: "none", borderRadius: "10px 0 0 10px", fontSize: 13, color: "var(--text-dim)" }}>@</div>
                 <input type="text" value={instagram} onChange={e => setInstagram(e.target.value)}
                   placeholder="yourhandle"
                   style={{ ...inputStyle, borderRadius: "0 10px 10px 0", flex: 1 }} />
@@ -441,16 +441,16 @@ export default function ChefProfile() {
           </Section>
 
           <Section title="Your Stats">
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, background: "#1a1a1a", borderRadius: 12, overflow: "hidden" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, background: "var(--bg-hover)", borderRadius: 12, overflow: "hidden" }}>
               {[
                 { label: "Rating", value: String(chef.rating), sub: `${chef.reviewCount} reviews` },
                 { label: "Total Bookings", value: String(chef.bookingCount), sub: "All time" },
                 { label: "Member Since", value: "Jan 2024", sub: "Poach Verified ✓" },
               ].map(({ label, value, sub }) => (
-                <div key={label} style={{ padding: "16px 18px", background: "#0f0f0f" }}>
-                  <div style={{ fontSize: 10, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>{label}</div>
+                <div key={label} style={{ padding: "16px 18px", background: "var(--bg-secondary)" }}>
+                  <div style={{ fontSize: 10, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>{label}</div>
                   <div style={{ fontSize: 22, fontWeight: 800, color, fontFamily: "var(--font-playfair)" }}>{value}</div>
-                  <div style={{ fontSize: 11, color: "#52525b", marginTop: 3 }}>{sub}</div>
+                  <div style={{ fontSize: 11, color: "var(--text-dim)", marginTop: 3 }}>{sub}</div>
                 </div>
               ))}
             </div>
@@ -471,7 +471,7 @@ export default function ChefProfile() {
             pointerEvents: "auto",
             padding: "12px 28px", borderRadius: 12, border: "none",
             background: saveState === "saved" ? "#7EC87E" : saveState === "saving" ? "#a8894e" : "#C8A97E",
-            color: "#080808", fontWeight: 800, fontSize: 14,
+            color: "var(--bg)", fontWeight: 800, fontSize: 14,
             cursor: saveState === "saving" ? "wait" : "pointer",
             fontFamily: "'DM Sans', sans-serif",
             boxShadow: "0 4px 24px rgba(0,0,0,0.5)",
