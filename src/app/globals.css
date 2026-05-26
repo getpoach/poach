@@ -221,3 +221,11 @@ input[type="range"]::-webkit-slider-runnable-track {
 .nav-dropdown-item:hover { background: #161616; color: var(--text-primary); }
 .nav-dropdown-item.danger:hover { background: #1a0e0e; color: #C87E7E; }
 .nav-dropdown-divider { height: 1px; background: #1e1e1e; }
+
+/* Tailwind class overrides using CSS variables */
+.bg-ink     { background-color: var(--bg) !important; }
+.bg-surface { background-color: var(--bg-secondary) !important; }
+.bg-card    { background-color: var(--bg-tertiary) !important; }
+.text-muted { color: var(--text-muted) !important; }
+.border-border { border-color: var(--border) !important; }
+.text-white { color: var(--text-primary) !important; }
