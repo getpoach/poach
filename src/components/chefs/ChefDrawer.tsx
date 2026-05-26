@@ -20,10 +20,12 @@ function Lightbox({
   images,
   startIndex,
   onClose,
+  theme,
 }: {
   images: string[];
   startIndex: number;
   onClose: () => void;
+  theme: string;
 }) {
   const [idx, setIdx] = useState(startIndex);
 
@@ -355,6 +357,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
           images={portfolioImages}
           startIndex={lightboxIndex}
           onClose={() => setLightboxIndex(null)}
+          theme={theme}
         />
       )}
     </>
