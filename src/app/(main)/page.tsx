@@ -242,7 +242,7 @@ export default function DiscoverPage() {
       {/* ── View tabs ────────────────────────────────────────────────────── */}
       <div className="flex items-end gap-0 mb-0" style={{ marginBottom: 0 }}>
         {/* Tab bar bottom line — left side */}
-        <div style={{ flex: 1, borderBottom: "1px solid var(--border-mid)" }} />
+        <div style={{ flex: 1, borderBottom: "1px solid var(--border-gold)" }} />
         {(["grid", "map"] as const).map((m) => {
           const active = viewMode === m;
           return (
@@ -254,8 +254,8 @@ export default function DiscoverPage() {
                 background: active ? "var(--bg-secondary)" : "transparent",
                 color: active ? "var(--text-primary)" : "var(--text-muted)",
                 border: "1px solid",
-                borderColor: active ? "var(--border-mid)" : "transparent",
-                borderBottom: active ? "1px solid var(--bg-secondary)" : "1px solid var(--border-mid)",
+                borderColor: active ? "var(--gold)" : "transparent",
+                borderBottom: active ? "1px solid var(--bg-secondary)" : "1px solid var(--border-gold)",
                 borderRadius: "10px 10px 0 0",
                 marginBottom: active ? "-1px" : "0",
                 letterSpacing: "0.04em",
@@ -270,7 +270,7 @@ export default function DiscoverPage() {
       </div>
 
       {/* Tab content wrapper */}
-      <div style={{ border: "1px solid var(--border-mid)", borderTop: "none", borderRadius: "0 0 16px 16px", background: "var(--bg-secondary)", padding: "20px 0 0 0", marginBottom: 28 }}>
+      <div style={{ border: "1px solid var(--border-gold)", borderTop: "none", borderRadius: "0 0 16px 16px", background: "var(--bg-secondary)", padding: "20px 0 0 0", marginBottom: 28 }}>
 
       {/* ── Map view ──────────────────────────────────────────────────────── */}
       {viewMode === "map" && (
@@ -290,7 +290,7 @@ export default function DiscoverPage() {
       {viewMode === "grid" && (
         <div>
           {/* Header — exact copy of map header */}
-          <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "14px 20px", borderBottom: "1px solid #18181b" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "14px 20px", borderBottom: "1px solid var(--border-gold)" }}>
             <span style={{ color: "var(--gold)" }}>▦</span>
             <span style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: 15, fontFamily: "var(--font-playfair)" }}>Chefs</span>
             <span style={{ background: "var(--bg-hover)", borderRadius: 99, padding: "2px 10px", fontSize: 11, color: "var(--text-secondary)" }}>
@@ -330,7 +330,7 @@ export default function DiscoverPage() {
           </div>
 
           {/* Price slider row — always visible, same as map */}
-          <div style={{ padding: "10px 20px", borderBottom: "1px solid #18181b", background: "var(--bg)", display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ padding: "10px 20px", borderBottom: "1px solid var(--border-gold)", background: "var(--bg)", display: "flex", alignItems: "center", gap: 12 }}>
             <span style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", whiteSpace: "nowrap" }}>💰 Price / person</span>
             <div style={{ position: "relative", flex: 1, height: 20, display: "flex", alignItems: "center" }}>
               <div style={{ position: "absolute", left: 0, right: 0, height: 3, background: "var(--border-mid)", borderRadius: 99 }} />
@@ -348,7 +348,7 @@ export default function DiscoverPage() {
           </div>
 
           {/* Search bar row — identical to map search bar */}
-          <div style={{ padding: "10px 16px", borderBottom: "1px solid #18181b", background: "var(--bg)" }}>
+          <div style={{ padding: "10px 16px", borderBottom: "1px solid var(--border-gold)", background: "var(--bg)" }}>
             <form onSubmit={handleGridSearch} style={{ display: "flex", gap: 8 }}>
               <div style={{ flex: 1, position: "relative" }}>
                 <Search size={14} color="var(--text-dim)" strokeWidth={1.75} style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }} />
@@ -388,7 +388,7 @@ export default function DiscoverPage() {
           </div>
 
           {/* Sort row — same position as map search bar */}
-          <div style={{ padding: "10px 16px", borderBottom: "1px solid #18181b", background: "var(--bg)", display: "flex", alignItems: "center", gap: 6 }}>
+          <div style={{ padding: "10px 16px", borderBottom: "1px solid var(--border-gold)", background: "var(--bg)", display: "flex", alignItems: "center", gap: 6 }}>
             <span style={{ fontSize: 11, color: "var(--text-dim)", fontWeight: 600 }}>Sort:</span>
             {SORT_OPTIONS.map((s) => {
               const active = sortBy === s.value;
@@ -407,7 +407,7 @@ export default function DiscoverPage() {
 
           {/* Collapsible filter panel — exact copy of map filter panel */}
           {gridFiltersOpen && (
-            <div style={{ padding: "16px 20px", display: "flex", flexDirection: "column", gap: 16, background: "var(--bg)", borderBottom: "1px solid #18181b" }}>
+            <div style={{ padding: "16px 20px", display: "flex", flexDirection: "column", gap: 16, background: "var(--bg)", borderBottom: "1px solid var(--border-gold)" }}>
               {/* Location */}
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-1.5">
@@ -500,7 +500,7 @@ export default function DiscoverPage() {
               className="flex items-center gap-2 px-5 py-2.5 text-xs font-bold select-none"
               style={{
                 background: "var(--bg)",
-                border: "1px solid #C8A97E55",
+                border: "1px solid var(--border-gold)",
                 borderBottom: "1px solid #0a0a0a",
                 borderRadius: "10px 10px 0 0",
                 color: "var(--gold)",
@@ -524,7 +524,7 @@ export default function DiscoverPage() {
           <div
             className="mb-8 p-4 rounded-b-2xl rounded-tr-2xl"
             style={{
-              border: "1px solid #C8A97E55",
+              border: "1px solid var(--border-gold)",
               borderTop: "none",
               background: "var(--bg)",
             }}
