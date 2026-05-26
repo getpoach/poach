@@ -5,7 +5,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
-import { Utensils, CalendarDays, User, LayoutDashboard, LogOut, BookOpen } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
+import { Utensils, CalendarDays, User, LayoutDashboard, LogOut, BookOpen, Sun, Moon } from "lucide-react";
 const G = ({ icon: I, size=14 }: { icon: React.ElementType; size?: number }) => 
   <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle" }} />;
 import { chefs } from "@/data/chefs";
@@ -14,6 +15,7 @@ export function Navbar() {
   const pathname = usePathname();
   const router   = useRouter();
   const { user, logout } = useAuth();
+  const { theme, toggle } = useTheme();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -49,7 +51,7 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="poach-nav-border sticky top-0 z-40 bg-ink/95 backdrop-blur-xl">
+      <nav className="poach-nav-border sticky top-0 z-40 backdrop-blur-xl" style={{ background: "var(--nav-bg)" }}>
         <div className="max-w-6xl mx-auto px-6 flex items-center h-16 gap-5">
 
           {/* Logo */}
@@ -161,6 +163,18 @@ export function Navbar() {
               Sign in
             </Link>
           )}
+
+          {/* Theme toggle */}
+          <button
+            onClick={toggle}
+            title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            style={{ width: 34, height: 34, borderRadius: "50%", background: "var(--bg-secondary)", border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", flexShrink: 0, transition: "all 0.2s" }}
+          >
+            {theme === "dark"
+              ? <Sun  size={15} color="var(--gold)" strokeWidth={1.75} />
+              : <Moon size={15} color="var(--gold)" strokeWidth={1.75} />
+            }
+          </button>
 
           {/* List as Chef — only shown when not logged in as chef */}
           {user?.role !== "chef" && (
