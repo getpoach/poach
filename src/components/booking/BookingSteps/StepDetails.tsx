@@ -35,7 +35,7 @@ export function StepDetails({
         <div className="flex items-center gap-4">
           <button
             onClick={() => onGuests(Math.max(1, guests - 1))}
-            className="w-9 h-9 rounded-lg border border-zinc-700 bg-zinc-900 text-white text-lg hover:border-zinc-500 transition-colors"
+            className="w-9 h-9 rounded-lg border border-[var(--border-mid)] bg-[var(--bg-secondary)] text-white text-lg hover:border-zinc-500 transition-colors"
           >
             −
           </button>
@@ -47,7 +47,7 @@ export function StepDetails({
           </span>
           <button
             onClick={() => onGuests(Math.min(20, guests + 1))}
-            className="w-9 h-9 rounded-lg border border-zinc-700 bg-zinc-900 text-white text-lg hover:border-zinc-500 transition-colors"
+            className="w-9 h-9 rounded-lg border border-[var(--border-mid)] bg-[var(--bg-secondary)] text-white text-lg hover:border-zinc-500 transition-colors"
           >
             +
           </button>
@@ -83,7 +83,7 @@ export function StepDetails({
       </div>
 
       {/* Fee breakdown */}
-      <div className="bg-zinc-900 rounded-xl p-4">
+      <div className="bg-[var(--bg-secondary)] rounded-xl p-4">
         <div className="flex justify-between mb-1.5">
           <span className="text-sm text-muted">${pricePerPerson} × {guests} {guests === 1 ? "person" : "people"}</span>
           <span className="text-sm text-white">${subtotal}</span>
@@ -92,7 +92,7 @@ export function StepDetails({
           <span className="text-sm text-muted">Service fee (12%)</span>
           <span className="text-sm text-white">${fee}</span>
         </div>
-        <div className="border-t border-zinc-800 pt-2 mt-2 flex justify-between">
+        <div className="border-t border-[var(--border)] pt-2 mt-2 flex justify-between">
           <span className="font-bold text-white">Total</span>
           <span
             className="font-display font-bold text-lg"
@@ -101,7 +101,7 @@ export function StepDetails({
             ${total}
           </span>
         </div>
-        <div className="text-[10px] text-zinc-600 mt-1">
+        <div className="text-[10px] text-[var(--text-muted)] mt-1">
           Starting price — final rate confirmed by chef based on menu &amp; occasion
         </div>
       </div>
