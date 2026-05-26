@@ -71,9 +71,15 @@ export function Navbar() {
             {navLinks.map(({ href, label }) => (
               <Link key={href} href={href}
                 className={cn(
-                  "px-3.5 py-2 rounded-xl text-sm transition-colors flex items-center gap-1.5",
-                  pathname === href ? "bg-zinc-900 text-white font-bold" : "text-muted hover:text-white"
+                  "px-3.5 py-2 rounded-xl text-sm transition-colors flex items-center gap-1.5 font-medium",
+                  pathname === href
+                    ? "font-bold"
+                    : ""
                 )}
+                style={{
+                  background: pathname === href ? "var(--bg-hover)" : "transparent",
+                  color: pathname === href ? "var(--text-primary)" : "var(--text-secondary)",
+                }}
               >
                 {label === "Discover"         && <Utensils         size={13} color="#C8A97E" strokeWidth={1.75} />}
                 {label === "My Bookings"     && <CalendarDays      size={13} color="#C8A97E" strokeWidth={1.75} />}
