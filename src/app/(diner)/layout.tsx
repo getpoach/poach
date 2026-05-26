@@ -13,7 +13,7 @@ const NAV_ITEMS = [
 
 const EXPANDED  = 220;
 const COLLAPSED = 60;
-const GOLD = "#C8A97E";
+const GOLD = "var(--gold)";
 
 export default function DinerLayout({ children }: { children: React.ReactNode }) {
   const { user, isLoading } = useAuth();
@@ -30,7 +30,7 @@ export default function DinerLayout({ children }: { children: React.ReactNode })
 
   if (isLoading || !user) {
     return (
-      <div style={{ minHeight: "100vh", background: "#080808", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ minHeight: "100vh", background: "var(--bg)", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ color: GOLD, fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>Loading...</div>
       </div>
     );
@@ -39,7 +39,7 @@ export default function DinerLayout({ children }: { children: React.ReactNode })
   const initials = user.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2);
 
   return (
-    <div style={{ background: "#080808", minHeight: "100vh", fontFamily: "'DM Sans', sans-serif" }}>
+    <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "'DM Sans', sans-serif" }}>
       <div style={{ position: "sticky", top: 0, zIndex: 50 }}>
         <Navbar />
         <div className="nav-gradient-bar" />
@@ -48,7 +48,7 @@ export default function DinerLayout({ children }: { children: React.ReactNode })
       <div style={{ display: "flex" }}>
         {/* Sidebar */}
         <aside style={{
-          width: sidebarW, background: "#0a0a0a",
+          width: sidebarW, background: "var(--bg)",
           borderRight: `1px solid ${GOLD}22`,
           display: "flex", flexDirection: "column",
           position: "fixed", top: 65, bottom: 0, left: 0,
@@ -63,10 +63,10 @@ export default function DinerLayout({ children }: { children: React.ReactNode })
               </div>
             )}
             <button onClick={() => setCollapsed(v => !v)} title={collapsed ? "Expand" : "Collapse"}
-              style={{ width: 26, height: 26, borderRadius: 7, background: "transparent", border: "1px solid #27272a", color: "#52525b", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, flexShrink: 0 }}>
+              style={{ width: 26, height: 26, borderRadius: 7, background: "transparent", border: "1px solid #27272a", color: "var(--text-dim)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, flexShrink: 0 }}>
               {collapsed
-                ? <ChevronRight size={12} color="#52525b" strokeWidth={2} />
-                : <ChevronLeft  size={12} color="#52525b" strokeWidth={2} />}
+                ? <ChevronRight size={12} color="var(--text-dim)" strokeWidth={2} />
+                : <ChevronLeft  size={12} color="var(--text-dim)" strokeWidth={2} />}
             </button>
           </div>
 
@@ -83,14 +83,14 @@ export default function DinerLayout({ children }: { children: React.ReactNode })
                     padding: collapsed ? "10px 0" : "9px 12px",
                     borderRadius: 10, marginBottom: 2, fontSize: 13,
                     fontWeight: active ? 700 : 500,
-                    color: active ? GOLD : "#71717a",
+                    color: active ? GOLD : "var(--text-muted)",
                     background: active ? GOLD + "18" : "transparent",
                     border: `1px solid ${active ? GOLD + "44" : "transparent"}`,
                     textDecoration: "none", transition: "all 0.15s",
                     whiteSpace: "nowrap", overflow: "hidden",
                   }}>
                   <span style={{ flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", width: collapsed ? "auto" : 20 }}>
-                    <item.icon size={16} color={active ? GOLD : "#71717a"} strokeWidth={1.75} />
+                    <item.icon size={16} color={active ? GOLD : "var(--text-muted)"} strokeWidth={1.75} />
                   </span>
                   {!collapsed && item.label}
                 </Link>
@@ -111,14 +111,14 @@ export default function DinerLayout({ children }: { children: React.ReactNode })
                     padding: collapsed ? "10px 0" : "9px 12px",
                     borderRadius: 10, fontSize: 13,
                     fontWeight: active ? 700 : 500,
-                    color: active ? GOLD : "#71717a",
+                    color: active ? GOLD : "var(--text-muted)",
                     background: active ? GOLD + "18" : "transparent",
                     border: `1px solid ${active ? GOLD + "44" : "transparent"}`,
                     textDecoration: "none", transition: "all 0.15s",
                     whiteSpace: "nowrap", overflow: "hidden",
                   }}>
                   <span style={{ flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", width: collapsed ? "auto" : 20 }}>
-                    <User size={16} color={active ? GOLD : "#71717a"} strokeWidth={1.75} />
+                    <User size={16} color={active ? GOLD : "var(--text-muted)"} strokeWidth={1.75} />
                   </span>
                   {!collapsed && "My Profile"}
                 </Link>
