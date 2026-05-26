@@ -1,7 +1,7 @@
 "use client";
 import { ChefHat, UtensilsCrossed } from "lucide-react";
 const G = ({ icon: I, size=15 }: { icon: React.ElementType; size?: number }) => 
-  <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle", marginRight:6 }} />;
+  <I size={size} color="var(--gold)" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle", marginRight:6 }} />;
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
@@ -51,7 +51,7 @@ function AuthPage() {
   return (
     <div
       className="min-h-screen flex items-center justify-center px-4"
-      style={{ background: "#080808" }}
+      style={{ background: "var(--bg)" }}
     >
       {/* Background grain */}
       <div
@@ -77,7 +77,7 @@ function AuthPage() {
         {/* Card */}
         <div
           className="rounded-2xl overflow-hidden"
-          style={{ background: "#0f0f0f", border: "1px solid #1e1e1e" }}
+          style={{ background: "var(--bg-secondary)", border: "1px solid #1e1e1e" }}
         >
           {/* Mode toggle */}
           <div style={{ display: "flex", borderBottom: "1px solid #1e1e1e" }}>
@@ -109,7 +109,7 @@ function AuthPage() {
             {/* Role selection — signup only */}
             {mode === "signup" && (
               <div style={{ marginBottom: 24 }}>
-                <div style={{ fontSize: 11, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>
                   I am a...
                 </div>
                 <div style={{ display: "flex", gap: 10 }}>
@@ -125,15 +125,15 @@ function AuthPage() {
                         padding: "14px 12px",
                         borderRadius: 12,
                         cursor: "pointer",
-                        border: `1px solid ${role === r.value ? "#C8A97E" : "#2a2a2a"}`,
-                        background: role === r.value ? "#C8A97E12" : "#141414",
+                        border: `1px solid ${role === r.value ? "var(--gold)" : "var(--border-mid)"}`,
+                        background: role === r.value ? "#C8A97E12" : "var(--bg-tertiary)",
                         textAlign: "left",
                         transition: "all 0.2s",
                         fontFamily: "'DM Sans', sans-serif",
                       }}
                     >
                       <div style={{ fontSize: 15, marginBottom: 3 }}>{r.label}</div>
-                      <div style={{ fontSize: 11, color: "#71717a" }}>{r.sub}</div>
+                      <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{r.sub}</div>
                     </button>
                   ))}
                 </div>
@@ -143,7 +143,7 @@ function AuthPage() {
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               {mode === "signup" && (
                 <div>
-                  <label style={{ fontSize: 11, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: 6 }}>
+                  <label style={{ fontSize: 11, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: 6 }}>
                     Full Name
                   </label>
                   <input
@@ -182,7 +182,7 @@ function AuthPage() {
               </div>
 
               {error && (
-                <div style={{ padding: "10px 14px", borderRadius: 10, background: "#1a1010", border: "1px solid #C8A97E44", fontSize: 12, color: "#C8A97E", lineHeight: 1.5 }}>
+                <div style={{ padding: "10px 14px", borderRadius: 10, background: "#1a1010", border: "1px solid #C8A97E44", fontSize: 12, color: "var(--gold)", lineHeight: 1.5 }}>
                   {error}
                 </div>
               )}
@@ -194,8 +194,8 @@ function AuthPage() {
                   marginTop: 4,
                   padding: "13px",
                   borderRadius: 12,
-                  background: loading ? "#a8894e" : "#C8A97E",
-                  color: "#080808",
+                  background: loading ? "#a8894e" : "var(--gold)",
+                  color: "var(--bg)",
                   fontWeight: 800,
                   fontSize: 14,
                   border: "none",
@@ -210,17 +210,17 @@ function AuthPage() {
             </form>
 
             {/* Demo hint */}
-            <div style={{ marginTop: 20, padding: "12px 14px", borderRadius: 10, background: "#141414", border: "1px solid #1e1e1e" }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 6 }}>Demo credentials</div>
-              <div style={{ fontSize: 11, color: "#71717a", lineHeight: 1.8 }}>
-                <span style={{ color: "#a1a1aa" }}>Diner:</span> alex@example.com / password<br />
-                <span style={{ color: "#a1a1aa" }}>Chef:</span> beau@example.com / password
+            <div style={{ marginTop: 20, padding: "12px 14px", borderRadius: 10, background: "var(--bg-tertiary)", border: "1px solid #1e1e1e" }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 6 }}>Demo credentials</div>
+              <div style={{ fontSize: 11, color: "var(--text-muted)", lineHeight: 1.8 }}>
+                <span style={{ color: "var(--text-secondary)" }}>Diner:</span> alex@example.com / password<br />
+                <span style={{ color: "var(--text-secondary)" }}>Chef:</span> beau@example.com / password
               </div>
             </div>
           </div>
         </div>
 
-        <div style={{ textAlign: "center", marginTop: 20, fontSize: 11, color: "#3f3f46" }}>
+        <div style={{ textAlign: "center", marginTop: 20, fontSize: 11, color: "var(--border-strong)" }}>
           © 2026 Poach · Private Dining Experiences
         </div>
       </div>
@@ -231,7 +231,7 @@ function AuthPage() {
 const labelStyle: React.CSSProperties = {
   fontSize: 11,
   fontWeight: 700,
-  color: "#52525b",
+  color: "var(--text-dim)",
   textTransform: "uppercase",
   letterSpacing: "0.08em",
   display: "block",
@@ -240,12 +240,12 @@ const labelStyle: React.CSSProperties = {
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
-  background: "#141414",
+  background: "var(--bg-tertiary)",
   border: "1px solid #2a2a2a",
   borderRadius: 10,
   padding: "11px 14px",
   fontSize: 13,
-  color: "#f5f0e8",
+  color: "var(--text-primary)",
   outline: "none",
   fontFamily: "'DM Sans', sans-serif",
   boxSizing: "border-box",
@@ -255,8 +255,8 @@ const inputStyle: React.CSSProperties = {
 export default function LoginPage() {
   return (
     <Suspense fallback={
-      <div style={{ minHeight: "100vh", background: "#080808", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ color: "#C8A97E", fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>Loading...</div>
+      <div style={{ minHeight: "100vh", background: "var(--bg)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ color: "var(--gold)", fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>Loading...</div>
       </div>
     }>
       <AuthPage />
