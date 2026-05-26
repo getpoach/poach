@@ -49,7 +49,7 @@ function TermsStep({
             `The remaining balance ($${balance}) is charged automatically 48 hours before your event.`,
             "After your experience, you'll be invited to leave a review.",
           ].map((step, i) => (
-            <li key={i} style={{ fontSize: 13, color: "#a1a1aa", lineHeight: 1.6 }}>
+            <li key={i} style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>
               <span style={{ color: chef.color, fontWeight: 700, marginRight: 6 }}>{i + 1}.</span>{step}
             </li>
           ))}
@@ -62,13 +62,13 @@ function TermsStep({
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           {[
             { label: "Deposit (due on acceptance)",     amount: `$${deposit}`, note: "25% of total — secures your date", color: chef.color },
-            { label: "Balance (due 48hrs before event)",amount: `$${balance}`, note: "75% of total — charged automatically", color: "#a1a1aa" },
-            { label: "Total",                           amount: `$${total}`,   note: `$${chef.price} × ${guests} guests + platform fee`, color: "#f5f0e8" },
+            { label: "Balance (due 48hrs before event)",amount: `$${balance}`, note: "75% of total — charged automatically", color: "var(--text-secondary)" },
+            { label: "Total",                           amount: `$${total}`,   note: `$${chef.price} × ${guests} guests + platform fee`, color: "var(--text-primary)" },
           ].map(row => (
-            <div key={row.label} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 12px", background: "#141414", borderRadius: 8 }}>
+            <div key={row.label} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 12px", background: "var(--bg-tertiary)", borderRadius: 8 }}>
               <div>
-                <div style={{ fontSize: 13, color: "#f5f0e8" }}>{row.label}</div>
-                <div style={{ fontSize: 11, color: "#52525b", marginTop: 2 }}>{row.note}</div>
+                <div style={{ fontSize: 13, color: "var(--text-primary)" }}>{row.label}</div>
+                <div style={{ fontSize: 11, color: "var(--text-dim)", marginTop: 2 }}>{row.note}</div>
               </div>
               <div style={{ fontWeight: 800, fontSize: 15, color: row.color }}>{row.amount}</div>
             </div>
@@ -86,11 +86,11 @@ function TermsStep({
             { when: "Under 72 hours",         diner: "No refund",              chef: "No penalty" },
             { when: "Chef cancels (any time)",diner: "Full refund",            chef: "Penalty fee applies" },
           ].map(row => (
-            <div key={row.when} style={{ padding: "10px 12px", background: "#141414", borderRadius: 8 }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: "#f5f0e8", marginBottom: 4 }}>{row.when}</div>
-              <div style={{ display: "flex", gap: 16, fontSize: 11, color: "#71717a" }}>
-                <span>You: <span style={{ color: "#a1a1aa" }}>{row.diner}</span></span>
-                <span>Chef: <span style={{ color: "#a1a1aa" }}>{row.chef}</span></span>
+            <div key={row.when} style={{ padding: "10px 12px", background: "var(--bg-tertiary)", borderRadius: 8 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-primary)", marginBottom: 4 }}>{row.when}</div>
+              <div style={{ display: "flex", gap: 16, fontSize: 11, color: "var(--text-muted)" }}>
+                <span>You: <span style={{ color: "var(--text-secondary)" }}>{row.diner}</span></span>
+                <span>Chef: <span style={{ color: "var(--text-secondary)" }}>{row.chef}</span></span>
               </div>
             </div>
           ))}
@@ -100,7 +100,7 @@ function TermsStep({
     {
       title: "What happens after",
       content: (
-        <p style={{ fontSize: 13, color: "#a1a1aa", lineHeight: 1.7, margin: 0 }}>
+        <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.7, margin: 0 }}>
           After your experience, Poach holds the chef's payment for 24 hours while you have the opportunity to flag any issues. If no dispute is raised, funds are released to the chef automatically. You'll receive a prompt to leave a review — your feedback helps other diners and supports the chef's reputation on Poach.
         </p>
       ),
@@ -110,10 +110,10 @@ function TermsStep({
   return (
     <div>
       <div style={{ marginBottom: 20 }}>
-        <div style={{ fontSize: 16, fontWeight: 800, color: "#f5f0e8", fontFamily: "var(--font-playfair)", marginBottom: 4 }}>
+        <div style={{ fontSize: 16, fontWeight: 800, color: "var(--text-primary)", fontFamily: "var(--font-playfair)", marginBottom: 4 }}>
           Booking Terms
         </div>
-        <p style={{ fontSize: 13, color: "#71717a", margin: 0 }}>
+        <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>
           Please review what you're agreeing to before proceeding.
         </p>
       </div>
@@ -121,13 +121,13 @@ function TermsStep({
       {/* Accordion sections */}
       <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 20 }}>
         {sections.map((s, i) => (
-          <div key={i} style={{ background: "#0f0f0f", border: `1px solid ${open === i ? chef.color + "44" : "#1e1e1e"}`, borderRadius: 10, overflow: "hidden", transition: "border-color 0.2s" }}>
+          <div key={i} style={{ background: "var(--bg-secondary)", border: `1px solid ${open === i ? chef.color + "44" : "var(--border)"}`, borderRadius: 10, overflow: "hidden", transition: "border-color 0.2s" }}>
             <button onClick={() => setOpen(open === i ? null : i)}
-              style={{ width: "100%", padding: "12px 14px", display: "flex", alignItems: "center", justifyContent: "space-between", background: "transparent", border: "none", cursor: "pointer", color: open === i ? "#f5f0e8" : "#a1a1aa", fontWeight: open === i ? 700 : 500, fontSize: 13, fontFamily: "'DM Sans', sans-serif", textAlign: "left" }}>
+              style={{ width: "100%", padding: "12px 14px", display: "flex", alignItems: "center", justifyContent: "space-between", background: "transparent", border: "none", cursor: "pointer", color: open === i ? "var(--text-primary)" : "var(--text-secondary)", fontWeight: open === i ? 700 : 500, fontSize: 13, fontFamily: "'DM Sans', sans-serif", textAlign: "left" }}>
               {s.title}
               {open === i
                 ? <ChevronUp size={14} color={chef.color} strokeWidth={2} />
-                : <ChevronDown size={14} color="#52525b" strokeWidth={2} />}
+                : <ChevronDown size={14} color="var(--text-dim)" strokeWidth={2} />}
             </button>
             {open === i && (
               <div style={{ padding: "0 14px 14px" }}>{s.content}</div>
@@ -137,7 +137,7 @@ function TermsStep({
       </div>
 
       {/* Full terms link */}
-      <p style={{ fontSize: 11, color: "#52525b", marginBottom: 16, textAlign: "center" }}>
+      <p style={{ fontSize: 11, color: "var(--text-dim)", marginBottom: 16, textAlign: "center" }}>
         Read the full{" "}
         <Link href="/terms" target="_blank" style={{ color: chef.color, textDecoration: "underline" }}>
           Poach Booking Terms & Conditions
@@ -145,12 +145,12 @@ function TermsStep({
       </p>
 
       {/* Agreement checkbox */}
-      <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer", marginBottom: 20, padding: "12px 14px", background: agreed ? chef.color + "0e" : "#0f0f0f", border: `1px solid ${agreed ? chef.color + "44" : "#1e1e1e"}`, borderRadius: 10, transition: "all 0.2s" }}>
-        <div style={{ width: 18, height: 18, borderRadius: 5, border: `2px solid ${agreed ? chef.color : "#3f3f46"}`, background: agreed ? chef.color : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1, transition: "all 0.15s" }}>
-          {agreed && <CheckCircle2 size={12} color="#080808" strokeWidth={3} />}
+      <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer", marginBottom: 20, padding: "12px 14px", background: agreed ? chef.color + "0e" : "var(--bg-secondary)", border: `1px solid ${agreed ? chef.color + "44" : "var(--border)"}`, borderRadius: 10, transition: "all 0.2s" }}>
+        <div style={{ width: 18, height: 18, borderRadius: 5, border: `2px solid ${agreed ? chef.color : "var(--border-strong)"}`, background: agreed ? chef.color : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1, transition: "all 0.15s" }}>
+          {agreed && <CheckCircle2 size={12} color="var(--bg)" strokeWidth={3} />}
         </div>
         <input type="checkbox" checked={agreed} onChange={e => setAgreed(e.target.checked)} style={{ display: "none" }} />
-        <span style={{ fontSize: 13, color: "#a1a1aa", lineHeight: 1.5 }}>
+        <span style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.5 }}>
           I understand and agree to the booking terms, payment schedule, and cancellation policy above.
         </span>
       </label>
@@ -158,11 +158,11 @@ function TermsStep({
       {/* Nav */}
       <div style={{ display: "flex", gap: 10 }}>
         <button onClick={onBack}
-          style={{ padding: "11px 20px", borderRadius: 10, background: "transparent", border: "1px solid #27272a", color: "#71717a", fontSize: 13, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+          style={{ padding: "11px 20px", borderRadius: 10, background: "transparent", border: "1px solid var(--border-mid)", color: "var(--text-muted)", fontSize: 13, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
           ← Back
         </button>
         <button onClick={onAgree} disabled={!agreed}
-          style={{ flex: 1, padding: "11px", borderRadius: 10, background: agreed ? chef.color : "#2a2a2a", color: agreed ? "#080808" : "#52525b", fontWeight: 800, fontSize: 13, border: "none", cursor: agreed ? "pointer" : "default", fontFamily: "'DM Sans', sans-serif", transition: "all 0.2s" }}>
+          style={{ flex: 1, padding: "11px", borderRadius: 10, background: agreed ? chef.color : "var(--border-mid)", color: agreed ? "var(--bg)" : "var(--text-dim)", fontWeight: 800, fontSize: 13, border: "none", cursor: agreed ? "pointer" : "default", fontFamily: "'DM Sans', sans-serif", transition: "all 0.2s" }}>
           Agree & Continue →
         </button>
       </div>
@@ -217,18 +217,18 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
           <div style={{ textAlign: "center", padding: "16px 0" }}>
             {/* Chef photo */}
             <div style={{ marginBottom: 20, display: "flex", justifyContent: "center" }}>
-              <div style={{ width: 80, height: 80, borderRadius: "50%", overflow: "hidden", border: `3px solid ${chef.color}`, boxShadow: `0 0 20px ${chef.color}44`, background: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div style={{ width: 80, height: 80, borderRadius: "50%", overflow: "hidden", border: `3px solid ${chef.color}`, boxShadow: `0 0 20px ${chef.color}44`, background: "var(--bg-hover)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 {chef.headshot
                   ? <img src={chef.headshot} alt={chef.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                   : <Avatar label={chef.avatar} color={chef.color} size={56} />
                 }
               </div>
             </div>
-            <div style={{ fontSize: 20, fontWeight: 900, color: "#f5f0e8", fontFamily: "var(--font-playfair)", marginBottom: 8 }}>
+            <div style={{ fontSize: 20, fontWeight: 900, color: "var(--text-primary)", fontFamily: "var(--font-playfair)", marginBottom: 8 }}>
               Sign in to Book
             </div>
-            <p style={{ fontSize: 14, color: "#71717a", lineHeight: 1.7, marginBottom: 24 }}>
-              You need a Poach diner account to book <strong style={{ color: "#f5f0e8" }}>{chef.name}</strong>.
+            <p style={{ fontSize: 14, color: "var(--text-muted)", lineHeight: 1.7, marginBottom: 24 }}>
+              You need a Poach diner account to book <strong style={{ color: "var(--text-primary)" }}>{chef.name}</strong>.
               {user?.role === "chef" && (
                 <span style={{ display: "block", marginTop: 8, fontSize: 12, color: "#C87E7E" }}>
                   You're currently logged in as a chef. Please sign in with a diner account.
@@ -238,7 +238,7 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
             <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
               <Link href="/login"
                 onClick={onClose}
-                style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "12px", borderRadius: 12, background: chef.color, color: "#080808", fontWeight: 800, fontSize: 14, textDecoration: "none", fontFamily: "'DM Sans', sans-serif" }}>
+                style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "12px", borderRadius: 12, background: chef.color, color: "var(--bg)", fontWeight: 800, fontSize: 14, textDecoration: "none", fontFamily: "'DM Sans', sans-serif" }}>
                 <LogIn size={16} strokeWidth={2} /> Sign In
               </Link>
               <Link href="/login?mode=signup"
@@ -248,7 +248,7 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
               </Link>
             </div>
             <button onClick={onClose}
-              style={{ fontSize: 12, color: "#52525b", background: "none", border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+              style={{ fontSize: 12, color: "var(--text-dim)", background: "none", border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
               Cancel
             </button>
           </div>
@@ -267,7 +267,7 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
           <>
             {/* Header */}
             <div className="flex items-center gap-3.5 mb-6">
-              <div style={{ width: 46, height: 46, borderRadius: "50%", overflow: "hidden", border: `2px solid ${chef.color}`, flexShrink: 0, background: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div style={{ width: 46, height: 46, borderRadius: "50%", overflow: "hidden", border: `2px solid ${chef.color}`, flexShrink: 0, background: "var(--bg-hover)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 {chef.headshot
                   ? <img src={chef.headshot} alt={chef.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                   : <Avatar label={chef.avatar} color={chef.color} size={46} />
@@ -318,16 +318,16 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
             <div style={{ fontSize: 22, fontWeight: 900, color: chef.color, fontFamily: "var(--font-playfair)", marginBottom: 8 }}>
               Request Submitted!
             </div>
-            <p style={{ fontSize: 14, color: "#a1a1aa", lineHeight: 1.7, marginBottom: 4 }}>
-              {chef.name} has been notified and will respond within <strong style={{ color: "#f5f0e8" }}>48 hours</strong>.
+            <p style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: 4 }}>
+              {chef.name} has been notified and will respond within <strong style={{ color: "var(--text-primary)" }}>48 hours</strong>.
             </p>
-            <p style={{ fontSize: 13, color: "#52525b", marginBottom: 24 }}>
-              Confirmation sent to <strong style={{ color: "#a1a1aa" }}>{email}</strong>
+            <p style={{ fontSize: 13, color: "var(--text-dim)", marginBottom: 24 }}>
+              Confirmation sent to <strong style={{ color: "var(--text-secondary)" }}>{email}</strong>
             </p>
 
             {/* What happens next */}
-            <div style={{ background: "#0f0f0f", border: `1px solid ${chef.color}33`, borderRadius: 12, padding: "16px", marginBottom: 24, textAlign: "left" }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>What happens next</div>
+            <div style={{ background: "var(--bg-secondary)", border: `1px solid ${chef.color}33`, borderRadius: 12, padding: "16px", marginBottom: 24, textAlign: "left" }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>What happens next</div>
               {[
                 { step: "1", text: `${chef.name} accepts your request (within 48hrs)`, color: chef.color },
                 { step: "2", text: `You pay the $${deposit} deposit to lock in your date`, color: "#C8A97E" },
@@ -338,7 +338,7 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
                   <div style={{ width: 20, height: 20, borderRadius: "50%", background: item.color + "22", border: `1px solid ${item.color}55`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700, color: item.color, flexShrink: 0 }}>
                     {item.step}
                   </div>
-                  <span style={{ fontSize: 13, color: "#a1a1aa", lineHeight: 1.5 }}>{item.text}</span>
+                  <span style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.5 }}>{item.text}</span>
                 </div>
               ))}
             </div>
