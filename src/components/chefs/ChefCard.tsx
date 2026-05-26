@@ -20,7 +20,7 @@ export function ChefCard({ chef, onBook, onView }: ChefCardProps) {
       onClick={() => onView(chef)}
       className="bg-surface rounded-2xl p-6 flex flex-col gap-4 cursor-pointer transition-all duration-200"
       style={{
-        border: `1px solid ${hovered ? chef.color : "#222"}`,
+        border: `1px solid ${hovered ? chef.color : "var(--border-mid)"}`,
         transform: hovered ? "translateY(-3px)" : "none",
         boxShadow: hovered ? `0 8px 40px ${chef.color}22` : "none",
       }}
@@ -41,7 +41,7 @@ export function ChefCard({ chef, onBook, onView }: ChefCardProps) {
           }
         </div>
         <div className="flex-1 min-w-0">
-          <div className="font-display font-bold text-[17px] text-[var(--text-primary)] truncate">
+          <div className="font-display font-bold text-[17px] truncate" style={{ color: "var(--text-primary)" }}>
             {chef.name}
           </div>
           <div className="text-xs text-muted mt-0.5">
@@ -73,7 +73,7 @@ export function ChefCard({ chef, onBook, onView }: ChefCardProps) {
 
       {/* Specialty */}
       <div
-        className="text-sm text-[var(--text-secondary)] leading-relaxed pl-2.5"
+        className="text-sm leading-relaxed pl-2.5" style={{ color: "var(--text-secondary)" }}
         style={{ borderLeft: `2px solid ${chef.color}44` }}
       >
         {chef.specialty}
@@ -92,7 +92,7 @@ export function ChefCard({ chef, onBook, onView }: ChefCardProps) {
         {chef.available.map((d) => (
           <span
             key={d}
-            className="bg-[var(--bg-secondary)] border border-[var(--border)] rounded-md px-2 py-0.5 text-[10px] text-[var(--text-dim)]"
+            style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 6, padding: "2px 8px", fontSize: 10, color: "var(--text-dim)" }}
           >
             {d}
           </span>
