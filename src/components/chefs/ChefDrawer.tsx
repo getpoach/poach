@@ -45,7 +45,7 @@ function Lightbox({
       {/* Close */}
       <button
         onClick={onClose}
-        className="absolute top-5 right-5 text-white text-3xl leading-none hover:text-zinc-400 transition-colors z-10"
+        className="absolute top-5 right-5 text-white text-3xl leading-none hover:text-[var(--text-secondary)] transition-colors z-10"
       >
         ×
       </button>
@@ -54,7 +54,7 @@ function Lightbox({
       {images.length > 1 && (
         <button
           onClick={(e) => { e.stopPropagation(); setIdx((i) => (i - 1 + images.length) % images.length); }}
-          className="absolute left-5 text-white text-3xl leading-none hover:text-zinc-400 transition-colors z-10 select-none"
+          className="absolute left-5 text-white text-3xl leading-none hover:text-[var(--text-secondary)] transition-colors z-10 select-none"
         >
           ‹
         </button>
@@ -68,7 +68,7 @@ function Lightbox({
           className="w-full h-full object-contain rounded-xl"
           style={{ maxHeight: "85vh" }}
         />
-        <div className="absolute bottom-3 left-0 right-0 text-center text-xs text-zinc-500">
+        <div className="absolute bottom-3 left-0 right-0 text-center text-xs text-[var(--text-dim)]">
           {idx + 1} / {images.length}
         </div>
       </div>
@@ -77,7 +77,7 @@ function Lightbox({
       {images.length > 1 && (
         <button
           onClick={(e) => { e.stopPropagation(); setIdx((i) => (i + 1) % images.length); }}
-          className="absolute right-5 text-white text-3xl leading-none hover:text-zinc-400 transition-colors z-10 select-none"
+          className="absolute right-5 text-white text-3xl leading-none hover:text-[var(--text-secondary)] transition-colors z-10 select-none"
         >
           ›
         </button>
@@ -114,7 +114,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
       >
         <div
           onClick={(e) => e.stopPropagation()}
-          className="w-full max-w-[480px] bg-zinc-950 h-full overflow-y-auto flex flex-col"
+          className="w-full max-w-[480px] bg-[var(--bg-secondary)] h-full overflow-y-auto flex flex-col"
           style={{ borderLeft: `4px solid ${chef.color}`, boxShadow: `-4px 0 24px ${chef.color}22` }}
         >
 
@@ -175,10 +175,10 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                 </div>
               )}
               <Stars rating={chef.rating} size={13} />
-              <div className="text-xs text-zinc-400 mt-0.5">
+              <div className="text-xs text-[var(--text-secondary)] mt-0.5">
                 {chef.reviewCount} reviews · {chef.bookingCount} bookings · {chef.experience}
               </div>
-              <div className="text-xs text-zinc-500 mt-0.5">🎓 {chef.trained}</div>
+              <div className="text-xs text-[var(--text-dim)] mt-0.5">🎓 {chef.trained}</div>
               <div className="text-xs mt-1.5 inline-flex items-center gap-1.5 px-2 py-1 rounded-full"
                 style={{ background: chef.color + "15", border: `1px solid ${chef.color}40`, color: chef.color }}>
                 📍 Serves up to {chef.serviceRadius ?? 10} miles
@@ -247,13 +247,13 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
             )}
 
             {/* About */}
-            <div className="bg-zinc-900 rounded-xl p-4">
+            <div className="bg-[var(--bg-tertiary)] rounded-xl p-4">
               <SectionLabel>About</SectionLabel>
               <p className="text-sm text-zinc-300 leading-relaxed">{chef.bio}</p>
             </div>
 
             {/* Cuisines */}
-            <div className="bg-zinc-900 rounded-xl p-4">
+            <div className="bg-[var(--bg-tertiary)] rounded-xl p-4">
               <SectionLabel>Cuisines & Specialty</SectionLabel>
               <div className="flex flex-wrap gap-1.5 mb-3">
                 {chef.cuisine.map((c) => (
@@ -261,7 +261,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                 ))}
               </div>
               <div
-                className="text-sm text-zinc-400 pl-2.5"
+                className="text-sm text-[var(--text-secondary)] pl-2.5"
                 style={{ borderLeft: `2px solid ${chef.color}` }}
               >
                 {chef.specialty}
@@ -269,7 +269,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
             </div>
 
             {/* Availability */}
-            <div className="bg-zinc-900 rounded-xl p-4">
+            <div className="bg-[var(--bg-tertiary)] rounded-xl p-4">
               <SectionLabel>Availability</SectionLabel>
               <div className="flex gap-2 flex-wrap">
                 {DAYS.map((d) => {
@@ -292,10 +292,10 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
             </div>
 
             {/* Pricing */}
-            <div className="bg-zinc-900 rounded-xl p-4">
+            <div className="bg-[var(--bg-tertiary)] rounded-xl p-4">
               <div className="flex justify-between items-center mb-1">
                 <div>
-                  <span className="text-sm text-zinc-400 font-semibold">Price per person</span>
+                  <span className="text-sm text-[var(--text-secondary)] font-semibold">Price per person</span>
                   <span
                     className="ml-2 text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
                     style={{ background: chef.color + "20", color: chef.color }}
@@ -321,13 +321,13 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                 <SectionLabel>Reviews</SectionLabel>
                 <div className="flex flex-col gap-3">
                   {chefReviews.map((r) => (
-                    <div key={r.id} className="bg-zinc-900 rounded-xl p-4">
+                    <div key={r.id} className="bg-[var(--bg-tertiary)] rounded-xl p-4">
                       <div className="flex justify-between mb-1.5">
                         <span className="text-sm font-bold text-white">{r.author}</span>
-                        <span className="text-xs text-zinc-500">{r.date}</span>
+                        <span className="text-xs text-[var(--text-dim)]">{r.date}</span>
                       </div>
                       <Stars rating={r.rating} size={12} />
-                      <p className="text-sm text-zinc-400 leading-relaxed mt-2">{r.text}</p>
+                      <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-2">{r.text}</p>
                     </div>
                   ))}
                 </div>
