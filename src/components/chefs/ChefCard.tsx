@@ -73,8 +73,8 @@ export function ChefCard({ chef, onBook, onView }: ChefCardProps) {
 
       {/* Specialty */}
       <div
-        className="text-sm leading-relaxed pl-2.5" style={{ color: "var(--text-secondary)" }}
-        style={{ borderLeft: `2px solid ${chef.color}44` }}
+        className="text-sm leading-relaxed pl-2.5"
+        style={{ color: "var(--text-secondary)", borderLeft: `2px solid ${chef.color}44` }}
       >
         {chef.specialty}
       </div>
