@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useTheme } from "@/context/ThemeContext";
 import Image from "next/image";
 import type { Chef, Review } from "@/types";
 import { Tag, Stars, SectionLabel } from "@/components/ui/index";
@@ -39,7 +40,7 @@ function Lightbox({
   return (
     <div
       className="fixed inset-0 z-[60] flex items-center justify-center"
-      style={{ background: "rgba(0,0,0,0.92)" }}
+      style={{ background: theme === "light" ? "rgba(255,255,255,0.95)" : "rgba(0,0,0,0.92)" }}
       onClick={onClose}
     >
       {/* Close */}
@@ -87,6 +88,7 @@ function Lightbox({
 }
 
 export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) {
+  const { theme } = useTheme();
   const chefReviews = reviews.filter((r) => r.chefId === chef.id);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
@@ -130,7 +132,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                 {/* Gradient fade — stronger at bottom so name is always readable */}
                 <div
                   className="absolute inset-0"
-                  style={{ background: "linear-gradient(to bottom, rgba(9,9,11,0.0) 20%, rgba(9,9,11,0.55) 55%, rgba(9,9,11,0.92) 80%, rgba(9,9,11,1) 100%)" }}
+                  style={{ background: theme === "light" ? "linear-gradient(to bottom, rgba(255,255,255,0.0) 20%, rgba(255,255,255,0.6) 55%, rgba(255,255,255,0.92) 80%, rgba(255,255,255,1) 100%)" : "linear-gradient(to bottom, rgba(9,9,11,0.0) 20%, rgba(9,9,11,0.55) 55%, rgba(9,9,11,0.92) 80%, rgba(9,9,11,1) 100%)" }}
                 />
               </>
             ) : (
@@ -147,7 +149,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                 </div>
                 <div
                   className="absolute inset-0"
-                  style={{ background: "linear-gradient(to bottom, rgba(9,9,11,0.0) 20%, rgba(9,9,11,0.55) 55%, rgba(9,9,11,0.92) 80%, rgba(9,9,11,1) 100%)" }}
+                  style={{ background: theme === "light" ? "linear-gradient(to bottom, rgba(255,255,255,0.0) 20%, rgba(255,255,255,0.6) 55%, rgba(255,255,255,0.92) 80%, rgba(255,255,255,1) 100%)" : "linear-gradient(to bottom, rgba(9,9,11,0.0) 20%, rgba(9,9,11,0.55) 55%, rgba(9,9,11,0.92) 80%, rgba(9,9,11,1) 100%)" }}
                 />
               </div>
             )}
@@ -156,7 +158,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
             <button
               onClick={onClose}
               className="absolute top-4 left-4 text-white text-sm font-semibold px-3 py-1.5 rounded-full transition-colors hover:bg-white/10"
-              style={{ background: "rgba(0,0,0,0.45)" }}
+              style={{ background: theme === "light" ? "rgba(0,0,0,0.15)" : "rgba(0,0,0,0.45)" }}
             >
               ← Back
             </button>
@@ -165,12 +167,12 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
             <div className="absolute bottom-0 left-0 right-0 px-6 pb-5" style={{ zIndex: 2 }}>
               <div
                 className="font-display text-2xl font-black leading-tight"
-                style={{ color: "#ffffff", textShadow: "0 1px 8px rgba(0,0,0,0.8)" }}
+                style={{ color: theme === "light" ? "#1a1a1a" : "#ffffff", textShadow: theme === "light" ? "0 1px 4px rgba(255,255,255,0.8)" : "0 1px 8px rgba(0,0,0,0.8)" }}
               >
                 {chef.name}
               </div>
               {chef.businessName && (
-                <div style={{ fontSize: 14, fontWeight: 600, color: chef.color, fontFamily: "var(--font-playfair)", fontStyle: "italic", marginTop: 2, textShadow: "0 1px 6px rgba(0,0,0,0.8)" }}>
+                <div style={{ fontSize: 14, fontWeight: 600, color: chef.color, fontFamily: "var(--font-playfair)", fontStyle: "italic", marginTop: 2, textShadow: theme === "light" ? "0 1px 4px rgba(255,255,255,0.8)" : "0 1px 6px rgba(0,0,0,0.8)" }}>
                   {chef.businessName}
                 </div>
               )}
@@ -207,7 +209,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                   {portfolioImages.length > 1 && (
                     <div
                       className="absolute inset-0 flex items-end p-3"
-                      style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%)" }}
+                      style={{ background: theme === "light" ? "linear-gradient(to top, rgba(0,0,0,0.2) 0%, transparent 60%)" : "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%)" }}
                     >
                       <span className="text-xs text-white/70 font-medium">
                         Tap to view all {portfolioImages.length} photos
