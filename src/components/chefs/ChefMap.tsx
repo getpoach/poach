@@ -358,7 +358,7 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
   return (
     <>
       {/* Outer wrapper — NO overflow:hidden, use border-radius via inline style only */}
-      <div style={{ borderRadius: 16, border: "1px solid var(--border-mid)", background: "#09090b", marginBottom: 28 }}>
+      <div style={{ borderRadius: 16, border: "1px solid var(--border-mid)", background: "var(--bg)", marginBottom: 28 }}>
 
         {/* Header */}
         <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "14px 20px", borderBottom: "1px solid #18181b" }}>
@@ -467,7 +467,7 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
           {searchError && (
             <div style={{
               marginTop: 8, padding: "8px 12px", borderRadius: 8,
-              background: "#1a1010", border: "1px solid #C8A97E44",
+              background: "var(--bg-secondary)", border: "1px solid #C8A97E44",
               fontSize: 11, color: "#C8A97E", lineHeight: 1.5,
               fontFamily: "'DM Sans', sans-serif",
             }}>
@@ -618,7 +618,7 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
                     </div>
                     <div>
                       <div style={{ color: "var(--text-primary)", fontWeight: 700, fontSize: 13 }}>{popupChef.name}</div>
-                      <div style={{ color: "#888", fontSize: 11 }}>{popupChef.location}</div>
+                      <div style={{ color: "var(--text-secondary)", fontSize: 11 }}>{popupChef.location}</div>
                       <div style={{
                         marginTop: 3, fontSize: 10, fontWeight: 600,
                         color: popupChef.color,
@@ -640,13 +640,13 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
                     <Stars rating={popupChef.rating} size={12} />
                     <div style={{ textAlign: "right" }}>
                       <div style={{ color: popupChef.color, fontWeight: 700, fontSize: 15 }}>
-                        ${popupChef.price}<span style={{ color: "#555", fontWeight: 400, fontSize: 10 }}>/person</span>
+                        ${popupChef.price}<span style={{ color: "var(--text-muted)", fontWeight: 400, fontSize: 10 }}>/person</span>
                       </div>
-                      <div style={{ color: "#555", fontSize: 9, marginTop: 1 }}>starting from</div>
+                      <div style={{ color: "var(--text-muted)", fontSize: 9, marginTop: 1 }}>starting from</div>
                     </div>
                   </div>
                   <div style={{
-                    background: popupChef.color, color: "#0A0A0A", borderRadius: 10,
+                    background: popupChef.color, color: "var(--bg)", borderRadius: 10,
                     padding: "9px 0", textAlign: "center", fontWeight: 700, fontSize: 12,
                   }}>
                     View Chef →
