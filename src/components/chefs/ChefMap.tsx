@@ -70,8 +70,8 @@ function FilterPill({ label, active, color, onClick }: {
       onClick={onClick}
       className="px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 whitespace-nowrap border cursor-pointer"
       style={active
-        ? { background: color ?? "#C8A97E", borderColor: color ?? "#C8A97E", color: "#0a0a0a" }
-        : { borderColor: "#3f3f46", color: "#a1a1aa", background: "transparent" }
+        ? { background: color ?? "#C8A97E", borderColor: color ?? "#C8A97E", color: "var(--bg)" }
+        : { borderColor: "var(--border-strong)", color: "var(--text-secondary)", background: "transparent" }
       }
     >
       {label}
@@ -86,7 +86,7 @@ function FilterSection({ icon, label, children }: {
     <div className="flex flex-col gap-2">
       <div className="flex items-center gap-1.5">
         <span className="text-sm">{icon}</span>
-        <span className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest">{label}</span>
+        <span className="text-[11px] font-bold text-[var(--text-dim)] uppercase tracking-widest">{label}</span>
       </div>
       <div className="flex flex-wrap gap-1.5">{children}</div>
     </div>
@@ -139,7 +139,7 @@ function ChefPin({ chef, active, dimmed }: { chef: Chef; active: boolean; dimmed
         <span style={{
           fontSize: active ? 13 : 11,
           fontWeight: 700,
-          color: "#fff",
+          color: "var(--text-primary)",
           fontFamily: "'Playfair Display', serif",
           letterSpacing: "0.01em",
           textShadow: "0 1px 4px rgba(0,0,0,0.8)",
@@ -358,18 +358,18 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
   return (
     <>
       {/* Outer wrapper — NO overflow:hidden, use border-radius via inline style only */}
-      <div style={{ borderRadius: 16, border: "1px solid #27272a", background: "#09090b", marginBottom: 28 }}>
+      <div style={{ borderRadius: 16, border: "1px solid var(--border-mid)", background: "#09090b", marginBottom: 28 }}>
 
         {/* Header */}
         <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "14px 20px", borderBottom: "1px solid #18181b" }}>
           <span style={{ color: "#C8A97E" }}>📍</span>
-          <span style={{ fontWeight: 700, color: "#fff", fontSize: 15, fontFamily: "var(--font-playfair)" }}>Chefs Near You</span>
-          <span style={{ background: "#18181b", borderRadius: 99, padding: "2px 10px", fontSize: 11, color: "#a1a1aa" }}>
+          <span style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: 15, fontFamily: "var(--font-playfair)" }}>Chefs Near You</span>
+          <span style={{ background: "var(--bg-hover)", borderRadius: 99, padding: "2px 10px", fontSize: 11, color: "var(--text-secondary)" }}>
             {filteredCount} of {chefs.length}
           </span>
           <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 8 }}>
             {activeFilterCount > 0 && (
-              <button onClick={clearFilters} style={{ fontSize: 11, color: "#71717a", cursor: "pointer", background: "none", border: "none", textDecoration: "underline" }}>
+              <button onClick={clearFilters} style={{ fontSize: 11, color: "var(--text-muted)", cursor: "pointer", background: "none", border: "none", textDecoration: "underline" }}>
                 Clear
               </button>
             )}
@@ -378,8 +378,8 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
               style={{
                 display: "flex", alignItems: "center", gap: 6, padding: "6px 12px",
                 borderRadius: 99, fontSize: 11, fontWeight: 600, cursor: "pointer",
-                border: `1px solid ${filtersOpen || activeFilterCount > 0 ? "#C8A97E" : "#3f3f46"}`,
-                color: filtersOpen || activeFilterCount > 0 ? "#C8A97E" : "#a1a1aa",
+                border: `1px solid ${filtersOpen || activeFilterCount > 0 ? "#C8A97E" : "var(--border-strong)"}`,
+                color: filtersOpen || activeFilterCount > 0 ? "#C8A97E" : "var(--text-secondary)",
                 background: filtersOpen || activeFilterCount > 0 ? "#D4AF3712" : "transparent",
               }}
             >
@@ -388,12 +388,12 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
               </svg>
               Filters
               {activeFilterCount > 0 && (
-                <span style={{ background: "#C8A97E", color: "#0a0a0a", borderRadius: 99, width: 16, height: 16, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700 }}>
+                <span style={{ background: "#C8A97E", color: "var(--bg)", borderRadius: 99, width: 16, height: 16, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700 }}>
                   {activeFilterCount}
                 </span>
               )}
             </button>
-            <span style={{ background: "#18181b", borderRadius: 99, padding: "4px 12px", fontSize: 11, color: "#71717a" }}>
+            <span style={{ background: "var(--bg-hover)", borderRadius: 99, padding: "4px 12px", fontSize: 11, color: "var(--text-muted)" }}>
               Louisiana
             </span>
           </div>
@@ -402,11 +402,11 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
 
 
         {/* Price slider row */}
-        <div style={{ padding: "10px 20px", borderBottom: "1px solid #18181b", background: "#0b0b0b", display: "flex", alignItems: "center", gap: 12 }}>
-          <span style={{ fontSize: 11, fontWeight: 700, color: "#71717a", whiteSpace: "nowrap" }}>💰 Price / person</span>
+        <div style={{ padding: "10px 20px", borderBottom: "1px solid #18181b", background: "var(--bg)", display: "flex", alignItems: "center", gap: 12 }}>
+          <span style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", whiteSpace: "nowrap" }}>💰 Price / person</span>
           {/* Slider track */}
           <div style={{ position: "relative", flex: 1, height: 20, display: "flex", alignItems: "center" }}>
-            <div style={{ position: "absolute", left: 0, right: 0, height: 3, background: "#27272a", borderRadius: 99 }} />
+            <div style={{ position: "absolute", left: 0, right: 0, height: 3, background: "var(--border-mid)", borderRadius: 99 }} />
             <div style={{
               position: "absolute",
               left: `${(priceRange[0] / 150) * 100}%`,
@@ -428,12 +428,12 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
         </div>
 
         {/* Search bar */}
-        <div style={{ padding: "10px 16px", borderBottom: "1px solid #18181b", background: "#0a0a0a" }}>
+        <div style={{ padding: "10px 16px", borderBottom: "1px solid #18181b", background: "var(--bg)" }}>
           <form onSubmit={handleSearch} style={{ display: "flex", gap: 8 }}>
             <div style={{ flex: 1, position: "relative" }}>
               <span style={{
                 position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)",
-                fontSize: 14, color: "#52525b", pointerEvents: "none",
+                fontSize: 14, color: "var(--text-dim)", pointerEvents: "none",
               }}>🔍</span>
               <input
                 type="text"
@@ -441,9 +441,9 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
                 onChange={(e) => { setSearchQuery(e.target.value); setSearchError(null); }}
                 placeholder="Search a city in Louisiana..."
                 style={{
-                  width: "100%", background: "#18181b", border: "1px solid #27272a",
+                  width: "100%", background: "var(--bg-hover)", border: "1px solid var(--border-mid)",
                   borderRadius: 10, padding: "8px 12px 8px 32px", fontSize: 12,
-                  color: "#f5f0e8", outline: "none", fontFamily: "'DM Sans', sans-serif",
+                  color: "var(--text-primary)", outline: "none", fontFamily: "'DM Sans', sans-serif",
                   boxSizing: "border-box",
                 }}
               />
@@ -452,7 +452,7 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
               type="submit"
               disabled={searchLoading}
               style={{
-                background: "#C8A97E", color: "#0a0a0a", border: "none",
+                background: "#C8A97E", color: "var(--bg)", border: "none",
                 borderRadius: 10, padding: "8px 16px", fontSize: 12,
                 fontWeight: 700, cursor: searchLoading ? "wait" : "pointer",
                 fontFamily: "'DM Sans', sans-serif", whiteSpace: "nowrap",
@@ -480,19 +480,19 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
               marginTop: 8,
               display: "flex", alignItems: "center", gap: 8,
               padding: "8px 10px",
-              background: "#0e0d0b",
-              border: "1px solid #27272a",
+              background: "var(--bg-secondary)",
+              border: "1px solid var(--border-mid)",
               borderRadius: 10,
             }}>
               <span style={{ fontSize: 14 }}>📍</span>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 11, fontWeight: 600, color: "#f5f0e8" }}>Find chefs near you</div>
-                <div style={{ fontSize: 10, color: "#71717a" }}>Allow location to see nearby chefs</div>
+                <div style={{ fontSize: 11, fontWeight: 600, color: "var(--text-primary)" }}>Find chefs near you</div>
+                <div style={{ fontSize: 10, color: "var(--text-muted)" }}>Allow location to see nearby chefs</div>
               </div>
               <button
                 onClick={handleUseMyLocation}
                 style={{
-                  background: "#C8A97E", color: "#0a0a0a", border: "none",
+                  background: "#C8A97E", color: "var(--bg)", border: "none",
                   borderRadius: 7, padding: "5px 12px", fontSize: 11,
                   fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap",
                   fontFamily: "'DM Sans', sans-serif",
@@ -502,7 +502,7 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
               </button>
               <button
                 onClick={() => setLocationBanner(false)}
-                style={{ background: "none", border: "none", color: "#52525b", cursor: "pointer", fontSize: 15, lineHeight: 1 }}
+                style={{ background: "none", border: "none", color: "var(--text-dim)", cursor: "pointer", fontSize: 15, lineHeight: 1 }}
               >
                 ×
               </button>
@@ -512,7 +512,7 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
 
         {/* Filter panel */}
         {filtersOpen && (
-          <div style={{ padding: "16px 20px", display: "flex", flexDirection: "column", gap: 16, background: "#060A06", borderBottom: "1px solid #18181b" }}>
+          <div style={{ padding: "16px 20px", display: "flex", flexDirection: "column", gap: 16, background: "var(--bg)", borderBottom: "1px solid #18181b" }}>
             <FilterSection icon="🗺️" label="Location">
               {AREA_FILTERS.map((a) => (
                 <FilterPill key={a.value} label={a.label} active={locationFilter === a.value}
@@ -617,7 +617,7 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
                       {popupChef.avatar}
                     </div>
                     <div>
-                      <div style={{ color: "#fff", fontWeight: 700, fontSize: 13 }}>{popupChef.name}</div>
+                      <div style={{ color: "var(--text-primary)", fontWeight: 700, fontSize: 13 }}>{popupChef.name}</div>
                       <div style={{ color: "#888", fontSize: 11 }}>{popupChef.location}</div>
                       <div style={{
                         marginTop: 3, fontSize: 10, fontWeight: 600,
@@ -752,13 +752,13 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
             }}>
               {filteredCount > 0 ? (
                 <div style={{
-                  background: "rgba(8,8,8,0.72)",
+                  background: "var(--nav-bg)",
                   backdropFilter: "blur(10px)",
                   border: "1px solid #ffffff12",
                   borderRadius: 99,
                   padding: "6px 16px",
                   fontSize: 11,
-                  color: "#a1a1aa",
+                  color: "var(--text-secondary)",
                   whiteSpace: "nowrap",
                 }}>
                   <span style={{ color: "#C8A97E", fontWeight: 700 }}>{filteredCount}</span>
@@ -766,13 +766,13 @@ export function ChefMap({ chefs, onSelect, onFilteredChange }: ChefMapProps) {
                 </div>
               ) : (
                 <div style={{
-                  background: "rgba(8,8,8,0.82)",
+                  background: "var(--nav-bg)",
                   backdropFilter: "blur(10px)",
                   border: "1px solid #C8A97E44",
                   borderRadius: 99,
                   padding: "6px 16px",
                   fontSize: 11,
-                  color: "#a1a1aa",
+                  color: "var(--text-secondary)",
                   whiteSpace: "nowrap",
                   pointerEvents: "auto",
                 }}>
