@@ -34,14 +34,14 @@ export function ChefCard({ chef, onBook, onView }: ChefCardProps) {
 
       {/* Header */}
       <div className="flex items-center gap-3.5">
-        <div style={{ width: 52, height: 52, borderRadius: "50%", overflow: "hidden", border: `2px solid ${chef.color}`, flexShrink: 0, background: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: 52, height: 52, borderRadius: "50%", overflow: "hidden", border: `2px solid ${chef.color}`, flexShrink: 0, background: "var(--bg-hover)", display: "flex", alignItems: "center", justifyContent: "center" }}>
           {chef.headshot
             ? <img src={chef.headshot} alt={chef.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             : <Avatar label={chef.avatar} color={chef.color} size={52} />
           }
         </div>
         <div className="flex-1 min-w-0">
-          <div className="font-display font-bold text-[17px] text-white truncate">
+          <div className="font-display font-bold text-[17px] text-[var(--text-primary)] truncate">
             {chef.name}
           </div>
           <div className="text-xs text-muted mt-0.5">
@@ -73,7 +73,7 @@ export function ChefCard({ chef, onBook, onView }: ChefCardProps) {
 
       {/* Specialty */}
       <div
-        className="text-sm text-zinc-400 leading-relaxed pl-2.5"
+        className="text-sm text-[var(--text-secondary)] leading-relaxed pl-2.5"
         style={{ borderLeft: `2px solid ${chef.color}44` }}
       >
         {chef.specialty}
@@ -92,7 +92,7 @@ export function ChefCard({ chef, onBook, onView }: ChefCardProps) {
         {chef.available.map((d) => (
           <span
             key={d}
-            className="bg-zinc-900 border border-zinc-800 rounded-md px-2 py-0.5 text-[10px] text-zinc-500"
+            className="bg-[var(--bg-secondary)] border border-[var(--border)] rounded-md px-2 py-0.5 text-[10px] text-[var(--text-dim)]"
           >
             {d}
           </span>
