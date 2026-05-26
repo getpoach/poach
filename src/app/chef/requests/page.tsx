@@ -161,11 +161,11 @@ const STATUS_STYLES: Record<RequestStatus, { bg: string; border: string; text: s
 
 function InfoCell({ label, value, color }: { label: string; value: string; color?: string }) {
   return (
-    <div style={{ padding: "10px 14px", background: "#111" }}>
-      <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 3 }}>
+    <div style={{ padding: "10px 14px", background: "var(--bg-secondary)" }}>
+      <div style={{ fontSize: 9, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 3 }}>
         {label}
       </div>
-      <div style={{ fontSize: 13, fontWeight: 600, color: color ?? "#f5f0e8" }}>{value}</div>
+      <div style={{ fontSize: 13, fontWeight: 600, color: color ?? "var(--text-primary)" }}>{value}</div>
     </div>
   );
 }
@@ -179,8 +179,8 @@ function RequestCard({ request, onAction }: { request: BookingRequest; onAction:
 
   return (
     <div style={{
-      background: "#0f0f0f",
-      border: `1px solid ${isPending ? "#C8A97E33" : "#1e1e1e"}`,
+      background: "var(--bg-secondary)",
+      border: `1px solid ${isPending ? "#C8A97E33" : "var(--border)"}`,
       borderRadius: 16,
       overflow: "hidden",
       opacity: request.status === "declined" ? 0.6 : 1,
@@ -201,7 +201,7 @@ function RequestCard({ request, onAction }: { request: BookingRequest; onAction:
           <div style={{ fontSize: 9, fontWeight: 700, color: s.text, textTransform: "uppercase" }}>
             {request.date.split(" ")[0]}
           </div>
-          <div style={{ fontSize: 18, fontWeight: 900, color: "#ffffff", lineHeight: 1 }}>
+          <div style={{ fontSize: 18, fontWeight: 900, color: "var(--text-primary)", lineHeight: 1 }}>
             {request.date.split(" ")[1].replace(",", "")}
           </div>
           <div style={{ fontSize: 9, color: s.text, fontWeight: 600 }}>
@@ -211,7 +211,7 @@ function RequestCard({ request, onAction }: { request: BookingRequest; onAction:
 
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 4 }}>
-            <span style={{ fontSize: 15, fontWeight: 800, color: "#f5f0e8" }}>{request.diner}</span>
+            <span style={{ fontSize: 15, fontWeight: 800, color: "var(--text-primary)" }}>{request.diner}</span>
             <span style={{ fontSize: 10, fontWeight: 700, padding: "2px 9px", borderRadius: 99, background: s.bg, border: `1px solid ${s.border}`, color: s.text }}>
               {s.label}
             </span>
@@ -226,10 +226,10 @@ function RequestCard({ request, onAction }: { request: BookingRequest; onAction:
               </span>
             )}
           </div>
-          <div style={{ fontSize: 12, color: "#71717a" }}>
+          <div style={{ fontSize: 12, color: "var(--text-muted)" }}>
             {request.occasion} · {request.time} · {request.guests} guests · {request.city}
           </div>
-          <div style={{ fontSize: 11, color: "#52525b", marginTop: 2 }}>
+          <div style={{ fontSize: 11, color: "var(--text-dim)", marginTop: 2 }}>
             Submitted {request.submittedAt}
           </div>
         </div>
@@ -238,10 +238,10 @@ function RequestCard({ request, onAction }: { request: BookingRequest; onAction:
           <div style={{ fontSize: 20, fontWeight: 800, color: "#C8A97E" }}>
             ${request.estimatedTotal.toLocaleString()}
           </div>
-          <div style={{ fontSize: 11, color: "#52525b", marginTop: 2 }}>
+          <div style={{ fontSize: 11, color: "var(--text-dim)", marginTop: 2 }}>
             ${request.pricePerPerson}/person
           </div>
-          <div style={{ fontSize: 11, color: "#3f3f46", marginTop: 6 }}>
+          <div style={{ fontSize: 11, color: "var(--border-strong)", marginTop: 6 }}>
             {expanded ? "▲" : "▼"}
           </div>
         </div>
@@ -249,10 +249,10 @@ function RequestCard({ request, onAction }: { request: BookingRequest; onAction:
 
       {/* Expanded detail */}
       {expanded && (
-        <div style={{ borderTop: "1px solid #1a1a1a" }}>
+        <div style={{ borderTop: "1px solid var(--border-subtle)" }}>
 
           {/* Info grid */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 1, background: "#1a1a1a" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 1, background: "var(--bg-hover)" }}>
             <InfoCell label="Date" value={request.date} />
             <InfoCell label="Time" value={request.time} />
             <InfoCell label="Guests" value={`${request.guests} guests`} />
@@ -264,17 +264,17 @@ function RequestCard({ request, onAction }: { request: BookingRequest; onAction:
           </div>
 
           {/* Location + contact */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1, background: "#1a1a1a", borderTop: "1px solid #1a1a1a" }}>
-            <div style={{ padding: "12px 14px", background: "#111" }}>
-              <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 5 }}>📍 Location</div>
-              <div style={{ fontSize: 13, fontWeight: 600, color: "#f5f0e8" }}>{request.city}</div>
-              <div style={{ fontSize: 11, color: "#71717a", marginTop: 2 }}>{request.address}</div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1, background: "var(--bg-hover)", borderTop: "1px solid var(--border-subtle)" }}>
+            <div style={{ padding: "12px 14px", background: "var(--bg-secondary)" }}>
+              <div style={{ fontSize: 9, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 5 }}>📍 Location</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)" }}>{request.city}</div>
+              <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 2 }}>{request.address}</div>
             </div>
-            <div style={{ padding: "12px 14px", background: "#111" }}>
-              <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 5 }}>📞 Diner Contact</div>
-              <div style={{ fontSize: 13, fontWeight: 600, color: "#f5f0e8" }}>{request.diner}</div>
-              <div style={{ fontSize: 11, color: "#71717a", marginTop: 1 }}>{request.dinerPhone}</div>
-              <div style={{ fontSize: 11, color: "#71717a" }}>{request.dinerEmail}</div>
+            <div style={{ padding: "12px 14px", background: "var(--bg-secondary)" }}>
+              <div style={{ fontSize: 9, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 5 }}>📞 Diner Contact</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)" }}>{request.diner}</div>
+              <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 1 }}>{request.dinerPhone}</div>
+              <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{request.dinerEmail}</div>
               {request.dinerHistory > 0 && (
                 <div style={{ fontSize: 10, color: "#7EC87E", marginTop: 4 }}>
                   ✓ Booked through Poach {request.dinerHistory} time{request.dinerHistory > 1 ? "s" : ""} before
@@ -285,9 +285,9 @@ function RequestCard({ request, onAction }: { request: BookingRequest; onAction:
 
           {/* Dietary + allergies */}
           {(hasDietary || hasAllergies) && (
-            <div style={{ display: "grid", gridTemplateColumns: hasDietary && hasAllergies ? "1fr 1fr" : "1fr", gap: 1, background: "#1a1a1a", borderTop: "1px solid #1a1a1a" }}>
+            <div style={{ display: "grid", gridTemplateColumns: hasDietary && hasAllergies ? "1fr 1fr" : "1fr", gap: 1, background: "var(--bg-hover)", borderTop: "1px solid var(--border-subtle)" }}>
               {hasDietary && (
-                <div style={{ padding: "12px 14px", background: "#111" }}>
+                <div style={{ padding: "12px 14px", background: "var(--bg-secondary)" }}>
                   <div style={{ fontSize: 9, fontWeight: 700, color: "#C8A97E", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 8 }}>
                     🥗 Dietary Restrictions
                   </div>
@@ -301,7 +301,7 @@ function RequestCard({ request, onAction }: { request: BookingRequest; onAction:
                 </div>
               )}
               {hasAllergies && (
-                <div style={{ padding: "12px 14px", background: "#111" }}>
+                <div style={{ padding: "12px 14px", background: "var(--bg-secondary)" }}>
                   <div style={{ fontSize: 9, fontWeight: 700, color: "#C87E7E", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 8 }}>
                     ⚠️ Allergies — Critical
                   </div>
@@ -319,11 +319,11 @@ function RequestCard({ request, onAction }: { request: BookingRequest; onAction:
 
           {/* Guest note */}
           {request.guestNote && (
-            <div style={{ padding: "12px 14px", background: "#0c0c0c", borderTop: "1px solid #1a1a1a" }}>
-              <div style={{ fontSize: 9, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>
+            <div style={{ padding: "12px 14px", background: "var(--bg-secondary)", borderTop: "1px solid var(--border-subtle)" }}>
+              <div style={{ fontSize: 9, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>
                 💬 Message from {request.diner.split(" ")[0]}
               </div>
-              <div style={{ fontSize: 13, color: "#a1a1aa", fontStyle: "italic", lineHeight: 1.7, borderLeft: "2px solid #C8A97E44", paddingLeft: 12 }}>
+              <div style={{ fontSize: 13, color: "var(--text-secondary)", fontStyle: "italic", lineHeight: 1.7, borderLeft: "2px solid #C8A97E44", paddingLeft: 12 }}>
                 "{request.guestNote}"
               </div>
             </div>
@@ -331,13 +331,13 @@ function RequestCard({ request, onAction }: { request: BookingRequest; onAction:
 
           {/* Actions */}
           {isPending && (
-            <div style={{ padding: "14px 20px", borderTop: "1px solid #1a1a1a", background: "#0a0a0a", display: "flex", alignItems: "center", gap: 10 }}>
+            <div style={{ padding: "14px 20px", borderTop: "1px solid var(--border-subtle)", background: "var(--bg)", display: "flex", alignItems: "center", gap: 10 }}>
               <button
                 onClick={() => onAction(request.id, "accepted")}
                 style={{
                   padding: "10px 24px", borderRadius: 10,
                   background: "#C8A97E", border: "none",
-                  color: "#080808", fontWeight: 800, fontSize: 13,
+                  color: "var(--bg)", fontWeight: 800, fontSize: 13,
                   cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
                   transition: "opacity 0.2s",
                 }}
@@ -358,8 +358,8 @@ function RequestCard({ request, onAction }: { request: BookingRequest; onAction:
               <button
                 style={{
                   padding: "10px 16px", borderRadius: 10,
-                  background: "transparent", border: "1px solid #27272a",
-                  color: "#71717a", fontWeight: 600, fontSize: 13,
+                  background: "transparent", border: "1px solid var(--border-mid)",
+                  color: "var(--text-muted)", fontWeight: 600, fontSize: 13,
                   cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
                   marginLeft: "auto",
                 }}
@@ -371,14 +371,14 @@ function RequestCard({ request, onAction }: { request: BookingRequest; onAction:
 
           {/* Accepted/declined state */}
           {!isPending && (
-            <div style={{ padding: "12px 20px", borderTop: "1px solid #1a1a1a", background: "#0a0a0a", display: "flex", alignItems: "center", gap: 10 }}>
+            <div style={{ padding: "12px 20px", borderTop: "1px solid var(--border-subtle)", background: "var(--bg)", display: "flex", alignItems: "center", gap: 10 }}>
               <div style={{ fontSize: 12, fontWeight: 700, color: s.text }}>
                 {request.status === "accepted" ? "✓ You accepted this booking" : "✗ You declined this request"}
               </div>
               {request.status === "declined" && (
                 <button
                   onClick={() => onAction(request.id, "accepted")}
-                  style={{ marginLeft: "auto", padding: "7px 14px", borderRadius: 8, background: "transparent", border: "1px solid #27272a", color: "#71717a", fontSize: 11, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ marginLeft: "auto", padding: "7px 14px", borderRadius: 8, background: "transparent", border: "1px solid var(--border-mid)", color: "var(--text-muted)", fontSize: 11, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}
                 >
                   Reconsider →
                 </button>
@@ -408,10 +408,10 @@ export default function ChefRequests() {
 
       {/* Header */}
       <div style={{ marginBottom: 28 }}>
-        <h1 style={{ fontSize: 24, fontWeight: 900, color: "#f5f0e8", fontFamily: "var(--font-playfair)", margin: "0 0 6px" }}>
+        <h1 style={{ fontSize: 24, fontWeight: 900, color: "var(--text-primary)", fontFamily: "var(--font-playfair)", margin: "0 0 6px" }}>
           Booking Requests
         </h1>
-        <p style={{ fontSize: 13, color: "#71717a", margin: 0 }}>
+        <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>
           {pending.length} pending {pending.length === 1 ? "request" : "requests"} · ${pendingRevenue.toLocaleString()} potential earnings
         </p>
       </div>
@@ -432,14 +432,14 @@ export default function ChefRequests() {
           <button key={f} onClick={() => setFilter(f)}
             style={{
               padding: "7px 14px", borderRadius: 99, fontSize: 12, fontWeight: 600, cursor: "pointer",
-              border: `1px solid ${filter === f ? "#C8A97E" : "#2a2a2a"}`,
+              border: `1px solid ${filter === f ? "#C8A97E" : "var(--border-mid)"}`,
               background: filter === f ? "#C8A97E18" : "transparent",
-              color: filter === f ? "#C8A97E" : "#71717a",
+              color: filter === f ? "#C8A97E" : "var(--text-muted)",
               fontFamily: "'DM Sans', sans-serif",
               textTransform: "capitalize",
             }}>
             {f === "all" ? "All" : f.charAt(0).toUpperCase() + f.slice(1)}
-            <span style={{ marginLeft: 6, background: "#1a1a1a", borderRadius: 99, padding: "1px 7px", fontSize: 10, color: "#71717a" }}>
+            <span style={{ marginLeft: 6, background: "var(--bg-hover)", borderRadius: 99, padding: "1px 7px", fontSize: 10, color: "var(--text-muted)" }}>
               {f === "all" ? requests.length : requests.filter(r => r.status === f).length}
             </span>
           </button>
@@ -452,9 +452,9 @@ export default function ChefRequests() {
           <RequestCard key={req.id} request={req} onAction={handleAction} />
         ))}
         {shown.length === 0 && (
-          <div style={{ textAlign: "center", padding: "48px 0", color: "#52525b" }}>
+          <div style={{ textAlign: "center", padding: "48px 0", color: "var(--text-dim)" }}>
             <div style={{ fontSize: 32, marginBottom: 12 }}>🍽️</div>
-            <div style={{ fontSize: 14, color: "#71717a" }}>No requests here</div>
+            <div style={{ fontSize: 14, color: "var(--text-muted)" }}>No requests here</div>
           </div>
         )}
       </div>
