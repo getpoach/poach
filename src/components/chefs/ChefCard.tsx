@@ -18,8 +18,9 @@ export function ChefCard({ chef, onBook, onView }: ChefCardProps) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={() => onView(chef)}
-      className="bg-surface rounded-2xl p-6 flex flex-col gap-4 cursor-pointer transition-all duration-200"
+      className="rounded-2xl p-6 flex flex-col gap-4 cursor-pointer transition-all duration-200"
       style={{
+        background: "var(--bg)",
         border: `1px solid ${hovered ? chef.color : "var(--border-mid)"}`,
         transform: hovered ? "translateY(-3px)" : "none",
         boxShadow: hovered ? `0 8px 40px ${chef.color}22` : "none",
