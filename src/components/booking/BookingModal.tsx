@@ -214,8 +214,8 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center p-5" style={{ background: theme === "light" ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.88)" }} onClick={onClose}>
         <div onClick={e => e.stopPropagation()}
-          className="rounded-2xl w-full max-w-lg p-8" style={{ background: "var(--bg)" }}
-          style={{ border: `1px solid ${chef.color}`, boxShadow: `0 0 40px ${chef.color}18` }}>
+          className="rounded-2xl w-full max-w-lg p-8"
+          style={{ background: "var(--bg)", border: `1px solid ${chef.color}`, boxShadow: `0 0 40px ${chef.color}18` }}>
           <div style={{ textAlign: "center", padding: "16px 0" }}>
             {/* Chef photo */}
             <div style={{ marginBottom: 20, display: "flex", justifyContent: "center" }}>
@@ -262,8 +262,8 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-5" style={{ background: theme === "light" ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.88)" }} onClick={onClose}>
       <div onClick={e => e.stopPropagation()}
-        className="rounded-2xl w-full max-w-lg p-8 max-h-[92vh] overflow-y-auto" style={{ background: "var(--bg)" }}
-        style={{ border: `1px solid ${chef.color}`, boxShadow: `0 0 40px ${chef.color}18` }}>
+        className="rounded-2xl w-full max-w-lg p-8 max-h-[92vh] overflow-y-auto"
+        style={{ background: "var(--bg)", border: `1px solid ${chef.color}`, boxShadow: `0 0 40px ${chef.color}18` }}>
 
         {!confirmed ? (
           <>
