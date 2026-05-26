@@ -242,7 +242,7 @@ export default function DiscoverPage() {
       {/* ── View tabs ────────────────────────────────────────────────────── */}
       <div className="flex items-end gap-0 mb-0" style={{ marginBottom: 0 }}>
         {/* Tab bar bottom line — left side */}
-        <div style={{ flex: 1, borderBottom: "1px solid #2a2a2a" }} />
+        <div style={{ flex: 1, borderBottom: "1px solid var(--border-mid)" }} />
         {(["grid", "map"] as const).map((m) => {
           const active = viewMode === m;
           return (
@@ -252,10 +252,10 @@ export default function DiscoverPage() {
               className="px-5 py-2.5 text-xs font-bold transition-all cursor-pointer"
               style={{
                 background: active ? "var(--bg-secondary)" : "transparent",
-                color: active ? "#F5F0E8" : "#555",
+                color: active ? "var(--text-primary)" : "var(--text-muted)",
                 border: "1px solid",
                 borderColor: active ? "var(--border-mid)" : "transparent",
-                borderBottom: active ? "1px solid #111" : "1px solid #2a2a2a",
+                borderBottom: active ? "1px solid var(--bg-secondary)" : "1px solid var(--border-mid)",
                 borderRadius: "10px 10px 0 0",
                 marginBottom: active ? "-1px" : "0",
                 letterSpacing: "0.04em",
@@ -270,7 +270,7 @@ export default function DiscoverPage() {
       </div>
 
       {/* Tab content wrapper */}
-      <div style={{ border: "1px solid #2a2a2a", borderTop: "none", borderRadius: "0 0 16px 16px", background: "var(--bg-secondary)", padding: "20px 0 0 0", marginBottom: 28 }}>
+      <div style={{ border: "1px solid var(--border-mid)", borderTop: "none", borderRadius: "0 0 16px 16px", background: "var(--bg-secondary)", padding: "20px 0 0 0", marginBottom: 28 }}>
 
       {/* ── Map view ──────────────────────────────────────────────────────── */}
       {viewMode === "map" && (
@@ -292,8 +292,8 @@ export default function DiscoverPage() {
           {/* Header — exact copy of map header */}
           <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "14px 20px", borderBottom: "1px solid #18181b" }}>
             <span style={{ color: "var(--gold)" }}>▦</span>
-            <span style={{ fontWeight: 700, color: "#fff", fontSize: 15, fontFamily: "var(--font-playfair)" }}>Chefs</span>
-            <span style={{ background: "#18181b", borderRadius: 99, padding: "2px 10px", fontSize: 11, color: "var(--text-secondary)" }}>
+            <span style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: 15, fontFamily: "var(--font-playfair)" }}>Chefs</span>
+            <span style={{ background: "var(--bg-hover)", borderRadius: 99, padding: "2px 10px", fontSize: 11, color: "var(--text-secondary)" }}>
               {sorted.length} of {allChefs.length}
             </span>
             <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 8 }}>
@@ -323,7 +323,7 @@ export default function DiscoverPage() {
                   </span>
                 )}
               </button>
-              <span style={{ background: "#18181b", borderRadius: 99, padding: "4px 12px", fontSize: 11, color: "var(--text-muted)" }}>
+              <span style={{ background: "var(--bg-hover)", borderRadius: 99, padding: "4px 12px", fontSize: 11, color: "var(--text-muted)" }}>
                 Louisiana
               </span>
             </div>
@@ -357,7 +357,7 @@ export default function DiscoverPage() {
                   value={gridSearchQuery}
                   onChange={(e) => { setGridSearchQuery(e.target.value); setGridSearchError(null); }}
                   placeholder="Search a city in Louisiana..."
-                  style={{ width: "100%", background: "#18181b", border: "1px solid #27272a", borderRadius: 10, padding: "8px 12px 8px 32px", fontSize: 12, color: "var(--text-primary)", outline: "none", fontFamily: "'DM Sans', sans-serif", boxSizing: "border-box" as const }}
+                  style={{ width: "100%", background: "var(--bg-hover)", border: "1px solid var(--border-mid)", borderRadius: 10, padding: "8px 12px 8px 32px", fontSize: 12, color: "var(--text-primary)", outline: "none", fontFamily: "'DM Sans', sans-serif", boxSizing: "border-box" as const }}
                 />
               </div>
               <button type="submit" disabled={gridSearchLoading}
@@ -366,12 +366,12 @@ export default function DiscoverPage() {
               </button>
             </form>
             {gridSearchError && (
-              <div style={{ marginTop: 8, padding: "8px 12px", borderRadius: 8, background: "#1a1010", border: "1px solid #C8A97E44", fontSize: 11, color: "var(--gold)", lineHeight: 1.5, fontFamily: "'DM Sans', sans-serif" }}>
+              <div style={{ marginTop: 8, padding: "8px 12px", borderRadius: 8, background: "var(--bg-secondary)", border: "1px solid #C8A97E44", fontSize: 11, color: "var(--gold)", lineHeight: 1.5, fontFamily: "'DM Sans', sans-serif" }}>
                 {gridSearchError}
               </div>
             )}
             {gridLocationBanner && (
-              <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", background: "var(--bg-secondary)", border: "1px solid #27272a", borderRadius: 10 }}>
+              <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", background: "var(--bg-secondary)", border: "1px solid var(--border-mid)", borderRadius: 10 }}>
                 <span style={{ fontSize: 14 }}>📍</span>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: 11, fontWeight: 600, color: "var(--text-primary)" }}>Find chefs near you</div>
@@ -581,7 +581,7 @@ export default function DiscoverPage() {
       {/* ── Chef CTA ───────────────────────────────────────────────────────── */}
       <div
         className="mt-12 rounded-2xl p-8 flex items-center justify-between flex-wrap gap-5"
-        style={{ background: "#0D0D0D", border: "1px solid #1E1E1E" }}
+        style={{ background: "var(--bg-secondary)", border: "1px solid #1E1E1E" }}
       >
         <div>
           <div className="font-display text-xl font-bold text-white mb-1.5">
