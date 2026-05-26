@@ -65,20 +65,20 @@ Poach is not liable for any injury, illness, property damage, or other harm aris
     <div style={{ maxWidth: 720, margin: "0 auto", padding: "48px 24px", fontFamily: "'DM Sans', sans-serif" }}>
       {/* Header */}
       <div style={{ marginBottom: 40 }}>
-        <Link href="/" style={{ fontSize: 12, color: "#52525b", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4, marginBottom: 24 }}>
+        <Link href="/" style={{ fontSize: 12, color: "var(--text-dim)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4, marginBottom: 24 }}>
           ← Back to Poach
         </Link>
-        <h1 style={{ fontSize: 32, fontWeight: 900, color: "#f5f0e8", fontFamily: "var(--font-playfair)", margin: "0 0 8px" }}>
+        <h1 style={{ fontSize: 32, fontWeight: 900, color: "var(--text-primary)", fontFamily: "var(--font-playfair)", margin: "0 0 8px" }}>
           Booking Terms & Conditions
         </h1>
-        <p style={{ fontSize: 14, color: "#71717a", margin: 0 }}>
+        <p style={{ fontSize: 14, color: "var(--text-muted)", margin: 0 }}>
           Last updated: May 2026 · Effective for all bookings made on or after this date
         </p>
       </div>
 
       {/* Intro */}
-      <div style={{ padding: "16px 20px", borderRadius: 12, background: "#0f0f0f", border: "1px solid #C8A97E33", marginBottom: 32 }}>
-        <p style={{ fontSize: 14, color: "#a1a1aa", lineHeight: 1.7, margin: 0 }}>
+      <div style={{ padding: "16px 20px", borderRadius: 12, background: "var(--bg-secondary)", border: "1px solid #C8A97E33", marginBottom: 32 }}>
+        <p style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.7, margin: 0 }}>
           These terms govern all booking requests, payments, and experiences made through Poach. By submitting a booking request, you confirm that you have read, understood, and agreed to the terms below.
         </p>
       </div>
@@ -86,11 +86,11 @@ Poach is not liable for any injury, illness, property damage, or other harm aris
       {/* Sections */}
       <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
         {sections.map((s, i) => (
-          <div key={i} style={{ borderBottom: "1px solid #1a1a1a", paddingBottom: 32 }}>
-            <h2 style={{ fontSize: 16, fontWeight: 700, color: "#f5f0e8", margin: "0 0 12px", fontFamily: "var(--font-playfair)" }}>
+          <div key={i} style={{ borderBottom: "1px solid var(--border-subtle)", paddingBottom: 32 }}>
+            <h2 style={{ fontSize: 16, fontWeight: 700, color: "var(--text-primary)", margin: "0 0 12px", fontFamily: "var(--font-playfair)" }}>
               {s.title}
             </h2>
-            <div style={{ fontSize: 14, color: "#a1a1aa", lineHeight: 1.8, whiteSpace: "pre-line" }}>
+            <div style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.8, whiteSpace: "pre-line" }}>
               {s.content}
             </div>
           </div>
@@ -98,8 +98,8 @@ Poach is not liable for any injury, illness, property damage, or other harm aris
       </div>
 
       {/* Footer */}
-      <div style={{ marginTop: 40, padding: "16px 20px", borderRadius: 12, background: "#0f0f0f", border: "1px solid #1e1e1e", textAlign: "center" }}>
-        <p style={{ fontSize: 13, color: "#52525b", margin: "0 0 8px" }}>Questions about these terms?</p>
+      <div style={{ marginTop: 40, padding: "16px 20px", borderRadius: 12, background: "var(--bg-secondary)", border: "1px solid var(--border)", textAlign: "center" }}>
+        <p style={{ fontSize: 13, color: "var(--text-dim)", margin: "0 0 8px" }}>Questions about these terms?</p>
         <a href="mailto:legal@poach.com" style={{ fontSize: 13, color: "#C8A97E", textDecoration: "none" }}>legal@poach.com</a>
       </div>
     </div>
