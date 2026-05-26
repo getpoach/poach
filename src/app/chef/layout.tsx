@@ -4,7 +4,7 @@ import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { LayoutDashboard, CalendarDays, Bell, CalendarRange, UtensilsCrossed, User, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
-const G = ({ icon: I, size=16, color="#C8A97E" }: { icon: React.ElementType; size?: number; color?: string }) => 
+const G = ({ icon: I, size=16, color="var(--gold)" }: { icon: React.ElementType; size?: number; color?: string }) => 
   <I size={size} color={color} strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle" }} />;
 import { Navbar } from "@/components/nav/Navbar";
 import { chefs } from "@/data/chefs";
@@ -36,18 +36,18 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
 
   if (isLoading || !user) {
     return (
-      <div style={{ minHeight: "100vh", background: "#080808", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ color: "#C8A97E", fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>Loading...</div>
+      <div style={{ minHeight: "100vh", background: "var(--bg)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ color: "var(--gold)", fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>Loading...</div>
       </div>
     );
   }
 
   const initials  = user.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2);
   const chefData  = chefs.find(c => c.id === user.chefId) ?? chefs[0];
-  const chefColor = chefData?.color ?? "#C8A97E";
+  const chefColor = chefData?.color ?? "var(--gold)";
 
   return (
-    <div style={{ background: "#080808", minHeight: "100vh", fontFamily: "'DM Sans', sans-serif" }}>
+    <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "'DM Sans', sans-serif" }}>
 
       {/* ── Top Navbar — sticky, always on top ───────────────────────── */}
       <div style={{ position: "sticky", top: 0, zIndex: 50 }}>
@@ -59,7 +59,7 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
         {/* ── Sidebar ──────────────────────────────────────────────────── */}
         <aside style={{
           width: sidebarW,
-          background: "#0a0a0a",
+          background: "var(--bg)",
           borderRight: `1px solid ${chefColor}22`,
           display: "flex",
           flexDirection: "column",
@@ -93,12 +93,12 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
               style={{
                 width: 26, height: 26, borderRadius: 7,
                 background: "transparent", border: "1px solid #27272a",
-                color: "#52525b", cursor: "pointer",
+                color: "var(--text-dim)", cursor: "pointer",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 fontSize: 11, flexShrink: 0, transition: "all 0.15s",
               }}
             >
-              {collapsed ? <ChevronRight size={12} color="#52525b" strokeWidth={2} /> : <ChevronLeft size={12} color="#52525b" strokeWidth={2} />}
+              {collapsed ? <ChevronRight size={12} color="var(--text-dim)" strokeWidth={2} /> : <ChevronLeft size={12} color="var(--text-dim)" strokeWidth={2} />}
             </button>
           </div>
 
@@ -121,7 +121,7 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
                     marginBottom: 2,
                     fontSize: 13,
                     fontWeight: active ? 700 : 500,
-                    color: active ? chefColor : "#71717a",
+                    color: active ? chefColor : "var(--text-muted)",
                     background: active ? chefColor + "18" : "transparent",
                     border: `1px solid ${active ? chefColor + "44" : "transparent"}`,
                     textDecoration: "none",
@@ -131,7 +131,7 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
                   }}
                 >
                   <span style={{ flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", width: collapsed ? "auto" : 20 }}>
-                    <G icon={item.icon} size={16} color={active ? chefColor : "#71717a"} />
+                    <G icon={item.icon} size={16} color={active ? chefColor : "var(--text-muted)"} />
                   </span>
                   {!collapsed && item.label}
                 </Link>
@@ -156,7 +156,7 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
                     borderRadius: 10,
                     fontSize: 13,
                     fontWeight: active ? 700 : 500,
-                    color: active ? chefColor : "#71717a",
+                    color: active ? chefColor : "var(--text-muted)",
                     background: active ? chefColor + "18" : "transparent",
                     border: `1px solid ${active ? chefColor + "44" : "transparent"}`,
                     textDecoration: "none",
@@ -166,7 +166,7 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
                   }}
                 >
                   <span style={{ flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", width: collapsed ? "auto" : 20 }}>
-                    <G icon={User} size={16} color={active ? chefColor : "#71717a"} />
+                    <G icon={User} size={16} color={active ? chefColor : "var(--text-muted)"} />
                   </span>
                   {!collapsed && "My Profile"}
                 </Link>
@@ -182,7 +182,7 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
               </Link>
             )}
             {collapsed && (
-              <Link href="/" title="Back to Poach" style={{ display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, color: "#3f3f46", textDecoration: "none" }}>
+              <Link href="/" title="Back to Poach" style={{ display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, color: "var(--border-strong)", textDecoration: "none" }}>
                 ←
               </Link>
             )}
