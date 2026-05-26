@@ -10,6 +10,7 @@ import { generateId, totalWithFee } from "@/lib/utils";
 import { ChevronDown, ChevronUp, UtensilsCrossed, CheckCircle2, LogIn } from "lucide-react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
+import { useTheme } from "@/context/ThemeContext";
 
 const STEP_LABELS = ["Date & Time", "Details", "Terms", "Deposit"];
 
@@ -172,6 +173,7 @@ function TermsStep({
 
 export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
   const { user } = useAuth();
+  const { theme } = useTheme();
   const [step, setStep] = useState(1);
   const [day,     setDay]     = useState<Day | null>(null);
   const [time,    setTime]    = useState<string | null>(null);
@@ -210,9 +212,9 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
   // Auth gate — must be logged in as diner
   if (!user || user.role !== "diner") {
     return (
-      <div className="fixed inset-0 bg-black/88 z-50 flex items-center justify-center p-5" onClick={onClose}>
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-5" style={{ background: theme === "light" ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.88)" }} onClick={onClose}>
         <div onClick={e => e.stopPropagation()}
-          className="bg-zinc-950 rounded-2xl w-full max-w-lg p-8"
+          className="rounded-2xl w-full max-w-lg p-8" style={{ background: "var(--bg)" }}
           style={{ border: `1px solid ${chef.color}`, boxShadow: `0 0 40px ${chef.color}18` }}>
           <div style={{ textAlign: "center", padding: "16px 0" }}>
             {/* Chef photo */}
@@ -258,9 +260,9 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/88 z-50 flex items-center justify-center p-5" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-5" style={{ background: theme === "light" ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.88)" }} onClick={onClose}>
       <div onClick={e => e.stopPropagation()}
-        className="bg-zinc-950 rounded-2xl w-full max-w-lg p-8 max-h-[92vh] overflow-y-auto"
+        className="rounded-2xl w-full max-w-lg p-8 max-h-[92vh] overflow-y-auto" style={{ background: "var(--bg)" }}
         style={{ border: `1px solid ${chef.color}`, boxShadow: `0 0 40px ${chef.color}18` }}>
 
         {!confirmed ? (
@@ -281,7 +283,7 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
             </div>
 
             {/* Step tabs */}
-            <div className="flex bg-zinc-900 rounded-xl p-1 mb-6">
+            <div className="flex rounded-xl p-1 mb-6" style={{ background: "var(--bg-secondary)" }}>
               {STEP_LABELS.map((label, i) => (
                 <button key={label} onClick={() => i < step - 1 && setStep(i + 1)}
                   className="flex-1 py-2 px-1 rounded-lg text-xs font-bold transition-all"
