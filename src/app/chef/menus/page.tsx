@@ -77,7 +77,7 @@ function MenuCard({ menu, onEdit, onToggle, onDelete }: { menu: Menu; onEdit: ()
   const heroImage = menu.courses.find(c => c.imageUrl)?.imageUrl;
 
   return (
-    <div style={{ background: "#0f0f0f", border: `1px solid ${menu.active ? "#1e1e1e" : "#141414"}`, borderRadius: 16, overflow: "hidden", opacity: menu.active ? 1 : 0.55, transition: "opacity 0.2s", display: "flex", flexDirection: "column" }}>
+    <div style={{ background: "var(--bg-secondary)", border: `1px solid ${menu.active ? "var(--border)" : "var(--bg-tertiary)"}`, borderRadius: 16, overflow: "hidden", opacity: menu.active ? 1 : 0.55, transition: "opacity 0.2s", display: "flex", flexDirection: "column" }}>
       {/* Hero image */}
       {heroImage && (
         <div style={{ height: 130, overflow: "hidden", position: "relative", flexShrink: 0 }}>
@@ -85,10 +85,10 @@ function MenuCard({ menu, onEdit, onToggle, onDelete }: { menu: Menu; onEdit: ()
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 20%, rgba(10,10,10,0.96) 100%)" }} />
           <div style={{ position: "absolute", bottom: 10, left: 16, right: 16, display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}>
             <div>
-              <div style={{ fontSize: 17, fontWeight: 900, color: "#f5f0e8", fontFamily: "var(--font-playfair)", lineHeight: 1.2 }}>{menu.name}</div>
+              <div style={{ fontSize: 17, fontWeight: 900, color: "var(--text-primary)", fontFamily: "var(--font-playfair)", lineHeight: 1.2 }}>{menu.name}</div>
               {tag && <span style={{ fontSize: 9, fontWeight: 700, padding: "2px 7px", borderRadius: 99, background: tag.bg, border: `1px solid ${tag.border}`, color: tag.text, marginTop: 4, display: "inline-block", textTransform: "uppercase", letterSpacing: "0.07em" }}>{menu.tag}</span>}
             </div>
-            <div style={{ fontWeight: 900, color: "#C8A97E", fontSize: 20, fontFamily: "var(--font-playfair)" }}>${menu.pricePerPerson}<span style={{ fontSize: 10, color: "#71717a", fontFamily: "'DM Sans', sans-serif", fontWeight: 400 }}>/pp</span></div>
+            <div style={{ fontWeight: 900, color: "#C8A97E", fontSize: 20, fontFamily: "var(--font-playfair)" }}>${menu.pricePerPerson}<span style={{ fontSize: 10, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif", fontWeight: 400 }}>/pp</span></div>
           </div>
         </div>
       )}
@@ -98,16 +98,16 @@ function MenuCard({ menu, onEdit, onToggle, onDelete }: { menu: Menu; onEdit: ()
         {!heroImage && (
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 6 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
-              <span style={{ fontWeight: 800, color: "#f5f0e8", fontSize: 15, fontFamily: "var(--font-playfair)" }}>{menu.name}</span>
+              <span style={{ fontWeight: 800, color: "var(--text-primary)", fontSize: 15, fontFamily: "var(--font-playfair)" }}>{menu.name}</span>
               {tag && <span style={{ fontSize: 9, fontWeight: 700, padding: "2px 7px", borderRadius: 99, background: tag.bg, border: `1px solid ${tag.border}`, color: tag.text, textTransform: "uppercase", letterSpacing: "0.07em" }}>{menu.tag}</span>}
             </div>
-            <span style={{ fontWeight: 800, color: "#C8A97E", fontSize: 17 }}>${menu.pricePerPerson}<span style={{ fontSize: 10, color: "#71717a", fontWeight: 400 }}>/pp</span></span>
+            <span style={{ fontWeight: 800, color: "#C8A97E", fontSize: 17 }}>${menu.pricePerPerson}<span style={{ fontSize: 10, color: "var(--text-muted)", fontWeight: 400 }}>/pp</span></span>
           </div>
         )}
-        <p style={{ fontSize: 12, color: "#71717a", margin: "0 0 10px", lineHeight: 1.55 }}>{menu.description}</p>
+        <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 10px", lineHeight: 1.55 }}>{menu.description}</p>
         <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-          <span style={{ fontSize: 11, color: "#52525b" }}>🍴 {menu.courses.length} courses</span>
-          <span style={{ fontSize: 11, color: "#52525b" }}>👥 {menu.minGuests}–{menu.maxGuests} guests</span>
+          <span style={{ fontSize: 11, color: "var(--text-dim)" }}>🍴 {menu.courses.length} courses</span>
+          <span style={{ fontSize: 11, color: "var(--text-dim)" }}>👥 {menu.minGuests}–{menu.maxGuests} guests</span>
           <div style={{ marginLeft: "auto", display: "flex", gap: 5 }}>
             <button onClick={onToggle} style={btnGhost}>{menu.active ? "Hide" : "Show"}</button>
             <button onClick={onEdit} style={btnGold}>Edit</button>
@@ -117,22 +117,22 @@ function MenuCard({ menu, onEdit, onToggle, onDelete }: { menu: Menu; onEdit: ()
       </div>
 
       {/* Course accordion */}
-      <div style={{ borderTop: "1px solid #141414" }}>
+      <div style={{ borderTop: "1px solid var(--border-subtle)" }}>
         <button onClick={() => setExpanded(v => !v)}
-          style={{ width: "100%", padding: "9px 16px", display: "flex", alignItems: "center", justifyContent: "space-between", background: "transparent", border: "none", cursor: "pointer", color: "#52525b", fontSize: 11, fontFamily: "'DM Sans', sans-serif" }}>
+          style={{ width: "100%", padding: "9px 16px", display: "flex", alignItems: "center", justifyContent: "space-between", background: "transparent", border: "none", cursor: "pointer", color: "var(--text-dim)", fontSize: 11, fontFamily: "'DM Sans', sans-serif" }}>
           <span>View courses</span>
           <span style={{ fontSize: 9 }}>{expanded ? "▲" : "▼"}</span>
         </button>
         {expanded && (
           <div>
             {menu.courses.map((c, i) => (
-              <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 16px", borderTop: "1px solid #141414" }}>
-                <div style={{ width: 44, height: 44, borderRadius: 8, overflow: "hidden", background: "#141414", border: "1px solid #1e1e1e", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  {c.imageUrl ? <img src={c.imageUrl} alt={c.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : <Utensils size={15} color="#2a2a2a" strokeWidth={1.5} />}
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 16px", borderTop: "1px solid var(--border-subtle)" }}>
+                <div style={{ width: 44, height: 44, borderRadius: 8, overflow: "hidden", background: "var(--bg-tertiary)", border: "1px solid var(--border)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  {c.imageUrl ? <img src={c.imageUrl} alt={c.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : <Utensils size={15} color="var(--border-mid)" strokeWidth={1.5} />}
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: "#a1a1aa" }}>{c.name}</div>
-                  <div style={{ fontSize: 11, color: "#52525b", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{c.description}</div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-secondary)" }}>{c.name}</div>
+                  <div style={{ fontSize: 11, color: "var(--text-dim)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{c.description}</div>
                 </div>
               </div>
             ))}
@@ -170,9 +170,9 @@ function MenuEditor({ initial, onSave, onCancel }: { initial: Menu; onSave: (m: 
   }
 
   return (
-    <div style={{ background: "#0f0f0f", border: "1px solid #C8A97E33", borderRadius: 16, padding: "22px", marginBottom: 24 }}>
+    <div style={{ background: "var(--bg-secondary)", border: "1px solid #C8A97E33", borderRadius: 16, padding: "22px", marginBottom: 24 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 18 }}>
-        <h3 style={{ fontSize: 16, fontWeight: 800, color: "#f5f0e8", fontFamily: "var(--font-playfair)", margin: 0 }}>
+        <h3 style={{ fontSize: 16, fontWeight: 800, color: "var(--text-primary)", fontFamily: "var(--font-playfair)", margin: 0 }}>
           {initial.name ? `Editing: ${initial.name}` : "New Menu"}
         </h3>
         <button onClick={onCancel} style={{ ...btnGhost, fontSize: 11 }}>✕ Cancel</button>
@@ -208,30 +208,30 @@ function MenuEditor({ initial, onSave, onCancel }: { initial: Menu; onSave: (m: 
         <div>
           <label style={{ ...labelStyle, marginBottom: 12 }}>Courses</label>
           {form.courses.map((c, i) => (
-            <div key={i} style={{ marginBottom: 10, padding: "12px", background: "#141414", border: "1px solid #1e1e1e", borderRadius: 12 }}>
+            <div key={i} style={{ marginBottom: 10, padding: "12px", background: "var(--bg-tertiary)", border: "1px solid var(--border)", borderRadius: 12 }}>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr auto", gap: 8, marginBottom: 10, alignItems: "center" }}>
                 <input type="text" value={c.name} onChange={e => updateCourse(i, "name", e.target.value)}
-                  placeholder={`Course ${i + 1}`} style={{ ...inputStyle, background: "#0f0f0f", fontSize: 12 }} />
+                  placeholder={`Course ${i + 1}`} style={{ ...inputStyle, background: "var(--bg-secondary)", fontSize: 12 }} />
                 <input type="text" value={c.description} onChange={e => updateCourse(i, "description", e.target.value)}
-                  placeholder="Description" style={{ ...inputStyle, background: "#0f0f0f", fontSize: 12 }} />
-                <button onClick={() => removeCourse(i)} style={{ padding: "9px 11px", background: "transparent", border: "1px solid #27272a", borderRadius: 8, color: "#71717a", cursor: "pointer", fontSize: 14 }}>×</button>
+                  placeholder="Description" style={{ ...inputStyle, background: "var(--bg-secondary)", fontSize: 12 }} />
+                <button onClick={() => removeCourse(i)} style={{ padding: "9px 11px", background: "transparent", border: "1px solid var(--border-mid)", borderRadius: 8, color: "var(--text-muted)", cursor: "pointer", fontSize: 14 }}>×</button>
               </div>
 
               {/* Image row */}
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <div
                   onClick={() => fileRefs.current[i]?.click()}
-                  style={{ width: 52, height: 52, borderRadius: 8, overflow: "hidden", background: "#0f0f0f", border: "1px solid #27272a", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
-                  {c.imageUrl ? <img src={c.imageUrl} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : <Utensils size={20} color="#2a2a2a" strokeWidth={1.5} />}
+                  style={{ width: 52, height: 52, borderRadius: 8, overflow: "hidden", background: "var(--bg-secondary)", border: "1px solid var(--border-mid)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+                  {c.imageUrl ? <img src={c.imageUrl} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : <Utensils size={20} color="var(--border-mid)" strokeWidth={1.5} />}
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 10, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: 5 }}>Course Photo</div>
+                  <div style={{ fontSize: 10, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: 5 }}>Course Photo</div>
                   <div style={{ display: "flex", gap: 6 }}>
                     <input type="file" accept="image/*" ref={el => { fileRefs.current[i] = el; }} style={{ display: "none" }} onChange={e => handleCourseImage(i, e)} />
                     <button onClick={() => fileRefs.current[i]?.click()} style={{ ...btnGhost, fontSize: 11, padding: "5px 10px", whiteSpace: "nowrap" }}>Upload</button>
                     <input type="text" value={c.imageUrl ?? ""} onChange={e => updateCourse(i, "imageUrl", e.target.value)}
-                      placeholder="or paste URL..." style={{ ...inputStyle, background: "#0f0f0f", flex: 1, fontSize: 11, padding: "5px 10px" }} />
-                    {c.imageUrl && <button onClick={() => updateCourse(i, "imageUrl", "")} style={{ padding: "5px 8px", borderRadius: 7, background: "transparent", border: "1px solid #27272a", color: "#71717a", fontSize: 12, cursor: "pointer" }}>×</button>}
+                      placeholder="or paste URL..." style={{ ...inputStyle, background: "var(--bg-secondary)", flex: 1, fontSize: 11, padding: "5px 10px" }} />
+                    {c.imageUrl && <button onClick={() => updateCourse(i, "imageUrl", "")} style={{ padding: "5px 8px", borderRadius: 7, background: "transparent", border: "1px solid var(--border-mid)", color: "var(--text-muted)", fontSize: 12, cursor: "pointer" }}>×</button>}
                   </div>
                 </div>
               </div>
@@ -245,10 +245,10 @@ function MenuEditor({ initial, onSave, onCancel }: { initial: Menu; onSave: (m: 
 
         <div style={{ display: "flex", gap: 10, paddingTop: 2 }}>
           <button onClick={() => onSave(form)} disabled={!form.name}
-            style={{ flex: 1, padding: "12px", borderRadius: 10, background: form.name ? "#C8A97E" : "#2a2a2a", color: form.name ? "#080808" : "#52525b", fontWeight: 800, fontSize: 13, border: "none", cursor: form.name ? "pointer" : "default", fontFamily: "'DM Sans', sans-serif" }}>
+            style={{ flex: 1, padding: "12px", borderRadius: 10, background: form.name ? "#C8A97E" : "var(--border-mid)", color: form.name ? "var(--bg)" : "var(--text-dim)", fontWeight: 800, fontSize: 13, border: "none", cursor: form.name ? "pointer" : "default", fontFamily: "'DM Sans', sans-serif" }}>
             Save Menu
           </button>
-          <button onClick={onCancel} style={{ padding: "12px 20px", borderRadius: 10, background: "transparent", border: "1px solid #27272a", color: "#71717a", fontSize: 13, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+          <button onClick={onCancel} style={{ padding: "12px 20px", borderRadius: 10, background: "transparent", border: "1px solid var(--border-mid)", color: "var(--text-muted)", fontSize: 13, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
             Cancel
           </button>
         </div>
@@ -277,12 +277,12 @@ export default function ChefMenus() {
     <div style={{ padding: "32px 36px", maxWidth: 900, fontFamily: "'DM Sans', sans-serif" }}>
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 28 }}>
         <div>
-          <h1 style={{ fontSize: 24, fontWeight: 900, color: "#f5f0e8", fontFamily: "var(--font-playfair)", margin: "0 0 6px" }}>My Menus</h1>
-          <p style={{ fontSize: 13, color: "#71717a", margin: 0 }}>{menus.filter(m => m.active).length} active · {menus.length} total</p>
+          <h1 style={{ fontSize: 24, fontWeight: 900, color: "var(--text-primary)", fontFamily: "var(--font-playfair)", margin: "0 0 6px" }}>My Menus</h1>
+          <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>{menus.filter(m => m.active).length} active · {menus.length} total</p>
         </div>
         {!showForm && (
           <button onClick={() => { setCreating(true); setEditing(null); }}
-            style={{ padding: "10px 20px", borderRadius: 10, background: "#C8A97E", color: "#080808", fontWeight: 700, fontSize: 13, border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+            style={{ padding: "10px 20px", borderRadius: 10, background: "#C8A97E", color: "var(--bg)", fontWeight: 700, fontSize: 13, border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
             + New Menu
           </button>
         )}
@@ -300,8 +300,8 @@ export default function ChefMenus() {
           ))}
           <button onClick={() => { setCreating(true); setEditing(null); }}
             onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = "#C8A97E55"; (e.currentTarget as HTMLButtonElement).style.color = "#C8A97E88"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = "#1e1e1e"; (e.currentTarget as HTMLButtonElement).style.color = "#3f3f46"; }}
-            style={{ background: "transparent", border: "1px dashed #1e1e1e", borderRadius: 16, padding: "48px 24px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, cursor: "pointer", color: "#3f3f46", transition: "all 0.2s", fontFamily: "'DM Sans', sans-serif" }}>
+            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--border)"; (e.currentTarget as HTMLButtonElement).style.color = "var(--border-strong)"; }}
+            style={{ background: "transparent", border: "1px dashed #1e1e1e", borderRadius: 16, padding: "48px 24px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, cursor: "pointer", color: "var(--border-strong)", transition: "all 0.2s", fontFamily: "'DM Sans', sans-serif" }}>
             <span style={{ fontSize: 28 }}>+</span>
             <span style={{ fontSize: 12 }}>Add a menu</span>
           </button>
@@ -311,8 +311,8 @@ export default function ChefMenus() {
   );
 }
 
-const btnGhost: React.CSSProperties = { padding: "7px 12px", borderRadius: 8, background: "transparent", border: "1px solid #27272a", color: "#71717a", fontSize: 11, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" };
+const btnGhost: React.CSSProperties = { padding: "7px 12px", borderRadius: 8, background: "transparent", border: "1px solid var(--border-mid)", color: "var(--text-muted)", fontSize: 11, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" };
 const btnGold: React.CSSProperties = { padding: "7px 12px", borderRadius: 8, background: "#C8A97E18", border: "1px solid #C8A97E44", color: "#C8A97E", fontSize: 11, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" };
 const btnDanger: React.CSSProperties = { padding: "7px 12px", borderRadius: 8, background: "transparent", border: "1px solid #C87E7E33", color: "#C87E7E88", fontSize: 11, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" };
-const labelStyle: React.CSSProperties = { fontSize: 11, fontWeight: 700, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: 7 };
-const inputStyle: React.CSSProperties = { width: "100%", background: "#141414", border: "1px solid #2a2a2a", borderRadius: 10, padding: "10px 14px", fontSize: 13, color: "#f5f0e8", outline: "none", fontFamily: "'DM Sans', sans-serif", boxSizing: "border-box" };
+const labelStyle: React.CSSProperties = { fontSize: 11, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: 7 };
+const inputStyle: React.CSSProperties = { width: "100%", background: "var(--bg-tertiary)", border: "1px solid var(--border-mid)", borderRadius: 10, padding: "10px 14px", fontSize: 13, color: "var(--text-primary)", outline: "none", fontFamily: "'DM Sans', sans-serif", boxSizing: "border-box" };
