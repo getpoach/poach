@@ -42,22 +42,22 @@ export default function DinerProfile() {
   const initials = name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
 
   const inputStyle: React.CSSProperties = {
-    width: "100%", background: "#141414", border: "1px solid #2a2a2a",
-    borderRadius: 10, padding: "10px 14px", fontSize: 13, color: "#f5f0e8",
+    width: "100%", background: "var(--bg-tertiary)", border: "1px solid var(--border-mid)",
+    borderRadius: 10, padding: "10px 14px", fontSize: 13, color: "var(--text-primary)",
     outline: "none", fontFamily: "'DM Sans', sans-serif", boxSizing: "border-box",
   };
 
   const labelStyle: React.CSSProperties = {
-    fontSize: 11, fontWeight: 700, color: "#52525b",
+    fontSize: 11, fontWeight: 700, color: "var(--text-dim)",
     textTransform: "uppercase", letterSpacing: "0.08em",
     display: "block", marginBottom: 7,
   };
 
   function Section({ title, children }: { title: string; children: React.ReactNode }) {
     return (
-      <div style={{ background: "#0f0f0f", border: "1px solid #1e1e1e", borderRadius: 16, overflow: "hidden", marginBottom: 20 }}>
-        <div style={{ padding: "13px 20px", borderBottom: "1px solid #1a1a1a", background: "#0a0a0a" }}>
-          <span style={{ fontSize: 13, fontWeight: 700, color: "#f5f0e8" }}>{title}</span>
+      <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 16, overflow: "hidden", marginBottom: 20 }}>
+        <div style={{ padding: "13px 20px", borderBottom: "1px solid var(--border-subtle)", background: "var(--bg)" }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)" }}>{title}</span>
         </div>
         <div style={{ padding: "20px" }}>{children}</div>
       </div>
@@ -69,16 +69,16 @@ export default function DinerProfile() {
       {/* Header */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 28 }}>
         <div>
-          <h1 style={{ fontSize: 24, fontWeight: 900, color: "#f5f0e8", fontFamily: "var(--font-playfair)", margin: "0 0 6px" }}>
+          <h1 style={{ fontSize: 24, fontWeight: 900, color: "var(--text-primary)", fontFamily: "var(--font-playfair)", margin: "0 0 6px" }}>
             My Profile
           </h1>
-          <p style={{ fontSize: 13, color: "#71717a", margin: 0 }}>Manage your personal details and preferences</p>
+          <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Manage your personal details and preferences</p>
         </div>
         <button onClick={handleSave}
           style={{
             padding: "10px 22px", borderRadius: 10, border: "none",
             background: saveState === "saved" ? "#7EC87E" : saveState === "saving" ? "#a8894e" : "#C8A97E",
-            color: "#080808", fontWeight: 800, fontSize: 13,
+            color: "var(--bg)", fontWeight: 800, fontSize: 13,
             cursor: saveState === "saving" ? "wait" : "pointer",
             fontFamily: "'DM Sans', sans-serif", transition: "background 0.3s",
           }}>
@@ -91,7 +91,7 @@ export default function DinerProfile() {
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
           {/* Avatar */}
           <div style={{ position: "relative", flexShrink: 0 }}>
-            <div style={{ width: 88, height: 88, borderRadius: "50%", overflow: "hidden", border: "3px solid #C8A97E", background: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 88, height: 88, borderRadius: "50%", overflow: "hidden", border: "3px solid #C8A97E", background: "var(--bg-hover)", display: "flex", alignItems: "center", justifyContent: "center" }}>
               {avatar
                 ? <img src={avatar} alt={name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 : <span style={{ fontSize: 26, fontWeight: 800, color: "#C8A97E" }}>{initials}</span>
@@ -106,16 +106,16 @@ export default function DinerProfile() {
                 display: "flex", alignItems: "center", justifyContent: "center",
                 cursor: "pointer",
               }}>
-              <Camera size={13} color="#080808" strokeWidth={2} />
+              <Camera size={13} color="var(--bg)" strokeWidth={2} />
             </button>
           </div>
           <div>
             <input ref={fileRef} type="file" accept="image/*" onChange={handlePhotoUpload} style={{ display: "none" }} />
             <button onClick={() => fileRef.current?.click()}
-              style={{ padding: "9px 16px", borderRadius: 10, background: "#141414", border: "1px solid #2a2a2a", color: "#a1a1aa", fontSize: 13, cursor: "pointer", fontFamily: "'DM Sans', sans-serif", display: "block", marginBottom: 6 }}>
+              style={{ padding: "9px 16px", borderRadius: 10, background: "var(--bg-tertiary)", border: "1px solid var(--border-mid)", color: "var(--text-secondary)", fontSize: 13, cursor: "pointer", fontFamily: "'DM Sans', sans-serif", display: "block", marginBottom: 6 }}>
               Upload Photo
             </button>
-            <div style={{ fontSize: 11, color: "#3f3f46" }}>JPG, PNG or WebP · Max 5MB</div>
+            <div style={{ fontSize: 11, color: "var(--border-strong)" }}>JPG, PNG or WebP · Max 5MB</div>
             {avatar && (
               <button onClick={() => { setAvatar(""); updateAvatar(""); }}
                 style={{ marginTop: 6, fontSize: 11, color: "#C87E7E", background: "none", border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
@@ -155,7 +155,7 @@ export default function DinerProfile() {
             <label style={labelStyle}>Preferred Cuisines</label>
             <input type="text" value={preferredCuisines} onChange={e => setCuisines(e.target.value)}
               placeholder="e.g. French, Cajun, Mediterranean" style={inputStyle} />
-            <div style={{ fontSize: 11, color: "#3f3f46", marginTop: 5 }}>Separate with commas</div>
+            <div style={{ fontSize: 11, color: "var(--border-strong)", marginTop: 5 }}>Separate with commas</div>
           </div>
           <div>
             <label style={labelStyle}>Dietary Restrictions</label>
@@ -178,7 +178,7 @@ export default function DinerProfile() {
             pointerEvents: "auto",
             padding: "12px 28px", borderRadius: 12, border: "none",
             background: saveState === "saved" ? "#7EC87E" : saveState === "saving" ? "#a8894e" : "#C8A97E",
-            color: "#080808", fontWeight: 800, fontSize: 14,
+            color: "var(--bg)", fontWeight: 800, fontSize: 14,
             cursor: saveState === "saving" ? "wait" : "pointer",
             fontFamily: "'DM Sans', sans-serif",
             boxShadow: "0 4px 24px rgba(0,0,0,0.5)",
