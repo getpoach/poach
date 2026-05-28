@@ -218,7 +218,7 @@ export default function DiscoverPage() {
           <div className="text-xs font-bold text-gold uppercase tracking-widest mb-3" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.9)" }}>
             Private Dining · Your Home
           </div>
-          <h1 className="font-display text-4xl font-black text-white leading-tight mb-4 max-w-xl" style={{ textShadow: "0 2px 20px rgba(0,0,0,0.8), 0 1px 6px rgba(0,0,0,0.6)" }}>
+          <h1 className="font-display text-4xl font-black leading-tight mb-4 max-w-xl" style={{ color: "#ffffff", textShadow: "0 2px 20px rgba(0,0,0,0.8), 0 1px 6px rgba(0,0,0,0.6)" }}>
             World-class chefs.<br />
             <span className="text-gold" style={{ textShadow: "0 2px 20px rgba(0,0,0,0.8), 0 0 30px rgba(200,169,126,0.3)" }}>Your kitchen.</span>
           </h1>
@@ -230,7 +230,7 @@ export default function DiscoverPage() {
             {[["15+", "Chefs nearby"], ["4.9", "Avg. rating"], ["1,200+", "Sessions booked"]].map(
               ([val, label]) => (
                 <div key={label}>
-                  <div className="font-display text-xl font-bold text-gold">{val}</div>
+                  <div className="font-display text-xl font-bold" style={{ color: "var(--gold)" }}>{val}</div>
                   <div className="text-xs text-zinc-500">{label}</div>
                 </div>
               )
@@ -584,7 +584,7 @@ export default function DiscoverPage() {
         style={{ background: "var(--bg-secondary)", border: "1px solid #1E1E1E" }}
       >
         <div>
-          <div className="font-display text-xl font-bold text-white mb-1.5">
+          <div className="font-display text-xl font-bold mb-1.5" style={{ color: "#ffffff" }}>
             Are you a chef?
           </div>
           <p className="text-muted text-sm max-w-sm">
