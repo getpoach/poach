@@ -134,7 +134,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                 {/* Gradient fade — stronger at bottom so name is always readable */}
                 <div
                   className="absolute inset-0"
-                  style={{ background: theme === "light" ? "linear-gradient(to bottom, rgba(255,255,255,0.0) 20%, rgba(255,255,255,0.6) 55%, rgba(255,255,255,0.92) 80%, rgba(255,255,255,1) 100%)" : "linear-gradient(to bottom, rgba(9,9,11,0.0) 20%, rgba(9,9,11,0.55) 55%, rgba(9,9,11,0.92) 80%, rgba(9,9,11,1) 100%)" }}
+                  style={{ background: theme === "light" ? "linear-gradient(to bottom, rgba(255,253,248,0.0) 20%, rgba(255,253,248,0.6) 55%, rgba(255,253,248,0.92) 80%, rgba(255,253,248,1) 100%)" : "linear-gradient(to bottom, rgba(9,9,11,0.0) 20%, rgba(9,9,11,0.55) 55%, rgba(9,9,11,0.92) 80%, rgba(9,9,11,1) 100%)" }}
                 />
               </>
             ) : (
@@ -151,7 +151,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                 </div>
                 <div
                   className="absolute inset-0"
-                  style={{ background: theme === "light" ? "linear-gradient(to bottom, rgba(255,255,255,0.0) 20%, rgba(255,255,255,0.6) 55%, rgba(255,255,255,0.92) 80%, rgba(255,255,255,1) 100%)" : "linear-gradient(to bottom, rgba(9,9,11,0.0) 20%, rgba(9,9,11,0.55) 55%, rgba(9,9,11,0.92) 80%, rgba(9,9,11,1) 100%)" }}
+                  style={{ background: theme === "light" ? "linear-gradient(to bottom, rgba(255,253,248,0.0) 20%, rgba(255,253,248,0.6) 55%, rgba(255,253,248,0.92) 80%, rgba(255,253,248,1) 100%)" : "linear-gradient(to bottom, rgba(9,9,11,0.0) 20%, rgba(9,9,11,0.55) 55%, rgba(9,9,11,0.92) 80%, rgba(9,9,11,1) 100%)" }}
                 />
               </div>
             )}
