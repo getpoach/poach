@@ -1,4 +1,5 @@
 "use client";
+import { useTheme } from "@/context/ThemeContext";
 import { Users, Utensils, Image } from "lucide-react";
 const G = ({ icon: I, size=12 }: { icon: React.ElementType; size?: number }) => 
   <I size={size} color="#C8A97E" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle", marginRight:4 }} />;
@@ -73,6 +74,7 @@ const TAG_COLORS: Record<string, { bg: string; border: string; text: string }> =
 
 function MenuCard({ menu, onEdit, onToggle, onDelete }: { menu: Menu; onEdit: () => void; onToggle: () => void; onDelete: () => void }) {
   const [expanded, setExpanded] = useState(false);
+  const { theme } = useTheme();
   const tag = menu.tag ? TAG_COLORS[menu.tag] : null;
   const heroImage = menu.courses.find(c => c.imageUrl)?.imageUrl;
 
@@ -82,10 +84,10 @@ function MenuCard({ menu, onEdit, onToggle, onDelete }: { menu: Menu; onEdit: ()
       {heroImage && (
         <div style={{ height: 130, overflow: "hidden", position: "relative", flexShrink: 0 }}>
           <img src={heroImage} alt={menu.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 20%, rgba(10,10,10,0.96) 100%)" }} />
+          <div style={{ position: "absolute", inset: 0, background: theme === "light" ? "linear-gradient(to bottom, transparent 20%, rgba(255,253,248,0.96) 100%)" : "linear-gradient(to bottom, transparent 20%, rgba(10,10,10,0.96) 100%)" }} />
           <div style={{ position: "absolute", bottom: 10, left: 16, right: 16, display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}>
             <div>
-              <div style={{ fontSize: 17, fontWeight: 900, color: "var(--text-primary)", fontFamily: "var(--font-playfair)", lineHeight: 1.2 }}>{menu.name}</div>
+              <div style={{ fontSize: 17, fontWeight: 900, color: theme === "light" ? "var(--text-primary)" : "#f5f0e8", fontFamily: "var(--font-playfair)", lineHeight: 1.2 }}>{menu.name}</div>
               {tag && <span style={{ fontSize: 9, fontWeight: 700, padding: "2px 7px", borderRadius: 99, background: tag.bg, border: `1px solid ${tag.border}`, color: tag.text, marginTop: 4, display: "inline-block", textTransform: "uppercase", letterSpacing: "0.07em" }}>{menu.tag}</span>}
             </div>
             <div style={{ fontWeight: 900, color: "#C8A97E", fontSize: 20, fontFamily: "var(--font-playfair)" }}>${menu.pricePerPerson}<span style={{ fontSize: 10, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif", fontWeight: 400 }}>/pp</span></div>
