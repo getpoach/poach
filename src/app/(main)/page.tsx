@@ -3,6 +3,7 @@ import { Utensils, MapPin, Search, Clock, DollarSign, Map, SlidersHorizontal, Ch
 const G = ({ icon: I, size=12 }: { icon: React.ElementType; size?: number }) => 
   <I size={size} color="var(--gold)" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle", marginRight:4 }} />;
 import { useState, useMemo } from "react";
+import { useTheme } from "@/context/ThemeContext";
 import type { Chef, Review } from "@/types";
 import { chefs as allChefs } from "@/data/chefs";
 import { reviews as allReviews } from "@/data/reviews";
@@ -26,6 +27,7 @@ const SORT_OPTIONS = [
 type SortOption = typeof SORT_OPTIONS[number]["value"];
 
 export default function DiscoverPage() {
+  const { theme } = useTheme();
   const { search, setSearch, cuisine, setCuisine, filtered } = useChefFilter(allChefs);
   const [reviews, setReviews] = useState<Review[]>(allReviews);
   const { addBooking } = useBookings();
@@ -184,7 +186,7 @@ export default function DiscoverPage() {
       <div
         className="mb-8 rounded-2xl relative overflow-hidden"
         style={{
-          border: "1px solid #1E1A14",
+          border: `1px solid ${theme === "light" ? "#e8d9b8" : "#1E1A14"}`,
           minHeight: 280,
         }}
       >
@@ -205,7 +207,9 @@ export default function DiscoverPage() {
           className="absolute inset-0"
           style={{
             zIndex: 1,
-            background: "linear-gradient(135deg, rgba(10,8,4,0.52) 0%, rgba(8,8,16,0.44) 50%, rgba(10,8,4,0.52) 100%)",
+            background: theme === "light"
+              ? "linear-gradient(135deg, rgba(10,8,4,0.18) 0%, rgba(8,8,16,0.14) 50%, rgba(10,8,4,0.18) 100%)"
+              : "linear-gradient(135deg, rgba(10,8,4,0.52) 0%, rgba(8,8,16,0.44) 50%, rgba(10,8,4,0.52) 100%)",
           }}
         />
 
