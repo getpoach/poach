@@ -184,10 +184,12 @@ export default function DiscoverPage() {
     <>
       {/* ── Video Hero ─────────────────────────────────────────────────────── */}
       <div
-        className="mb-8 rounded-2xl relative overflow-hidden"
+        className="rounded-2xl relative overflow-hidden"
         style={{
           border: `1px solid ${theme === "light" ? "#e8d9b8" : "#1E1A14"}`,
           minHeight: 280,
+          marginBottom: -40,
+          paddingBottom: 40,
         }}
       >
         {/* Background video */}
@@ -244,9 +246,9 @@ export default function DiscoverPage() {
       </div>
 
       {/* ── View tabs ────────────────────────────────────────────────────── */}
-      <div className="flex items-end gap-0 mb-0" style={{ marginBottom: 0 }}>
+      <div className="flex items-end gap-0" style={{ position: "relative", zIndex: 2, marginBottom: 0 }}>
         {/* Tab bar bottom line — left side */}
-        <div style={{ flex: 1, borderBottom: "1px solid var(--border-gold)" }} />
+        <div style={{ flex: 1, borderBottom: "1px solid var(--border-gold)", background: "var(--bg)" }} />
         {(["grid", "map"] as const).map((m) => {
           const active = viewMode === m;
           return (
@@ -255,7 +257,7 @@ export default function DiscoverPage() {
               onClick={() => setViewMode(m)}
               className="px-5 py-2.5 text-xs font-bold transition-all cursor-pointer"
               style={{
-                background: active ? "var(--bg-secondary)" : "transparent",
+                background: active ? "var(--bg-secondary)" : "var(--bg)",
                 color: active ? "var(--text-primary)" : "var(--text-muted)",
                 border: "1px solid",
                 borderColor: active ? "var(--gold)" : "transparent",
