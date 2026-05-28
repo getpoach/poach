@@ -55,15 +55,18 @@ export function Navbar() {
         <div className="max-w-6xl mx-auto px-6 flex items-center h-16 gap-5">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center shrink-0">
+          <Link href="/" className="flex items-center gap-2.5 shrink-0">
             <Image
-              src="/poachnav.png"
-              alt="Poach — Let's Cook."
-              width={180}
-              height={40}
-              style={{ height: 36, width: "auto", objectFit: "contain", mixBlendMode: "screen" }}
+              src="/poachpin.png"
+              alt="Poach"
+              width={36}
+              height={36}
+              style={{ height: 36, width: 36, objectFit: "contain" }}
               priority
             />
+            <span style={{ fontFamily: "var(--font-playfair)", fontSize: 22, fontWeight: 900, color: "var(--gold)", letterSpacing: "-0.5px" }}>
+              Poach
+            </span>
           </Link>
 
           {/* Nav links */}
