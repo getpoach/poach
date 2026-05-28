@@ -52,6 +52,7 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
       {/* ── Top Navbar — sticky, always on top ───────────────────────── */}
       <div style={{ position: "sticky", top: 0, zIndex: 50 }}>
         <Navbar />
+        <div className="nav-gradient-bar" />
       </div>
 
       <div style={{ display: "flex" }}>
