@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useTheme } from "@/context/ThemeContext";
 import { useAuth } from "@/context/AuthContext";
 import { chefs } from "@/data/chefs";
 import type { Chef, Review } from "@/types";
@@ -19,6 +20,7 @@ const PREFERRED_CUISINES = ["French", "Fusion", "Mediterranean"];
 
 export default function DinerRecommendations() {
   const { user } = useAuth();
+  const { theme } = useTheme();
   const [favorites, setFavorites] = useState<string[]>(["1", "6"]); // pre-favorited
   const [activeTab, setActiveTab]   = useState<"favorites" | "suggested" | "nearby">("favorites");
   const [viewChef, setViewChef]       = useState<Chef | null>(null);
@@ -48,7 +50,7 @@ export default function DinerRecommendations() {
     : activeTab === "suggested" ? suggestedChefs
     : nearbyChefs;
 
-  function ChefCard({ chef }: { chef: Chef }) {
+  function ChefCard({ chef, theme }: { chef: Chef; theme: string }) {
     const isFav = favorites.includes(chef.id);
     const wasBooked = BOOKED_CHEF_IDS.includes(chef.id);
     return (
@@ -56,7 +58,7 @@ export default function DinerRecommendations() {
         {/* Headshot */}
         <div style={{ height: 130, position: "relative", overflow: "hidden", background: "var(--bg-tertiary)" }}>
           {chef.headshot && <img src={chef.headshot} alt={chef.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 40%, rgba(8,8,8,0.9) 100%)" }} />
+          <div style={{ position: "absolute", inset: 0, background: theme === "light" ? "linear-gradient(to bottom, transparent 40%, rgba(255,255,255,0.92) 100%)" : "linear-gradient(to bottom, transparent 40%, rgba(8,8,8,0.9) 100%)" }} />
           {/* Favorite button */}
           <button onClick={() => toggleFavorite(chef.id)}
             title={isFav ? "Remove from favorites" : favorites.length >= MAX_FAVORITES ? "Favorites full (max 5)" : "Add to favorites"}
@@ -155,7 +157,7 @@ export default function DinerRecommendations() {
       {/* Chef grid */}
       {shownChefs.length > 0 && (
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14 }}>
-          {shownChefs.map(chef => <ChefCard key={chef.id} chef={chef} />)}
+          {shownChefs.map(chef => <ChefCard key={chef.id} chef={chef} theme={theme} />)}
         </div>
       )}
       {/* Chef Drawer */}
