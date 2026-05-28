@@ -41,14 +41,12 @@ export default function DinerRecommendations() {
     .filter(c => c.cuisine.some(cu => PREFERRED_CUISINES.includes(cu)))
     .slice(0, 8);
 
-  const nearbyChefs = chefs
-    .filter(c => !favorites.includes(c.id))
-    .filter(c => (c.serviceRadius ?? 10) >= 10)
-    .slice(0, 8);
+  const bookedChefs = chefs
+    .filter(c => BOOKED_CHEF_IDS.includes(c.id));
 
   const shownChefs = activeTab === "favorites" ? favoriteChefs
     : activeTab === "suggested" ? suggestedChefs
-    : nearbyChefs;
+    : bookedChefs;
 
   function ChefCard({ chef, theme }: { chef: Chef; theme: string }) {
     const isFav = favorites.includes(chef.id);
@@ -129,7 +127,7 @@ export default function DinerRecommendations() {
         {([
           { id: "favorites", label: `Favorites (${favorites.length})` },
           { id: "suggested", label: "Suggested for You" },
-          { id: "nearby",    label: "Nearby Chefs" },
+          { id: "nearby",    label: "Booked Before" },
         ] as const).map(tab => (
           <button key={tab.id} onClick={() => setActiveTab(tab.id)}
             style={{ padding: "10px 18px", background: "transparent", border: "none", borderBottom: activeTab === tab.id ? "2px solid #C8A97E" : "2px solid transparent", color: activeTab === tab.id ? "var(--text-primary)" : "var(--text-dim)", fontSize: 13, fontWeight: activeTab === tab.id ? 700 : 500, cursor: "pointer", fontFamily: "'DM Sans', sans-serif", transition: "all 0.15s", marginBottom: -1 }}>
@@ -150,7 +148,7 @@ export default function DinerRecommendations() {
         <div style={{ textAlign: "center", padding: "56px 0", color: "var(--text-dim)" }}>
           <Heart size={32} color="var(--border-mid)" strokeWidth={1.5} style={{ margin: "0 auto 12px", display: "block" }} />
           <div style={{ fontSize: 14, color: "var(--text-muted)", marginBottom: 6 }}>No favorites yet</div>
-          <div style={{ fontSize: 12 }}>Browse Suggested or Nearby and tap the heart to save a chef</div>
+          <div style={{ fontSize: 12 }}>Browse Suggested for You and tap the heart to save a chef</div>
         </div>
       )}
 
