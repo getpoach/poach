@@ -48,7 +48,7 @@ export default function DinerLayout({ children }: { children: React.ReactNode })
       <div style={{ display: "flex" }}>
         {/* Sidebar */}
         <aside style={{
-          width: sidebarW, background: "var(--bg)",
+          width: sidebarW, background: "#ffffff",
           borderRight: `1px solid ${GOLD}22`,
           display: "flex", flexDirection: "column",
           position: "fixed", top: 65, bottom: 0, left: 0,
