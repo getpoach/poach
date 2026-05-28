@@ -104,7 +104,7 @@ export function Navbar() {
                 <div style={{
                   width: 36, height: 36, borderRadius: "50%",
                   overflow: "hidden",
-                  border: `2px solid ${dropdownOpen ? "#C8A97E" : "#27272a"}`,
+                  border: `2px solid ${dropdownOpen ? "var(--gold)" : "var(--border-mid)"}`,
                   transition: "border-color 0.15s",
                   background: "#1a1a1a",
                   display: "flex", alignItems: "center", justifyContent: "center",
@@ -122,17 +122,17 @@ export function Navbar() {
               {dropdownOpen && (
                 <div className="nav-dropdown">
                   {/* User info header */}
-                  <div style={{ padding: "12px 16px", borderBottom: "1px solid #1e1e1e" }}>
+                  <div style={{ padding: "12px 16px", borderBottom: "1px solid var(--border-gold)" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <div style={{ width: 32, height: 32, borderRadius: "50%", overflow: "hidden", background: "#1a1a1a", border: "1px solid #27272a", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <div style={{ width: 32, height: 32, borderRadius: "50%", overflow: "hidden", background: "var(--bg-secondary)", border: "1px solid var(--border-mid)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
                         {chefPhoto
                           ? <img src={chefPhoto} alt={user.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                          : <span style={{ fontSize: 11, fontWeight: 700, color: "#C8A97E" }}>{initials}</span>
+                          : <span style={{ fontSize: 11, fontWeight: 700, color: "var(--gold)" }}>{initials}</span>
                         }
                       </div>
                       <div>
-                        <div style={{ fontSize: 13, fontWeight: 700, color: "#f5f0e8" }}>{user.name}</div>
-                        <div style={{ fontSize: 11, color: "#52525b" }}>{user.email}</div>
+                        <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)" }}>{user.name}</div>
+                        <div style={{ fontSize: 11, color: "var(--text-dim)" }}>{user.email}</div>
                       </div>
                     </div>
                   </div>
@@ -177,7 +177,7 @@ export function Navbar() {
           <button
             onClick={toggle}
             title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-            style={{ width: 34, height: 34, borderRadius: "50%", background: "var(--bg-secondary)", border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", flexShrink: 0, transition: "all 0.2s" }}
+            style={{ width: 34, height: 34, borderRadius: "50%", background: "var(--bg-secondary)", border: "1px solid var(--border-mid)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", flexShrink: 0, transition: "all 0.2s" }}
           >
             {theme === "dark"
               ? <Sun  size={15} color="var(--gold)" strokeWidth={1.75} />
