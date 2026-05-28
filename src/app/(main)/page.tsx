@@ -1,5 +1,5 @@
 "use client";
-import { Utensils, MapPin, Search, Clock, DollarSign, Map, SlidersHorizontal, CheckCircle2 } from "lucide-react";
+import { Utensils, MapPin, Search, Clock, DollarSign, Map as MapIcon, SlidersHorizontal, CheckCircle2, LayoutGrid } from "lucide-react";
 const G = ({ icon: I, size=12 }: { icon: React.ElementType; size?: number }) => 
   <I size={size} color="var(--gold)" strokeWidth={1.75} style={{ display:"inline-block", verticalAlign:"middle", marginRight:4 }} />;
 import { useState, useMemo } from "react";
@@ -188,8 +188,7 @@ export default function DiscoverPage() {
         style={{
           border: `1px solid ${theme === "light" ? "#e8d9b8" : "#1E1A14"}`,
           minHeight: 280,
-          marginBottom: -40,
-          paddingBottom: 40,
+          marginBottom: -1,
         }}
       >
         {/* Background video */}
@@ -267,9 +266,13 @@ export default function DiscoverPage() {
                 letterSpacing: "0.04em",
                 zIndex: active ? 2 : 1,
                 position: "relative",
+                display: "flex", alignItems: "center", gap: 6,
               }}
             >
-              {m === "grid" ? "▦  Grid" : "Map"}
+              {m === "grid"
+                ? <><LayoutGrid size={13} strokeWidth={1.75} /> Grid</>
+                : <><MapIcon size={13} strokeWidth={1.75} /> Map</>
+              }
             </button>
           );
         })}
