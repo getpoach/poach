@@ -53,6 +53,7 @@ function AuthPage() {
       className="min-h-screen flex items-center justify-center px-4"
       style={{ background: "var(--bg)" }}
     >
+      <div className="nav-gradient-bar" style={{ position: "fixed", top: 0 }} />
       {/* Background grain */}
       <div
         className="fixed inset-0 pointer-events-none"
