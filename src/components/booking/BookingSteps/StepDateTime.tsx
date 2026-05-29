@@ -69,21 +69,21 @@ export function StepDateTime({ chef, selectedDate, time, onDate, onTime, onNext 
 
       {/* Calendar */}
       <div>
-        <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>
           Select a Date
         </div>
 
         {/* Month nav */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
           <button onClick={prevMonth} disabled={!canGoPrev}
-            style={{ width: 28, height: 28, borderRadius: 7, background: "transparent", border: "1px solid var(--border-mid)", color: canGoPrev ? "var(--text-secondary)" : "var(--text-faint)", cursor: canGoPrev ? "pointer" : "default", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            style={{ width: 28, height: 28, borderRadius: 7, background: "var(--bg-tertiary)", border: "1px solid var(--border-strong)", color: canGoPrev ? "var(--text-primary)" : "var(--text-faint)", cursor: canGoPrev ? "pointer" : "default", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <ChevronLeft size={14} strokeWidth={2} />
           </button>
-          <span style={{ fontSize: 14, fontWeight: 700, color: "var(--text-primary)", fontFamily: "var(--font-playfair)" }}>
+          <span style={{ fontSize: 15, fontWeight: 800, color: "var(--text-primary)", fontFamily: "var(--font-playfair)" }}>
             {MONTHS[viewMonth]} {viewYear}
           </span>
           <button onClick={nextMonth}
-            style={{ width: 28, height: 28, borderRadius: 7, background: "transparent", border: "1px solid var(--border-mid)", color: "var(--text-secondary)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            style={{ width: 28, height: 28, borderRadius: 7, background: "var(--bg-tertiary)", border: "1px solid var(--border-strong)", color: "var(--text-primary)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <ChevronRight size={14} strokeWidth={2} />
           </button>
         </div>
@@ -91,7 +91,7 @@ export function StepDateTime({ chef, selectedDate, time, onDate, onTime, onNext 
         {/* Day headers */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", marginBottom: 4 }}>
           {DAYS_SHORT.map(d => (
-            <div key={d} style={{ textAlign: "center", fontSize: 10, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", paddingBottom: 6 }}>{d}</div>
+            <div key={d} style={{ textAlign: "center", fontSize: 10, fontWeight: 700, color: "var(--text-secondary)", textTransform: "uppercase", paddingBottom: 6 }}>{d}</div>
           ))}
         </div>
 
@@ -110,13 +110,26 @@ export function StepDateTime({ chef, selectedDate, time, onDate, onTime, onNext 
                   aspectRatio: "1",
                   borderRadius: 8,
                   fontSize: 12,
-                  fontWeight: sel ? 800 : avail ? 500 : 400,
-                  border: sel ? `2px solid ${chef.color}` : avail ? `1px solid ${chef.color}44` : "1px solid var(--border-subtle)",
-                  background: sel ? chef.color : avail ? chef.color + "12" : "transparent",
-                  color: sel ? "#ffffff" : avail ? chef.color : "var(--text-faint)",
+                  fontWeight: sel ? 800 : avail ? 600 : 400,
+                  border: sel
+                    ? `2px solid ${chef.color}`
+                    : avail
+                    ? `1px solid ${chef.color}88`
+                    : "1px solid var(--border-mid)",
+                  background: sel
+                    ? chef.color
+                    : avail
+                    ? chef.color + "22"
+                    : "var(--bg-tertiary)",
+                  color: sel
+                    ? "#ffffff"
+                    : avail
+                    ? chef.color
+                    : "var(--text-dim)",
                   cursor: avail ? "pointer" : "default",
                   transition: "all 0.12s",
-                  opacity: isPast ? 0.35 : 1,
+                  opacity: isPast ? 0.3 : 1,
+                  boxShadow: sel ? `0 2px 8px ${chef.color}44` : "none",
                 }}
               >
                 {day}
@@ -126,7 +139,7 @@ export function StepDateTime({ chef, selectedDate, time, onDate, onTime, onNext 
         </div>
 
         {/* Legend */}
-        <div style={{ display: "flex", gap: 12, marginTop: 10, fontSize: 10, color: "var(--text-dim)" }}>
+        <div style={{ display: "flex", gap: 12, marginTop: 10, fontSize: 10, color: "var(--text-secondary)" }}>
           <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
             <span style={{ width: 10, height: 10, borderRadius: 3, background: chef.color + "22", border: `1px solid ${chef.color}55`, display: "inline-block" }} />
             Available
@@ -141,7 +154,7 @@ export function StepDateTime({ chef, selectedDate, time, onDate, onTime, onNext 
       {/* Time slots */}
       {selectedDate && (
         <div>
-          <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>
             Select a Time
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6 }}>
@@ -153,13 +166,14 @@ export function StepDateTime({ chef, selectedDate, time, onDate, onTime, onNext 
                     padding: "9px 6px",
                     borderRadius: 8,
                     fontSize: 12,
-                    border: `1px solid ${sel ? chef.color : "var(--border-mid)"}`,
-                    background: sel ? chef.color + "22" : "var(--bg-tertiary)",
-                    color: sel ? chef.color : "var(--text-secondary)",
-                    fontWeight: sel ? 700 : 400,
+                    border: `1px solid ${sel ? chef.color : "var(--border-strong)"}`,
+                    background: sel ? chef.color : "var(--bg-tertiary)",
+                    color: sel ? "#ffffff" : "var(--text-primary)",
+                    fontWeight: sel ? 700 : 500,
                     cursor: "pointer",
                     transition: "all 0.12s",
                     fontFamily: "'DM Sans', sans-serif",
+                    boxShadow: sel ? `0 2px 8px ${chef.color}44` : "none",
                   }}>
                   {t}
                 </button>
