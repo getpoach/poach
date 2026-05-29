@@ -317,7 +317,7 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
               <TermsStep chef={chef} guests={guests} pricePerPerson={pricePerPerson} selectedMenu={selectedMenu} onBack={() => setStep(2)} onAgree={() => setStep(4)} />
             )}
             {step === 4 && (
-              <StepPayment chef={chef} day={day!} time={time!} guests={guests}
+              <StepPayment chef={chef} day={selectedDate ? (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][selectedDate.getDay()] as any) : "Sat"} time={time!} guests={guests}
                 card={card} expiry={expiry} cvv={cvv}
                 onCard={setCard} onExpiry={setExpiry} onCvv={setCvv}
                 onBack={() => setStep(3)} onConfirm={handleConfirm} />
