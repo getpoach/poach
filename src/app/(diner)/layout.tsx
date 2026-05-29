@@ -4,6 +4,7 @@ import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { Navbar } from "@/components/nav/Navbar";
+import { useTheme } from "@/context/ThemeContext";
 import { CalendarDays, Sparkles, User, ChevronLeft, ChevronRight } from "lucide-react";
 
 const NAV_ITEMS = [
@@ -20,6 +21,7 @@ export default function DinerLayout({ children }: { children: React.ReactNode })
   const router   = useRouter();
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+  const { theme } = useTheme();
   const sidebarW = collapsed ? COLLAPSED : EXPANDED;
 
   useEffect(() => {
@@ -48,7 +50,7 @@ export default function DinerLayout({ children }: { children: React.ReactNode })
       <div style={{ display: "flex" }}>
         {/* Sidebar */}
         <aside style={{
-          width: sidebarW, background: "#ffffff",
+          width: sidebarW, background: theme === "light" ? "#ffffff" : "var(--bg-secondary)",
           borderRight: `1px solid ${GOLD}22`,
           display: "flex", flexDirection: "column",
           position: "fixed", top: 65, bottom: 0, left: 0,
