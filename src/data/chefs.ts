@@ -75,7 +75,26 @@ export const chefs: Chef[] = [
   {
     id: "2",
     name: "Céleste Fontenot",
-    businessName: "La Méditerranée",
+    businessName: "La Méditerranée"
+  menus: [
+    { id: "cel1", name: "Mediterranean Journey", tag: "Signature", pricePerPerson: 85,
+      description: "A sunlit tour through the Mediterranean — fresh herbs, olive oil, and seasonal produce.",
+      courses: [
+        { name: "Mezze Spread",   description: "Hummus, labneh, tabbouleh, warm pita",                imageUrl: "https://images.unsplash.com/photo-1542345812-d98b5cd6cf98?w=200&q=80" },
+        { name: "First Course",  description: "Grilled halloumi, heirloom tomatoes, basil oil",        imageUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?w=200&q=80" },
+        { name: "Second Course", description: "Bouillabaisse with saffron rouille & crusty bread",    imageUrl: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=200&q=80" },
+        { name: "Main",          description: "Lamb chops, harissa, couscous, preserved lemon",       imageUrl: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=200&q=80" },
+        { name: "Dessert",       description: "Baklava, orange blossom ice cream, honey",             imageUrl: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=200&q=80" },
+      ] },
+    { id: "cel2", name: "Mezze & More", pricePerPerson: 60,
+      description: "A sharing-style spread of small plates, dips, and flatbreads.",
+      courses: [
+        { name: "Cold Mezze",  description: "Baba ganoush, feta, olives, flatbread",                  imageUrl: "" },
+        { name: "Hot Mezze",   description: "Falafel, kibbeh, stuffed grape leaves",                  imageUrl: "" },
+        { name: "Main",        description: "Tagine of your choice — lamb, chicken, or vegetable",    imageUrl: "" },
+        { name: "Dessert",     description: "Seasonal fruit, rosewater syrup, pistachios",            imageUrl: "" },
+      ] },
+  ],,
   menus: [
     { id: "c1", name: "Mediterranean Journey", description: "A sunlit tour through the flavors of the Mediterranean — fresh herbs, olive oil, and seasonal produce.", pricePerPerson: 85, courses: 5, tag: "Signature" },
     { id: "c2", name: "Mezze & More", description: "A sharing-style spread of small plates, dips, and flatbreads. Perfect for casual entertaining.", pricePerPerson: 60, courses: 4 },
@@ -114,7 +133,25 @@ export const chefs: Chef[] = [
   {
     id: "3",
     name: "Jaxon Broussard",
-    businessName: "The Smoking Spoon",
+    businessName: "The Smoking Spoon"
+  menus: [
+    { id: "jax1", name: "Louisiana Smoke Session", tag: "Signature", pricePerPerson: 45,
+      description: "Low-and-slow BBQ rooted in Louisiana tradition — ribs, brisket, and all the fixings.",
+      courses: [
+        { name: "Starters",  description: "Smoked boudin, cracklins, house pickles",                  imageUrl: "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=200&q=80" },
+        { name: "Pit Meats", description: "Brisket, baby back ribs, smoked andouille sausage",        imageUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?w=200&q=80" },
+        { name: "Sides",     description: "Smoked mac & cheese, coleslaw, cornbread, baked beans",    imageUrl: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&q=80" },
+        { name: "Dessert",   description: "Peach cobbler with smoked vanilla ice cream",              imageUrl: "" },
+      ] },
+    { id: "jax2", name: "Backyard Feast", pricePerPerson: 35,
+      description: "Casual, crowd-pleasing cookout fare elevated with Cajun smoke and spice.",
+      courses: [
+        { name: "Apps",    description: "Smoked dips, jalapeño poppers, wings",                       imageUrl: "" },
+        { name: "Mains",   description: "Smoked whole chicken, pulled pork, grilled corn",            imageUrl: "" },
+        { name: "Sides",   description: "Dirty rice, potato salad, baked beans",                      imageUrl: "" },
+        { name: "Dessert", description: "Banana pudding, pecan brownies",                             imageUrl: "" },
+      ] },
+  ],,
     avatar: "JB",
     cuisine: ["West African", "Fusion"],
     rating: 4.7,
@@ -149,7 +186,28 @@ export const chefs: Chef[] = [
   {
     id: "4",
     name: "Margaux Léger",
-    businessName: "Maison Léger",
+    businessName: "Maison Léger"
+  menus: [
+    { id: "mar1", name: "Haute Creole", tag: "Signature", pricePerPerson: 130,
+      description: "French haute cuisine reinterpreted through a Louisiana lens — refined, indulgent, unforgettable.",
+      courses: [
+        { name: "Amuse-Bouche", description: "Oyster tartare, caviar, champagne foam",                imageUrl: "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=200&q=80" },
+        { name: "Entrée",       description: "Seared foie gras, fig jam, brioche",                   imageUrl: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=200&q=80" },
+        { name: "Poisson",      description: "Pan-seared gulf bass, beurre blanc, microgreens",      imageUrl: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=200&q=80" },
+        { name: "Viande",       description: "Wagyu tenderloin, truffle jus, pommes dauphine",        imageUrl: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=200&q=80" },
+        { name: "Fromage",      description: "Artisan cheese selection, honeycomb, walnut crisps",    imageUrl: "" },
+        { name: "Dessert",      description: "Grand Marnier soufflé, crème anglaise",                 imageUrl: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=200&q=80" },
+      ] },
+    { id: "mar2", name: "Seasonal Tasting", tag: "Seasonal", pricePerPerson: 110,
+      description: "A five-course menu built entirely around what's peak season in Louisiana right now.",
+      courses: [
+        { name: "Amuse",   description: "Chef's seasonal one-bite",                                   imageUrl: "" },
+        { name: "Course 1",description: "Seasonal market vegetable, house vinaigrette",               imageUrl: "" },
+        { name: "Course 2",description: "Local seafood, seasonal preparation",                        imageUrl: "" },
+        { name: "Main",    description: "Pasture-raised meat, seasonal accompaniments",               imageUrl: "" },
+        { name: "Dessert", description: "Seasonal fruit tart, house made sorbet",                     imageUrl: "" },
+      ] },
+  ],,
     avatar: "ML",
     cuisine: ["French", "Pastry"],
     rating: 5.0,
@@ -184,7 +242,25 @@ export const chefs: Chef[] = [
   {
     id: "5",
     name: "Raul Moreno",
-    businessName: "Cocina del Sur",
+    businessName: "Cocina del Sur"
+  menus: [
+    { id: "raul1", name: "Sabores del Sur", tag: "Signature", pricePerPerson: 50,
+      description: "Bold Southern flavors rooted in Mexican tradition — handmade tortillas, slow-braised meats, and vibrant salsas.",
+      courses: [
+        { name: "Antojitos",  description: "Elote, guacamole, salsa trio, tostadas",                  imageUrl: "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=200&q=80" },
+        { name: "Sopa",       description: "Roasted tomato & chipotle soup, crema, cilantro",         imageUrl: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=200&q=80" },
+        { name: "Tacos",      description: "Handmade tortillas, birria, carnitas, or mushroom",       imageUrl: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=200&q=80" },
+        { name: "Postre",     description: "Tres leches, cajeta, toasted coconut",                   imageUrl: "" },
+      ] },
+    { id: "raul2", name: "Fiesta Family Feast", pricePerPerson: 40,
+      description: "A festive, shareable spread perfect for celebrations. Bring the whole family.",
+      courses: [
+        { name: "Table Dips",   description: "Guacamole, black bean dip, pico de gallo, chips",      imageUrl: "" },
+        { name: "Mains",        description: "Slow-cooked carnitas, rice, frijoles charros",          imageUrl: "" },
+        { name: "Sides",        description: "Mexican street corn, calabacitas, warm tortillas",      imageUrl: "" },
+        { name: "Dessert",      description: "Churros, chocolate sauce, cinnamon sugar",             imageUrl: "" },
+      ] },
+  ],,
     avatar: "RM",
     cuisine: ["Mexican", "Oaxacan"],
     rating: 4.9,
@@ -221,7 +297,26 @@ export const chefs: Chef[] = [
   {
     id: "6",
     name: "Simone Trosclair",
-    businessName: "Simone's Table",
+    businessName: "Simone's Table"
+  menus: [
+    { id: "sim1", name: "Southern Comfort Dinner", tag: "Signature", pricePerPerson: 70,
+      description: "Classic Southern cooking elevated — slow-braised meats, seasonal sides, and decadent desserts.",
+      courses: [
+        { name: "Starters",  description: "Deviled eggs, pimento cheese, cornbread muffins",          imageUrl: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=200&q=80" },
+        { name: "Soup",      description: "Gumbo z'herbes, potato & leek, or she-crab soup",          imageUrl: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=200&q=80" },
+        { name: "Main",      description: "Braised short rib, butter-basted chicken, or catfish",     imageUrl: "https://images.unsplash.com/photo-1598103442097-8b74394b95c8?w=200&q=80" },
+        { name: "Sides",     description: "Collard greens, smashed potatoes, fried okra",             imageUrl: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&q=80" },
+        { name: "Dessert",   description: "Sweet potato pie, praline sauce, whipped cream",           imageUrl: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=200&q=80" },
+      ] },
+    { id: "sim2", name: "Garden Table", pricePerPerson: 55,
+      description: "A vegetarian celebration of fresh, local produce and bold Creole flavors.",
+      courses: [
+        { name: "Starters", description: "Seasonal crudités, roasted pepper dip, herb flatbread",    imageUrl: "" },
+        { name: "Main",     description: "Stuffed acorn squash, wild rice, herb chimichurri",         imageUrl: "" },
+        { name: "Sides",    description: "Roasted root vegetables, braised greens, cornbread",        imageUrl: "" },
+        { name: "Dessert",  description: "Seasonal fruit crumble, vanilla bean cream",               imageUrl: "" },
+      ] },
+  ],,
   menus: [
     { id: "s1", name: "Southern Comfort Dinner", description: "Classic Southern cooking elevated — slow-braised meats, seasonal sides, and decadent desserts.", pricePerPerson: 70, courses: 4, tag: "Signature" },
     { id: "s2", name: "Garden Table", description: "A vegetarian celebration of fresh, local produce and bold Creole flavors.", pricePerPerson: 55, courses: 4 },
@@ -260,7 +355,25 @@ export const chefs: Chef[] = [
   {
     id: "7",
     name: "Theo Arceneaux",
-    businessName: "Arceneaux Private Dining",
+    businessName: "Arceneaux Private Dining"
+  menus: [
+    { id: "theo1", name: "Cajun Classics", tag: "Signature", pricePerPerson: 65,
+      description: "Time-honored Cajun recipes handed down through generations, prepared with modern precision.",
+      courses: [
+        { name: "Starters",  description: "Crawfish étouffée bites, fried green tomatoes, remoulade", imageUrl: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=200&q=80" },
+        { name: "Soup",      description: "Duck and andouille gumbo, filé, rice",                    imageUrl: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=200&q=80" },
+        { name: "Main",      description: "Blackened redfish, smoked tasso grits, mirliton relish",  imageUrl: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=200&q=80" },
+        { name: "Dessert",   description: "Bread pudding, bourbon sauce, candied pecans",            imageUrl: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=200&q=80" },
+      ] },
+    { id: "theo2", name: "Terrace Dinner for Two", pricePerPerson: 80,
+      description: "An intimate private dining experience designed for romance and celebration.",
+      courses: [
+        { name: "Amuse",   description: "Smoked oyster on the half shell, mignonette",               imageUrl: "" },
+        { name: "Course 1",description: "Shrimp bisque, tarragon cream",                             imageUrl: "" },
+        { name: "Main",    description: "Surf & turf — grilled filet, butter-poached Gulf shrimp",   imageUrl: "" },
+        { name: "Dessert", description: "Chocolate lava cake, raspberry coulis",                     imageUrl: "" },
+      ] },
+  ],,
     avatar: "TA",
     cuisine: ["Italian", "Fusion"],
     rating: 4.6,
@@ -297,7 +410,24 @@ export const chefs: Chef[] = [
   {
     id: "8",
     name: "Ida Mae Guillory",
-    businessName: "Ida Mae's Kitchen",
+    businessName: "Ida Mae's Kitchen"
+  menus: [
+    { id: "ida1", name: "Sunday Soul Dinner", tag: "Signature", pricePerPerson: 40,
+      description: "Soul food the way Grandma made it — generous, warm, and made with love.",
+      courses: [
+        { name: "Starters",  description: "Fried chicken livers, hot sauce, pickles",                imageUrl: "" },
+        { name: "Main",      description: "Smothered pork chops or fried catfish, your choice",      imageUrl: "https://images.unsplash.com/photo-1598103442097-8b74394b95c8?w=200&q=80" },
+        { name: "Sides",     description: "Mac & cheese, candied yams, black-eyed peas, cornbread",  imageUrl: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&q=80" },
+        { name: "Dessert",   description: "Banana pudding or sweet potato pie",                      imageUrl: "" },
+      ] },
+    { id: "ida2", name: "Church Potluck Spread", pricePerPerson: 32,
+      description: "Everything you love from the church potluck, made fresh from scratch by Ida Mae.",
+      courses: [
+        { name: "Sides",    description: "Seven sides family-style — greens, rice, yams, and more",  imageUrl: "" },
+        { name: "Mains",    description: "Fried chicken, baked ham, or catfish",                     imageUrl: "" },
+        { name: "Dessert",  description: "Assorted pies and cobblers",                               imageUrl: "" },
+      ] },
+  ],,
     avatar: "IG",
     cuisine: ["West African", "Fusion"],
     rating: 4.9,
@@ -332,7 +462,26 @@ export const chefs: Chef[] = [
   {
     id: "9",
     name: "Darnell Savoy",
-    businessName: "Savoy Supper Club",
+    businessName: "Savoy Supper Club"
+  menus: [
+    { id: "dar1", name: "Supper Club Classic", tag: "Signature", pricePerPerson: 60,
+      description: "The timeless supper club experience — cocktail hour bites, tableside service, and jazz vibes.",
+      courses: [
+        { name: "Cocktail Bites", description: "Deviled eggs, shrimp cocktail, beef crostini",        imageUrl: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=200&q=80" },
+        { name: "Salad",          description: "Wedge salad, house blue cheese, lardons",             imageUrl: "" },
+        { name: "Main",           description: "Filet mignon or pan-roasted chicken supreme",         imageUrl: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=200&q=80" },
+        { name: "Sides",          description: "Au gratin potatoes, haricots verts, creamed spinach", imageUrl: "" },
+        { name: "Dessert",        description: "Bananas Foster, tableside flambé",                    imageUrl: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=200&q=80" },
+      ] },
+    { id: "dar2", name: "Jazz Brunch", pricePerPerson: 45,
+      description: "A languid brunch spread with New Orleans flair — perfect for late mornings.",
+      courses: [
+        { name: "Drinks",   description: "Bloody Mary or mimosa service, coffee & juice",            imageUrl: "" },
+        { name: "Starters", description: "Biscuits & gravy, pain perdu, seasonal fruit",             imageUrl: "" },
+        { name: "Mains",    description: "Eggs Benedict, shrimp & grits, or smoked salmon hash",     imageUrl: "" },
+        { name: "Dessert",  description: "Beignets, café au lait, pralines",                         imageUrl: "" },
+      ] },
+  ],,
     avatar: "DS",
     cuisine: ["Indian", "Fusion"],
     rating: 4.7,
@@ -369,7 +518,25 @@ export const chefs: Chef[] = [
   {
     id: "10",
     name: "Yvette Romero",
-    businessName: "La Cocina de Yvette",
+    businessName: "La Cocina de Yvette"
+  menus: [
+    { id: "yve1", name: "Cocina Familiar", tag: "Signature", pricePerPerson: 55,
+      description: "The heart of Yvette's cooking — bold Mexican-Creole flavors made for sharing around the table.",
+      courses: [
+        { name: "Botanas",   description: "Elote fundido, ceviche tostadas, guacamole",               imageUrl: "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=200&q=80" },
+        { name: "Sopa",      description: "Pozole rojo with all the toppings",                        imageUrl: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=200&q=80" },
+        { name: "Main",      description: "Mole negro chicken, rice, handmade tortillas",            imageUrl: "https://images.unsplash.com/photo-1598103442097-8b74394b95c8?w=200&q=80" },
+        { name: "Dessert",   description: "Flan, cajeta, strawberries",                              imageUrl: "" },
+      ] },
+    { id: "yve2", name: "Taco Fiesta", pricePerPerson: 42,
+      description: "A festive taco spread with all the salsas, toppings, and sides you could want.",
+      courses: [
+        { name: "Salsas & Sides", description: "Four house salsas, guacamole, pickled onions",       imageUrl: "" },
+        { name: "Tacos",          description: "Birria, al pastor, pescado, and mushroom options",    imageUrl: "" },
+        { name: "Sides",          description: "Spanish rice, charro beans, street corn",             imageUrl: "" },
+        { name: "Dessert",        description: "Churros, chocolate dipping sauce",                   imageUrl: "" },
+      ] },
+  ],,
     avatar: "YR",
     cuisine: ["Mexican", "Mediterranean"],
     rating: 4.8,
@@ -404,7 +571,26 @@ export const chefs: Chef[] = [
   {
     id: "11",
     name: "Claude Hébert",
-    businessName: "Hébert Fine Dining",
+    businessName: "Hébert Fine Dining"
+  menus: [
+    { id: "cla1", name: "Creole Prestige", tag: "Signature", pricePerPerson: 80,
+      description: "Refined Creole cuisine celebrating the full breadth of Louisiana's culinary heritage.",
+      courses: [
+        { name: "Amuse",         description: "Blue crab canapé, lemon crème fraîche",               imageUrl: "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=200&q=80" },
+        { name: "First Course",  description: "Turtle soup, sherry, croutons",                       imageUrl: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=200&q=80" },
+        { name: "Second Course", description: "Shrimp Creole over butter rice",                      imageUrl: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=200&q=80" },
+        { name: "Main",          description: "Pompano en papillote, sauce meunière, haricots verts", imageUrl: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=200&q=80" },
+        { name: "Dessert",       description: "Café brûlot, pecan praline tart",                     imageUrl: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=200&q=80" },
+      ] },
+    { id: "cla2", name: "Heritage Sunday Roast", pricePerPerson: 65,
+      description: "A traditional Sunday roast elevated with Creole technique and Louisiana ingredients.",
+      courses: [
+        { name: "Starters", description: "Oyster stew, cornbread, herb butter",                      imageUrl: "" },
+        { name: "Roast",    description: "Slow-roasted leg of lamb or prime rib, au jus",             imageUrl: "" },
+        { name: "Sides",    description: "Brabant potatoes, roasted root vegetables, dirty rice",     imageUrl: "" },
+        { name: "Dessert",  description: "Doberge cake, lemon cream",                                imageUrl: "" },
+      ] },
+  ],,
     avatar: "CH",
     cuisine: ["French", "Pastry"],
     rating: 4.9,
@@ -441,7 +627,26 @@ export const chefs: Chef[] = [
   {
     id: "12",
     name: "Patrice Fontenette",
-    businessName: "Patrice's Petit Table",
+    businessName: "Patrice's Petit Table"
+  menus: [
+    { id: "pat1", name: "Petite Tasting", tag: "Signature", pricePerPerson: 48,
+      description: "Small plates, big flavors — a tasting menu designed for curious eaters who want to try it all.",
+      courses: [
+        { name: "Bites",    description: "Three amuse-bouche from the garden and sea",               imageUrl: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=200&q=80" },
+        { name: "Course 1", description: "Heirloom tomato tart, whipped goat cheese, basil",         imageUrl: "" },
+        { name: "Course 2", description: "Pan-fried quail, dirty rice, pepper jelly",                imageUrl: "" },
+        { name: "Course 3", description: "Seared snapper, cauliflower purée, beurre noisette",       imageUrl: "" },
+        { name: "Dessert",  description: "Chocolate mousse, salted caramel, almond tuile",           imageUrl: "" },
+      ] },
+    { id: "pat2", name: "Brunch for Friends", pricePerPerson: 38,
+      description: "A relaxed weekend brunch spread made for lingering and conversation.",
+      courses: [
+        { name: "Pastries",  description: "House croissants, jam, whipped butter",                   imageUrl: "" },
+        { name: "Starters",  description: "Seasonal fruit salad, granola, yogurt parfait",           imageUrl: "" },
+        { name: "Mains",     description: "Eggs en cocotte, smoked salmon board, or French toast",   imageUrl: "" },
+        { name: "Dessert",   description: "Madeleines, lemon curd, fresh berries",                   imageUrl: "" },
+      ] },
+  ],,
     avatar: "PF",
     cuisine: ["French", "Fusion"],
     rating: 4.6,
@@ -476,7 +681,29 @@ export const chefs: Chef[] = [
   {
     id: "13",
     name: "Wesley Duhon",
-    businessName: "Duhon's Reserve",
+    businessName: "Duhon's Reserve"
+  menus: [
+    { id: "wes1", name: "The Reserve Experience", tag: "Signature", pricePerPerson: 150,
+      description: "Wesley's flagship menu — a seven-course tour through the most prized ingredients Louisiana has to offer.",
+      courses: [
+        { name: "Amuse-Bouche",  description: "Osetra caviar, blini, crème fraîche",                 imageUrl: "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=200&q=80" },
+        { name: "Course 1",      description: "Chilled lobster, avocado, micro citrus salad",        imageUrl: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=200&q=80" },
+        { name: "Course 2",      description: "Black truffle velouté, Périgord truffle shavings",    imageUrl: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=200&q=80" },
+        { name: "Course 3",      description: "Seared diver scallop, parsnip purée, pancetta crumb", imageUrl: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=200&q=80" },
+        { name: "Main",          description: "A5 Wagyu, bone marrow jus, pommes soufflé",           imageUrl: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=200&q=80" },
+        { name: "Pre-Dessert",   description: "Champagne sorbet, citrus pearls",                     imageUrl: "" },
+        { name: "Dessert",       description: "Valrhona chocolate sphere, warm caramel pour",         imageUrl: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=200&q=80" },
+      ] },
+    { id: "wes2", name: "Collector's Table", pricePerPerson: 120,
+      description: "A refined five-course experience paired with curated Louisiana wines.",
+      courses: [
+        { name: "Amuse",   description: "Seasonal one-bite, chef's selection",                       imageUrl: "" },
+        { name: "Course 1",description: "Hamachi crudo, yuzu, jalapeño",                             imageUrl: "" },
+        { name: "Course 2",description: "Mushroom consommé, black garlic, thyme oil",               imageUrl: "" },
+        { name: "Main",    description: "Dry-aged duck breast, cherry gastrique, wilted greens",     imageUrl: "" },
+        { name: "Dessert", description: "Paris-Brest, praline cream, toasted hazelnuts",             imageUrl: "" },
+      ] },
+  ],,
     avatar: "WD",
     cuisine: ["Italian", "Omakase"],
     rating: 4.8,
@@ -513,7 +740,26 @@ export const chefs: Chef[] = [
   {
     id: "14",
     name: "Anita Tureaud",
-    businessName: "Tureaud & Table",
+    businessName: "Tureaud & Table"
+  menus: [
+    { id: "ani1", name: "Creole Soul Dinner", tag: "Signature", pricePerPerson: 75,
+      description: "Anita's signature menu blending Creole technique with deep soul food roots.",
+      courses: [
+        { name: "Starters",  description: "Fried oysters, comeback sauce, pickled cucumber",          imageUrl: "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=200&q=80" },
+        { name: "Soup",      description: "Crab and corn bisque, chive cream",                       imageUrl: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=200&q=80" },
+        { name: "Main",      description: "Oxtail stew, stone-ground grits, roasted tomatoes",       imageUrl: "https://images.unsplash.com/photo-1598103442097-8b74394b95c8?w=200&q=80" },
+        { name: "Sides",     description: "Collard greens, candied yams, skillet cornbread",          imageUrl: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&q=80" },
+        { name: "Dessert",   description: "Praline bread pudding, bourbon caramel",                  imageUrl: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=200&q=80" },
+      ] },
+    { id: "ani2", name: "Family Table Feast", pricePerPerson: 58,
+      description: "A generous, family-style spread that feeds both body and soul.",
+      courses: [
+        { name: "Starters",  description: "Deviled eggs, pimento cheese, crackers",                  imageUrl: "" },
+        { name: "Mains",     description: "Smothered turkey, baked ham, or catfish",                  imageUrl: "" },
+        { name: "Sides",     description: "Six sides including mac & cheese and potato salad",       imageUrl: "" },
+        { name: "Dessert",   description: "Peach cobbler, pound cake, banana pudding",               imageUrl: "" },
+      ] },
+  ],,
     avatar: "AT",
     cuisine: ["West African", "French"],
     rating: 4.9,
@@ -548,7 +794,29 @@ export const chefs: Chef[] = [
   {
     id: "15",
     name: "Marcus Delacroix",
-    businessName: "Delacroix Experiential",
+    businessName: "Delacroix Experiential"
+  menus: [
+    { id: "marc1", name: "The Delacroix Experience", tag: "Signature", pricePerPerson: 110,
+      description: "An avant-garde tasting journey — each course tells a story of Louisiana through modern technique.",
+      courses: [
+        { name: "Welcome",   description: "Edible cocktail sphere, passion fruit & rum",              imageUrl: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=200&q=80" },
+        { name: "Course 1",  description: "Deconstructed gumbo — smoked duck chip, okra gel, rice crisp", imageUrl: "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=200&q=80" },
+        { name: "Course 2",  description: "Gulf shrimp 'popcorn', saffron foam, micro herbs",        imageUrl: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=200&q=80" },
+        { name: "Course 3",  description: "Sous vide duck breast, blackberry gastrique, crispy skin", imageUrl: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=200&q=80" },
+        { name: "Palate",    description: "Frozen lemon curd, lavender, sea salt",                   imageUrl: "" },
+        { name: "Main",      description: "Gulf red snapper, bouillabaisse emulsion, fennel frond",  imageUrl: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=200&q=80" },
+        { name: "Dessert",   description: "Liquid nitrogen praline, dark chocolate soil, gold leaf",  imageUrl: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=200&q=80" },
+      ] },
+    { id: "marc2", name: "Chef's Counter", pricePerPerson: 85,
+      description: "An interactive five-course experience with Marcus cooking tableside and explaining every dish.",
+      courses: [
+        { name: "Intro",    description: "Farm snapshot — seasonal ingredient preview with tasting",  imageUrl: "" },
+        { name: "Course 1", description: "Elevated Cajun canapés — four bites",                      imageUrl: "" },
+        { name: "Course 2", description: "Interactive pasta — guests roll and shape their own",       imageUrl: "" },
+        { name: "Main",     description: "Tableside-seared protein, seasonal preparation",            imageUrl: "" },
+        { name: "Dessert",  description: "Dessert performance — plated tableside with explanation",   imageUrl: "" },
+      ] },
+  ],,
     avatar: "MD",
     cuisine: ["Japanese", "Fusion"],
     rating: 4.7,
