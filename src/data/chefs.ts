@@ -75,7 +75,7 @@ export const chefs: Chef[] = [
   {
     id: "2",
     name: "Céleste Fontenot",
-    businessName: "La Méditerranée"
+    businessName: "La Méditerranée",
   menus: [
     { id: "cel1", name: "Mediterranean Journey", tag: "Signature", pricePerPerson: 85,
       description: "A sunlit tour through the Mediterranean — fresh herbs, olive oil, and seasonal produce.",
@@ -133,7 +133,7 @@ export const chefs: Chef[] = [
   {
     id: "3",
     name: "Jaxon Broussard",
-    businessName: "The Smoking Spoon"
+    businessName: "The Smoking Spoon",
   menus: [
     { id: "jax1", name: "Louisiana Smoke Session", tag: "Signature", pricePerPerson: 45,
       description: "Low-and-slow BBQ rooted in Louisiana tradition — ribs, brisket, and all the fixings.",
@@ -186,7 +186,7 @@ export const chefs: Chef[] = [
   {
     id: "4",
     name: "Margaux Léger",
-    businessName: "Maison Léger"
+    businessName: "Maison Léger",
   menus: [
     { id: "mar1", name: "Haute Creole", tag: "Signature", pricePerPerson: 130,
       description: "French haute cuisine reinterpreted through a Louisiana lens — refined, indulgent, unforgettable.",
@@ -242,7 +242,7 @@ export const chefs: Chef[] = [
   {
     id: "5",
     name: "Raul Moreno",
-    businessName: "Cocina del Sur"
+    businessName: "Cocina del Sur",
   menus: [
     { id: "raul1", name: "Sabores del Sur", tag: "Signature", pricePerPerson: 50,
       description: "Bold Southern flavors rooted in Mexican tradition — handmade tortillas, slow-braised meats, and vibrant salsas.",
@@ -297,7 +297,7 @@ export const chefs: Chef[] = [
   {
     id: "6",
     name: "Simone Trosclair",
-    businessName: "Simone's Table"
+    businessName: "Simone's Table",
   menus: [
     { id: "sim1", name: "Southern Comfort Dinner", tag: "Signature", pricePerPerson: 70,
       description: "Classic Southern cooking elevated — slow-braised meats, seasonal sides, and decadent desserts.",
@@ -355,7 +355,7 @@ export const chefs: Chef[] = [
   {
     id: "7",
     name: "Theo Arceneaux",
-    businessName: "Arceneaux Private Dining"
+    businessName: "Arceneaux Private Dining",
   menus: [
     { id: "theo1", name: "Cajun Classics", tag: "Signature", pricePerPerson: 65,
       description: "Time-honored Cajun recipes handed down through generations, prepared with modern precision.",
@@ -410,7 +410,7 @@ export const chefs: Chef[] = [
   {
     id: "8",
     name: "Ida Mae Guillory",
-    businessName: "Ida Mae's Kitchen"
+    businessName: "Ida Mae's Kitchen",
   menus: [
     { id: "ida1", name: "Sunday Soul Dinner", tag: "Signature", pricePerPerson: 40,
       description: "Soul food the way Grandma made it — generous, warm, and made with love.",
@@ -462,7 +462,7 @@ export const chefs: Chef[] = [
   {
     id: "9",
     name: "Darnell Savoy",
-    businessName: "Savoy Supper Club"
+    businessName: "Savoy Supper Club",
   menus: [
     { id: "dar1", name: "Supper Club Classic", tag: "Signature", pricePerPerson: 60,
       description: "The timeless supper club experience — cocktail hour bites, tableside service, and jazz vibes.",
@@ -518,7 +518,7 @@ export const chefs: Chef[] = [
   {
     id: "10",
     name: "Yvette Romero",
-    businessName: "La Cocina de Yvette"
+    businessName: "La Cocina de Yvette",
   menus: [
     { id: "yve1", name: "Cocina Familiar", tag: "Signature", pricePerPerson: 55,
       description: "The heart of Yvette's cooking — bold Mexican-Creole flavors made for sharing around the table.",
@@ -571,7 +571,7 @@ export const chefs: Chef[] = [
   {
     id: "11",
     name: "Claude Hébert",
-    businessName: "Hébert Fine Dining"
+    businessName: "Hébert Fine Dining",
   menus: [
     { id: "cla1", name: "Creole Prestige", tag: "Signature", pricePerPerson: 80,
       description: "Refined Creole cuisine celebrating the full breadth of Louisiana's culinary heritage.",
@@ -627,7 +627,7 @@ export const chefs: Chef[] = [
   {
     id: "12",
     name: "Patrice Fontenette",
-    businessName: "Patrice's Petit Table"
+    businessName: "Patrice's Petit Table",
   menus: [
     { id: "pat1", name: "Petite Tasting", tag: "Signature", pricePerPerson: 48,
       description: "Small plates, big flavors — a tasting menu designed for curious eaters who want to try it all.",
@@ -681,7 +681,7 @@ export const chefs: Chef[] = [
   {
     id: "13",
     name: "Wesley Duhon",
-    businessName: "Duhon's Reserve"
+    businessName: "Duhon's Reserve",
   menus: [
     { id: "wes1", name: "The Reserve Experience", tag: "Signature", pricePerPerson: 150,
       description: "Wesley's flagship menu — a seven-course tour through the most prized ingredients Louisiana has to offer.",
@@ -740,7 +740,7 @@ export const chefs: Chef[] = [
   {
     id: "14",
     name: "Anita Tureaud",
-    businessName: "Tureaud & Table"
+    businessName: "Tureaud & Table",
   menus: [
     { id: "ani1", name: "Creole Soul Dinner", tag: "Signature", pricePerPerson: 75,
       description: "Anita's signature menu blending Creole technique with deep soul food roots.",
@@ -794,7 +794,7 @@ export const chefs: Chef[] = [
   {
     id: "15",
     name: "Marcus Delacroix",
-    businessName: "Delacroix Experiential"
+    businessName: "Delacroix Experiential",
   menus: [
     { id: "marc1", name: "The Delacroix Experience", tag: "Signature", pricePerPerson: 110,
       description: "An avant-garde tasting journey — each course tells a story of Louisiana through modern technique.",
