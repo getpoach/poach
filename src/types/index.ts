@@ -18,6 +18,14 @@ export interface Chef {
   id: string;
   name: string;
   businessName?: string;
+  menus?: {
+    id: string;
+    name: string;
+    description: string;
+    pricePerPerson: number;
+    courses: number;
+    tag?: string;
+  }[];
   avatar: string;
   cuisine: Cuisine[];
   rating: number;
