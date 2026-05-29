@@ -23,7 +23,7 @@ export interface Chef {
     name: string;
     description: string;
     pricePerPerson: number;
-    courses: number;
+    courses: { name: string; description: string; imageUrl?: string }[] | number;
     tag?: string;
   }[];
   avatar: string;
