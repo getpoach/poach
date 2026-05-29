@@ -6,6 +6,11 @@ export const chefs: Chef[] = [
     id: "1",
     name: "Beau Thibodaux",
     businessName: "Bayou Table",
+  menus: [
+    { id: "m1", name: "Bayou Tasting Menu", description: "A six-course journey through Louisiana's finest ingredients — Gulf seafood, Cajun heritage grains, and regional wines.", pricePerPerson: 95, courses: 6, tag: "Signature" },
+    { id: "m2", name: "Sunday Family Feast", description: "A relaxed, shareable spread inspired by Cajun Sunday dinners. Perfect for families and large groups.", pricePerPerson: 65, courses: 4, tag: "Popular" },
+    { id: "m3", name: "Intimate Tasting Menu", description: "Five intimate courses crafted for couples and small gatherings. Focused, elegant, deeply personal.", pricePerPerson: 95, courses: 5, tag: "New" },
+  ],
     avatar: "BT",
     cuisine: ["French", "Fusion"],
     rating: 4.9,
@@ -41,6 +46,10 @@ export const chefs: Chef[] = [
     id: "2",
     name: "Céleste Fontenot",
     businessName: "La Méditerranée",
+  menus: [
+    { id: "c1", name: "Mediterranean Journey", description: "A sunlit tour through the flavors of the Mediterranean — fresh herbs, olive oil, and seasonal produce.", pricePerPerson: 85, courses: 5, tag: "Signature" },
+    { id: "c2", name: "Mezze & More", description: "A sharing-style spread of small plates, dips, and flatbreads. Perfect for casual entertaining.", pricePerPerson: 60, courses: 4 },
+  ],
     avatar: "CF",
     cuisine: ["Fusion", "Mediterranean"],
     rating: 4.8,
@@ -183,6 +192,10 @@ export const chefs: Chef[] = [
     id: "6",
     name: "Simone Trosclair",
     businessName: "Simone's Table",
+  menus: [
+    { id: "s1", name: "Southern Comfort Dinner", description: "Classic Southern cooking elevated — slow-braised meats, seasonal sides, and decadent desserts.", pricePerPerson: 70, courses: 4, tag: "Signature" },
+    { id: "s2", name: "Garden Table", description: "A vegetarian celebration of fresh, local produce and bold Creole flavors.", pricePerPerson: 55, courses: 4 },
+  ],
     avatar: "ST",
     cuisine: ["French", "Fusion"],
     rating: 4.8,
