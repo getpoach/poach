@@ -253,7 +253,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
             {/* About */}
             <div className="bg-[var(--bg-tertiary)] rounded-xl p-4">
               <SectionLabel>About</SectionLabel>
-              <p className="text-sm text-zinc-300 leading-relaxed">{chef.bio}</p>
+              <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>{chef.bio}</p>
             </div>
 
             {/* Cuisines */}
@@ -265,8 +265,8 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                 ))}
               </div>
               <div
-                className="text-sm text-[var(--text-secondary)] pl-2.5"
-                style={{ borderLeft: `2px solid ${chef.color}` }}
+                className="text-sm pl-2.5"
+                style={{ borderLeft: `2px solid ${chef.color}`, color: "var(--text-primary)", fontWeight: 500 }}
               >
                 {chef.specialty}
               </div>
@@ -283,9 +283,10 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                       key={d}
                       className="px-3 py-1.5 rounded-lg text-xs font-semibold"
                       style={{
-                        background: avail ? chef.color + "20" : "#1A1A1A",
-                        border: `1px solid ${avail ? chef.color + "44" : "#222"}`,
-                        color: avail ? chef.color : "#444",
+                        background: avail ? chef.color + "22" : "var(--bg-hover)",
+                        border: `1px solid ${avail ? chef.color + "88" : "var(--border-mid)"}`,
+                        color: avail ? chef.color : "var(--text-dim)",
+                        fontWeight: avail ? 700 : 500,
                       }}
                     >
                       {d}
@@ -295,6 +296,39 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
               </div>
             </div>
 
+            {/* Menus */}
+            {chef.menus && chef.menus.length > 0 && (
+              <div>
+                <SectionLabel>Menus</SectionLabel>
+                <div className="flex flex-col gap-3">
+                  {chef.menus.map((menu: { id: string; name: string; description: string; pricePerPerson: number; courses: number; tag?: string }) => (
+                    <div key={menu.id}
+                      style={{ background: "var(--bg-tertiary)", border: `1px solid ${chef.color}33`, borderRadius: 12, overflow: "hidden" }}>
+                      {/* Menu header */}
+                      <div style={{ padding: "12px 14px", borderBottom: "1px solid var(--border-subtle)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                        <div>
+                          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
+                            <span style={{ fontSize: 14, fontWeight: 700, color: "var(--text-primary)", fontFamily: "var(--font-playfair)" }}>{menu.name}</span>
+                            {menu.tag && (
+                              <span style={{ fontSize: 9, fontWeight: 700, padding: "2px 7px", borderRadius: 99, background: chef.color + "22", border: `1px solid ${chef.color}55`, color: chef.color, textTransform: "uppercase", letterSpacing: "0.07em" }}>{menu.tag}</span>
+                            )}
+                          </div>
+                          <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{menu.courses} courses</div>
+                        </div>
+                        <div style={{ fontWeight: 800, color: chef.color, fontSize: 17, fontFamily: "var(--font-playfair)" }}>
+                          ${menu.pricePerPerson}<span style={{ fontSize: 10, color: "var(--text-muted)", fontWeight: 400 }}>/pp</span>
+                        </div>
+                      </div>
+                      {/* Menu description */}
+                      <div style={{ padding: "10px 14px" }}>
+                        <p style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.6, margin: 0 }}>{menu.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Pricing */}
             <div className="bg-[var(--bg-tertiary)] rounded-xl p-4">
               <div className="flex justify-between items-center mb-1">
@@ -302,7 +336,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                   <span className="text-sm text-[var(--text-secondary)] font-semibold">Price per person</span>
                   <span
                     className="ml-2 text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
-                    style={{ background: chef.color + "20", color: chef.color }}
+                    style={{ background: chef.color, color: "#ffffff" }}
                   >
                     Starting from
                   </span>
@@ -314,7 +348,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                   ${chef.price}
                 </span>
               </div>
-              <div className="text-xs text-zinc-600">
+              <div className="text-xs" style={{ color: "var(--text-muted)" }}>
                 Final price varies based on menu, ingredients &amp; occasion
               </div>
             </div>
@@ -327,11 +361,11 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                   {chefReviews.map((r) => (
                     <div key={r.id} className="bg-[var(--bg-tertiary)] rounded-xl p-4">
                       <div className="flex justify-between mb-1.5">
-                        <span className="text-sm font-bold text-white">{r.author}</span>
+                        <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{r.author}</span>
                         <span className="text-xs text-[var(--text-dim)]">{r.date}</span>
                       </div>
                       <Stars rating={r.rating} size={12} />
-                      <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-2">{r.text}</p>
+                      <p className="text-sm leading-relaxed mt-2" style={{ color: "var(--text-secondary)" }}>{r.text}</p>
                     </div>
                   ))}
                 </div>
