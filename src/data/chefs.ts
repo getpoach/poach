@@ -7,9 +7,39 @@ export const chefs: Chef[] = [
     name: "Beau Thibodaux",
     businessName: "Bayou Table",
   menus: [
-    { id: "m1", name: "Bayou Tasting Menu", description: "A six-course journey through Louisiana's finest ingredients — Gulf seafood, Cajun heritage grains, and regional wines.", pricePerPerson: 95, courses: 6, tag: "Signature" },
-    { id: "m2", name: "Sunday Family Feast", description: "A relaxed, shareable spread inspired by Cajun Sunday dinners. Perfect for families and large groups.", pricePerPerson: 65, courses: 4, tag: "Popular" },
-    { id: "m3", name: "Intimate Tasting Menu", description: "Five intimate courses crafted for couples and small gatherings. Focused, elegant, deeply personal.", pricePerPerson: 95, courses: 5, tag: "New" },
+    {
+      id: "m1", name: "Bayou Tasting Menu", tag: "Signature", pricePerPerson: 95,
+      description: "A six-course journey through Louisiana's finest ingredients — Gulf seafood, Cajun heritage grains, and regional wines.",
+      courses: [
+        { name: "Amuse-Bouche",  description: "Crawfish beignet with remoulade & microgreens",           imageUrl: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=200&q=80" },
+        { name: "First Course",  description: "Gulf oysters, champagne mignonette, pickled shallots",     imageUrl: "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=200&q=80" },
+        { name: "Second Course", description: "Crawfish bisque, Cajun cream, fried leeks",                imageUrl: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=200&q=80" },
+        { name: "Third Course",  description: "Duck confit, dirty rice, pepper jelly glaze",              imageUrl: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=200&q=80" },
+        { name: "Fourth Course", description: "Herb-crusted redfish, grits, smothered greens",            imageUrl: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=200&q=80" },
+        { name: "Dessert",       description: "King Cake soufflé, Creole cream cheese ice cream",         imageUrl: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=200&q=80" },
+      ],
+    },
+    {
+      id: "m2", name: "Sunday Family Feast", tag: "Popular", pricePerPerson: 65,
+      description: "A relaxed, shareable spread inspired by Cajun Sunday dinners. Perfect for families and large groups.",
+      courses: [
+        { name: "Starters", description: "Boudin balls, cracklins, pepper jelly & crackers",              imageUrl: "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=200&q=80" },
+        { name: "Main",     description: "Smothered chicken, dirty rice, red beans & cornbread",          imageUrl: "https://images.unsplash.com/photo-1598103442097-8b74394b95c8?w=200&q=80" },
+        { name: "Sides",    description: "Maque choux, braised collards, sweet potato casserole",         imageUrl: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&q=80" },
+        { name: "Dessert",  description: "Bread pudding with whiskey sauce",                              imageUrl: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=200&q=80" },
+      ],
+    },
+    {
+      id: "m3", name: "Intimate Tasting Menu", tag: "New", pricePerPerson: 95,
+      description: "Five intimate courses crafted for couples and small gatherings. Focused, elegant, deeply personal.",
+      courses: [
+        { name: "Amuse-Bouche",  description: "Seasonal one-bite surprise", imageUrl: "" },
+        { name: "First Course",  description: "Chilled Gulf shrimp, citrus vinaigrette, caviar", imageUrl: "" },
+        { name: "Second Course", description: "Seared scallop, cauliflower purée, truffle oil",  imageUrl: "" },
+        { name: "Main",          description: "Filet mignon, bordelaise, pommes purée",          imageUrl: "" },
+        { name: "Dessert",       description: "Chocolate fondant, salted caramel, raspberry coulis", imageUrl: "" },
+      ],
+    },
   ],
     avatar: "BT",
     cuisine: ["French", "Fusion"],
