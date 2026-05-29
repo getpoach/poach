@@ -91,6 +91,7 @@ function Lightbox({
 
 export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) {
   const { theme } = useTheme();
+  const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
   const chefReviews = reviews.filter((r) => r.chefId === chef.id);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
@@ -310,30 +311,66 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                   </div>
                 </div>
                 <div className="flex flex-col gap-3">
-                  {chef.menus.map((menu: { id: string; name: string; description: string; pricePerPerson: number; courses: number; tag?: string }) => (
-                    <div key={menu.id}
-                      style={{ background: "var(--bg-tertiary)", border: `1px solid ${chef.color}33`, borderRadius: 12, overflow: "hidden" }}>
-                      {/* Menu header */}
-                      <div style={{ padding: "12px 14px", borderBottom: "1px solid var(--border-subtle)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                        <div>
-                          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
-                            <span style={{ fontSize: 14, fontWeight: 700, color: "var(--text-primary)", fontFamily: "var(--font-playfair)" }}>{menu.name}</span>
-                            {menu.tag && (
-                              <span style={{ fontSize: 9, fontWeight: 700, padding: "2px 7px", borderRadius: 99, background: chef.color + "22", border: `1px solid ${chef.color}55`, color: chef.color, textTransform: "uppercase", letterSpacing: "0.07em" }}>{menu.tag}</span>
+                  {chef.menus.map((menu: { id: string; name: string; description: string; pricePerPerson: number; courses: { name: string; description: string; imageUrl?: string }[] | number; tag?: string }) => {
+                    const isOpen = expandedMenu === menu.id;
+                    const courseList = Array.isArray(menu.courses) ? menu.courses : [];
+                    const courseCount = Array.isArray(menu.courses) ? menu.courses.length : menu.courses;
+                    return (
+                      <div key={menu.id}
+                        style={{ background: "var(--bg-tertiary)", border: `1px solid ${isOpen ? chef.color + "66" : chef.color + "33"}`, borderRadius: 12, overflow: "hidden", transition: "border-color 0.2s" }}>
+                        {/* Clickable header */}
+                        <button
+                          onClick={() => setExpandedMenu(isOpen ? null : menu.id)}
+                          style={{ width: "100%", padding: "12px 14px", display: "flex", alignItems: "center", justifyContent: "space-between", background: "transparent", border: "none", cursor: "pointer", textAlign: "left" }}>
+                          <div>
+                            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
+                              <span style={{ fontSize: 14, fontWeight: 700, color: "var(--text-primary)", fontFamily: "var(--font-playfair)" }}>{menu.name}</span>
+                              {menu.tag && (
+                                <span style={{ fontSize: 9, fontWeight: 700, padding: "2px 7px", borderRadius: 99, background: chef.color + "22", border: `1px solid ${chef.color}55`, color: chef.color, textTransform: "uppercase", letterSpacing: "0.07em" }}>{menu.tag}</span>
+                              )}
+                            </div>
+                            <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{courseCount} courses · {isOpen ? "hide" : "view offerings"}</div>
+                          </div>
+                          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                            <div style={{ fontWeight: 800, color: chef.color, fontSize: 17, fontFamily: "var(--font-playfair)" }}>
+                              ${menu.pricePerPerson}<span style={{ fontSize: 10, color: "var(--text-muted)", fontWeight: 400 }}>/pp</span>
+                            </div>
+                            <span style={{ fontSize: 10, color: isOpen ? chef.color : "var(--text-muted)", transition: "color 0.15s" }}>{isOpen ? "▲" : "▼"}</span>
+                          </div>
+                        </button>
+
+                        {/* Expanded content */}
+                        {isOpen && (
+                          <div style={{ borderTop: `1px solid ${chef.color}33` }}>
+                            {/* Description */}
+                            <div style={{ padding: "10px 14px", borderBottom: courseList.length > 0 ? `1px solid ${chef.color}22` : "none" }}>
+                              <p style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.6, margin: 0 }}>{menu.description}</p>
+                            </div>
+                            {/* Courses */}
+                            {courseList.length > 0 && (
+                              <div>
+                                {courseList.map((course, i) => (
+                                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 14px", borderBottom: i < courseList.length - 1 ? `1px solid ${chef.color}18` : "none" }}>
+                                    {/* Thumbnail */}
+                                    <div style={{ width: 44, height: 44, borderRadius: 8, overflow: "hidden", background: "var(--bg-hover)", border: `1px solid ${chef.color}33`, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                      {course.imageUrl
+                                        ? <img src={course.imageUrl} alt={course.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                                        : <span style={{ fontSize: 16, color: "var(--text-faint)" }}>🍽</span>
+                                      }
+                                    </div>
+                                    <div style={{ flex: 1, minWidth: 0 }}>
+                                      <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-primary)", marginBottom: 1 }}>{course.name}</div>
+                                      <div style={{ fontSize: 11, color: "var(--text-muted)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{course.description}</div>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
                             )}
                           </div>
-                          <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{menu.courses} courses</div>
-                        </div>
-                        <div style={{ fontWeight: 800, color: chef.color, fontSize: 17, fontFamily: "var(--font-playfair)" }}>
-                          ${menu.pricePerPerson}<span style={{ fontSize: 10, color: "var(--text-muted)", fontWeight: 400 }}>/pp</span>
-                        </div>
+                        )}
                       </div>
-                      {/* Menu description */}
-                      <div style={{ padding: "10px 14px" }}>
-                        <p style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.6, margin: 0 }}>{menu.description}</p>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             )}
