@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import type { Chef, Booking, Day } from "@/types";
+import type { Chef, Booking } from "@/types";
 import { Avatar } from "@/components/ui/index";
 import { StepDateTime } from "./BookingSteps/StepDateTime";
 import { StepDetails } from "./BookingSteps/StepDetails";
@@ -23,18 +23,22 @@ interface BookingModalProps {
 function TermsStep({
   chef,
   guests,
+  pricePerPerson,
+  selectedMenu,
   onBack,
   onAgree,
 }: {
   chef: Chef;
   guests: number;
+  pricePerPerson: number;
+  selectedMenu: { name: string; pricePerPerson: number } | null;
   onBack: () => void;
   onAgree: () => void;
 }) {
   const [open, setOpen] = useState<number | null>(0);
   const [agreed, setAgreed] = useState(false);
 
-  const total    = totalWithFee(chef.price * guests);
+  const total    = totalWithFee(pricePerPerson * guests);
   const deposit  = Math.round(total * 0.25);
   const balance  = total - deposit;
 
@@ -64,7 +68,7 @@ function TermsStep({
           {[
             { label: "Deposit (due on acceptance)",     amount: `$${deposit}`, note: "25% of total — secures your date", color: chef.color },
             { label: "Balance (due 48hrs before event)",amount: `$${balance}`, note: "75% of total — charged automatically", color: "var(--text-secondary)" },
-            { label: "Total",                           amount: `$${total}`,   note: `$${chef.price} × ${guests} guests + platform fee`, color: "var(--text-primary)" },
+            { label: "Total",                           amount: `$${total}`,   note: `$${pricePerPerson} × ${guests} guests + platform fee`, color: "var(--text-primary)" },
           ].map(row => (
             <div key={row.label} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 12px", background: "var(--bg-tertiary)", borderRadius: 8 }}>
               <div>
@@ -175,8 +179,9 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
   const { user } = useAuth();
   const { theme } = useTheme();
   const [step, setStep] = useState(1);
-  const [day,     setDay]     = useState<Day | null>(null);
-  const [time,    setTime]    = useState<string | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [time,         setTime]         = useState<string | null>(null);
+  const [selectedMenuId, setSelectedMenuId] = useState<string | null>(null);
   const [guests,  setGuests]  = useState(2);
   const [note,    setNote]    = useState("");
   const [name,    setName]    = useState("");
@@ -186,7 +191,13 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
   const [cvv,     setCvv]     = useState("");
   const [confirmed, setConfirmed] = useState(false);
 
-  const total   = totalWithFee(chef.price * guests);
+  const menus = chef.menus ?? [];
+  const selectedMenu = menus.find(m => m.id === selectedMenuId) ?? null;
+  const pricePerPerson = selectedMenu
+    ? selectedMenu.pricePerPerson
+    : (menus.length > 0 ? Math.min(...menus.map(m => m.pricePerPerson)) : chef.price);
+
+  const total   = totalWithFee(pricePerPerson * guests);
   const deposit = Math.round(total * 0.25);
 
   const handleConfirm = () => {
@@ -197,9 +208,10 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
       chefColor: chef.color,
       chefAvatar: chef.avatar,
       specialty: chef.specialty,
-      day: day!,
+      day: selectedDate ? (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][selectedDate.getDay()] as any) : "Sat",
       time: time!,
-      date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+      date: selectedDate ? selectedDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "",
+      menuName: selectedMenu?.name,
       guests,
       total,
       status: "upcoming",
@@ -294,15 +306,15 @@ export function BookingModal({ chef, onClose, onSuccess }: BookingModalProps) {
             </div>
 
             {step === 1 && (
-              <StepDateTime chef={chef} day={day} time={time} onDay={setDay} onTime={setTime} onNext={() => setStep(2)} />
+              <StepDateTime chef={chef} selectedDate={selectedDate} time={time} onDate={setSelectedDate} onTime={setTime} onNext={() => setStep(2)} />
             )}
             {step === 2 && (
-              <StepDetails chef={chef} guests={guests} note={note} name={name} email={email}
-                onGuests={setGuests} onNote={setNote} onName={setName} onEmail={setEmail}
+              <StepDetails chef={chef} guests={guests} selectedMenuId={selectedMenuId} note={note} name={name} email={email}
+                onGuests={setGuests} onMenuId={setSelectedMenuId} onNote={setNote} onName={setName} onEmail={setEmail}
                 onBack={() => setStep(1)} onNext={() => setStep(3)} />
             )}
             {step === 3 && (
-              <TermsStep chef={chef} guests={guests} onBack={() => setStep(2)} onAgree={() => setStep(4)} />
+              <TermsStep chef={chef} guests={guests} pricePerPerson={pricePerPerson} selectedMenu={selectedMenu} onBack={() => setStep(2)} onAgree={() => setStep(4)} />
             )}
             {step === 4 && (
               <StepPayment chef={chef} day={day!} time={time!} guests={guests}
