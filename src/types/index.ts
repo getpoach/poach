@@ -61,6 +61,7 @@ export interface Booking {
   time: string;
   date: string;
   guests: number;
+  menuName?: string;
   total: number;
   status: "upcoming" | "completed" | "cancelled";
   note: string;
