@@ -296,10 +296,19 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
               </div>
             </div>
 
-            {/* Menus */}
+            {/* Menus — with lowest price on right */}
             {chef.menus && chef.menus.length > 0 && (
               <div>
-                <SectionLabel>Menus</SectionLabel>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
+                  <div className="text-xs font-semibold text-muted uppercase tracking-widest">Menus</div>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
+                    <span style={{ fontSize: 11, color: "var(--text-muted)" }}>from</span>
+                    <span style={{ fontSize: 20, fontWeight: 900, color: chef.color, fontFamily: "var(--font-playfair)" }}>
+                      ${Math.min(...chef.menus.map((m: { pricePerPerson: number }) => m.pricePerPerson))}
+                    </span>
+                    <span style={{ fontSize: 11, color: "var(--text-muted)" }}>/pp</span>
+                  </div>
+                </div>
                 <div className="flex flex-col gap-3">
                   {chef.menus.map((menu: { id: string; name: string; description: string; pricePerPerson: number; courses: number; tag?: string }) => (
                     <div key={menu.id}
@@ -328,30 +337,6 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                 </div>
               </div>
             )}
-
-            {/* Pricing */}
-            <div className="bg-[var(--bg-tertiary)] rounded-xl p-4">
-              <div className="flex justify-between items-center mb-1">
-                <div>
-                  <span className="text-sm text-[var(--text-secondary)] font-semibold">Price per person</span>
-                  <span
-                    className="ml-2 text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
-                    style={{ background: chef.color, color: "#ffffff" }}
-                  >
-                    Starting from
-                  </span>
-                </div>
-                <span
-                  className="font-display text-xl font-bold"
-                  style={{ color: chef.color }}
-                >
-                  ${chef.price}
-                </span>
-              </div>
-              <div className="text-xs" style={{ color: "var(--text-muted)" }}>
-                Final price varies based on menu, ingredients &amp; occasion
-              </div>
-            </div>
 
             {/* Reviews */}
             {chefReviews.length > 0 && (
