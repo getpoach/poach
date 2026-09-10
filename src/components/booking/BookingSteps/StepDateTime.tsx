@@ -79,7 +79,7 @@ export function StepDateTime({ chef, selectedDate, time, onDate, onTime, onNext 
             style={{ width: 28, height: 28, borderRadius: 7, background: "var(--bg-tertiary)", border: "1px solid var(--border-strong)", color: canGoPrev ? "var(--text-primary)" : "var(--text-faint)", cursor: canGoPrev ? "pointer" : "default", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <ChevronLeft size={14} strokeWidth={2} />
           </button>
-          <span style={{ fontSize: 15, fontWeight: 800, color: "var(--text-primary)", fontFamily: "var(--font-playfair)" }}>
+          <span style={{ fontSize: 15, fontWeight: 400, color: "var(--text-primary)", fontFamily: "Georgia, serif", letterSpacing: "0.02em" }}>
             {MONTHS[viewMonth]} {viewYear}
           </span>
           <button onClick={nextMonth}
@@ -108,7 +108,7 @@ export function StepDateTime({ chef, selectedDate, time, onDate, onTime, onNext 
                 onClick={() => onDate(new Date(viewYear, viewMonth, day))}
                 style={{
                   aspectRatio: "1",
-                  borderRadius: 8,
+                  borderRadius: 3,
                   fontSize: 12,
                   fontWeight: sel ? 800 : avail ? 600 : 400,
                   border: sel
@@ -117,7 +117,7 @@ export function StepDateTime({ chef, selectedDate, time, onDate, onTime, onNext 
                     ? `1px solid ${chef.color}88`
                     : "1px solid var(--border-mid)",
                   background: sel
-                    ? chef.color
+                    ? "var(--gold)"
                     : avail
                     ? chef.color + "22"
                     : "var(--bg-tertiary)",
@@ -164,11 +164,11 @@ export function StepDateTime({ chef, selectedDate, time, onDate, onTime, onNext 
                 <button key={t} onClick={() => onTime(t)}
                   style={{
                     padding: "9px 6px",
-                    borderRadius: 8,
+                    borderRadius: 3,
                     fontSize: 12,
                     border: `1px solid ${sel ? chef.color : "var(--border-strong)"}`,
-                    background: sel ? chef.color : "var(--bg-tertiary)",
-                    color: sel ? "#ffffff" : "var(--text-primary)",
+                    background: sel ? "var(--gold)" : "var(--bg-tertiary)",
+                    color: sel ? "var(--bg)" : "var(--text-primary)",
                     fontWeight: sel ? 700 : 500,
                     cursor: "pointer",
                     transition: "all 0.12s",
