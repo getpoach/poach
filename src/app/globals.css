@@ -75,7 +75,10 @@ html {
   scroll-behavior: smooth;
 }
 
-body { background: var(--bg); color: var(--text-primary); transition: background 0.2s ease, color 0.2s ease;
+html, body {
+  background: var(--bg) !important;
+  color: var(--text-primary) !important;
+  transition: background 0.2s ease, color 0.2s ease;
   background-color: var(--bg);
   color: var(--text-primary);
   font-family: var(--font-dm-sans);
@@ -233,12 +236,21 @@ input[type="range"]::-webkit-slider-runnable-track {
 .nav-dropdown-divider { height: 1px; background: #1e1e1e; }
 
 /* Tailwind class overrides using CSS variables */
-.bg-ink     { background-color: var(--bg) !important; }
-.bg-surface { background-color: var(--bg-secondary) !important; }
-.bg-card    { background-color: var(--bg-tertiary) !important; }
-.text-muted { color: var(--text-muted) !important; }
-.border-border { border-color: var(--border) !important; }
-.text-white { color: var(--text-primary) !important; }
+.bg-ink         { background-color: var(--bg) !important; }
+.bg-surface     { background-color: var(--bg-secondary) !important; }
+.bg-card        { background-color: var(--bg-tertiary) !important; }
+.text-muted     { color: var(--text-muted) !important; }
+.border-border  { border-color: var(--border) !important; }
+.text-white     { color: var(--text-primary) !important; }
+.bg-zinc-950    { background-color: var(--bg) !important; }
+.bg-zinc-900    { background-color: var(--bg-secondary) !important; }
+.bg-zinc-800    { background-color: var(--bg-tertiary) !important; }
+.text-zinc-400  { color: var(--text-secondary) !important; }
+.text-zinc-500  { color: var(--text-muted) !important; }
+.border-zinc-800 { border-color: var(--border) !important; }
+.border-zinc-700 { border-color: var(--border-mid) !important; }
+/* Navbar */
+.bg-\[var\(--nav-bg\)\] { background-color: var(--nav-bg) !important; }
 
 /* ── Marble Texture Utility ────────────────────────────────────────────────── */
 .marble-vein {
