@@ -77,7 +77,7 @@ function AuthPage() {
 
         {/* Card */}
         <div
-          className="rounded-2xl overflow-hidden"
+          className="rounded-sm overflow-hidden"
           style={{ background: "var(--bg-secondary)", border: "1px solid #1e1e1e" }}
         >
           {/* Mode toggle */}
@@ -124,7 +124,7 @@ function AuthPage() {
                       style={{
                         flex: 1,
                         padding: "14px 12px",
-                        borderRadius: 12,
+                        borderRadius: 3,
                         cursor: "pointer",
                         border: `1px solid ${role === r.value ? "var(--gold)" : "var(--border-mid)"}`,
                         background: role === r.value ? "#C8A97E12" : "var(--bg-tertiary)",
@@ -183,7 +183,7 @@ function AuthPage() {
               </div>
 
               {error && (
-                <div style={{ padding: "10px 14px", borderRadius: 10, background: "#1a1010", border: "1px solid #C8A97E44", fontSize: 12, color: "var(--gold)", lineHeight: 1.5 }}>
+                <div style={{ padding: "10px 14px", borderRadius: 3, background: "#1a1010", border: "1px solid #C8A97E44", fontSize: 12, color: "var(--gold)", lineHeight: 1.5 }}>
                   {error}
                 </div>
               )}
@@ -194,7 +194,7 @@ function AuthPage() {
                 style={{
                   marginTop: 4,
                   padding: "13px",
-                  borderRadius: 12,
+                  borderRadius: 3,
                   background: loading ? "#a8894e" : "var(--gold)",
                   color: "var(--bg)",
                   fontWeight: 800,
@@ -211,7 +211,7 @@ function AuthPage() {
             </form>
 
             {/* Demo hint */}
-            <div style={{ marginTop: 20, padding: "12px 14px", borderRadius: 10, background: "var(--bg-tertiary)", border: "1px solid #1e1e1e" }}>
+            <div style={{ marginTop: 20, padding: "12px 14px", borderRadius: 3, background: "var(--bg-tertiary)", border: "1px solid #1e1e1e" }}>
               <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 6 }}>Demo credentials</div>
               <div style={{ fontSize: 11, color: "var(--text-muted)", lineHeight: 1.8 }}>
                 <span style={{ color: "var(--text-secondary)" }}>Diner:</span> alex@example.com / password<br />
@@ -243,7 +243,7 @@ const inputStyle: React.CSSProperties = {
   width: "100%",
   background: "var(--bg-tertiary)",
   border: "1px solid #2a2a2a",
-  borderRadius: 10,
+  borderRadius: 3,
   padding: "11px 14px",
   fontSize: 13,
   color: "var(--text-primary)",
