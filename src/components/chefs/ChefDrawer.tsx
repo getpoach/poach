@@ -68,7 +68,7 @@ function Lightbox({
         <img
           src={images[idx]}
           alt={`Portfolio ${idx + 1}`}
-          className="w-full h-full object-contain rounded-xl"
+          className="w-full h-full object-contain rounded-sm"
           style={{ maxHeight: "85vh" }}
         />
         <div className="absolute bottom-3 left-0 right-0 text-center text-xs text-[var(--text-dim)]">
@@ -169,13 +169,13 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
             {/* Name + rating overlaid at bottom of headshot */}
             <div className="absolute bottom-0 left-0 right-0 px-6 pb-5" style={{ zIndex: 2 }}>
               <div
-                className="font-display text-2xl font-black leading-tight"
+                style={{ fontFamily: "Georgia, serif", fontSize: 24, fontWeight: 400, lineHeight: 1.2 }}
                 style={{ color: theme === "light" ? "#1a1a1a" : "#ffffff", textShadow: theme === "light" ? "0 1px 4px rgba(255,255,255,0.8)" : "0 1px 8px rgba(0,0,0,0.8)" }}
               >
                 {chef.name}
               </div>
               {chef.businessName && (
-                <div style={{ fontSize: 14, fontWeight: 600, color: chef.color, fontFamily: "var(--font-playfair)", fontStyle: "italic", marginTop: 2, textShadow: theme === "light" ? "0 1px 4px rgba(255,255,255,0.8)" : "0 1px 6px rgba(0,0,0,0.8)" }}>
+                <div style={{ fontSize: 14, fontWeight: 600, color: chef.color, fontFamily: "Georgia, serif", fontStyle: "italic", marginTop: 2, textShadow: theme === "light" ? "0 1px 4px rgba(255,255,255,0.8)" : "0 1px 6px rgba(0,0,0,0.8)" }}>
                   {chef.businessName}
                 </div>
               )}
@@ -200,7 +200,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                 <SectionLabel>Portfolio</SectionLabel>
                 {/* First image large */}
                 <div
-                  className="w-full rounded-xl overflow-hidden mb-2 cursor-pointer relative"
+                  className="w-full rounded-sm overflow-hidden mb-2 cursor-pointer relative"
                   style={{ height: 200 }}
                   onClick={() => setLightboxIndex(0)}
                 >
@@ -229,7 +229,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                       return (
                         <div
                           key={i}
-                          className="relative rounded-lg overflow-hidden cursor-pointer"
+                          className="relative rounded-sm overflow-hidden cursor-pointer"
                           style={{ aspectRatio: "1" }}
                           onClick={() => setLightboxIndex(i + 1)}
                         >
@@ -252,13 +252,13 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
             )}
 
             {/* About */}
-            <div className="bg-[var(--bg-tertiary)] rounded-xl p-4">
+            <div className="bg-[var(--bg-tertiary)] rounded-sm p-4">
               <SectionLabel>About</SectionLabel>
               <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>{chef.bio}</p>
             </div>
 
             {/* Cuisines */}
-            <div className="bg-[var(--bg-tertiary)] rounded-xl p-4">
+            <div className="bg-[var(--bg-tertiary)] rounded-sm p-4">
               <SectionLabel>Cuisines & Specialty</SectionLabel>
               <div className="flex flex-wrap gap-1.5 mb-3">
                 {chef.cuisine.map((c) => (
@@ -274,7 +274,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
             </div>
 
             {/* Availability */}
-            <div className="bg-[var(--bg-tertiary)] rounded-xl p-4">
+            <div className="bg-[var(--bg-tertiary)] rounded-sm p-4">
               <SectionLabel>Availability</SectionLabel>
               <div className="flex gap-2 flex-wrap">
                 {DAYS.map((d) => {
@@ -282,11 +282,11 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                   return (
                     <span
                       key={d}
-                      className="px-3 py-1.5 rounded-lg text-xs font-semibold"
+                      className="px-3 py-1.5 rounded-sm text-xs font-semibold"
                       style={{
-                        background: avail ? chef.color + "22" : "var(--bg-hover)",
-                        border: `1px solid ${avail ? chef.color + "88" : "var(--border-mid)"}`,
-                        color: avail ? chef.color : "var(--text-dim)",
+                        background: avail ? "var(--gold)" + "18" : "var(--bg-hover)",
+                        border: `0.5px solid ${avail ? "var(--gold)" : "var(--border-mid)"}`,
+                        color: avail ? "var(--gold)" : "var(--text-dim)",
                         fontWeight: avail ? 700 : 500,
                       }}
                     >
@@ -304,7 +304,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                   <div className="text-xs font-semibold text-muted uppercase tracking-widest">Menus</div>
                   <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
                     <span style={{ fontSize: 11, color: "var(--text-muted)" }}>from</span>
-                    <span style={{ fontSize: 20, fontWeight: 900, color: chef.color, fontFamily: "var(--font-playfair)" }}>
+                    <span style={{ fontSize: 20, fontWeight: 900, color: chef.color, fontFamily: "Georgia, serif" }}>
                       ${Math.min(...chef.menus.map((m: { pricePerPerson: number }) => m.pricePerPerson))}
                     </span>
                     <span style={{ fontSize: 11, color: "var(--text-muted)" }}>/pp</span>
@@ -317,14 +317,14 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                     const courseCount = Array.isArray(menu.courses) ? menu.courses.length : menu.courses;
                     return (
                       <div key={menu.id}
-                        style={{ background: "var(--bg-tertiary)", border: `1px solid ${isOpen ? chef.color + "66" : chef.color + "33"}`, borderRadius: 12, overflow: "hidden", transition: "border-color 0.2s" }}>
+                        style={{ background: "var(--bg-tertiary)", border: `1px solid ${isOpen ? chef.color + "66" : chef.color + "33"}`, borderRadius: 3, overflow: "hidden", transition: "border-color 0.2s" }}>
                         {/* Clickable header */}
                         <button
                           onClick={() => setExpandedMenu(isOpen ? null : menu.id)}
                           style={{ width: "100%", padding: "12px 14px", display: "flex", alignItems: "center", justifyContent: "space-between", background: "transparent", border: "none", cursor: "pointer", textAlign: "left" }}>
                           <div>
                             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
-                              <span style={{ fontSize: 14, fontWeight: 700, color: "var(--text-primary)", fontFamily: "var(--font-playfair)" }}>{menu.name}</span>
+                              <span style={{ fontSize: 14, fontWeight: 700, color: "var(--text-primary)", fontFamily: "Georgia, serif" }}>{menu.name}</span>
                               {menu.tag && (
                                 <span style={{ fontSize: 9, fontWeight: 700, padding: "2px 7px", borderRadius: 99, background: chef.color + "22", border: `1px solid ${chef.color}55`, color: chef.color, textTransform: "uppercase", letterSpacing: "0.07em" }}>{menu.tag}</span>
                               )}
@@ -332,7 +332,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                             <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{courseCount} courses · {isOpen ? "hide" : "view offerings"}</div>
                           </div>
                           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                            <div style={{ fontWeight: 800, color: chef.color, fontSize: 17, fontFamily: "var(--font-playfair)" }}>
+                            <div style={{ fontWeight: 800, color: chef.color, fontSize: 17, fontFamily: "Georgia, serif" }}>
                               ${menu.pricePerPerson}<span style={{ fontSize: 10, color: "var(--text-muted)", fontWeight: 400 }}>/pp</span>
                             </div>
                             <span style={{ fontSize: 10, color: isOpen ? chef.color : "var(--text-muted)", transition: "color 0.15s" }}>{isOpen ? "▲" : "▼"}</span>
@@ -352,7 +352,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                                 {courseList.map((course, i) => (
                                   <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 14px", borderBottom: i < courseList.length - 1 ? `1px solid ${chef.color}18` : "none" }}>
                                     {/* Thumbnail */}
-                                    <div style={{ width: 44, height: 44, borderRadius: 8, overflow: "hidden", background: "var(--bg-hover)", border: `1px solid ${chef.color}33`, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                    <div style={{ width: 44, height: 44, borderRadius: 3, overflow: "hidden", background: "var(--bg-hover)", border: `1px solid ${chef.color}33`, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
                                       {course.imageUrl
                                         ? <img src={course.imageUrl} alt={course.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                                         : <span style={{ fontSize: 16, color: "var(--text-faint)" }}>🍽</span>
@@ -381,7 +381,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
                 <SectionLabel>Reviews</SectionLabel>
                 <div className="flex flex-col gap-3">
                   {chefReviews.map((r) => (
-                    <div key={r.id} className="bg-[var(--bg-tertiary)] rounded-xl p-4">
+                    <div key={r.id} className="bg-[var(--bg-tertiary)] rounded-sm p-4">
                       <div className="flex justify-between mb-1.5">
                         <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{r.author}</span>
                         <span className="text-xs text-[var(--text-dim)]">{r.date}</span>
