@@ -5,8 +5,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        display: ["var(--font-playfair)", "serif"],
-        sans: ["var(--font-dm-sans)", "sans-serif"],
+        display: ["Georgia", "'Times New Roman'", "serif"],
+        sans:    ["var(--font-dm-sans)", "sans-serif"],
+        serif:   ["Georgia", "'Times New Roman'", "serif"],
       },
       colors: {
         gold:    "var(--gold)",
@@ -15,6 +16,10 @@ const config: Config = {
         card:    "var(--bg-tertiary)",
         border:  "var(--border)",
         muted:   "var(--text-muted)",
+        stone:   "#C9C4B8",
+        brass:   "#B8935A",
+        marble:  "#16151A",
+        ivory:   "#EDE7DA",
       },
     },
   },
