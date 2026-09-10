@@ -51,7 +51,7 @@ export default function DinerLayout({ children }: { children: React.ReactNode })
         {/* Sidebar */}
         <aside style={{
           width: sidebarW, background: theme === "light" ? "#ffffff" : "var(--bg-secondary)",
-          borderRight: `1px solid ${GOLD}22`,
+          borderRight: "0.5px solid var(--border-gold)",
           display: "flex", flexDirection: "column",
           position: "fixed", top: 65, bottom: 0, left: 0,
           zIndex: 30, transition: "width 0.25s ease",
@@ -60,7 +60,7 @@ export default function DinerLayout({ children }: { children: React.ReactNode })
           {/* Collapse toggle */}
           <div style={{ padding: "10px", display: "flex", justifyContent: collapsed ? "center" : "space-between", alignItems: "center", borderBottom: `1px solid ${GOLD}22`, gap: 8 }}>
             {!collapsed && (
-              <div style={{ fontSize: 10, color: GOLD + "88", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", whiteSpace: "nowrap" }}>
+              <div style={{ fontSize: 9, color: "var(--gold)", fontFamily: "Georgia, serif", fontWeight: 400, textTransform: "uppercase", letterSpacing: "0.15em", whiteSpace: "nowrap" }}>
                 Diner Portal
               </div>
             )}
@@ -83,11 +83,11 @@ export default function DinerLayout({ children }: { children: React.ReactNode })
                     justifyContent: collapsed ? "center" : "flex-start",
                     gap: collapsed ? 0 : 10,
                     padding: collapsed ? "10px 0" : "9px 12px",
-                    borderRadius: 10, marginBottom: 2, fontSize: 13,
+                    borderRadius: 3, marginBottom: 2, fontSize: 13,
                     fontWeight: active ? 700 : 500,
                     color: active ? GOLD : "var(--text-muted)",
-                    background: active ? GOLD + "18" : "transparent",
-                    border: `1px solid ${active ? GOLD + "44" : "transparent"}`,
+                    background: active ? "var(--gold)" + "18" : "transparent",
+                    border: `0.5px solid ${active ? "var(--gold)" : "transparent"}`,
                     textDecoration: "none", transition: "all 0.15s",
                     whiteSpace: "nowrap", overflow: "hidden",
                   }}>
@@ -101,7 +101,7 @@ export default function DinerLayout({ children }: { children: React.ReactNode })
           </nav>
 
           {/* My Profile pinned */}
-          <div style={{ padding: collapsed ? "6px 6px" : "6px 8px", borderTop: `1px solid ${GOLD}22` }}>
+          <div style={{ padding: collapsed ? "6px 6px" : "6px 8px", borderTop: "0.5px solid var(--border-gold)" }}>
             {(() => {
               const active = pathname === "/profile";
               return (
@@ -111,11 +111,11 @@ export default function DinerLayout({ children }: { children: React.ReactNode })
                     justifyContent: collapsed ? "center" : "flex-start",
                     gap: collapsed ? 0 : 10,
                     padding: collapsed ? "10px 0" : "9px 12px",
-                    borderRadius: 10, fontSize: 13,
+                    borderRadius: 3, fontSize: 13,
                     fontWeight: active ? 700 : 500,
                     color: active ? GOLD : "var(--text-muted)",
-                    background: active ? GOLD + "18" : "transparent",
-                    border: `1px solid ${active ? GOLD + "44" : "transparent"}`,
+                    background: active ? "var(--gold)" + "18" : "transparent",
+                    border: `0.5px solid ${active ? "var(--gold)" : "transparent"}`,
                     textDecoration: "none", transition: "all 0.15s",
                     whiteSpace: "nowrap", overflow: "hidden",
                   }}>
@@ -129,14 +129,14 @@ export default function DinerLayout({ children }: { children: React.ReactNode })
           </div>
 
           {/* Footer */}
-          <div style={{ padding: collapsed ? "10px 6px" : "12px", borderTop: `1px solid ${GOLD}22` }}>
+          <div style={{ padding: collapsed ? "10px 6px" : "12px", borderTop: "0.5px solid var(--border-gold)" }}>
             {!collapsed && (
-              <Link href="/" style={{ display: "block", textAlign: "center", fontSize: 11, color: GOLD + "66", textDecoration: "none" }}>
+              <Link href="/" style={{ display: "block", textAlign: "center", fontSize: 11, color: "var(--text-muted)", textDecoration: "none" }}>
                 ← Back to Poach
               </Link>
             )}
             {collapsed && (
-              <Link href="/" title="Back to Poach" style={{ display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, color: GOLD + "66", textDecoration: "none" }}>←</Link>
+              <Link href="/" title="Back to Poach" style={{ display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, color: "var(--text-muted)", textDecoration: "none" }}>←</Link>
             )}
           </div>
         </aside>
