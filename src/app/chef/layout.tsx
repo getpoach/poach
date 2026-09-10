@@ -61,7 +61,7 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
         <aside style={{
           width: sidebarW,
           background: "var(--bg)",
-          borderRight: `1px solid ${chefColor}22`,
+          borderRight: "0.5px solid var(--border-gold)",
           display: "flex",
           flexDirection: "column",
           position: "fixed",
@@ -80,11 +80,11 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
             display: "flex",
             justifyContent: collapsed ? "center" : "space-between",
             alignItems: "center",
-            borderBottom: `1px solid ${chefColor}22`,
+            borderBottom: "0.5px solid var(--border-gold)",
             gap: 8,
           }}>
             {!collapsed && (
-              <div style={{ fontSize: 10, color: chefColor + "88", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", whiteSpace: "nowrap" }}>
+              <div style={{ fontSize: 9, color: "var(--gold)", fontWeight: 400, textTransform: "uppercase", letterSpacing: "0.15em", whiteSpace: "nowrap", fontFamily: "Georgia, serif" }}>
                 Chef Portal
               </div>
             )}
@@ -118,13 +118,13 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
                     justifyContent: collapsed ? "center" : "flex-start",
                     gap: collapsed ? 0 : 10,
                     padding: collapsed ? "10px 0" : "9px 12px",
-                    borderRadius: 10,
+                    borderRadius: 3,
                     marginBottom: 2,
                     fontSize: 13,
                     fontWeight: active ? 700 : 500,
                     color: active ? chefColor : "var(--text-muted)",
-                    background: active ? chefColor + "18" : "transparent",
-                    border: `1px solid ${active ? chefColor + "44" : "transparent"}`,
+                    background: active ? "var(--gold)" + "18" : "transparent",
+                    border: `0.5px solid ${active ? "var(--gold)" : "transparent"}`,
                     textDecoration: "none",
                     transition: "all 0.15s",
                     whiteSpace: "nowrap",
@@ -141,7 +141,7 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
           </nav>
 
           {/* My Profile — pinned above footer */}
-          <div style={{ padding: collapsed ? "6px 6px" : "6px 8px", borderTop: `1px solid ${chefColor}22` }}>
+          <div style={{ padding: collapsed ? "6px 6px" : "6px 8px", borderTop: "0.5px solid var(--border-gold)" }}>
             {(() => {
               const active = pathname === "/chef/profile";
               return (
@@ -154,12 +154,12 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
                     justifyContent: collapsed ? "center" : "flex-start",
                     gap: collapsed ? 0 : 10,
                     padding: collapsed ? "10px 0" : "9px 12px",
-                    borderRadius: 10,
+                    borderRadius: 3,
                     fontSize: 13,
                     fontWeight: active ? 700 : 500,
                     color: active ? chefColor : "var(--text-muted)",
-                    background: active ? chefColor + "18" : "transparent",
-                    border: `1px solid ${active ? chefColor + "44" : "transparent"}`,
+                    background: active ? "var(--gold)" + "18" : "transparent",
+                    border: `0.5px solid ${active ? "var(--gold)" : "transparent"}`,
                     textDecoration: "none",
                     transition: "all 0.15s",
                     whiteSpace: "nowrap",
@@ -176,9 +176,9 @@ export default function ChefLayout({ children }: { children: React.ReactNode }) 
           </div>
 
           {/* Footer — Back to Poach */}
-          <div style={{ padding: collapsed ? "10px 6px" : "12px", borderTop: `1px solid ${chefColor}22` }}>
+          <div style={{ padding: collapsed ? "10px 6px" : "12px", borderTop: "0.5px solid var(--border-gold)" }}>
             {!collapsed && (
-              <Link href="/" style={{ display: "block", textAlign: "center", fontSize: 11, color: chefColor + "66", textDecoration: "none" }}>
+              <Link href="/" style={{ display: "block", textAlign: "center", fontSize: 11, color: "var(--text-muted)", textDecoration: "none" }}>
                 Back to Poach
               </Link>
             )}
