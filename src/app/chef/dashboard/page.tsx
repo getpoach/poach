@@ -23,13 +23,13 @@ function StatCard({ label, value, sub, accent }: { label: string; value: string;
     <div style={{
       background: "var(--bg-secondary)",
       border: "1px solid #1e1e1e",
-      borderRadius: 14,
+      borderRadius: 3,
       padding: "20px 22px",
     }}>
       <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 8 }}>
         {label}
       </div>
-      <div style={{ fontSize: 28, fontWeight: 800, color: accent ?? "var(--text-primary)", fontFamily: "var(--font-playfair)", lineHeight: 1 }}>
+      <div style={{ fontSize: 28, fontWeight: 800, color: accent ?? "var(--text-primary)", fontFamily: "Georgia, serif", lineHeight: 1 }}>
         {value}
       </div>
       {sub && <div style={{ fontSize: 11, color: "var(--text-dim)", marginTop: 5 }}>{sub}</div>}
@@ -73,11 +73,11 @@ export default function ChefDashboard() {
           <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 4 }}>
             Welcome back
           </div>
-          <h1 style={{ fontSize: 28, fontWeight: 900, color: "var(--text-primary)", fontFamily: "var(--font-playfair)", margin: "0 0 2px" }}>
+          <h1 style={{ fontSize: 28, fontWeight: 900, color: "var(--text-primary)", fontFamily: "Georgia, serif", margin: "0 0 2px" }}>
             {chef.name} <span style={{ color: "var(--gold)" }}>✦</span>
           </h1>
           {chef.businessName && (
-            <div style={{ fontSize: 20, fontWeight: 700, color: chef.color, marginBottom: 4, fontFamily: "var(--font-playfair)", fontStyle: "italic" }}>
+            <div style={{ fontSize: 18, fontWeight: 400, color: "var(--gold)", marginBottom: 4, fontFamily: "Georgia, serif", fontStyle: "italic", letterSpacing: "0.02em" }}>
               {chef.businessName}
             </div>
           )}
@@ -98,7 +98,7 @@ export default function ChefDashboard() {
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
 
         {/* Incoming requests */}
-        <div style={{ background: "var(--bg-secondary)", border: "1px solid #1e1e1e", borderRadius: 16, overflow: "hidden" }}>
+        <div style={{ background: "var(--bg-secondary)", border: "1px solid #1e1e1e", borderRadius: 3, overflow: "hidden" }}>
           <div style={{ padding: "16px 20px", borderBottom: "1px solid #1a1a1a", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <span style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: 14 }}>🔔 Booking Requests</span>
             <Link href="/chef/requests" style={{ fontSize: 11, color: "var(--gold)", textDecoration: "none" }}>View all →</Link>
@@ -138,7 +138,7 @@ export default function ChefDashboard() {
         </div>
 
         {/* Upcoming sessions */}
-        <div style={{ background: "var(--bg-secondary)", border: "1px solid #1e1e1e", borderRadius: 16, overflow: "hidden" }}>
+        <div style={{ background: "var(--bg-secondary)", border: "1px solid #1e1e1e", borderRadius: 3, overflow: "hidden" }}>
           <div style={{ padding: "16px 20px", borderBottom: "1px solid #1a1a1a", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <span style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: 14 }}>📅 Upcoming Sessions</span>
             <Link href="/chef/bookings" style={{ fontSize: 11, color: "var(--gold)", textDecoration: "none" }}>View all →</Link>
@@ -147,7 +147,7 @@ export default function ChefDashboard() {
             {MOCK_UPCOMING.map((b) => (
               <div key={b.id} style={{ padding: "16px 20px", borderBottom: "1px solid #141414", display: "flex", alignItems: "center", gap: 14 }}>
                 <div style={{
-                  width: 44, height: 44, borderRadius: 10,
+                  width: 44, height: 44, borderRadius: 3,
                   background: "#C8A97E18", border: "1px solid #C8A97E33",
                   display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
                 }}>
@@ -170,10 +170,10 @@ export default function ChefDashboard() {
 
           {/* Quick links */}
           <div style={{ padding: "14px 20px", background: "var(--bg)", display: "flex", gap: 8 }}>
-            <Link href="/chef/calendar" style={{ flex: 1, padding: "9px", borderRadius: 8, background: "var(--bg-tertiary)", border: "1px solid #1e1e1e", color: "var(--text-secondary)", fontSize: 12, textAlign: "center", textDecoration: "none" }}>
+            <Link href="/chef/calendar" style={{ flex: 1, padding: "9px", borderRadius: 3, background: "var(--bg-tertiary)", border: "1px solid #1e1e1e", color: "var(--text-secondary)", fontSize: 12, textAlign: "center", textDecoration: "none" }}>
               🗓️ Set Availability
             </Link>
-            <Link href="/chef/menus" style={{ flex: 1, padding: "9px", borderRadius: 8, background: "var(--bg-tertiary)", border: "1px solid #1e1e1e", color: "var(--text-secondary)", fontSize: 12, textAlign: "center", textDecoration: "none" }}>
+            <Link href="/chef/menus" style={{ flex: 1, padding: "9px", borderRadius: 3, background: "var(--bg-tertiary)", border: "1px solid #1e1e1e", color: "var(--text-secondary)", fontSize: 12, textAlign: "center", textDecoration: "none" }}>
               🍽️ Edit Menus
             </Link>
           </div>
@@ -181,7 +181,7 @@ export default function ChefDashboard() {
       </div>
 
       {/* Profile completion nudge */}
-      <div style={{ marginTop: 20, padding: "16px 20px", borderRadius: 14, background: "var(--bg)", border: "1px solid #C8A97E30", display: "flex", alignItems: "center", gap: 16 }}>
+      <div style={{ marginTop: 20, padding: "16px 20px", borderRadius: 3, background: "var(--bg)", border: "1px solid #C8A97E30", display: "flex", alignItems: "center", gap: 16 }}>
         <div style={{ flex: 1 }}>
           <div style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: 14, marginBottom: 4 }}>
             ✦ Complete your profile to attract more bookings
@@ -190,7 +190,7 @@ export default function ChefDashboard() {
             Add portfolio photos, update your bio, and create your signature menus.
           </div>
         </div>
-        <Link href="/chef/profile" style={{ padding: "10px 18px", borderRadius: 10, background: "var(--gold)", color: "var(--bg)", fontWeight: 700, fontSize: 13, textDecoration: "none", whiteSpace: "nowrap" }}>
+        <Link href="/chef/profile" style={{ padding: "10px 18px", borderRadius: 3, background: "var(--gold)", color: "var(--bg)", fontWeight: 700, fontSize: 13, textDecoration: "none", whiteSpace: "nowrap" }}>
           Edit Profile
         </Link>
       </div>
