@@ -64,8 +64,8 @@ export function Navbar() {
               style={{ height: 36, width: 36, objectFit: "contain" }}
               priority
             />
-            <span style={{ fontFamily: "var(--font-playfair)", fontSize: 22, fontWeight: 900, color: "var(--gold)", letterSpacing: "-0.5px" }}>
-              Poach
+            <span style={{ fontFamily: "Georgia, serif", fontSize: 22, fontWeight: 400, color: "var(--gold)", letterSpacing: "0.5px", textTransform: "lowercase" }}>
+              poach
             </span>
           </Link>
 
@@ -80,8 +80,9 @@ export function Navbar() {
                     : ""
                 )}
                 style={{
-                  background: pathname === href ? "var(--bg-hover)" : "transparent",
-                  color: pathname === href ? "var(--text-primary)" : "var(--text-secondary)",
+                  background: pathname === href ? "var(--border-gold)" : "transparent",
+                  color: pathname === href ? "var(--gold)" : "var(--text-secondary)",
+                  borderBottom: pathname === href ? "1px solid var(--gold)" : "1px solid transparent",
                 }}
               >
                 {label === "Discover"         && <Utensils         size={13} color="#C8A97E" strokeWidth={1.75} />}
