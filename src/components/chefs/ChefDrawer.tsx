@@ -169,8 +169,7 @@ export function ChefDrawer({ chef, reviews, onClose, onBook }: ChefDrawerProps) 
             {/* Name + rating overlaid at bottom of headshot */}
             <div className="absolute bottom-0 left-0 right-0 px-6 pb-5" style={{ zIndex: 2 }}>
               <div
-                style={{ fontFamily: "Georgia, serif", fontSize: 24, fontWeight: 400, lineHeight: 1.2 }}
-                style={{ color: theme === "light" ? "#1a1a1a" : "#ffffff", textShadow: theme === "light" ? "0 1px 4px rgba(255,255,255,0.8)" : "0 1px 8px rgba(0,0,0,0.8)" }}
+                style={{ fontFamily: "Georgia, serif", fontSize: 24, fontWeight: 400, lineHeight: 1.2, color: theme === "light" ? "#1a1a1a" : "#ffffff", textShadow: theme === "light" ? "0 1px 4px rgba(255,255,255,0.8)" : "0 1px 8px rgba(0,0,0,0.8)" }}
               >
                 {chef.name}
               </div>
