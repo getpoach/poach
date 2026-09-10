@@ -52,7 +52,7 @@ export default function DinerRecommendations() {
     const isFav = favorites.includes(chef.id);
     const wasBooked = BOOKED_CHEF_IDS.includes(chef.id);
     return (
-      <div style={{ background: "var(--bg-secondary)", border: `1px solid ${isFav ? chef.color + "44" : "var(--border)"}`, borderRadius: 14, overflow: "hidden", transition: "border-color 0.2s" }}>
+      <div style={{ background: "var(--bg-secondary)", border: `1px solid ${isFav ? chef.color + "44" : "var(--border)"}`, borderRadius: 3, overflow: "hidden", transition: "border-color 0.2s" }}>
         {/* Headshot */}
         <div style={{ height: 130, position: "relative", overflow: "hidden", background: "var(--bg-tertiary)" }}>
           {chef.headshot && <img src={chef.headshot} alt={chef.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
@@ -68,8 +68,8 @@ export default function DinerRecommendations() {
           )}
           {/* Name overlay */}
           <div style={{ position: "absolute", bottom: 10, left: 14, right: 44 }}>
-            <div style={{ fontSize: 15, fontWeight: 800, color: "var(--text-primary)", fontFamily: "var(--font-playfair)", lineHeight: 1.2 }}>{chef.name}</div>
-            <div style={{ fontSize: 11, color: chef.color, fontStyle: "italic", fontFamily: "var(--font-playfair)" }}>{chef.businessName}</div>
+            <div style={{ fontSize: 15, fontWeight: 800, color: "var(--text-primary)", fontFamily: "Georgia, serif", lineHeight: 1.2 }}>{chef.name}</div>
+            <div style={{ fontSize: 11, color: chef.color, fontStyle: "italic", fontFamily: "Georgia, serif" }}>{chef.businessName}</div>
           </div>
         </div>
 
@@ -97,12 +97,12 @@ export default function DinerRecommendations() {
         <div style={{ padding: "0 14px 14px", display: "flex", gap: 8 }}>
           <button
             onClick={() => setViewChef(chef)}
-            style={{ flex: 1, padding: "9px", borderRadius: 10, background: "var(--bg-tertiary)", color: "var(--text-secondary)", fontWeight: 600, fontSize: 12, border: "1px solid var(--border-mid)", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+            style={{ flex: 1, padding: "9px", borderRadius: 3, background: "var(--bg-tertiary)", color: "var(--text-secondary)", fontWeight: 600, fontSize: 12, border: "1px solid var(--border-mid)", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
             View Profile
           </button>
           <button
             onClick={() => setBookingChef(chef)}
-            style={{ flex: 1, padding: "9px", borderRadius: 10, background: chef.color, color: "var(--bg)", fontWeight: 700, fontSize: 12, border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+            style={{ flex: 1, padding: "9px", borderRadius: 3, background: chef.color, color: "var(--bg)", fontWeight: 700, fontSize: 12, border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
             Book
           </button>
         </div>
@@ -114,7 +114,7 @@ export default function DinerRecommendations() {
     <div style={{ maxWidth: 860 }}>
       {/* Header */}
       <div style={{ marginBottom: 24 }}>
-        <h1 style={{ fontSize: 24, fontWeight: 900, color: "var(--text-primary)", fontFamily: "var(--font-playfair)", margin: "0 0 6px" }}>
+        <h1 style={{ fontSize: 24, fontWeight: 400, color: "var(--text-primary)", fontFamily: "Georgia, serif", letterSpacing: "-0.01em", margin: "0 0 6px" }}>
           Chefs for You
         </h1>
         <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>
@@ -130,7 +130,7 @@ export default function DinerRecommendations() {
           { id: "nearby",    label: "Booked Before" },
         ] as const).map(tab => (
           <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-            style={{ padding: "10px 18px", background: "transparent", border: "none", borderBottom: activeTab === tab.id ? "2px solid #C8A97E" : "2px solid transparent", color: activeTab === tab.id ? "var(--text-primary)" : "var(--text-dim)", fontSize: 13, fontWeight: activeTab === tab.id ? 700 : 500, cursor: "pointer", fontFamily: "'DM Sans', sans-serif", transition: "all 0.15s", marginBottom: -1 }}>
+            style={{ padding: "10px 18px", background: "transparent", border: "none", borderBottom: activeTab === tab.id ? "1px solid var(--gold)" : "1px solid transparent", color: activeTab === tab.id ? "var(--text-primary)" : "var(--text-dim)", fontSize: 13, fontWeight: activeTab === tab.id ? 700 : 500, cursor: "pointer", fontFamily: "'DM Sans', sans-serif", transition: "all 0.15s", marginBottom: -1 }}>
             {tab.label}
           </button>
         ))}
@@ -138,7 +138,7 @@ export default function DinerRecommendations() {
 
       {/* Favorites limit notice */}
       {favorites.length >= MAX_FAVORITES && activeTab !== "favorites" && (
-        <div style={{ marginBottom: 16, padding: "10px 14px", borderRadius: 10, background: "#C8A97E12", border: "1px solid #C8A97E33", fontSize: 12, color: "#C8A97E" }}>
+        <div style={{ marginBottom: 16, padding: "10px 14px", borderRadius: 3, background: "#C8A97E12", border: "1px solid #C8A97E33", fontSize: 12, color: "#C8A97E" }}>
           You've reached your limit of 5 favorites. Remove one to add another.
         </div>
       )}
