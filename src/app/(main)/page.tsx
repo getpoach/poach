@@ -209,8 +209,8 @@ export default function DiscoverPage() {
           style={{
             zIndex: 1,
             background: theme === "light"
-              ? "linear-gradient(135deg, rgba(10,8,4,0.18) 0%, rgba(8,8,16,0.14) 50%, rgba(10,8,4,0.18) 100%)"
-              : "linear-gradient(135deg, rgba(10,8,4,0.52) 0%, rgba(8,8,16,0.44) 50%, rgba(10,8,4,0.52) 100%)",
+              ? "linear-gradient(135deg, rgba(22,21,26,0.22) 0%, rgba(16,14,20,0.18) 50%, rgba(22,21,26,0.22) 100%)"
+              : "linear-gradient(135deg, rgba(22,21,26,0.60) 0%, rgba(16,14,20,0.50) 50%, rgba(22,21,26,0.60) 100%)",
           }}
         />
 
@@ -223,7 +223,7 @@ export default function DiscoverPage() {
           <div className="text-xs font-bold text-gold uppercase tracking-widest mb-3" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.9)" }}>
             Private Dining · Your Home
           </div>
-          <h1 className="font-display text-4xl font-black leading-tight mb-4 max-w-xl" style={{ color: "#ffffff", textShadow: "0 2px 20px rgba(0,0,0,0.8), 0 1px 6px rgba(0,0,0,0.6)" }}>
+          <h1 style={{ fontFamily: "Georgia, serif", fontSize: "clamp(28px,4vw,42px)", fontWeight: 400, lineHeight: 1.2, color: "#EDE7DA", letterSpacing: "-0.01em", textShadow: "0 2px 20px rgba(0,0,0,0.8)", marginBottom: 16, maxWidth: 480 }}>
             World-class chefs.<br />
             <span className="text-gold" style={{ textShadow: "0 2px 20px rgba(0,0,0,0.8), 0 0 30px rgba(200,169,126,0.3)" }}>Your kitchen.</span>
           </h1>
@@ -235,7 +235,7 @@ export default function DiscoverPage() {
             {[["15+", "Chefs nearby"], ["4.9", "Avg. rating"], ["1,200+", "Sessions booked"]].map(
               ([val, label]) => (
                 <div key={label}>
-                  <div className="font-display text-xl font-bold" style={{ color: "var(--gold)" }}>{val}</div>
+                  <div style={{ fontFamily: "Georgia, serif", fontSize: 22, fontWeight: 400, color: "var(--gold)", letterSpacing: "0.02em" }}>{val}</div>
                   <div className="text-xs text-zinc-500">{label}</div>
                 </div>
               )
@@ -261,7 +261,7 @@ export default function DiscoverPage() {
                 border: "1px solid",
                 borderColor: active ? "var(--gold)" : "transparent",
                 borderBottom: active ? "1px solid var(--bg-secondary)" : "1px solid var(--border-gold)",
-                borderRadius: "10px 10px 0 0",
+                borderRadius: "2px 2px 0 0",
                 marginBottom: active ? "-1px" : "0",
                 letterSpacing: "0.04em",
                 zIndex: active ? 2 : 1,
@@ -511,7 +511,7 @@ export default function DiscoverPage() {
                 background: "var(--bg)",
                 border: "1px solid var(--border-gold)",
                 borderBottom: "1px solid #0a0a0a",
-                borderRadius: "10px 10px 0 0",
+                borderRadius: "2px 2px 0 0",
                 color: "var(--gold)",
                 letterSpacing: "0.05em",
                 textTransform: "uppercase",
@@ -555,7 +555,7 @@ export default function DiscoverPage() {
               {mapFilteredChefs.length === 0 && (
                 <div className="col-span-3 text-center py-16 text-muted">
                   <div className="text-4xl mb-3">🍴</div>
-                  <div className="font-display text-lg">No chefs match your filters</div>
+                  <div style={{ fontFamily: "Georgia, serif", fontSize: 18, fontWeight: 400, color: "var(--text-primary)" }}>No chefs match your filters</div>
                   <div className="text-sm mt-1">Try adjusting the map filters</div>
                 </div>
               )}
@@ -593,7 +593,7 @@ export default function DiscoverPage() {
         style={{ background: "var(--bg-secondary)", border: "1px solid #1E1E1E" }}
       >
         <div>
-          <div className="font-display text-xl font-bold mb-1.5" style={{ color: "#ffffff" }}>
+          <div style={{ fontFamily: "Georgia, serif", fontSize: 20, fontWeight: 400, color: "#EDE7DA", marginBottom: 6, letterSpacing: "0.02em" }}>
             Are you a chef?
           </div>
           <p className="text-muted text-sm max-w-sm">
