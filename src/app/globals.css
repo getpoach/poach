@@ -1,53 +1,59 @@
 /* ── Poach Theme Variables ─────────────────────────────────────────────────── */
 :root,
 [data-theme="dark"] {
-  --bg:           #080808;
-  --bg-secondary: #0f0f0f;
-  --bg-tertiary:  #141414;
-  --bg-hover:     #1a1a1a;
-  --border:       #1e1e1e;
-  --border-subtle:#141414;
-  --border-mid:   #27272a;
-  --border-strong:#3f3f46;
-  --border-gold:  #C8A97E55;
-  --border-gold-strong: #C8A97E99;
-  --text-primary: #f5f0e8;
-  --text-secondary:#a1a1aa;
-  --text-muted:   #71717a;
-  --text-dim:     #52525b;
-  --text-faint:   #3f3f46;
-  --gold:         #C8A97E;
-  --gold-dark:    #a8894e;
-  --gold-faint:   #C8A97E18;
-  --ink:          #080808;
-  --nav-bg:       rgba(8,8,8,0.95);
-  --shadow:       rgba(0,0,0,0.5);
-  --card-shadow:  rgba(0,0,0,0.4);
+  /* ── Marble: Nero Marquina + Brass ───────────────── */
+  --bg:           #16151A;
+  --bg-secondary: #1C1B21;
+  --bg-tertiary:  #232229;
+  --bg-hover:     #2A2930;
+  --border:       #2E2C35;
+  --border-subtle:#232229;
+  --border-mid:   #3A3845;
+  --border-strong:#524F60;
+  --border-gold:  #B8935A55;
+  --border-gold-strong: #B8935A99;
+  --text-primary: #EDE7DA;
+  --text-secondary:#C9C4B8;
+  --text-muted:   #8A8578;
+  --text-dim:     #5C5750;
+  --text-faint:   #3D3A33;
+  --gold:         #B8935A;
+  --gold-dark:    #96722e;
+  --gold-faint:   #B8935A18;
+  --ink:          #16151A;
+  --nav-bg:       rgba(22,21,26,0.96);
+  --shadow:       rgba(0,0,0,0.6);
+  --card-shadow:  rgba(0,0,0,0.5);
+  --vein:         rgba(184,147,90,0.18);
+  --vein-strong:  rgba(184,147,90,0.35);
 }
 
 [data-theme="light"] {
-  --bg:           #fffdf8;
-  --bg-secondary: #fdf8ef;
-  --bg-tertiary:  #f9f0de;
-  --bg-hover:     #f4e8cc;
-  --border:       #e8d9b8;
-  --border-subtle:#f0e6cc;
-  --border-mid:   #d9c49a;
-  --border-strong:#b89c6e;
-  --border-gold:  #B8924A55;
-  --border-gold-strong: #B8924A99;
-  --text-primary: #1a1a1a;
-  --text-secondary:#3f3f46;
-  --text-muted:   #71717a;
-  --text-dim:     #a1a1aa;
-  --text-faint:   #c4c4c4;
-  --gold:         #B8924A;
-  --gold-dark:    #96722e;
-  --gold-faint:   #B8924A18;
-  --ink:          #ffffff;
-  --nav-bg:       rgba(255,255,255,0.95);
-  --shadow:       rgba(0,0,0,0.1);
-  --card-shadow:  rgba(0,0,0,0.08);
+  /* ── Marble: Warm Ivory + Brass ──────────────────── */
+  --bg:           #F5F0E8;
+  --bg-secondary: #EDE7DA;
+  --bg-tertiary:  #E3DDD0;
+  --bg-hover:     #D8D1C4;
+  --border:       #C9C2B2;
+  --border-subtle:#D8D1C4;
+  --border-mid:   #B5ADA0;
+  --border-strong:#8A8578;
+  --border-gold:  #B8935A55;
+  --border-gold-strong: #B8935A99;
+  --text-primary: #1A1814;
+  --text-secondary:#3D3A33;
+  --text-muted:   #5C5750;
+  --text-dim:     #8A8578;
+  --text-faint:   #B5ADA0;
+  --gold:         #96722e;
+  --gold-dark:    #7A5A22;
+  --gold-faint:   #B8935A18;
+  --ink:          #F5F0E8;
+  --nav-bg:       rgba(245,240,232,0.96);
+  --shadow:       rgba(26,24,20,0.12);
+  --card-shadow:  rgba(26,24,20,0.08);
+  --vein:         rgba(184,147,90,0.15);
+  --vein-strong:  rgba(184,147,90,0.30);
 }
 
 @tailwind base;
@@ -233,3 +239,34 @@ input[type="range"]::-webkit-slider-runnable-track {
 .text-muted { color: var(--text-muted) !important; }
 .border-border { border-color: var(--border) !important; }
 .text-white { color: var(--text-primary) !important; }
+
+/* ── Marble Texture Utility ────────────────────────────────────────────────── */
+.marble-vein {
+  position: relative;
+  overflow: hidden;
+}
+.marble-vein::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(127deg, transparent 30%, var(--vein) 31%, var(--vein) 31.5%, transparent 31.5%),
+    linear-gradient(53deg,  transparent 50%, var(--vein) 51%, var(--vein) 51.3%, transparent 51.3%),
+    linear-gradient(170deg, transparent 60%, var(--vein-strong) 61%, var(--vein-strong) 61.2%, transparent 61.2%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Brass divider line ─────────────────────────────────────────────────────── */
+.brass-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  opacity: 0.6;
+  margin: 0;
+}
+
+/* ── Editorial serif heading ────────────────────────────────────────────────── */
+.font-editorial {
+  font-family: Georgia, 'Times New Roman', serif;
+  letter-spacing: -0.02em;
+}
