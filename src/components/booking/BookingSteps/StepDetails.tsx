@@ -52,9 +52,9 @@ export function StepDetails({
                 <button key={menu.id} onClick={() => onMenuId(menu.id)}
                   style={{
                     padding: "12px 14px",
-                    borderRadius: 10,
-                    border: `1px solid ${sel ? chef.color : "var(--border-mid)"}`,
-                    background: sel ? chef.color + "14" : "var(--bg-tertiary)",
+                    borderRadius: 3,
+                    border: `0.5px solid ${sel ? "var(--gold)" : "var(--border-mid)"}`,
+                    background: sel ? "var(--gold)" + "14" : "var(--bg-tertiary)",
                     cursor: "pointer",
                     textAlign: "left",
                     transition: "all 0.15s",
@@ -62,7 +62,7 @@ export function StepDetails({
                   }}>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 2 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                      <span style={{ fontSize: 13, fontWeight: 700, color: sel ? chef.color : "var(--text-primary)", fontFamily: "var(--font-playfair)" }}>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: sel ? chef.color : "var(--text-primary)", fontFamily: "Georgia, serif" }}>
                         {menu.name}
                       </span>
                       {menu.tag && (
@@ -71,7 +71,7 @@ export function StepDetails({
                         </span>
                       )}
                     </div>
-                    <span style={{ fontWeight: 800, color: chef.color, fontSize: 15, fontFamily: "var(--font-playfair)" }}>
+                    <span style={{ fontWeight: 400, color: "var(--gold)", fontSize: 15, fontFamily: "Georgia, serif" }}>
                       ${menu.pricePerPerson}<span style={{ fontSize: 10, color: "var(--text-muted)", fontWeight: 400 }}>/pp</span>
                     </span>
                   </div>
@@ -91,7 +91,7 @@ export function StepDetails({
         <div className="flex items-center gap-4">
           <button
             onClick={() => onGuests(Math.max(1, guests - 1))}
-            className="w-9 h-9 rounded-lg border border-[var(--border-mid)] bg-[var(--bg-secondary)] text-lg hover:border-zinc-500 transition-colors"
+            className="w-9 h-9 rounded-sm border border-[var(--border-mid)] bg-[var(--bg-secondary)] text-lg hover:border-zinc-500 transition-colors"
             style={{ color: "var(--text-primary)" }}
           >−</button>
           <span className="font-display text-2xl font-bold min-w-[30px] text-center" style={{ color: chef.color }}>
@@ -99,7 +99,7 @@ export function StepDetails({
           </span>
           <button
             onClick={() => onGuests(Math.min(100, guests + 1))}
-            className="w-9 h-9 rounded-lg border border-[var(--border-mid)] bg-[var(--bg-secondary)] text-lg hover:border-zinc-500 transition-colors"
+            className="w-9 h-9 rounded-sm border border-[var(--border-mid)] bg-[var(--bg-secondary)] text-lg hover:border-zinc-500 transition-colors"
             style={{ color: "var(--text-primary)" }}
           >+</button>
           <span className="text-muted text-sm">guests (max 100)</span>
@@ -125,7 +125,7 @@ export function StepDetails({
       </div>
 
       {/* Fee breakdown */}
-      <div className="bg-[var(--bg-secondary)] rounded-xl p-4">
+      <div className="bg-[var(--bg-secondary)] rounded-sm p-4">
         {selectedMenu && (
           <div className="flex justify-between mb-1" style={{ fontSize: 11, color: "var(--text-dim)", marginBottom: 6 }}>
             <span>Menu: {selectedMenu.name}</span>
@@ -141,7 +141,7 @@ export function StepDetails({
         </div>
         <div className="border-t border-[var(--border)] pt-2 mt-2 flex justify-between">
           <span className="font-bold" style={{ color: "var(--text-primary)" }}>Total</span>
-          <span className="font-display font-bold text-lg" style={{ color: chef.color }}>${total}</span>
+          <span className=style={{ fontFamily: "Georgia, serif", fontSize: 20, fontWeight: 400, color: "var(--gold)" }}>${total}</span>
         </div>
         {!selectedMenuId && menus.length > 0 && (
           <div style={{ fontSize: 10, color: "var(--text-muted)", marginTop: 4 }}>
