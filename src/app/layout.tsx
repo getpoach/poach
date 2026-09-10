@@ -44,7 +44,8 @@ export default function RootLayout({
         ` }} />
       </head>
       <body
-        className={`${playfair.variable} ${dmSans.variable} bg-ink text-white font-sans antialiased`}
+        className={`${playfair.variable} ${dmSans.variable} font-sans antialiased`}
+        style={{ background: "var(--bg)", color: "var(--text-primary)" }}
       >
         <ThemeProvider>
           <AuthProvider>
