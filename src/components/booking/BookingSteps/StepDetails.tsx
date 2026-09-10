@@ -141,7 +141,7 @@ export function StepDetails({
         </div>
         <div className="border-t border-[var(--border)] pt-2 mt-2 flex justify-between">
           <span className="font-bold" style={{ color: "var(--text-primary)" }}>Total</span>
-          <span className=style={{ fontFamily: "Georgia, serif", fontSize: 20, fontWeight: 400, color: "var(--gold)" }}>${total}</span>
+          <span style={{ fontFamily: "Georgia, serif", fontSize: 20, fontWeight: 400, color: "var(--gold)" }}>${total}</span>
         </div>
         {!selectedMenuId && menus.length > 0 && (
           <div style={{ fontSize: 10, color: "var(--text-muted)", marginTop: 4 }}>
